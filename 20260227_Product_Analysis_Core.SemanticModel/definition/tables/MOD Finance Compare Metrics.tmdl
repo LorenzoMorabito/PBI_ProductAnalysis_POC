@@ -1,0 +1,31 @@
+table 'MOD Finance Compare Metrics'
+
+	measure 'Selected Reference Value' = [Finance Compare (Selected)]
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Fin ACT vs (Selected) abs' =
+			
+			VAR comp = [Finance Compare (Selected)]
+			RETURN IF( ISBLANK(comp), BLANK(), [Input Fin ACT] - comp )
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Fin ACT vs (Selected) +/-%' =
+			
+			VAR comp = [Finance Compare (Selected)]
+			RETURN IF( ISBLANK(comp), BLANK(), DIVIDE([Input Fin ACT] - comp, comp) )
+		formatString: 0.0%;-0.0%;0.0%
+
+	column Column
+		isHidden
+		formatString: 0
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'MOD Finance Compare Metrics' = calculated
+		mode: import
+		source = Row("Column", BLANK())

@@ -1,0 +1,26 @@
+table 'MOD Finance Compare Inputs'
+
+	measure 'Input Fin ACT' = [Fin ACT]
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Input Fin BDG' = [Fin BDG]
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Input Fin ACT PY' = [Fin ACT PY]
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Column
+		isHidden
+		formatString: 0
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'MOD Finance Compare Inputs' = calculated
+		mode: import
+		source = Row("Column", BLANK())

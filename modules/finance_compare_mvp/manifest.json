@@ -1,0 +1,26 @@
+{
+  "moduleId": "finance_compare_mvp",
+  "version": "0.1.0",
+  "description": "MVP module pack for Finance Compare with semantic adapter layer and reusable PBIR page.",
+  "requires": {
+    "coreMeasures": [
+      "Fin ACT",
+      "Fin BDG",
+      "Fin ACT PY"
+    ],
+    "coreColumns": [
+      "T_DIM_MONTH[MonthStartDay]"
+    ]
+  },
+  "provides": {
+    "semanticTables": [
+      "MOD Finance Compare Inputs",
+      "MOD Finance Compare Selector",
+      "MOD Finance Compare Metrics"
+    ],
+    "reportPage": {
+      "name": "8a4f2d4d3f11450ab001",
+      "displayName": "Finance Compare MVP"
+    }
+  }
+}

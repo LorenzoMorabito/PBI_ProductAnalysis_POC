@@ -1,0 +1,43 @@
+table 'MOD Finance Compare Selector'
+
+	measure 'Finance Compare (Selected)' =
+			
+			SWITCH(
+			  SELECTEDVALUE('MOD Finance Compare Selector'[Compare], "vs BDG"),
+			  "vs BDG", [Input Fin BDG],
+			  "vs PY",  [Input Fin ACT PY]
+			)
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Finance Compare Label (Selected)' =
+			
+			SELECTEDVALUE('MOD Finance Compare Selector'[Label], "BGT")
+
+	column Compare
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Compare]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Label
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Label]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'MOD Finance Compare Selector' = calculated
+		mode: import
+		source = ```
+				
+				DATATABLE(
+				    "Compare", STRING,
+				    "Label", STRING,
+				    {
+				        {"vs BDG", "BGT"},
+				        {"vs PY", "PY"}
+				    }
+				)
+				```
