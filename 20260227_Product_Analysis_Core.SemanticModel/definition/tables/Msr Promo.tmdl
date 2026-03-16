@@ -1,25 +1,31 @@
 table 'Msr Promo'
+	lineageTag: 49e4b737-3c41-49bd-9756-0fd87f215a0a
 
 	measure 'Promo Spend' =
 			
 			SUM ( T_FCT_PROMO_A10P_CD[Spending Total EUR] )
 		formatString: 0
+		lineageTag: 50b7e558-ebfb-497f-8e8e-caea6f97d0a7
 
 	measure 'Promo Details' =
 			
 			SUM ( T_FCT_PROMO_A10P_CD[Product Details] )
 		formatString: 0
+		lineageTag: 81bd866f-504c-4430-9036-af7a63878af8
 
 	measure 'Promo Contacts' = SUM(T_FCT_PROMO_A10P_CD[Contact Number])
 		formatString: 0
+		lineageTag: 5f823fe9-4d56-4859-af5b-ed62b76756f0
 
 	measure 'Promo Weighted Calls' = SUM(T_FCT_PROMO_A10P_CD[Weighted Calls])
 		formatString: #,0
+		lineageTag: 9e78ba60-c363-4aaf-8a62-eec834c5cf82
 
 	measure 'Total Promo Spending €' =
 			
 			CALCULATE ( [Promo Spend], REMOVEFILTERS ( T_DIM_PRODUCT[Product] ) )
 		formatString: 0
+		lineageTag: 9fdec6dd-97ce-4215-a872-df5e00e5ad79
 
 	measure 'Market Spend (ATC4 - Total)' =
 			
@@ -32,8 +38,10 @@ table 'Msr Promo'
 			    REMOVEFILTERS ( T_FCT_PROMO_A10P_CD[Contact Type] )
 			)
 		formatString: 0
+		lineageTag: 2e67c2f1-fb7f-4eed-9047-80e68cab7fea
 
 	measure '% Share of Spend' = DIVIDE([Promo Spend], [Market Spend (ATC4 - Total)])
+		lineageTag: 5cace8b0-3d6c-4b56-a850-a9a545d59d46
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
@@ -41,6 +49,7 @@ table 'Msr Promo'
 			
 			CALCULATE ( [Promo Details], REMOVEFILTERS ( T_DIM_MOLECULE[MoleculeNorm] ), REMOVEFILTERS ( T_DIM_CORPORATION[Corporation] ) )
 		formatString: 0
+		lineageTag: 20f34fdf-e7fb-46ac-aae6-b35d6f948ad7
 
 	measure 'Market Promo Product Details (ATC4)' =
 			
@@ -52,29 +61,35 @@ table 'Msr Promo'
 			    KEEPFILTERS ( VALUES ( T_DIM_PRODUCT[ATC4] ) )
 			)
 		formatString: 0
+		lineageTag: ba8429fa-c517-42fd-8ea1-7befcfbfd8fe
 
 	measure 'Promo SOV%' =
 			
 			DIVIDE ( [Promo Details], [Market Promo Product Details] )
 		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 302ee86f-5ecf-4999-866f-b15dbba8b22a
 
 	measure 'Promo SOV% (ATC4)' =
 			
 			DIVIDE ( [Promo Details], [Market Promo Product Details (ATC4)] )
 		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 2b4fda4c-4e71-42d5-9c90-70b3b618fc66
 
 	measure 'Promo Spend PY' =
 			
 			CALCULATE ( [Promo Spend], SAMEPERIODLASTYEAR ( T_DIM_QUARTER[QuarterStartDay] ) )
 		formatString: 0
+		lineageTag: 4cc97d56-2a73-441c-b74c-75c446c61beb
 
 	measure 'Promo Spend Δ vs PY' =
 			
 			[Promo Spend] - [Promo Spend PY]
+		lineageTag: 4ae65160-a511-40c2-8b44-99b24f3154e0
 
 	measure 'Promo Spend Δ% vs PY (QTR)' =
 			
 			DIVIDE ( [Promo Spend] - [Promo Spend PY], [Promo Spend PY] )
+		lineageTag: aefe0250-d2ae-4306-b28e-ba0f7529a5c6
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
@@ -82,27 +97,32 @@ table 'Msr Promo'
 			
 			CALCULATE ( [Promo Details], SAMEPERIODLASTYEAR ( T_DIM_QUARTER[QuarterStartDay] ) )
 		formatString: 0
+		lineageTag: 62544d89-5bdf-4eac-9a25-3ea4a2069cc7
 
 	measure 'Promo Details PPG vs PY' =
 			
 			[Promo Details] - [Promo Details PY]
 		formatString: 0
+		lineageTag: ab592d11-7b31-45ed-af5f-21c6c36dd663
 
 	measure 'Promo Details +/-% vs PY (QTR)' =
 			
 			DIVIDE ( [Promo Details] - [Promo Details PY], [Promo Details PY] )
+		lineageTag: b4436ab2-38b2-4455-81f0-6aa0a739fd2c
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Promo ESOV' =
 			
 			([Promo SOV% (ATC4)] - [Sales Values MS%]) * 100
+		lineageTag: 2334f64f-833f-4f0d-852e-ab09b9882a8a
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	column Column
 		isHidden
 		formatString: 0
+		lineageTag: dad6a0c5-42b3-455c-87fc-cea65655ce53
 		summarizeBy: sum
 		isNameInferred
 		sourceColumn: [Column]
@@ -112,3 +132,4 @@ table 'Msr Promo'
 	partition 'Msr Promo' = calculated
 		mode: import
 		source = Row("Column", BLANK())
+

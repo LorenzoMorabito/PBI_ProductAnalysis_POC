@@ -106,3 +106,4 @@ table T_DIM_QUARTER
 	annotation PBI_NavigationStepName = Navigation
 
 	annotation PBI_ResultType = Exception
+
