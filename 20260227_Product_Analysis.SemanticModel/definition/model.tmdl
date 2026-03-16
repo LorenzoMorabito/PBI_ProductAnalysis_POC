@@ -13,7 +13,7 @@ queryGroup STG
 
 annotation __PBI_TimeIntelligenceEnabled = 1
 
-annotation PBI_QueryOrder = ["T_FCT_FIN","T_FCT_PROMO_A10P_CD","T_FCT_SALES_A10P","T_DIM_COUNTRY","T_DIM_MOLECULE","T_DIM_ACT4","T_DIM_PRODUCT","T_DIM_MONTH","T_DIM_QUARTER","T_DIM_CORPORATION","TopMetric","GroupBySpending","T_DIM_SPECIALTY","T_DIM_CHANNELS"]
+annotation PBI_QueryOrder = ["T_FCT_FIN","T_FCT_PROMO_A10P_CD","T_FCT_SALES_A10P","T_DIM_COUNTRY","T_DIM_MOLECULE","T_DIM_ACT4","T_DIM_PRODUCT","T_DIM_MONTH","T_DIM_QUARTER","T_DIM_CORPORATION","TopMetric","GroupBySpending","T_DIM_SPECIALTY","T_DIM_CHANNELS","root_path"]
 
 annotation PBI_ProTooling = ["DaxQueryView_Desktop","DevMode"]
 

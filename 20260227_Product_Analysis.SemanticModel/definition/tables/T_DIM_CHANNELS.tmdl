@@ -13,7 +13,7 @@ table T_DIM_CHANNELS
 		mode: import
 		source =
 				let
-				    Source = Csv.Document(File.Contents("C:\Users\ukg15381\Downloads\POC_DASHBOARD\PBI A10P_CD.csv"),[Delimiter=",", Columns=23, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    Source = Csv.Document(File.Contents(root_path & "PBI A10P_CD.csv"),[Delimiter=",", Columns=23, Encoding=65001, QuoteStyle=QuoteStyle.None]),
 				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
 				    #"Removed Other Columns1" = Table.SelectColumns(#"Promoted Headers",{"Cam Channels"}),
 				    #"Removed Duplicates" = Table.Distinct(#"Removed Other Columns1"),

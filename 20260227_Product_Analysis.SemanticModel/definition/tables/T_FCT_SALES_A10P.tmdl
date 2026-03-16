@@ -175,7 +175,7 @@ table T_FCT_SALES_A10P
 		mode: import
 		source =
 				let
-				    Source = Csv.Document(File.Contents("C:\Users\ukg15381\Downloads\POC_DASHBOARD\data_source\PBI A10P.csv"),[Delimiter=",", Columns=18, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    Source = Csv.Document(File.Contents(root_path & "PBI A10P.csv"),[Delimiter=",", Columns=18, Encoding=65001, QuoteStyle=QuoteStyle.None]),
 				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
 				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Country", type text}, {"Sector", type text}, {"Disease Area", type text}, {"Disease", type text}, {"DIAG 3", type text}, {"DIAG 4", type text}, {"ATC4", type text}, {"Corporation", type text}, {"Molecule List", type text}, {"Product", type text}, {"Pack", type text}, {"International Prescription", type text}, {"Calendar Quarter", type text}, {"QuarterDate", type date}, {"QuarterLabel", type date}, {"Units", type text}, {"Counting Units", type text}, {"EUR MNF", type text}}),
 				    #"Uppercased Text" = Table.TransformColumns(#"Changed Type",{{"Country", Text.Upper, type text}, {"Sector", Text.Upper, type text}, {"Disease Area", Text.Upper, type text}, {"Disease", Text.Upper, type text}, {"DIAG 3", Text.Upper, type text}, {"DIAG 4", Text.Upper, type text}, {"ATC4", Text.Upper, type text}, {"Corporation", Text.Upper, type text}, {"Molecule List", Text.Upper, type text}, {"Product", Text.Upper, type text}, {"Pack", Text.Upper, type text}, {"International Prescription", Text.Upper, type text}, {"Calendar Quarter", Text.Upper, type text}}),
