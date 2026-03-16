@@ -1,0 +1,15 @@
+{
+  "domain": "finance",
+  "packages": [
+    {
+      "moduleId": "finance_compare_mvp",
+      "version": "0.1.0",
+      "status": "prototype",
+      "path": "packages/finance_compare_mvp",
+      "displayName": "Finance Compare MVP",
+      "consumerCompatibility": [
+        "marketing/product-analysis-core"
+      ]
+    }
+  ]
+}

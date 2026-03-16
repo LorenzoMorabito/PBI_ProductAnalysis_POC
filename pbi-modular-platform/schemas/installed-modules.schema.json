@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/pbi-modular-platform/schemas/installed-modules.schema.json",
+  "title": "Installed Power BI Modules",
+  "type": "object",
+  "required": [
+    "installedModules"
+  ],
+  "properties": {
+    "installedModules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "moduleId",
+          "version",
+          "source",
+          "mappings"
+        ],
+        "properties": {
+          "moduleId": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          },
+          "mappings": {
+            "type": "object"
+          },
+          "installedObjects": {
+            "type": "object"
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": false
+}

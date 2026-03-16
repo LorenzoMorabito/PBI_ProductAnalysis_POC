@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/pbi-modular-platform/schemas/module-manifest.schema.json",
+  "title": "Power BI Module Manifest",
+  "type": "object",
+  "required": [
+    "moduleId",
+    "version",
+    "domain",
+    "description",
+    "requires",
+    "provides"
+  ],
+  "properties": {
+    "moduleId": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "domain": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "prototype",
+        "experimental",
+        "stable",
+        "deprecated"
+      ]
+    },
+    "description": {
+      "type": "string"
+    },
+    "requires": {
+      "type": "object",
+      "properties": {
+        "coreMeasures": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "coreColumns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "coreMeasures",
+        "coreColumns"
+      ],
+      "additionalProperties": true
+    },
+    "provides": {
+      "type": "object",
+      "properties": {
+        "semanticTables": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "reportPage": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "displayName": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "displayName"
+          ]
+        }
+      },
+      "required": [
+        "semanticTables"
+      ],
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

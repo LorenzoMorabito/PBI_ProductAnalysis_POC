@@ -1,6 +1,8 @@
 {
   "moduleId": "finance_compare_mvp",
   "version": "0.1.0",
+  "domain": "finance",
+  "status": "prototype",
   "description": "MVP module pack for Finance Compare with semantic adapter layer and reusable PBIR page.",
   "requires": {
     "coreMeasures": [
