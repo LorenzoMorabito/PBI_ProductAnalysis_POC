@@ -1,0 +1,60 @@
+table 'Msr Fin Buckets'
+	lineageTag: de3a28dc-a5d0-4940-9a05-96bd13806353
+
+	measure 'Fin ACT (Buckets)' =
+			
+			VAR legend = SELECTEDVALUE( LegendCorp[Legend] )
+			RETURN
+			IF(
+			    legend = "MENARINI",
+			    [Fin ACT],
+			    BLANK()
+			)
+		lineageTag: d3c9f6f0-1f69-46f6-a17f-7dc566cebd75
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Fin ACT vs PY PPG% (Buckets)' =
+			
+			VAR legend = SELECTEDVALUE( LegendCorp[Legend] )
+			RETURN
+			IF(
+			    legend = "MENARINI",
+			    [Fin ACT vs PY PPG%],
+			    BLANK()
+			)
+		lineageTag: 1cc38add-4fc2-48d3-89a6-1727be8fe311
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Fin ACT vs BDG +-% (Buckets)' =
+			
+			VAR legend = SELECTEDVALUE( LegendCorp[Legend] )
+			RETURN
+			IF(
+			    legend = "MENARINI",
+			    [Fin ACT vs BDG +-%],
+			    BLANK()
+			)
+		lineageTag: dcf2da77-640e-48fd-8372-aa7766931431
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Column
+		isHidden
+		formatString: 0
+		lineageTag: d25121ff-1997-4e42-ad84-8009cc97a09e
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Msr Fin Buckets' = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = 710ffcb1bef440858c958d05b22025f3
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":""}
+

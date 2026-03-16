@@ -1,0 +1,4377 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/bookmark/2.0.0/schema.json",
+  "displayName": "GB Filters Open",
+  "name": "a7add2c54cbd59546893",
+  "options": {
+    "targetVisualNames": []
+  },
+  "explorationState": {
+    "version": "1.40",
+    "activeSection": "7d897b7585bab650ac06",
+    "sections": {
+      "7d897b7585bab650ac06": {
+        "filters": {
+          "byExpr": [
+            {
+              "name": "e1457bed96039c9a4a54",
+              "type": "Categorical",
+              "filter": {
+                "Version": 2,
+                "From": [
+                  {
+                    "Name": "t",
+                    "Entity": "T_DIM_QUARTER",
+                    "Type": 0
+                  }
+                ],
+                "Where": [
+                  {
+                    "Condition": {
+                      "In": {
+                        "Expressions": [
+                          {
+                            "Column": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Source": "t"
+                                }
+                              },
+                              "Property": "Quarter_IsInPromo"
+                            }
+                          }
+                        ],
+                        "Values": [
+                          [
+                            {
+                              "Literal": {
+                                "Value": "true"
+                              }
+                            }
+                          ]
+                        ]
+                      }
+                    }
+                  }
+                ]
+              },
+              "expression": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "T_DIM_QUARTER"
+                    }
+                  },
+                  "Property": "Quarter_IsInPromo"
+                }
+              },
+              "howCreated": 1
+            },
+            {
+              "name": "45b49b5e00cb44ac7e30",
+              "type": "Categorical",
+              "filter": {
+                "Version": 2,
+                "From": [
+                  {
+                    "Name": "t",
+                    "Entity": "T_DIM_QUARTER",
+                    "Type": 0
+                  }
+                ],
+                "Where": [
+                  {
+                    "Condition": {
+                      "In": {
+                        "Expressions": [
+                          {
+                            "Column": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Source": "t"
+                                }
+                              },
+                              "Property": "Quarter_IsInSales"
+                            }
+                          }
+                        ],
+                        "Values": [
+                          [
+                            {
+                              "Literal": {
+                                "Value": "true"
+                              }
+                            }
+                          ]
+                        ]
+                      }
+                    }
+                  }
+                ]
+              },
+              "expression": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "T_DIM_QUARTER"
+                    }
+                  },
+                  "Property": "Quarter_IsInSales"
+                }
+              },
+              "howCreated": 1
+            }
+          ]
+        },
+        "visualContainers": {
+          "6beec70c99a69452ce01": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "d8194bf73a31be42c516": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "cbd105e4220eb57d1b05": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "0dc7d785a580b47cc405",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "SwitchTopByDimension"
+                        }
+                      },
+                      "Property": "TopBy Dimension (Selected)"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "general": [
+                    {
+                      "properties": {
+                        "filter": {
+                          "filter": {
+                            "Version": 2,
+                            "From": [
+                              {
+                                "Name": "s",
+                                "Entity": "SwitchTopByDimension",
+                                "Type": 0
+                              }
+                            ],
+                            "Where": [
+                              {
+                                "Condition": {
+                                  "In": {
+                                    "Expressions": [
+                                      {
+                                        "Column": {
+                                          "Expression": {
+                                            "SourceRef": {
+                                              "Source": "s"
+                                            }
+                                          },
+                                          "Property": "Parameter Fields"
+                                        }
+                                      }
+                                    ],
+                                    "Values": [
+                                      [
+                                        {
+                                          "Literal": {
+                                            "Value": "'''T_DIM_CORPORATION''[Corporation]'"
+                                          }
+                                        }
+                                      ]
+                                    ]
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Dropdown'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "selection": [
+                    {
+                      "properties": {
+                        "strictSingleSelect": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "true"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "SwitchTopByDimension"
+                        }
+                      },
+                      "Property": "TopBy Dimension (Selected)"
+                    }
+                  }
+                ]
+              },
+              "cachedFilterDisplayItems": [
+                {
+                  "id": {
+                    "scopeId": {
+                      "Comparison": {
+                        "ComparisonKind": 0,
+                        "Left": {
+                          "Column": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Entity": "SwitchTopByDimension"
+                              }
+                            },
+                            "Property": "Parameter Fields"
+                          }
+                        },
+                        "Right": {
+                          "Literal": {
+                            "Value": "'''T_DIM_CORPORATION''[Corporation]'"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "displayName": "Corporation"
+                }
+              ]
+            }
+          },
+          "266476a455e8eea203c6": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "d3bc0a3298492f5229a7",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "SwitchPeriodMode"
+                        }
+                      },
+                      "Property": "MetricPromo (Selected Period)"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "f0311f4d17e29bc51035",
+                  "type": "Advanced",
+                  "expression": {
+                    "HierarchyLevel": {
+                      "Expression": {
+                        "Hierarchy": {
+                          "Expression": {
+                            "PropertyVariationSource": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Entity": "T_DIM_QUARTER"
+                                }
+                              },
+                              "Name": "Variation",
+                              "Property": "QuarterStartDay"
+                            }
+                          },
+                          "Hierarchy": "Date Hierarchy"
+                        }
+                      },
+                      "Level": "Year"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "efd6512f9526e5355de4",
+                  "type": "Categorical",
+                  "expression": {
+                    "HierarchyLevel": {
+                      "Expression": {
+                        "Hierarchy": {
+                          "Expression": {
+                            "PropertyVariationSource": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Entity": "T_DIM_QUARTER"
+                                }
+                              },
+                              "Name": "Variation",
+                              "Property": "QuarterStartDay"
+                            }
+                          },
+                          "Hierarchy": "Date Hierarchy"
+                        }
+                      },
+                      "Level": "Quarter"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "23bc4a8d0834245e747d",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Promo Buckets LP"
+                        }
+                      },
+                      "Property": "Promo Measure (Bucket, LP)"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "33fc4b20a585c076dee2",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Promo Buckets"
+                        }
+                      },
+                      "Property": "Promo Share% (Bucket)"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "d5eee58246375c010051",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Corporation Buckets"
+                        }
+                      },
+                      "Property": "Slot"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "b4558ef4b773e0763625",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Promo Buckets"
+                        }
+                      },
+                      "Property": "Promo Measure (Bucket)"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "columnChart",
+              "objects": {},
+              "activeProjections": {
+                "Category": [
+                  {
+                    "HierarchyLevel": {
+                      "Expression": {
+                        "Hierarchy": {
+                          "Expression": {
+                            "PropertyVariationSource": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Entity": "T_DIM_QUARTER"
+                                }
+                              },
+                              "Name": "Variation",
+                              "Property": "QuarterStartDay"
+                            }
+                          },
+                          "Hierarchy": "Date Hierarchy"
+                        }
+                      },
+                      "Level": "Year"
+                    }
+                  },
+                  {
+                    "HierarchyLevel": {
+                      "Expression": {
+                        "Hierarchy": {
+                          "Expression": {
+                            "PropertyVariationSource": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Entity": "T_DIM_QUARTER"
+                                }
+                              },
+                              "Name": "Variation",
+                              "Property": "QuarterStartDay"
+                            }
+                          },
+                          "Hierarchy": "Date Hierarchy"
+                        }
+                      },
+                      "Level": "Quarter"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "1614d19168185d708803": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "c73ae0738ba405969717",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Sales Switch"
+                        }
+                      },
+                      "Property": "Switch Sales Measure (Last Period)"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "74de51e6700a0565d895",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Sales Switch"
+                        }
+                      },
+                      "Property": "Switch Sales Measure (Last Period PY)"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "d99b0772011a5da302b7",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "T_DIM_QUARTER"
+                        }
+                      },
+                      "Property": "QuarterStartDay"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "kpi",
+              "objects": {}
+            }
+          },
+          "4ede8100b71706c1103e": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "ff4b8de5b0000d0106e9",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "T_DIM_QUARTER"
+                        }
+                      },
+                      "Property": "QuarterStartDay"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "0389c1ec6602100edbbc",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Sales Switch"
+                        }
+                      },
+                      "Property": "Switch Sales Market YTD"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "b5963dc029371e2807b1",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Sales Switch"
+                        }
+                      },
+                      "Property": "Switch Sales Market YTD PY"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "kpi",
+              "objects": {}
+            }
+          },
+          "e3f7d0e0dae03732205c": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "0b9b0c9d8dc9179b01ee",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "T_DIM_QUARTER"
+                        }
+                      },
+                      "Property": "QuarterStartDay"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "ff87e951c7286071b305",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Sales Switch"
+                        }
+                      },
+                      "Property": "Switch Sales Market ROLLING (Dynamic)"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "8cd7b0343b01614d0ba9",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Sales Switch"
+                        }
+                      },
+                      "Property": "Switch Sales Market ROLLING PY (Dynamic)"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "kpi",
+              "objects": {}
+            }
+          },
+          "7fa625569717d728cb10": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "3fa3a85b734ed0d0a815": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "e6ee4e668aecb8b85eb2": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "7eff352da0c6492dc30e",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "T_DIM_QUARTER"
+                        }
+                      },
+                      "Property": "QuarterStartDay"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "b93864f1ae074ce8d798",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Sales Switch"
+                        }
+                      },
+                      "Property": "Switch MENARINI LP PY"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "3dc60c961cec04677bac",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Sales Switch"
+                        }
+                      },
+                      "Property": "Switch MENARINI LP"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "kpi",
+              "objects": {}
+            }
+          },
+          "36f6bff10985009938c9": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "b3c7f198e810374c7374",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "T_DIM_QUARTER"
+                        }
+                      },
+                      "Property": "QuarterStartDay"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "dc658dbc81dc29740e34",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Sales Switch"
+                        }
+                      },
+                      "Property": "Switch MENARINI Mkt ROLL PY (Dynamic)"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "96fe7489ca95d0bea300",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Sales Switch"
+                        }
+                      },
+                      "Property": "Switch MENARINI Mkt ROL (Dynamic)"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "kpi",
+              "objects": {}
+            }
+          },
+          "b0f2e2e7900d02a41ca5": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "839b7ff340ca8d69c27e",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "T_DIM_QUARTER"
+                        }
+                      },
+                      "Property": "QuarterStartDay"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "550c4f8f5ade0d4e4a90",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Sales Switch"
+                        }
+                      },
+                      "Property": "Switch MENARINI Mkt YTD PY"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "7a0368b82767b0aa934c",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Sales Switch"
+                        }
+                      },
+                      "Property": "Switch MENARINI Mkt YTD"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "kpi",
+              "objects": {}
+            }
+          },
+          "bea7d8b1e4d8e8690336": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "e621a77004aa03941d31": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "3962734608c944476ac9": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "35821ad76d83004ea0ba",
+                  "type": "Advanced",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "t",
+                        "Entity": "T_DIM_QUARTER",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "Comparison": {
+                            "ComparisonKind": 0,
+                            "Left": {
+                              "Measure": {
+                                "Expression": {
+                                  "SourceRef": {
+                                    "Source": "t"
+                                  }
+                                },
+                                "Property": "Is Last Quarter"
+                              }
+                            },
+                            "Right": {
+                              "Literal": {
+                                "Value": "1L"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "T_DIM_QUARTER"
+                        }
+                      },
+                      "Property": "Is Last Quarter"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "047c8757e5906791a760",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Promo Buckets"
+                        }
+                      },
+                      "Property": "Promo +/-% (vs PQ) (Bucket)"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "e7f6583d608e82c37b01",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Promo Buckets"
+                        }
+                      },
+                      "Property": "Promo Share% (Bucket)"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "17a790250b5d4cd9b071",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Promo Buckets"
+                        }
+                      },
+                      "Property": "Promo PPG % (vs PY) (Bucket)"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "6b3eda0982048ccd567d",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Promo Buckets"
+                        }
+                      },
+                      "Property": "Promo Share% PY EI (Bucket)"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "b8ee3df8103e3402e1bd",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Sales Buckets"
+                        }
+                      },
+                      "Property": "Sales Share% (Bucket)"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "9b28c2b3aa5342a7beb7",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Sales Buckets"
+                        }
+                      },
+                      "Property": "Sales PPG % (vs PY) (Bucket)"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "b48d09b08437cb007b51",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Sales Buckets"
+                        }
+                      },
+                      "Property": "Sales Share% PY EI (Bucket)"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "a2a514a9091ec134e047",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Promo Buckets LP"
+                        }
+                      },
+                      "Property": "Promo Measure (Bucket, LP)"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "ece2be3036c2177adba4",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Corporation Buckets"
+                        }
+                      },
+                      "Property": "Slot"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "b5989ea449d901d5130c",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Sales Buckets LP"
+                        }
+                      },
+                      "Property": "Sales Measure (Bucket, LP)"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "0369f211082e0e50ae70",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Corporation Buckets"
+                        }
+                      },
+                      "Property": "Bucket Corporation Name"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "ac3806685d1c10a22a50",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Sales Buckets LP"
+                        }
+                      },
+                      "Property": "Sales EI (Bucket, LP)"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "b87fc320c96921d55c01",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Sales Buckets LP"
+                        }
+                      },
+                      "Property": "Sales MS% (Bucket, LP)"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "509aa9f0d49d699b9a77",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Sales Buckets LP"
+                        }
+                      },
+                      "Property": "Sales +/-% vs PQ (Bucket, LP)"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "2911ec39de5c59173c6d",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Sales Buckets LP"
+                        }
+                      },
+                      "Property": "Sales PPG vs PY (Bucket, LP)"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "aa2ab4f86ba1ab0d1458",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Promo Buckets LP"
+                        }
+                      },
+                      "Property": "Promo EI (Bucket, LP)"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "628d0bb9427b87ae07ae",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Promo Buckets LP"
+                        }
+                      },
+                      "Property": "Promo MS% (Bucket, LP)"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "bf1fde32a4cc53cbe902",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Promo Buckets LP"
+                        }
+                      },
+                      "Property": "Promo +/-% vs PQ (Bucket, LP)"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "3629036e504d5deb5082",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Promo Buckets LP"
+                        }
+                      },
+                      "Property": "Promo PPG vs PY (Bucket, LP)"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "4f2acc6690a3a2410e23",
+                  "type": "Advanced",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "c",
+                        "Entity": "Corporation Buckets",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "Comparison": {
+                            "ComparisonKind": 0,
+                            "Left": {
+                              "Measure": {
+                                "Expression": {
+                                  "SourceRef": {
+                                    "Source": "c"
+                                  }
+                                },
+                                "Property": ".FLAG Show Row (TopN Table)"
+                              }
+                            },
+                            "Right": {
+                              "Literal": {
+                                "Value": "1L"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Corporation Buckets"
+                        }
+                      },
+                      "Property": ".FLAG Show Row (TopN Table)"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "2a3533b651658b55de0e",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Corporation Buckets"
+                        }
+                      },
+                      "Property": "Bucket Rank"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "tableEx",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 2,
+                  "Expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Corporation Buckets"
+                        }
+                      },
+                      "Property": "Bucket Rank"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "99149f42eed574903860": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "ac79ca41d002971210c8": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "efb737426d8d0b3b099d": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "3f43d306e72e8aee50a0": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "462e5a932bbb05eadb0b": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "9b7fb16eee6334920215",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Sales Switch"
+                        }
+                      },
+                      "Property": "Switch Sales Measure (Last Period)"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "00c13c12c6c50e0d19b0",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Sales Switch"
+                        }
+                      },
+                      "Property": "Switch Sales Measure (Last Period PY)"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "4318cda99d1896719501",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "T_DIM_QUARTER"
+                        }
+                      },
+                      "Property": "QuarterStartDay"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "kpi",
+              "objects": {}
+            }
+          },
+          "ddc7d9cbad2b8294b2b0": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "f61fd849db647d52c070",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "T_DIM_QUARTER"
+                        }
+                      },
+                      "Property": "QuarterStartDay"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "651adfe990e1b6b51560",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Sales Switch"
+                        }
+                      },
+                      "Property": "Switch Sales Market YTD"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "930fcf29904094624984",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Sales Switch"
+                        }
+                      },
+                      "Property": "Switch Sales Market YTD PY"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "kpi",
+              "objects": {}
+            }
+          },
+          "fd5dcaa68a5baa7b52e5": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "ec667369242ee05ab26c",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "T_DIM_QUARTER"
+                        }
+                      },
+                      "Property": "QuarterStartDay"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "a3e2bc43bc961db085d8",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Sales Switch"
+                        }
+                      },
+                      "Property": "Switch Sales Market ROLLING (Dynamic)"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "9e77ed099958c47c81c0",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Sales Switch"
+                        }
+                      },
+                      "Property": "Switch Sales Market ROLLING PY (Dynamic)"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "kpi",
+              "objects": {}
+            }
+          },
+          "25552f944c5b29692db6": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "8663ba1d7d84c2882248": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "6b5e8c4476ce002ba941": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "78ccaaf18200066cd4cb",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "T_DIM_QUARTER"
+                        }
+                      },
+                      "Property": "QuarterStartDay"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "97ab1e2173d90cda0420",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Sales Switch"
+                        }
+                      },
+                      "Property": "Switch MENARINI LP PY"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "9397eda0121217caba58",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Sales Switch"
+                        }
+                      },
+                      "Property": "Switch MENARINI LP"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "kpi",
+              "objects": {}
+            }
+          },
+          "61bd0453ad0ce3ea6064": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "f3bc2891183beac3ca1c",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "T_DIM_QUARTER"
+                        }
+                      },
+                      "Property": "QuarterStartDay"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "d8ed0130cb80672d344c",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Sales Switch"
+                        }
+                      },
+                      "Property": "Switch MENARINI Mkt ROLL PY (Dynamic)"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "8ad5933da4c4189d3634",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Sales Switch"
+                        }
+                      },
+                      "Property": "Switch MENARINI Mkt ROL (Dynamic)"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "kpi",
+              "objects": {}
+            }
+          },
+          "1ca0eec52d6eb8cea650": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "9818ddc7ccbc88d4208d",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "T_DIM_QUARTER"
+                        }
+                      },
+                      "Property": "QuarterStartDay"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "1f9a9399081047000057",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Sales Switch"
+                        }
+                      },
+                      "Property": "Switch MENARINI Mkt YTD PY"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "820fe0843d59537b7750",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Sales Switch"
+                        }
+                      },
+                      "Property": "Switch MENARINI Mkt YTD"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "kpi",
+              "objects": {}
+            }
+          },
+          "07fe85e7de85770922b2": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "42d1148a372b8050c199": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "54d2887c55c8ae5310cd",
+                  "type": "Advanced",
+                  "expression": {
+                    "HierarchyLevel": {
+                      "Expression": {
+                        "Hierarchy": {
+                          "Expression": {
+                            "PropertyVariationSource": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Entity": "T_DIM_QUARTER"
+                                }
+                              },
+                              "Name": "Variation",
+                              "Property": "QuarterStartDay"
+                            }
+                          },
+                          "Hierarchy": "Date Hierarchy"
+                        }
+                      },
+                      "Level": "Year"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "0da8ccbf88ea6c25e0a2",
+                  "type": "Categorical",
+                  "expression": {
+                    "HierarchyLevel": {
+                      "Expression": {
+                        "Hierarchy": {
+                          "Expression": {
+                            "PropertyVariationSource": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Entity": "T_DIM_QUARTER"
+                                }
+                              },
+                              "Name": "Variation",
+                              "Property": "QuarterStartDay"
+                            }
+                          },
+                          "Hierarchy": "Date Hierarchy"
+                        }
+                      },
+                      "Level": "Quarter"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "6406d51aca2a642049cd",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Sales Buckets"
+                        }
+                      },
+                      "Property": "Sales Measure (Bucket)"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "3ae97d1a3309001abd3d",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Sales Buckets"
+                        }
+                      },
+                      "Property": "Sales Share% (Bucket)"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "d8931fc9de106e0be898",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Corporation Buckets"
+                        }
+                      },
+                      "Property": "Slot"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "columnChart",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 1,
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Corporation Buckets"
+                        }
+                      },
+                      "Property": "Slot"
+                    }
+                  }
+                }
+              ],
+              "activeProjections": {
+                "Category": [
+                  {
+                    "HierarchyLevel": {
+                      "Expression": {
+                        "Hierarchy": {
+                          "Expression": {
+                            "PropertyVariationSource": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Entity": "T_DIM_QUARTER"
+                                }
+                              },
+                              "Name": "Variation",
+                              "Property": "QuarterStartDay"
+                            }
+                          },
+                          "Hierarchy": "Date Hierarchy"
+                        }
+                      },
+                      "Level": "Year"
+                    }
+                  },
+                  {
+                    "HierarchyLevel": {
+                      "Expression": {
+                        "Hierarchy": {
+                          "Expression": {
+                            "PropertyVariationSource": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Entity": "T_DIM_QUARTER"
+                                }
+                              },
+                              "Name": "Variation",
+                              "Property": "QuarterStartDay"
+                            }
+                          },
+                          "Hierarchy": "Date Hierarchy"
+                        }
+                      },
+                      "Level": "Quarter"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "abc810401a56c1205cbe": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "2aa7845bcce024b007db": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "54dc7fcb58d32b16005a": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "0e998632b8e9000607c0": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "877dc251d91e068a6018": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "0c703842e59000219d3a": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "1b2de7b160d981e28559": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "0114c319c6367c64cf8e",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Sales Switch"
+                        }
+                      },
+                      "Property": "Switch Sales Measure (Last Period)"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "d4b38262e5033cac3e86",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Sales Switch"
+                        }
+                      },
+                      "Property": "Switch Sales Measure (Last Period)"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "eb3a071305636495b6a8",
+                  "type": "Advanced",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "t",
+                        "Entity": "TopN",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "Comparison": {
+                            "ComparisonKind": 0,
+                            "Left": {
+                              "Measure": {
+                                "Expression": {
+                                  "SourceRef": {
+                                    "Source": "t"
+                                  }
+                                },
+                                "Property": "Show in Driver Table (TopN + Target)"
+                              }
+                            },
+                            "Right": {
+                              "Literal": {
+                                "Value": "1L"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "TopN"
+                        }
+                      },
+                      "Property": "Show in Driver Table (TopN + Target)"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "be6ee917d32f9643bf0a",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Sales"
+                        }
+                      },
+                      "Property": "Sales Values"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "2920644f29d7484f8daf",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Promo"
+                        }
+                      },
+                      "Property": "Promo Spend"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "499013a6a6f4082bda26",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Promo"
+                        }
+                      },
+                      "Property": "Promo Details"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "dd4d329a7751b01e2951",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Sales"
+                        }
+                      },
+                      "Property": "Sales Values Δ% vs PY (QTR)"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "98d6765ee5f725287fb0",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Promo"
+                        }
+                      },
+                      "Property": "Promo Spend Δ% vs PY (QTR)"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "6b49a93b9327397c5f2e",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Promo"
+                        }
+                      },
+                      "Property": "Promo Details +/-% vs PY (QTR)"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "ba076b078b6a05ee05f3",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Promo"
+                        }
+                      },
+                      "Property": "Promo Spend €/1k Details"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "f23157cd5fa3a0adc3d8",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Promo"
+                        }
+                      },
+                      "Property": "Promo SOV% (ATC4)"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "3cd9efa09e013da0f5af",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Sales"
+                        }
+                      },
+                      "Property": "Sales Values MS%"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "3384949bade8617a2455",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Promo"
+                        }
+                      },
+                      "Property": "Promo ESOV"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "737e9c6afbb878c9eca8",
+                  "type": "TopN",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "T_DIM_CORPORATION"
+                        }
+                      },
+                      "Property": "Corporation"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "2bbbfc19d52405f3e6b7",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "T_DIM_QUARTER"
+                        }
+                      },
+                      "Property": "QuarterStartDay"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "2bcc0921b612a9648182",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "T_DIM_MOLECULE"
+                        }
+                      },
+                      "Property": "MoleculeNorm"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "0f84837eb0cbc08d2a66",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Sales"
+                        }
+                      },
+                      "Property": "LP Sales Values"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "5023282bdf5a3f82fe72",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Promo LP"
+                        }
+                      },
+                      "Property": "LP Promo Spend"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "e94cedc9c52d58d486e7",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Promo"
+                        }
+                      },
+                      "Property": "LP Promo Spend Δ% vs PY (QTR)"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "a832684ca4039352f690",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Promo LP"
+                        }
+                      },
+                      "Property": "LP Promo Spend €/1k Details"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "8f3fa00ced2375d63298",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Promo LP"
+                        }
+                      },
+                      "Property": "LP Promo Details"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "dc05ccbe5af1995d970e",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Promo LP"
+                        }
+                      },
+                      "Property": "LP Promo Details +/-% vs PY (QTR)"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "18e53bb20950a8997831",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Promo LP"
+                        }
+                      },
+                      "Property": "LP Promo SOV% (ATC4)"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "4c40fe1038ba16cdd942",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Sales"
+                        }
+                      },
+                      "Property": "LP Sales Values MS%"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "0383304d03c60367b765",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "T_DIM_PRODUCT"
+                        }
+                      },
+                      "Property": "Product"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "986eb870d52a480905a0",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Sales"
+                        }
+                      },
+                      "Property": "LP Sales Values MS% (ATC4)"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "9d68f0a26d90d42ba87e",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Sales"
+                        }
+                      },
+                      "Property": "LP Sales Values MS% EI PY (QTR) (ATC4)"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "032e8de2248145299d71",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Sales"
+                        }
+                      },
+                      "Property": "LP Sales Values +/-% vs PY (QTR)"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "8af0782e602812c973ae",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Promo LP"
+                        }
+                      },
+                      "Property": "LP Promo SOV% EI vs PY (QTR) (ATC4)"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "66b09dbc93352d577bc0",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Promo LP"
+                        }
+                      },
+                      "Property": "LP Promo ESOV"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "c7046383190604038c14",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "T_DIM_PRODUCT"
+                        }
+                      },
+                      "Property": "ATC4 Code"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "d6f27809a3207a0b2d45",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "T_DIM_PRODUCT"
+                        }
+                      },
+                      "Property": "Corporation"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "caaefc4cac50190bb4d2",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "T_DIM_PRODUCT"
+                        }
+                      },
+                      "Property": "MoleculeNorm"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "26981bcaa48dd63274d1",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Fin LP"
+                        }
+                      },
+                      "Property": "Fin LP ACT"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "f0a2f66815b70529dd6e",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Fin LP"
+                        }
+                      },
+                      "Property": "Fin LP ACT vs PY PPG"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "ad0cf4d00001e7e4041e",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Fin LP"
+                        }
+                      },
+                      "Property": "Fin LP ACT vs BDG +/-%"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "tableEx",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 2,
+                  "Expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Sales"
+                        }
+                      },
+                      "Property": "LP Sales Values MS% (ATC4)"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "478925dba21924c85c5d": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "275e0210e06948180824": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "274a918f1304e131d7e6",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "SwitchMeasureSelector (Promo)"
+                        }
+                      },
+                      "Property": "SwitchMeasurePromo"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "general": [
+                    {
+                      "properties": {
+                        "filter": {
+                          "filter": {
+                            "Version": 2,
+                            "From": [
+                              {
+                                "Name": "s",
+                                "Entity": "SwitchMeasureSelector (Promo)",
+                                "Type": 0
+                              }
+                            ],
+                            "Where": [
+                              {
+                                "Condition": {
+                                  "In": {
+                                    "Expressions": [
+                                      {
+                                        "Column": {
+                                          "Expression": {
+                                            "SourceRef": {
+                                              "Source": "s"
+                                            }
+                                          },
+                                          "Property": "SwitchMeasurePromo Fields"
+                                        }
+                                      }
+                                    ],
+                                    "Values": [
+                                      [
+                                        {
+                                          "Literal": {
+                                            "Value": "'''Msr Promo''[Promo Details]'"
+                                          }
+                                        }
+                                      ]
+                                    ]
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Dropdown'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "selection": [
+                    {
+                      "properties": {
+                        "strictSingleSelect": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "true"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "SwitchMeasureSelector (Promo)"
+                        }
+                      },
+                      "Property": "SwitchMeasurePromo"
+                    }
+                  }
+                ]
+              },
+              "cachedFilterDisplayItems": [
+                {
+                  "id": {
+                    "scopeId": {
+                      "Comparison": {
+                        "ComparisonKind": 0,
+                        "Left": {
+                          "Column": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Entity": "SwitchMeasureSelector (Promo)"
+                              }
+                            },
+                            "Property": "SwitchMeasurePromo Fields"
+                          }
+                        },
+                        "Right": {
+                          "Literal": {
+                            "Value": "'''Msr Promo''[Promo Details]'"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "displayName": "Details"
+                }
+              ]
+            }
+          },
+          "cf8b453ee803019c0169": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "4bb9632995b99cac4090",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "SwitchMeasureSelector (Sales)"
+                        }
+                      },
+                      "Property": "SwitchMeasure"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "general": [
+                    {
+                      "properties": {
+                        "filter": {
+                          "filter": {
+                            "Version": 2,
+                            "From": [
+                              {
+                                "Name": "s",
+                                "Entity": "SwitchMeasureSelector (Sales)",
+                                "Type": 0
+                              }
+                            ],
+                            "Where": [
+                              {
+                                "Condition": {
+                                  "In": {
+                                    "Expressions": [
+                                      {
+                                        "Column": {
+                                          "Expression": {
+                                            "SourceRef": {
+                                              "Source": "s"
+                                            }
+                                          },
+                                          "Property": "SwitchMeasure Fields"
+                                        }
+                                      }
+                                    ],
+                                    "Values": [
+                                      [
+                                        {
+                                          "Literal": {
+                                            "Value": "'''Msr Sales''[Sales Values]'"
+                                          }
+                                        }
+                                      ]
+                                    ]
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Dropdown'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "selection": [
+                    {
+                      "properties": {
+                        "strictSingleSelect": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "true"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "SwitchMeasureSelector (Sales)"
+                        }
+                      },
+                      "Property": "SwitchMeasure"
+                    }
+                  }
+                ]
+              },
+              "cachedFilterDisplayItems": [
+                {
+                  "id": {
+                    "scopeId": {
+                      "Comparison": {
+                        "ComparisonKind": 0,
+                        "Left": {
+                          "Column": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Entity": "SwitchMeasureSelector (Sales)"
+                              }
+                            },
+                            "Property": "SwitchMeasure Fields"
+                          }
+                        },
+                        "Right": {
+                          "Literal": {
+                            "Value": "'''Msr Sales''[Sales Values]'"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "displayName": "Values"
+                }
+              ]
+            }
+          },
+          "c524b9fb50db59ac8dc8": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "d3bcc2e878b6b970b534": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "5f8276022c886b1badc4",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "SwitchCompareMode (Finance)"
+                        }
+                      },
+                      "Property": "Compare"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "general": [
+                    {
+                      "properties": {
+                        "filter": {
+                          "filter": {
+                            "Version": 2,
+                            "From": [
+                              {
+                                "Name": "s",
+                                "Entity": "SwitchCompareMode (Finance)",
+                                "Type": 0
+                              }
+                            ],
+                            "Where": [
+                              {
+                                "Condition": {
+                                  "In": {
+                                    "Expressions": [
+                                      {
+                                        "Column": {
+                                          "Expression": {
+                                            "SourceRef": {
+                                              "Source": "s"
+                                            }
+                                          },
+                                          "Property": "Compare"
+                                        }
+                                      }
+                                    ],
+                                    "Values": [
+                                      [
+                                        {
+                                          "Literal": {
+                                            "Value": "'vs BDG'"
+                                          }
+                                        }
+                                      ]
+                                    ]
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Dropdown'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "selection": [
+                    {
+                      "properties": {
+                        "strictSingleSelect": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "true"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "SwitchCompareMode (Finance)"
+                        }
+                      },
+                      "Property": "Compare"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "d8e4e44643e2d160ce50": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "5fb3c3326168d4b7243e": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "d938109d2d90653950a0": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "0d54f84793668ee7a347": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "a4a16c15dd1435cbe867",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "SwitchCompetitiveMeasureCategory"
+                        }
+                      },
+                      "Property": "Category"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "general": [
+                    {
+                      "properties": {
+                        "filter": {
+                          "filter": {
+                            "Version": 2,
+                            "From": [
+                              {
+                                "Name": "s",
+                                "Entity": "SwitchCompetitiveMeasureCategory",
+                                "Type": 0
+                              }
+                            ],
+                            "Where": [
+                              {
+                                "Condition": {
+                                  "In": {
+                                    "Expressions": [
+                                      {
+                                        "Column": {
+                                          "Expression": {
+                                            "SourceRef": {
+                                              "Source": "s"
+                                            }
+                                          },
+                                          "Property": "Category"
+                                        }
+                                      }
+                                    ],
+                                    "Values": [
+                                      [
+                                        {
+                                          "Literal": {
+                                            "Value": "'Sales'"
+                                          }
+                                        }
+                                      ]
+                                    ]
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Dropdown'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "selection": [
+                    {
+                      "properties": {
+                        "strictSingleSelect": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "true"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "SwitchCompetitiveMeasureCategory"
+                        }
+                      },
+                      "Property": "Category"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "38a6bf9170912017b274": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "0321fe56ae7c6e343158",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "SwitchCompetitiveMeasureSelector"
+                        }
+                      },
+                      "Property": "CompetitiveMetricsSelector"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "general": [
+                    {
+                      "properties": {
+                        "filter": {
+                          "filter": {
+                            "Version": 2,
+                            "From": [
+                              {
+                                "Name": "s",
+                                "Entity": "SwitchCompetitiveMeasureSelector",
+                                "Type": 0
+                              }
+                            ],
+                            "Where": [
+                              {
+                                "Condition": {
+                                  "In": {
+                                    "Expressions": [
+                                      {
+                                        "Column": {
+                                          "Expression": {
+                                            "SourceRef": {
+                                              "Source": "s"
+                                            }
+                                          },
+                                          "Property": "CompetitiveMetricsSelector Fields"
+                                        }
+                                      }
+                                    ],
+                                    "Values": [
+                                      [
+                                        {
+                                          "Literal": {
+                                            "Value": "'''Msr Sales''[Sales Units MS%]'"
+                                          }
+                                        }
+                                      ]
+                                    ]
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Dropdown'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "selection": [
+                    {
+                      "properties": {
+                        "strictSingleSelect": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "true"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "SwitchCompetitiveMeasureSelector"
+                        }
+                      },
+                      "Property": "CompetitiveMetricsSelector"
+                    }
+                  }
+                ]
+              },
+              "cachedFilterDisplayItems": [
+                {
+                  "id": {
+                    "scopeId": {
+                      "Comparison": {
+                        "ComparisonKind": 0,
+                        "Left": {
+                          "Column": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Entity": "SwitchCompetitiveMeasureSelector"
+                              }
+                            },
+                            "Property": "CompetitiveMetricsSelector Fields"
+                          }
+                        },
+                        "Right": {
+                          "Literal": {
+                            "Value": "'''Msr Sales''[Sales Units MS%]'"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "displayName": "Sales Units MS%"
+                }
+              ]
+            }
+          },
+          "bc876e4097cb5387b5b3": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "3279672832c1c9005aa0": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "a41bfae62241e8a1cd60",
+                  "type": "Advanced",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "t",
+                        "Entity": "TopN",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "Comparison": {
+                            "ComparisonKind": 0,
+                            "Left": {
+                              "Measure": {
+                                "Expression": {
+                                  "SourceRef": {
+                                    "Source": "t"
+                                  }
+                                },
+                                "Property": "Show in Driver Table (TopN + Target)"
+                              }
+                            },
+                            "Right": {
+                              "Literal": {
+                                "Value": "1L"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "TopN"
+                        }
+                      },
+                      "Property": "Show in Driver Table (TopN + Target)"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "0816a9ee850d2e29779a",
+                  "type": "Categorical",
+                  "expression": {
+                    "HierarchyLevel": {
+                      "Expression": {
+                        "Hierarchy": {
+                          "Expression": {
+                            "PropertyVariationSource": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Entity": "T_DIM_QUARTER"
+                                }
+                              },
+                              "Name": "Variation",
+                              "Property": "QuarterStartDay"
+                            }
+                          },
+                          "Hierarchy": "Date Hierarchy"
+                        }
+                      },
+                      "Level": "Quarter"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "2751da437768609c67a7",
+                  "type": "Advanced",
+                  "expression": {
+                    "HierarchyLevel": {
+                      "Expression": {
+                        "Hierarchy": {
+                          "Expression": {
+                            "PropertyVariationSource": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Entity": "T_DIM_QUARTER"
+                                }
+                              },
+                              "Name": "Variation",
+                              "Property": "QuarterStartDay"
+                            }
+                          },
+                          "Hierarchy": "Date Hierarchy"
+                        }
+                      },
+                      "Level": "Year"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "7a270e48b538c454241e",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Sales"
+                        }
+                      },
+                      "Property": "Sales Values"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "92d231d6ce6626ba00ba",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "T_DIM_QUARTER"
+                        }
+                      },
+                      "Property": "QuarterStartDay"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "c20fa815b5a47564e99c",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Sales"
+                        }
+                      },
+                      "Property": "Sales Units MS%"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "7b66a7e7121b70008dcc",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "T_DIM_CORPORATION"
+                        }
+                      },
+                      "Property": "Corporation"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "lineChart",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 1,
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "T_DIM_QUARTER"
+                        }
+                      },
+                      "Property": "QuarterStartDay"
+                    }
+                  }
+                },
+                {
+                  "Direction": 1,
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "T_DIM_CORPORATION"
+                        }
+                      },
+                      "Property": "Corporation"
+                    }
+                  }
+                }
+              ],
+              "activeProjections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "T_DIM_QUARTER"
+                        }
+                      },
+                      "Property": "QuarterStartDay"
+                    }
+                  }
+                ]
+              },
+              "projections": {
+                "Series": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "T_DIM_CORPORATION"
+                        }
+                      },
+                      "Property": "Corporation"
+                    }
+                  }
+                ],
+                "Y": [
+                  {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Sales"
+                        }
+                      },
+                      "Property": "Sales Units MS%"
+                    }
+                  }
+                ],
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "T_DIM_QUARTER"
+                        }
+                      },
+                      "Property": "QuarterStartDay"
+                    }
+                  }
+                ]
+              },
+              "parameters": {
+                "Series": [
+                  {
+                    "expr": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "SwitchTopByDimension"
+                          }
+                        },
+                        "Property": "TopBy Dimension (Selected)"
+                      }
+                    },
+                    "index": 0,
+                    "length": 1,
+                    "sortDirection": 1
+                  }
+                ],
+                "Y": [
+                  {
+                    "expr": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "SwitchCompetitiveMeasureSelector"
+                          }
+                        },
+                        "Property": "CompetitiveMetricsSelector"
+                      }
+                    },
+                    "index": 0,
+                    "length": 1
+                  }
+                ]
+              }
+            }
+          },
+          "1d2a182a09a21445803c": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "e4ca9593e4c9ea69a964": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "22b052e8a7ea7615e280": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "ba0b85cdb4fa0c91236b",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "T_DIM_CORPORATION"
+                        }
+                      },
+                      "Property": "Corporation"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "73d24b551b60862d93ad",
+                  "type": "Advanced",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "t",
+                        "Entity": "TopN",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "Comparison": {
+                            "ComparisonKind": 0,
+                            "Left": {
+                              "Measure": {
+                                "Expression": {
+                                  "SourceRef": {
+                                    "Source": "t"
+                                  }
+                                },
+                                "Property": "Show in Driver Table (TopN + Target)"
+                              }
+                            },
+                            "Right": {
+                              "Literal": {
+                                "Value": "1L"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "TopN"
+                        }
+                      },
+                      "Property": "Show in Driver Table (TopN + Target)"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "9c091ab20dac5aada7cf",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Promo LP"
+                        }
+                      },
+                      "Property": "LP Promo SOV% (ATC4)"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "ed99ae01360ccc8d61f7",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Promo LP"
+                        }
+                      },
+                      "Property": "LP Promo ESOV"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "a301d89a6f9c107ed410",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Sales"
+                        }
+                      },
+                      "Property": "LP Sales Values MS%"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "d724b0572dba4735ac09",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "T_DIM_MOLECULE"
+                        }
+                      },
+                      "Property": "MoleculeNorm"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "f8e238250c9780c41207",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "SwitchTopByMesure"
+                        }
+                      },
+                      "Property": "TopBy Metric (Selected Safe)"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "EnhancedScatterChart1443994985041",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 2,
+                  "Expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Promo LP"
+                        }
+                      },
+                      "Property": "LP Promo SOV% (ATC4)"
+                    }
+                  }
+                }
+              ],
+              "projections": {
+                "Series": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "T_DIM_CORPORATION"
+                        }
+                      },
+                      "Property": "Corporation"
+                    }
+                  }
+                ],
+                "X": [
+                  {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Promo LP"
+                        }
+                      },
+                      "Property": "LP Promo SOV% (ATC4)"
+                    }
+                  }
+                ],
+                "Y": [
+                  {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Msr Sales"
+                        }
+                      },
+                      "Property": "LP Sales Values MS%"
+                    }
+                  }
+                ],
+                "Size": [
+                  {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "SwitchTopByMesure"
+                        }
+                      },
+                      "Property": "TopBy Metric (Selected Safe)"
+                    }
+                  }
+                ]
+              },
+              "parameters": {
+                "Series": [
+                  {
+                    "expr": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "SwitchTopByDimension"
+                          }
+                        },
+                        "Property": "TopBy Dimension (Selected)"
+                      }
+                    },
+                    "index": 0,
+                    "length": 1
+                  }
+                ]
+              }
+            }
+          },
+          "498191385c2e4dec46a7": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "82cd0b96b442ec066b40": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "3b5572214cb020d60003": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "dccef8edb2002111de7a": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "eb3b920cb992b098c1bd": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "675ab0547407e77be519": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "c66813e1008d683c6803": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "9c38107203b1042e00bc": {
+            "singleVisual": {
+              "visualType": "aiNarratives",
+              "objects": {}
+            }
+          },
+          "422fcc1b91d5a5dbb9e5": {
+            "singleVisual": {
+              "visualType": "aiNarratives",
+              "objects": {}
+            }
+          },
+          "73a2881b293a90836055": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "5f7a450205bdbd0029c8": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "fb09ea3500b7a43be6a7",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "SwitchTopByMesure"
+                        }
+                      },
+                      "Property": "TopBy"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "general": [
+                    {
+                      "properties": {
+                        "filter": {
+                          "filter": {
+                            "Version": 2,
+                            "From": [
+                              {
+                                "Name": "s",
+                                "Entity": "SwitchTopByMesure",
+                                "Type": 0
+                              }
+                            ],
+                            "Where": [
+                              {
+                                "Condition": {
+                                  "In": {
+                                    "Expressions": [
+                                      {
+                                        "Column": {
+                                          "Expression": {
+                                            "SourceRef": {
+                                              "Source": "s"
+                                            }
+                                          },
+                                          "Property": "TopBy"
+                                        }
+                                      }
+                                    ],
+                                    "Values": [
+                                      [
+                                        {
+                                          "Literal": {
+                                            "Value": "'Values'"
+                                          }
+                                        }
+                                      ]
+                                    ]
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Dropdown'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "selection": [
+                    {
+                      "properties": {
+                        "strictSingleSelect": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "true"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "SwitchTopByMesure"
+                        }
+                      },
+                      "Property": "TopBy"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "1ba081f0e20860d15757": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "7f979c493c078340b663",
+                  "type": "Advanced",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "TopN"
+                        }
+                      },
+                      "Property": "TopN"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "general": [
+                    {
+                      "properties": {
+                        "filter": {
+                          "filter": {
+                            "Version": 2,
+                            "From": [
+                              {
+                                "Name": "t",
+                                "Entity": "TopN",
+                                "Type": 0
+                              }
+                            ],
+                            "Where": [
+                              {
+                                "Condition": {
+                                  "In": {
+                                    "Expressions": [
+                                      {
+                                        "Column": {
+                                          "Expression": {
+                                            "SourceRef": {
+                                              "Source": "t"
+                                            }
+                                          },
+                                          "Property": "TopN"
+                                        }
+                                      }
+                                    ],
+                                    "Values": [
+                                      [
+                                        {
+                                          "Literal": {
+                                            "Value": "2L"
+                                          }
+                                        }
+                                      ]
+                                    ]
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "data": [
+                    {
+                      "properties": {
+                        "numericStart": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "5D"
+                            }
+                          }
+                        },
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Dropdown'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "selection": [
+                    {
+                      "properties": {
+                        "strictSingleSelect": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "true"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "TopN"
+                        }
+                      },
+                      "Property": "TopN"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "4f329e3d964e78945d09": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "2a54047a0c56784b38c5",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "T_DIM_COUNTRY"
+                        }
+                      },
+                      "Property": "Country"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "general": [
+                    {
+                      "properties": {
+                        "filter": {
+                          "filter": {
+                            "Version": 2,
+                            "From": [
+                              {
+                                "Name": "t",
+                                "Entity": "T_DIM_COUNTRY",
+                                "Type": 0
+                              }
+                            ],
+                            "Where": [
+                              {
+                                "Condition": {
+                                  "In": {
+                                    "Expressions": [
+                                      {
+                                        "Column": {
+                                          "Expression": {
+                                            "SourceRef": {
+                                              "Source": "t"
+                                            }
+                                          },
+                                          "Property": "Country"
+                                        }
+                                      }
+                                    ],
+                                    "Values": [
+                                      [
+                                        {
+                                          "Literal": {
+                                            "Value": "'ITALY'"
+                                          }
+                                        }
+                                      ]
+                                    ]
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Dropdown'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "selection": [
+                    {
+                      "properties": {
+                        "strictSingleSelect": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "false"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "T_DIM_COUNTRY"
+                        }
+                      },
+                      "Property": "Country"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "8a63d4f4737cdb00b073": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "95fc1ba36610ede4506b": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "50469c182356c4802000",
+                  "type": "Advanced",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "T_DIM_QUARTER"
+                        }
+                      },
+                      "Property": "Year"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "general": [
+                    {
+                      "properties": {
+                        "filter": {
+                          "filter": {
+                            "Version": 2,
+                            "From": [
+                              {
+                                "Name": "t",
+                                "Entity": "T_DIM_QUARTER",
+                                "Type": 0
+                              }
+                            ],
+                            "Where": [
+                              {
+                                "Condition": {
+                                  "In": {
+                                    "Expressions": [
+                                      {
+                                        "Column": {
+                                          "Expression": {
+                                            "SourceRef": {
+                                              "Source": "t"
+                                            }
+                                          },
+                                          "Property": "Year"
+                                        }
+                                      }
+                                    ],
+                                    "Values": [
+                                      [
+                                        {
+                                          "Literal": {
+                                            "Value": "2023L"
+                                          }
+                                        }
+                                      ],
+                                      [
+                                        {
+                                          "Literal": {
+                                            "Value": "2024L"
+                                          }
+                                        }
+                                      ],
+                                      [
+                                        {
+                                          "Literal": {
+                                            "Value": "2025L"
+                                          }
+                                        }
+                                      ]
+                                    ]
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "data": [
+                    {
+                      "properties": {
+                        "numericStart": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "5D"
+                            }
+                          }
+                        },
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Dropdown'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "selection": [
+                    {
+                      "properties": {
+                        "strictSingleSelect": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "false"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "T_DIM_QUARTER"
+                        }
+                      },
+                      "Property": "Year"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "c6eac76fdcd175712839": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "0a9da71255a1b0e0e0db": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "2da0b5c8e7cda50ac897",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Dim_Entity"
+                        }
+                      },
+                      "Property": "Entity"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "general": [
+                    {
+                      "properties": {
+                        "filter": {
+                          "filter": {
+                            "Version": 2,
+                            "From": [
+                              {
+                                "Name": "d",
+                                "Entity": "Dim_Entity",
+                                "Type": 0
+                              }
+                            ],
+                            "Where": [
+                              {
+                                "Condition": {
+                                  "In": {
+                                    "Expressions": [
+                                      {
+                                        "Column": {
+                                          "Expression": {
+                                            "SourceRef": {
+                                              "Source": "d"
+                                            }
+                                          },
+                                          "Property": "Entity"
+                                        }
+                                      }
+                                    ],
+                                    "Values": [
+                                      [
+                                        {
+                                          "Literal": {
+                                            "Value": "'MENARINI'"
+                                          }
+                                        }
+                                      ]
+                                    ]
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Dropdown'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "selection": [
+                    {
+                      "properties": {
+                        "strictSingleSelect": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "true"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Dim_Entity"
+                        }
+                      },
+                      "Property": "Entity"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "e4924d50b9329e9d23b6": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "19ec9363eee91c074426": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "fd8b89f8b072304ebcb3": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "c14563b3e4c1e3288e00": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "1a0463204b5c69d0ed74": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          },
+          "f9ee564eca63cd1aa541": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          }
+        },
+        "visualContainerGroups": {
+          "635629163ad870a2e016": {
+            "isHidden": true
+          },
+          "1b043b2106a5234041a2": {
+            "isHidden": false
+          }
+        }
+      }
+    },
+    "objects": {
+      "merge": {
+        "outspacePane": [
+          {
+            "properties": {
+              "expanded": {
+                "expr": {
+                  "Literal": {
+                    "Value": "false"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

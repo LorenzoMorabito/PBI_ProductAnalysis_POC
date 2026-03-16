@@ -1,0 +1,758 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 3065.3102098028567,
+        "y": 2909448.7136927587
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 1132.415163,
+            "y": 2909090.9263905273
+          },
+          "nodeIndex": "T_FCT_FIN",
+          "nodeLineageTag": "b504a156-3341-4d9f-8835-e5bdf7c86e0c",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 28
+        },
+        {
+          "location": {
+            "x": 1136,
+            "y": 2909362.4509725273
+          },
+          "nodeIndex": "T_FCT_PROMO_A10P_CD",
+          "nodeLineageTag": "7fe48a54-a03b-400b-9804-14aa29168bdc",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 29
+        },
+        {
+          "location": {
+            "x": 1136.722728,
+            "y": 2909682.1477115275
+          },
+          "nodeIndex": "T_FCT_SALES_A10P",
+          "nodeLineageTag": "58aa389b-3496-45fc-bec9-1220e7bab678",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 42
+        },
+        {
+          "location": {
+            "x": 1719.4999999999998,
+            "y": 2910287.2843058608
+          },
+          "nodeIndex": "T_DIM_ACT4",
+          "nodeLineageTag": "09ca596b-b3a9-49c5-9a33-c83f6e6ee139",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 30
+        },
+        {
+          "location": {
+            "x": 1710,
+            "y": 2909086.4509725273
+          },
+          "nodeIndex": "T_DIM_COUNTRY",
+          "nodeLineageTag": "fef4f5af-c4b5-44c5-9cbe-a78adc504cd5",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 31
+        },
+        {
+          "location": {
+            "x": 1713.9999999999998,
+            "y": 2910131.2426391933
+          },
+          "nodeIndex": "T_DIM_MOLECULE",
+          "nodeLineageTag": "83cf93f4-c494-45bf-bf0a-00f25d7b58e9",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 41,
+          "expandedHeight": 145
+        },
+        {
+          "location": {
+            "x": 1375.6666666666663,
+            "y": 2910092.6801391938
+          },
+          "nodeIndex": "T_DIM_PRODUCT",
+          "nodeLineageTag": "e1b8bb1d-4089-493d-983f-c5766ab3e753",
+          "size": {
+            "height": 180.66666666651145,
+            "width": 234
+          },
+          "zIndex": 43
+        },
+        {
+          "location": {
+            "x": 718.28571428571422,
+            "y": 2909068.8707705988
+          },
+          "nodeIndex": "T_DIM_MONTH",
+          "nodeLineageTag": "cf2fc821-5401-47da-a123-7c03600b1fc6",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 13
+        },
+        {
+          "location": {
+            "x": 262.28571428571428,
+            "y": 2909560.5850563133
+          },
+          "nodeIndex": "T_DIM_QUARTER",
+          "nodeLineageTag": "b9313e30-1b13-4472-9048-01e357585fea",
+          "size": {
+            "height": 256,
+            "width": 234
+          },
+          "zIndex": 14
+        },
+        {
+          "location": {
+            "x": 1725.047619047619,
+            "y": 2910433.9227763251
+          },
+          "nodeIndex": "T_DIM_CORPORATION",
+          "nodeLineageTag": "b009e5da-9a3b-4bd3-b928-836680a0cc95",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 40,
+          "expandedHeight": 145
+        },
+        {
+          "location": {
+            "x": 2111.5891899767003,
+            "y": 2908750.97015282
+          },
+          "nodeIndex": "TopMetric",
+          "nodeLineageTag": "d0ce02d6-fce3-4f0c-9701-61975b98c400",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 15
+        },
+        {
+          "location": {
+            "x": 2369.1091730838207,
+            "y": 2908741.9841540046
+          },
+          "nodeIndex": "TopN",
+          "nodeLineageTag": "54d107bb-db01-45f8-8675-69aacd776453",
+          "size": {
+            "height": 145,
+            "width": 234
+          },
+          "zIndex": 16
+        },
+        {
+          "location": {
+            "x": 3147.928571428572,
+            "y": 2908947.9351127311
+          },
+          "nodeIndex": "TopByUnitsMarketshare",
+          "nodeLineageTag": "49692d34-0fde-429b-8d3d-8726fb902b32",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 17
+        },
+        {
+          "location": {
+            "x": 3143.9279514235486,
+            "y": 2908738.9704683814
+          },
+          "nodeIndex": "TopByUnits",
+          "nodeLineageTag": "f84d6813-9d6e-4fcb-a5ab-01a589a27e76",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 18
+        },
+        {
+          "location": {
+            "x": 2039.0000000000009,
+            "y": 2909920.3445570427
+          },
+          "nodeIndex": "SwitchMeasureSelector (Promo)",
+          "nodeLineageTag": "12dc2ec1-40f9-4335-b279-0825a4a686fc",
+          "size": {
+            "height": 152,
+            "width": 320
+          },
+          "zIndex": 19
+        },
+        {
+          "location": {
+            "x": 3706.9779301451194,
+            "y": 2910148.1486025723
+          },
+          "nodeIndex": "SwitchMeasureSelector (Sales)",
+          "nodeLineageTag": "b74fea4f-a775-4d4b-b7e4-1f742a214985",
+          "size": {
+            "height": 152,
+            "width": 299.56500662532153
+          },
+          "zIndex": 20
+        },
+        {
+          "location": {
+            "x": 2642.3810162060104,
+            "y": 2908738.6480707428
+          },
+          "nodeIndex": "GroupBySpending",
+          "nodeLineageTag": "5a621c32-4092-48b9-b846-dd7c2d611869",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 21
+        },
+        {
+          "location": {
+            "x": 3375.9820714355019,
+            "y": 2910146.987200914
+          },
+          "nodeIndex": "MeasureSalesSwitch (Target)",
+          "nodeLineageTag": "aa2af9e2-0e0a-4441-a079-e21e6d328a54",
+          "size": {
+            "height": 200,
+            "width": 301.82586892274639
+          },
+          "zIndex": 32
+        },
+        {
+          "location": {
+            "x": 2555.7511457986516,
+            "y": 2908232.1324811112
+          },
+          "nodeIndex": "SwitchPeriodMode",
+          "nodeLineageTag": "fc07d8a8-6836-4573-aef1-4e7faa0b6c4c",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 23
+        },
+        {
+          "location": {
+            "x": 2876.4423696442655,
+            "y": 2908650.4450181681
+          },
+          "nodeIndex": "SwitchFocusMode",
+          "nodeLineageTag": "928ca7da-1436-412a-8ed7-31b9f8ce8925",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 24
+        },
+        {
+          "location": {
+            "x": 3404.6566553585512,
+            "y": 2909391.6075131861
+          },
+          "nodeIndex": "KpiColorLabel",
+          "nodeLineageTag": "b6d6dcea-92ee-445d-bbfb-94e3c29e7114",
+          "size": {
+            "height": 145,
+            "width": 234
+          },
+          "zIndex": 25
+        },
+        {
+          "location": {
+            "x": 2380.3732701058343,
+            "y": 2909437.3644022704
+          },
+          "nodeIndex": "SwitchTopByMesure",
+          "nodeLineageTag": "6294600d-5b08-42b8-995e-692c1741464d",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 11
+        },
+        {
+          "location": {
+            "x": 2634.0476597377246,
+            "y": 2909442.38727997
+          },
+          "nodeIndex": "SwitchTopByDimension",
+          "nodeLineageTag": "fbc00435-5ce6-4e50-aa1d-0728452c61e1",
+          "size": {
+            "height": 196,
+            "width": 258
+          },
+          "zIndex": 38
+        },
+        {
+          "location": {
+            "x": 3131.1005780677538,
+            "y": 2909920.8184868735
+          },
+          "nodeIndex": "SwitchCompareMode (Finance)",
+          "nodeLineageTag": "69bb04df-c39c-421c-b27c-8ad77263cbc4",
+          "size": {
+            "height": 200,
+            "width": 317.6519050047209
+          },
+          "zIndex": 12
+        },
+        {
+          "location": {
+            "x": 3008.8737341478213,
+            "y": 2909468.47872301
+          },
+          "nodeIndex": "Dim_Entity",
+          "nodeLineageTag": "78d2444c-fb57-4c4c-8b50-0775fce1df09",
+          "size": {
+            "height": 145,
+            "width": 234
+          },
+          "zIndex": 37
+        },
+        {
+          "location": {
+            "x": 3307.3047601521375,
+            "y": 2909664.4511568975
+          },
+          "nodeIndex": "SwitchCompetitiveMeasureCategory",
+          "nodeLineageTag": "4a11d045-16fd-4008-a70d-a60ee5384618",
+          "size": {
+            "height": 160,
+            "width": 334
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 3814.9239705316018,
+            "y": 2909661.8423709469
+          },
+          "nodeIndex": "SwitchCompetitiveMeasureSelector",
+          "nodeLineageTag": "e455b7f2-03db-45c7-a2e7-1af9b7d3f34c",
+          "size": {
+            "height": 168,
+            "width": 334
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 3936.6382562458871,
+            "y": 2467752.6467532
+          },
+          "nodeIndex": "SwitchLagSelection",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 3958.3525419601733,
+            "y": 2467211.2555391504
+          },
+          "nodeIndex": "Lambda",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 3980.0668276744595,
+            "y": 2356549.9928931231
+          },
+          "nodeIndex": "MaxLag",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 7
+        },
+        {
+          "location": {
+            "x": 3096.5328979161441,
+            "y": 2281513.3483924884
+          },
+          "nodeIndex": "TopN Corp",
+          "nodeLineageTag": "f0a6d808-b5fc-4d51-8643-8d20e1951541",
+          "size": {
+            "height": 145,
+            "width": 234
+          },
+          "zIndex": 47
+        },
+        {
+          "location": {
+            "x": 1258.2471836304303,
+            "y": 2280781.4222814417
+          },
+          "nodeIndex": "TopN Prod",
+          "nodeLineageTag": "9c89d3f0-9c68-49cb-9167-8b35a34facad",
+          "size": {
+            "height": 145,
+            "width": 234
+          },
+          "zIndex": 46
+        },
+        {
+          "location": {
+            "x": 4066.9239705316045,
+            "y": 1740353.8173579117
+          },
+          "nodeIndex": "MeasurePromo(Topn+Target+Others)",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 9
+        },
+        {
+          "location": {
+            "x": 4088.6382562458907,
+            "y": 1498036.9874258605
+          },
+          "nodeIndex": "ColumnStructure",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 10
+        },
+        {
+          "location": {
+            "x": 1433.1043264875757,
+            "y": 2280384.0458799168
+          },
+          "nodeIndex": "T_DIM_CHANNELS",
+          "nodeLineageTag": "3ac0411f-8424-4a81-8566-50a1fcebd062",
+          "size": {
+            "height": 145,
+            "width": 234
+          },
+          "zIndex": 45
+        },
+        {
+          "location": {
+            "x": 1443.1043264875757,
+            "y": 2281206.0771299168
+          },
+          "nodeIndex": "T_DIM_SPECIALTY",
+          "nodeLineageTag": "9fef3b5a-8604-48d2-a922-491a959df97e",
+          "size": {
+            "height": 145,
+            "width": 234
+          },
+          "zIndex": 44
+        },
+        {
+          "location": {
+            "x": 2824.8571428571431,
+            "y": 2909696.592422572
+          },
+          "nodeIndex": "Msr Fin",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 4437.7811133887481,
+            "y": 1455174.2448125274
+          },
+          "nodeIndex": "Msr Fin LP",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2826.1594484335355,
+            "y": 2909917.3272244688
+          },
+          "nodeIndex": "Msr Fin Switch",
+          "size": {
+            "height": 200,
+            "width": 270
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 3064.4285714285716,
+            "y": 2909949.8795439559
+          },
+          "nodeIndex": "Msr Sales",
+          "size": {
+            "height": 200,
+            "width": 210
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2399.3810337611617,
+            "y": 2909917.1877014819
+          },
+          "nodeIndex": "Msr Promo Switch",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2392.1428571428573,
+            "y": 2909695.5646954025
+          },
+          "nodeIndex": "Msr Promo",
+          "size": {
+            "height": 200,
+            "width": 270
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 3066.6158807164952,
+            "y": 2910170.1606916185
+          },
+          "nodeIndex": "Msr Sales Switch",
+          "size": {
+            "height": 145,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2403.3717768689758,
+            "y": 2910142.6973373094
+          },
+          "nodeIndex": "Msr Promo Mkt Benchmark",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 3075.8678136793974,
+            "y": 2910348.4896250549
+          },
+          "nodeIndex": "Msr Sales Benchmark",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 4459.4953991030334,
+            "y": 1455174.2448125274
+          },
+          "nodeIndex": "Msr Promo LP",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 4481.2096848173187,
+            "y": 1455174.2448125274
+          },
+          "nodeIndex": "Msr Promo MEN",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 3724.7666233715036,
+            "y": 0
+          },
+          "nodeIndex": ".Colours",
+          "nodeLineageTag": "aab146c7-d16b-4de8-830f-2499640796a2",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 3153.0137982156939,
+            "y": 2909157.2325445646
+          },
+          "nodeIndex": ".Titles",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 3438.54338550451,
+            "y": 244.08466929180332
+          },
+          "nodeIndex": "LegendSlot Groupped (Menarini + TopN + Others)",
+          "nodeLineageTag": "ec74a79d-7bdc-4941-bd26-6b932b420e54",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1857.4165482999638,
+            "y": 2281256.7954111942
+          },
+          "nodeIndex": "Corporation Buckets",
+          "size": {
+            "height": 564.2343343035318,
+            "width": 510.15094375625176
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 4525.6024815036371,
+            "y": 0
+          },
+          "nodeIndex": "Msr Promo Buckets",
+          "nodeLineageTag": "d5a2e557-0c75-42ad-8e45-778b5459d898",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 4453.3961776716,
+            "y": 286.67662500715153
+          },
+          "nodeIndex": "Msr Promo Buckets LP",
+          "nodeLineageTag": "b13fa757-36e1-44c0-bd0f-1ac56b1e2139",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 4253.9599240946536,
+            "y": 0
+          },
+          "nodeIndex": "Msr Sales Buckets LP",
+          "nodeLineageTag": "ed380074-52f4-4ddd-9030-b15028859acd",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 3995.5501933733794,
+            "y": 0
+          },
+          "nodeIndex": "Msr Sales Buckets",
+          "nodeLineageTag": "888ea528-d35a-489a-8aaa-ac315d011993",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 3735.5023105092073,
+            "y": 245.7228214347013
+          },
+          "nodeIndex": "LegendCorp",
+          "nodeLineageTag": "5c3112f0-9290-43bc-bf56-7b559589e55c",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 4547.3167672179225,
+            "y": 0
+          },
+          "nodeIndex": "Msr Fin Buckets",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 4569.0310529322078,
+            "y": 0
+          },
+          "nodeIndex": "Msr Fin Buckets LP",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 61.044391043613821,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

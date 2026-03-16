@@ -1,0 +1,32 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "74ce7b7a9d65e347960d",
+  "position": {
+    "x": 0,
+    "y": 0,
+    "z": 0,
+    "height": 23.043478260869566,
+    "width": 23.043478260869566,
+    "tabOrder": 1000
+  },
+  "visualGroup": {
+    "displayName": "Group 14",
+    "groupMode": "ScaleMode",
+    "objects": {
+      "lockAspect": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "parentGroupName": "357aa9cd07d78c908e10"
+}

@@ -1,0 +1,45 @@
+DEFINE
+	VAR __DS0FilterTable = 
+		TREATAS(
+			{"'Msr Sales'[Sales Values]"},
+			'SwitchMeasureSelector (Sales)'[SwitchMeasure Fields]
+		)
+
+	VAR __DS0FilterTable2 = 
+		TREATAS({"vs BDG"}, 'SwitchCompareMode (Finance)'[Compare])
+
+	VAR __DS0FilterTable3 = 
+		TREATAS({"ITALY"}, 'T_DIM_COUNTRY'[Country])
+
+	VAR __DS0FilterTable4 = 
+		TREATAS({2023,
+			2024,
+			2025}, 'T_DIM_QUARTER'[Year])
+
+	VAR __DS0FilterTable5 = 
+		TREATAS({TRUE}, 'T_DIM_QUARTER'[Quarter_IsInPromo])
+
+	VAR __DS0FilterTable6 = 
+		TREATAS({TRUE}, 'T_DIM_QUARTER'[Quarter_IsInSales])
+
+	VAR __DS0Core = 
+		SUMMARIZECOLUMNS(
+			'T_DIM_QUARTER'[QuarterStartDay],
+			__DS0FilterTable,
+			__DS0FilterTable2,
+			__DS0FilterTable3,
+			__DS0FilterTable4,
+			__DS0FilterTable5,
+			__DS0FilterTable6,
+			"Switch_MENARINI_Mkt_ROLL_PY__Dynamic_", 'Msr Sales Switch'[Switch MENARINI Mkt ROLL PY (Dynamic)],
+			"Switch_MENARINI_Mkt_ROL__Dynamic_", 'Msr Sales Switch'[Switch MENARINI Mkt ROL (Dynamic)]
+		)
+
+	VAR __DS0BodyLimited = 
+		TOPN(1002, __DS0Core, 'T_DIM_QUARTER'[QuarterStartDay], 0)
+
+EVALUATE
+	__DS0BodyLimited
+
+ORDER BY
+	'T_DIM_QUARTER'[QuarterStartDay]

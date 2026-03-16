@@ -1,0 +1,19 @@
+table Lambda
+	lineageTag: 55a462f5-2795-419f-8e0a-15a507c172e0
+
+	column Value
+		lineageTag: d4d17eb5-fcb1-4a0c-92ec-bdf8af4d6287
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Value]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition Lambda = calculated
+		mode: import
+		source = GENERATESERIES(0.1, 0.9, 0.1)
+
+	annotation PBI_Id = 37227af3e8e04a1da2c9c06f0ce5c350
+

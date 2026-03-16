@@ -1,0 +1,33 @@
+table KpiColorLabel
+	lineageTag: b6d6dcea-92ee-445d-bbfb-94e3c29e7114
+
+	measure 'Sales YoY Label (YoY)' =
+			
+			VAR x = [Switch Sales Market Δ% vs PY (YoY)]
+			VAR a = IF ( ISBLANK(x), "", IF ( x >= 0, UNICHAR(9650), UNICHAR(9660) ) )
+			RETURN a & " " & FORMAT ( x, "0.0%" )
+		lineageTag: ee31e4af-da7a-4abd-97ca-2f0080ea1731
+
+	measure 'Sales YoY Color (YoY)' =
+			
+			VAR x = [Switch Sales Market Δ% vs PY (YoY)]
+			RETURN IF ( ISBLANK(x), "#9AA0A6", IF ( x >= 0, "#1AAB40", "#D64545" ) )
+		lineageTag: faa9022d-0a8e-4807-afe9-35af6ea1d90d
+
+	column Column
+		formatString: 0
+		lineageTag: e907a0db-53ce-442f-99ff-88faf2757865
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition KpiColorLabel = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = 5f919ea8102f42069990a58baa474644
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":""}
+

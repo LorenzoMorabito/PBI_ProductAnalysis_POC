@@ -1,0 +1,74 @@
+table 'SwitchMeasureSelector (Sales)'
+	lineageTag: b74fea4f-a775-4d4b-b7e4-1f742a214985
+
+	measure 'MetricSales (Selected)' =
+			
+			VAR k = SELECTEDVALUE('SwitchMeasureSelector (Sales)'[SwitchMeasure Order], 0)
+			RETURN
+			SWITCH(
+			    k,
+			    0, [Sales Units],
+			    1, [Sales Values],
+			    [Sales Units]
+			)
+		lineageTag: 9f686d87-64d8-4574-8208-a7e6a56d7661
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'MetricSalesLabel (Selected)' =
+			
+			SELECTEDVALUE( 'SwitchMeasureSelector (Sales)'[MetricSalesBusinessLabel])
+		lineageTag: 4d106dce-4d70-424a-9d3a-2b392a08c67f
+
+	column SwitchMeasure
+		lineageTag: 45fc1f3f-3a73-46dc-812f-62d81f2be0a9
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'SwitchMeasure Order'
+
+		relatedColumnDetails
+			groupByColumn: 'SwitchMeasure Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'SwitchMeasure Fields'
+		isHidden
+		lineageTag: d17c7eaf-fc2e-44aa-b8b0-9068c97b9c7f
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'SwitchMeasure Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'SwitchMeasure Order'
+		isHidden
+		formatString: 0
+		lineageTag: 6f0b8a0c-ff4e-4384-a3ab-751cae72bd66
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	column MetricSalesBusinessLabel
+		lineageTag: 38c80857-1048-4ae7-91ec-2abd322cb1b1
+		summarizeBy: none
+		sourceColumn: [Value4]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'SwitchMeasureSelector (Sales)' = calculated
+		mode: import
+		source =
+				{
+				    ("Units", NAMEOF('Msr Sales'[Sales Units]), 0, "Units")
+				    ,("Values", NAMEOF('Msr Sales'[Sales Values]), 1, "Values")
+				}
+
+	annotation PBI_Id = a2e9c4a143004d6392c92f7891ed8ce6
+

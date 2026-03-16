@@ -1,0 +1,51 @@
+table 'SwitchCompareMode (Finance)'
+	lineageTag: 69bb04df-c39c-421c-b27c-8ad77263cbc4
+
+	measure 'Finance Compare (Selected)' =
+			
+			SWITCH(
+			  SELECTEDVALUE('SwitchCompareMode (Finance)'[Compare], "vs BDG"),
+			  "vs BDG", [Fin BDG],
+			  "vs PY",  [Fin ACT PY]
+			)
+		lineageTag: 46aa2e92-8b5e-48ab-9fa2-cddfc9b07980
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Finance Compare Label (Selected)' =
+			
+			SELECTEDVALUE('SwitchCompareMode (Finance)'[Label], "vs BGT")
+		lineageTag: 7fd535aa-a1dd-4001-b89e-3b7db9739a9d
+
+	column Compare
+		lineageTag: 224ff488-55ec-420f-ac25-023c98beb4de
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Compare]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Label
+		lineageTag: ad21b794-cbbf-4e99-a9af-f1b9c05b864d
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Label]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'SwitchCompareMode (Finance)' = calculated
+		mode: import
+		source = ```
+				
+				DATATABLE(
+				    "Compare", STRING, 
+				    "Label", STRING,
+				    {
+				        {"vs BDG", "BGT"},
+				        {"vs PY", "PY"}
+				    }
+				)
+				```
+
+	annotation PBI_Id = 4b7167be01ec494e8a54701de0eee178
+

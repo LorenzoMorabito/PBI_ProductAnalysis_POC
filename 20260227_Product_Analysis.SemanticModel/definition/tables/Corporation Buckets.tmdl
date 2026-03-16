@@ -1,0 +1,251 @@
+table 'Corporation Buckets'
+	lineageTag: edfb50ce-6651-46d1-a03d-9b5645334cdd
+
+	measure 'QuarterStartDay PP (selected)' =
+			
+			VAR currQ = SELECTEDVALUE( T_DIM_QUARTER[QuarterStartDay] )
+			RETURN
+			CALCULATE(
+			    MAX( T_DIM_QUARTER[QuarterStartDay] ),
+			    FILTER(
+			        ALL( T_DIM_QUARTER[QuarterStartDay] ),
+			        T_DIM_QUARTER[QuarterStartDay] < currQ
+			    )
+			)
+		formatString: General Date
+		lineageTag: 9a78f1bf-50b1-41c1-860f-4344b1b18c6b
+
+	measure 'QuarterStartDay PY (selected)' =
+			
+			VAR currQ = SELECTEDVALUE( T_DIM_QUARTER[QuarterStartDay] )
+			RETURN
+			CALCULATE(
+			    MAX( T_DIM_QUARTER[QuarterStartDay] ),
+			    FILTER(
+			        ALL( T_DIM_QUARTER[QuarterStartDay] ),
+			        YEAR( T_DIM_QUARTER[QuarterStartDay] ) = YEAR( currQ ) - 1
+			            && QUARTER( T_DIM_QUARTER[QuarterStartDay] ) = QUARTER( currQ )
+			    )
+			)
+		formatString: General Date
+		lineageTag: 42589087-7d55-4833-a8d3-834d02b5a59e
+
+	measure DynamicColumnValue =
+			
+			SWITCH(
+			    TRUE(),
+			
+			    SELECTEDVALUE('ColumnStructure'[Metric]) = "ACT" && SELECTEDVALUE('ColumnStructure'[Group]) = "Sales",
+			        [Sales Values (Bucket, LP)],
+			
+			    SELECTEDVALUE('ColumnStructure'[Metric]) = "ACT" && SELECTEDVALUE('ColumnStructure'[Group]) = "Promo",
+			        [Promo Spend (Bucket, LP)],
+			
+			    SELECTEDVALUE('ColumnStructure'[Metric]) = "MS%" && SELECTEDVALUE('ColumnStructure'[Group]) = "Sales",
+			        [Sales MS% (Bucket, LP)],
+			
+			    SELECTEDVALUE('ColumnStructure'[Metric]) = "MS%" && SELECTEDVALUE('ColumnStructure'[Group]) = "Promo",
+			        [Promo Share% (Bucket, LP)],
+			
+			    SELECTEDVALUE('ColumnStructure'[Metric]) = "PPG% vs QoQ" && SELECTEDVALUE('ColumnStructure'[Group]) = "Sales",
+			        [Sales QoQ% (Bucket, LP)],
+			
+			    SELECTEDVALUE('ColumnStructure'[Metric]) = "PPG% vs QoQ" && SELECTEDVALUE('ColumnStructure'[Group]) = "Promo",
+			        [Promo QoQ% (Bucket, LP)],
+			
+			    SELECTEDVALUE('ColumnStructure'[Metric]) = "PPG% vs PY" && SELECTEDVALUE('ColumnStructure'[Group]) = "Sales",
+			        [Sales YoY% (Bucket, LP)],
+			
+			    SELECTEDVALUE('ColumnStructure'[Metric]) = "PPG% vs PY" && SELECTEDVALUE('ColumnStructure'[Group]) = "Promo",
+			        [Promo YoY% (Bucket, LP)],
+			
+			    BLANK()
+			)
+		lineageTag: dda5ed3b-ac33-4af8-817d-ae35eebf2556
+
+	measure 'QuarterStartDay PP (LP)' =
+			
+			VAR lp = [Last QuarterStartDay (stable)]
+			RETURN
+			CALCULATE(
+			    MAX(T_DIM_QUARTER[QuarterStartDay]),
+			    FILTER( ALL(T_DIM_QUARTER[QuarterStartDay]), T_DIM_QUARTER[QuarterStartDay] < lp )
+			)
+		formatString: General Date
+		lineageTag: 7ee602d7-4f9f-4c90-a819-8cd94813168e
+
+	measure 'PY QuarterStartDay (LP)' =
+			
+			VAR lp = [Last QuarterStartDay (stable)]
+			VAR y  = YEAR(lp) - 1
+			VAR q  = QUARTER(lp)
+			RETURN
+			CALCULATE(
+			    MAX(T_DIM_QUARTER[QuarterStartDay]),
+			    FILTER(
+			        ALL(T_DIM_QUARTER[QuarterStartDay]),
+			        YEAR(T_DIM_QUARTER[QuarterStartDay]) = y &&
+			        QUARTER(T_DIM_QUARTER[QuarterStartDay]) = q
+			    )
+			)
+		formatString: General Date
+		lineageTag: 13a180da-6759-418b-918b-28fb17f665a0
+
+	measure 'Bucket Corporation Name' =
+			
+			VAR tgt = "MENARINI"
+			VAR lp  = [Last QuarterStartDay (stable)]
+			VAR Nreq = [TopN Value]
+			
+			VAR bucket = SELECTEDVALUE('Corporation Buckets'[Slot])
+			VAR idx    = SELECTEDVALUE('Corporation Buckets'[NIndex])
+			
+			VAR CompCorps =
+			    FILTER(
+			        ALLSELECTED(T_DIM_CORPORATION[Corporation]),
+			        T_DIM_CORPORATION[Corporation] <> tgt &&
+			        NOT ISBLANK(T_DIM_CORPORATION[Corporation])
+			    )
+			
+			VAR CompWithLP_raw =
+			    ADDCOLUMNS(
+			        CompCorps,
+			        "__val_lp",
+			            CALCULATE(
+			                [TopBy Metric (Selected Safe)],
+			                REMOVEFILTERS(T_DIM_QUARTER),
+			                T_DIM_QUARTER[QuarterStartDay] = lp
+			            )
+			    )
+			
+			-- Filtra solo corporate realmente eleggibili per il ranking
+			VAR CompWithLP =
+			    FILTER(
+			        CompWithLP_raw,
+			        NOT ISBLANK([__val_lp])
+			        -- opzionale: && [__val_lp] > 0
+			    )
+			
+			VAR Available = COUNTROWS(CompWithLP)
+			VAR N_eff     = MIN(Nreq, Available)
+			
+			VAR TopNTable =
+			    TOPN(
+			        N_eff,
+			        CompWithLP,
+			        [__val_lp], DESC,
+			        T_DIM_CORPORATION[Corporation], ASC
+			    )
+			
+			VAR HasNth =
+			    NOT ISBLANK(idx) &&
+			    idx >= 1 &&
+			    idx <= N_eff
+			
+			VAR OneTopCorpName =
+			    IF(
+			        HasNth,
+			        MAXX(
+			            TOPN(
+			                1,
+			                TOPN(
+			                    idx,
+			                    TopNTable,
+			                    [__val_lp], DESC,
+			                    T_DIM_CORPORATION[Corporation], ASC
+			                ),
+			                [__val_lp], ASC,
+			                T_DIM_CORPORATION[Corporation], DESC
+			            ),
+			            T_DIM_CORPORATION[Corporation]
+			        )
+			    )
+			
+			VAR HasOthers =
+			    Available > N_eff
+			
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    bucket = "MENARINI", tgt,
+			    bucket = "OTHERS",   IF(HasOthers, "OTHERS", BLANK()),
+			    LEFT(bucket,3) = "TOP" && HasNth, OneTopCorpName,
+			    BLANK()
+			)
+		lineageTag: a1200400-fa88-49cd-a74e-89b7c9a6d573
+
+	measure '.FLAG Show Row (TopN Table)' =
+			
+			VAR BucketName = [Bucket Corporation Name]   -- la tua misura che mostra il nome corp nello slot
+			VAR SalesAct   = [Sales Measure (Bucket, LP)]
+			VAR PromoAct   = [Promo Measure (Bucket, LP)]
+			RETURN
+			IF(
+			    NOT ISBLANK(BucketName)
+			        || NOT ISBLANK(SalesAct)
+			        || NOT ISBLANK(PromoAct),
+			    1,
+			    BLANK()
+			)
+		formatString: 0
+		lineageTag: 8e47aa89-ceb1-449a-89e4-c0933de49399
+
+	measure 'Bucket Rank' =
+			
+			VAR slot = SELECTEDVALUE('Corporation Buckets'[Slot])
+			VAR idx  = SELECTEDVALUE('Corporation Buckets'[NIndex])
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    slot = "MENARINI", 0,
+			    LEFT(slot,3) = "TOP", idx,
+			    BLANK()
+			)
+		formatString: 0
+		lineageTag: 72faf0fc-7168-4eb9-99d7-36d8757f7984
+
+	column Slot
+		lineageTag: c1846a9a-2e25-4805-b807-105f06c410f3
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Slot]
+
+		annotation SummarizationSetBy = Automatic
+
+	column SlotOrder
+		formatString: 0
+		lineageTag: 3122282f-6b3f-40a2-b4fa-b3abcbd1d4f2
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [SlotOrder]
+
+		annotation SummarizationSetBy = Automatic
+
+	column NIndex
+		formatString: 0
+		lineageTag: 090d985b-95ae-40a7-912e-4d9d86f2f324
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [NIndex]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Corporation Buckets' = calculated
+		mode: import
+		source =
+				
+				VAR MaxN = 10
+				RETURN
+				UNION(
+				    ROW("Slot", "MENARINI", "SlotOrder", 0,   "NIndex", 0),
+				    SELECTCOLUMNS(
+				        GENERATESERIES(1, MaxN, 1),
+				        "Slot",      "TOP " & [Value],
+				        "SlotOrder", [Value],
+				        "NIndex",    [Value]
+				    ),
+				    ROW("Slot", "OTHERS",   "SlotOrder", 999, "NIndex", 999)
+				)
+
+	annotation PBI_Id = b292fa220ce84918b7b7f9535e1cff0b
+

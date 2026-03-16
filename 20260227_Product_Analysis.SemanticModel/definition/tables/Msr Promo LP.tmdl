@@ -1,0 +1,120 @@
+table 'Msr Promo LP'
+	lineageTag: b21e8018-51e4-45b5-bdb2-1a1d4167035b
+
+	measure 'LP Promo Details' =
+			
+			VAR lp = [Last QuarterStartDay (stable)]
+			RETURN
+			CALCULATE(
+			    [Promo Details],
+			    REMOVEFILTERS(T_DIM_QUARTER),
+			    T_DIM_QUARTER[QuarterStartDay] = lp
+			)
+		formatString: #,0
+		lineageTag: b548a1f8-7e56-4432-85cc-68976e26d9b3
+
+	measure 'LP Promo Details +/-% vs PY (QTR)' =
+			
+			VAR lp = [Last QuarterStartDay (stable)]
+			RETURN
+			CALCULATE(
+			    [Promo Details +/-% vs PY (QTR)],
+			    REMOVEFILTERS(T_DIM_QUARTER),
+			    T_DIM_QUARTER[QuarterStartDay] = lp
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: db8d3ae9-a623-4eda-9fd2-15721ef43d8b
+
+	measure 'LP Promo ESOV' =
+			
+			VAR lp = [Last QuarterStartDay (stable)]
+			RETURN
+			CALCULATE(
+			    [Promo ESOV],
+			    REMOVEFILTERS(T_DIM_QUARTER),
+			    T_DIM_QUARTER[QuarterStartDay] = lp
+			)
+		lineageTag: 06163a6e-a437-4e3d-9186-ee4b16cb20a2
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'LP Promo SOV%' =
+			
+			VAR lp = [Last QuarterStartDay (stable)]
+			RETURN
+			CALCULATE(
+			    [Promo SOV%],
+			    REMOVEFILTERS(T_DIM_QUARTER),
+			    T_DIM_QUARTER[QuarterStartDay] = lp
+			)
+		lineageTag: 5df746dd-647b-4489-a15c-c8699f1daa05
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'LP Promo SOV% (ATC4)' =
+			
+			VAR lp = [Last QuarterStartDay (stable)]
+			RETURN
+			CALCULATE(
+			    [Promo SOV% (ATC4)],
+			    REMOVEFILTERS(T_DIM_QUARTER),
+			    T_DIM_QUARTER[QuarterStartDay] = lp
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: cb0a6be9-3441-4532-b3e1-0d6abdf88026
+
+	measure 'LP Promo SOV% EI vs PY (QTR) (ATC4)' =
+			
+			VAR lp = [Last QuarterStartDay (stable)]
+			RETURN
+			CALCULATE(
+			    [Promo SOV% EI vs PY (ATC4)],
+			    REMOVEFILTERS(T_DIM_QUARTER),
+			    T_DIM_QUARTER[QuarterStartDay] = lp
+			)
+		formatString: 0.0
+		lineageTag: b7dca45a-cf65-4c19-8b38-678f35513029
+
+	measure 'LP Promo Spend' =
+			
+			VAR lp = [Last QuarterStartDay (stable)]
+			RETURN
+			CALCULATE(
+			    [Promo Spend],
+			    REMOVEFILTERS(T_DIM_QUARTER),
+			    T_DIM_QUARTER[QuarterStartDay] = lp
+			)
+		formatString: 0
+		lineageTag: d6d875c1-6d33-4fd3-afc0-6b4156a77a58
+
+	measure 'LP Promo Spend €/1k Details' =
+			
+			VAR lp = [Last QuarterStartDay (stable)]
+			RETURN
+			CALCULATE(
+			    [Promo Spend €/1k Details],
+			    REMOVEFILTERS(T_DIM_QUARTER),
+			    T_DIM_QUARTER[QuarterStartDay] = lp
+			)
+		lineageTag: 066fcdeb-1c44-4930-aa31-eb8fbbae1b56
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Column
+		isHidden
+		formatString: 0
+		lineageTag: 24add47f-7b77-4ade-997c-7a12711c4ec2
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Msr Promo LP' = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = 24b8ca6b3cf441428f3586d42a6d9109
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":""}
+

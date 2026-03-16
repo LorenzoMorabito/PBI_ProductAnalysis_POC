@@ -1,0 +1,22 @@
+table 'MeasureSalesSwitch (Target)'
+	isHidden
+	lineageTag: aa2af9e2-0e0a-4441-a079-e21e6d328a54
+
+	column Column
+		isHidden
+		formatString: 0
+		lineageTag: aa191dd3-683d-490c-b8f7-e302c4f55659
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'MeasureSalesSwitch (Target)' = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = f742ff48df0d49e795c23dd5cabc5456
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":""}
+

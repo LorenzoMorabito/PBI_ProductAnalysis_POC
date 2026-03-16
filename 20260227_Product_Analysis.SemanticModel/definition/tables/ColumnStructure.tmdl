@@ -1,0 +1,59 @@
+table ColumnStructure
+	lineageTag: 3a9de243-50d7-4eff-afa5-3399e824465e
+
+	column Group
+		lineageTag: 47c85852-bb77-47c0-aea1-3e6f4466c88e
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Group]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Metric
+		lineageTag: 1126a8df-be0d-4573-abe2-a687c0fadb4c
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Metric]
+
+		annotation SummarizationSetBy = Automatic
+
+	column MetricOrder
+		formatString: 0
+		lineageTag: 9c96eda3-505f-4be3-8d59-be2548f56b74
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [MetricOrder]
+
+		annotation SummarizationSetBy = Automatic
+
+	column MeasureType
+		lineageTag: 1daf5cf5-f77e-4026-926d-3d4c37af645f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [MeasureType]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition ColumnStructure = calculated
+		mode: import
+		source =
+				
+				DATATABLE(
+				    "Group", STRING,
+				    "Metric", STRING,
+				    "MetricOrder", INTEGER,
+				    "MeasureType", STRING,
+				    {
+				        {"Sales", "ACT", 0, "Sales"},
+				        {"Sales", "MS%", 1, "Sales"},
+				        {"Sales", "PPG% vs QoQ", 2, "Sales"},
+				        {"Sales", "PPG% vs PY", 3, "Sales"},
+				        {"Promo", "ACT", 4, "Promo"},
+				        {"Promo", "MS%", 5, "Promo"},
+				        {"Promo", "PPG% vs QoQ", 6, "Promo"},
+				        {"Promo", "PPG% vs PY", 7, "Promo"}
+				    }
+				)
+
+	annotation PBI_Id = 5cde8ae0610946a393521cc51b80c8e8
+

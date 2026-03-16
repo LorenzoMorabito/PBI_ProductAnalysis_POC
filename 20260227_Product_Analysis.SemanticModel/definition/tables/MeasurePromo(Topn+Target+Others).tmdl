@@ -1,0 +1,20 @@
+table MeasurePromo(Topn+Target+Others)
+	lineageTag: 599f3123-bb08-4022-aab9-f8053039a2bf
+
+	column Column
+		formatString: 0
+		lineageTag: 17c704ce-ae82-434c-9149-5e7e7948bd9d
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition MeasurePromo(Topn+Target+Others) = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = 90a4613ebf6b4390afbb66a207a96869
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":""}
+

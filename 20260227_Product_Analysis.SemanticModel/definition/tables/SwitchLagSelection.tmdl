@@ -1,0 +1,200 @@
+table SwitchLagSelection
+	lineageTag: ceaa2da9-fb92-4afb-b3ac-3cd9c9717556
+
+	measure 'Sales Values (Lag k)' =
+			
+			VAR k = SELECTEDVALUE( SwitchLagSelection[Value], 0 )
+			RETURN
+			CALCULATE( 'Msr Sales'[Sales Values], DATEADD( T_DIM_QUARTER[QuarterStartDay], -k, QUARTER) )
+		lineageTag: 00d1ba87-bad8-42ca-984b-735ec15e7add
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Corr Sales vs Spend (Lag k)' =
+			
+			VAR _T0 =
+			    ADDCOLUMNS(
+			        SUMMARIZE(
+			            ALLSELECTED( T_DIM_QUARTER ),
+			            T_DIM_QUARTER[QuarterStartDay]
+			        ),
+			        "x", [Promo Spend (Lag k)],
+			        "y", [Sales Values]
+			    )
+			VAR _T =
+			    FILTER( _T0, NOT ISBLANK([x]) && NOT ISBLANK([y]) )
+			
+			VAR _n    = COUNTROWS(_T)
+			VAR _avgx = AVERAGEX(_T, [x])
+			VAR _avgy = AVERAGEX(_T, [y])
+			
+			VAR _cov = SUMX(_T, ([x]-_avgx) * ([y]-_avgy))
+			VAR _ssx = SUMX(_T, ([x]-_avgx) * ([x]-_avgx))
+			VAR _ssy = SUMX(_T, ([y]-_avgy) * ([y]-_avgy))
+			
+			RETURN
+			IF( _n >= 3 && _ssx > 0 && _ssy > 0, _cov / SQRT(_ssx * _ssy) )
+		lineageTag: 8253c51f-ec26-4010-beaf-567010c37e1a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Promo Spend (Lag k)' =
+			
+			VAR k = SELECTEDVALUE( SwitchLagSelection[Value], 0 )
+			RETURN
+			CALCULATE(
+			    [Promo Spend],
+			    DATEADD( T_DIM_QUARTER[QuarterStartDay], -k, QUARTER )
+			)
+		formatString: 0
+		lineageTag: 3c0b2b21-5103-47a0-84c5-a9250737945a
+
+	measure 'N points (corr)' =
+			
+			VAR _T0 =
+			    ADDCOLUMNS(
+			        SUMMARIZE( ALLSELECTED(T_DIM_QUARTER), T_DIM_QUARTER[QuarterStartDay] ),
+			        "x", [Promo Spend (Lag k)],
+			        "y", [Sales Values]
+			    )
+			RETURN
+			COUNTROWS( FILTER(_T0, NOT ISBLANK([x]) && NOT ISBLANK([y])) )
+		formatString: 0
+		lineageTag: 672d3fc3-e36e-4cd3-89a4-1a7fb2b05b25
+
+	measure 'Best Lag' =
+			
+			VAR T =
+			    ADDCOLUMNS(
+			        ALL( SwitchLagSelection[Value] ),
+			        "c", CALCULATE( [Corr Sales vs Spend (Lag k)] )
+			    )
+			RETURN
+			MAXX( TOPN(1, T, [c], DESC ), SwitchLagSelection[Value] )
+		formatString: 0
+		lineageTag: 619ab2a6-913c-4f90-b1e7-688b03ab8b5f
+
+	measure 'Best Corr' =
+			
+			VAR T =
+			    ADDCOLUMNS(
+			        ALL( SwitchLagSelection[Value] ),
+			        "c", CALCULATE( [Corr Sales vs Spend (Lag k)] )
+			    )
+			RETURN
+			MAXX( T, [c] )
+		lineageTag: 559293ba-e2c9-4ec5-9a7f-120b76670421
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales QoQ Δ' =
+			
+			[Sales Values] - CALCULATE( [Sales Values], DATEADD(T_DIM_QUARTER[QuarterStartDay], -1, QUARTER) )
+		lineageTag: 823b2619-7c57-4803-a5dc-b8836f79ecc3
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Spend QoQ Δ (Lag k)' =
+			
+			VAR k = SELECTEDVALUE( SwitchLagSelection[Value], 0 )
+			VAR spend_lag = CALCULATE( [Promo Spend], DATEADD(T_DIM_QUARTER[QuarterStartDay], -k, QUARTER) )
+			VAR spend_lag_prev = CALCULATE( [Promo Spend], DATEADD(T_DIM_QUARTER[QuarterStartDay], -(k+1), QUARTER) )
+			RETURN
+			spend_lag - spend_lag_prev
+		formatString: 0
+		lineageTag: e15822b3-1989-434c-adba-feb53c3f07b5
+
+	measure 'Corr ΔSales vs ΔSpend (Lag k)' =
+			
+			VAR _T0 =
+			    ADDCOLUMNS(
+			        SUMMARIZE( ALLSELECTED(T_DIM_QUARTER), T_DIM_QUARTER[QuarterStartDay] ),
+			        "x", [Spend QoQ Δ (Lag k)],
+			        "y", [Sales QoQ Δ]
+			    )
+			VAR _T = FILTER(_T0, NOT ISBLANK([x]) && NOT ISBLANK([y]) )
+			VAR _n = COUNTROWS(_T)
+			VAR _avgx = AVERAGEX(_T, [x])
+			VAR _avgy = AVERAGEX(_T, [y])
+			VAR _cov = SUMX(_T, ([x]-_avgx)*([y]-_avgy))
+			VAR _ssx = SUMX(_T, ([x]-_avgx)*([x]-_avgx))
+			VAR _ssy = SUMX(_T, ([y]-_avgy)*([y]-_avgy))
+			RETURN IF(_n>=3 && _ssx>0 && _ssy>0, _cov / SQRT(_ssx*_ssy))
+		lineageTag: e0633563-745f-424d-9117-09ccf55047ff
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Promo Spend (Adstock)' =
+			
+			VAR lambda = SELECTEDVALUE( Lambda[Value], 0.5 )
+			VAR L      = SELECTEDVALUE( MaxLag[Value], 4 )
+			RETURN
+			SUMX(
+			    GENERATESERIES(0, L, 1),
+			    VAR i = [Value]
+			    RETURN POWER(lambda, i)
+			        * CALCULATE( [Promo Spend], DATEADD(T_DIM_QUARTER[QuarterStartDay], -i, QUARTER) )
+			)
+		lineageTag: ac473876-8264-4fdc-b252-86fbb1f46fec
+
+	measure 'Corr Sales vs Spend (valid)' =
+			
+			VAR n = [N points (corr)]
+			RETURN IF( n >= 10, [Corr Sales vs Spend (Lag k)] )
+		lineageTag: 19b8de46-271f-4b06-92ca-6038c8baf412
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Corr ΔSales vs ΔSpend (valid)' =
+			
+			VAR n = [N points (corr Δ)]   -- se non ce l’hai, te la faccio sotto
+			RETURN IF( n >= 10, [Corr ΔSales vs ΔSpend (Lag k)] )
+		lineageTag: 845e74ed-19e6-459e-8310-0a9030322c5a
+
+	measure 'Best Lag (Δ, valid)' =
+			
+			VAR T =
+			    ADDCOLUMNS(
+			        ALL( SwitchLagSelection[Value] ),
+			        "n", CALCULATE( [N points (corr Δ)] ),
+			        "c", CALCULATE( [Corr ΔSales vs ΔSpend (Lag k)] )
+			    )
+			VAR Tv = FILTER( T, [n] >= 10 )
+			RETURN
+			MAXX( TOPN(1, Tv, [c], DESC ), SwitchLagSelection[Value] )
+		lineageTag: e815d7d6-853c-4f3e-a826-51d59f6a87db
+
+	measure 'N points (corr Δ)' =
+			
+			VAR _T0 =
+			    ADDCOLUMNS(
+			        SUMMARIZE(
+			            ALLSELECTED( T_DIM_QUARTER ),
+			            T_DIM_QUARTER[QuarterStartDay]
+			        ),
+			        "x", [Spend QoQ Δ (Lag k)],
+			        "y", [Sales QoQ Δ]
+			    )
+			VAR _T =
+			    FILTER( _T0, NOT ISBLANK([x]) && NOT ISBLANK([y]) )
+			RETURN
+			COUNTROWS(_T)
+		formatString: 0
+		lineageTag: f7d381c0-d5bb-4871-82d6-6ad6b14f260e
+
+	column Value
+		formatString: 0
+		lineageTag: 7e70281b-5272-4d2a-be1f-c2b8630e8212
+		summarizeBy: sum
+		sourceColumn: [Value]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SwitchLagSelection = calculated
+		mode: import
+		source =
+				
+				GENERATESERIES(0, 12, 1)
+
+	annotation PBI_Id = 1fdc31199e884fa5a8d844e391764e32
+

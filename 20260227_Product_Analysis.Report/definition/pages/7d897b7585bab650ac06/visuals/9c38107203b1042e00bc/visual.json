@@ -1,0 +1,58 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "9c38107203b1042e00bc",
+  "position": {
+    "x": 1053.3333333333333,
+    "y": 37.777777777777779,
+    "z": 1000,
+    "height": 424.44444444444446,
+    "width": 213.33333333333331,
+    "tabOrder": 3000
+  },
+  "visual": {
+    "visualType": "aiNarratives",
+    "objects": {
+      "narrativeSelection": [
+        {
+          "properties": {
+            "dismissSelectionScreen": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "userPrompt": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Summarize the data.'"
+                }
+              }
+            },
+            "selectedVisualsJson": {
+              "expr": {
+                "Literal": {
+                  "Value": "'{\"isEntireReportSelected\":false,\"sections\":{\"7d897b7585bab650ac06\":{\"isEntireSectionSelected\":false,\"visuals\":{\"3962734608c944476ac9\":true,\"1614d19168185d708803\":true,\"462e5a932bbb05eadb0b\":true,\"42d1148a372b8050c199\":true,\"266476a455e8eea203c6\":true,\"6b5e8c4476ce002ba941\":true,\"e6ee4e668aecb8b85eb2\":true,\"4ede8100b71706c1103e\":true,\"ddc7d9cbad2b8294b2b0\":true,\"b0f2e2e7900d02a41ca5\":true,\"1ca0eec52d6eb8cea650\":true,\"e3f7d0e0dae03732205c\":true,\"fd5dcaa68a5baa7b52e5\":true,\"36f6bff10985009938c9\":true,\"61bd0453ad0ce3ea6064\":true}}}}'"
+                }
+              }
+            },
+            "useAllVisuals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

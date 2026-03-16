@@ -1,0 +1,46 @@
+table SwitchTopByMesure
+	lineageTag: 6294600d-5b08-42b8-995e-692c1741464d
+
+	measure 'TopBy Metric (Selected)' =
+			
+			SWITCH(
+			  SELECTEDVALUE(SwitchTopByMesure[TopBy], "Values PPG%"),
+			  "Values PPG%", [Sales Values Δ vs PY],
+			  "Values",  [Sales Values],
+			  "Spending", [Promo Spend]
+			)
+		lineageTag: 224b3683-fd08-4b88-b2bb-c986a6556d26
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'TopBy Metric (Selected Safe)' =
+			
+			VAR x = [TopBy Metric (Selected)]
+			RETURN IF( ISBLANK(x), -1e99, x )
+		lineageTag: 1123002e-4d82-430f-b87b-47c9ad1b3245
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column TopBy
+		lineageTag: 03c31b84-bbf3-41e4-9f20-a865cc116546
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [TopBy]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SwitchTopByMesure = calculated
+		mode: import
+		source =
+				
+				DATATABLE(
+				  "TopBy", STRING,
+				  {
+				    //{"Values PPG%"},
+				    {"Values"},
+				    {"Spending"}
+				  }
+				)
+
+	annotation PBI_Id = 584bd33d034241519b621b897d68b775
+

@@ -1,0 +1,20 @@
+table 'Msr Sales Benchmark'
+	lineageTag: 1fd42fa1-c66e-4907-bee9-aca6e81bdae3
+
+	column Column
+		formatString: 0
+		lineageTag: 73efcd57-f816-4930-bc77-99edff4e272b
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Msr Sales Benchmark' = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = 8f8dbad3de4747ef91c6534726f8cae8
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":""}
+

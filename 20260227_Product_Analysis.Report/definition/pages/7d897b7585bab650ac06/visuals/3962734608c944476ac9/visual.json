@@ -1,0 +1,984 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "3962734608c944476ac9",
+  "position": {
+    "x": 0,
+    "y": 13.846153846153845,
+    "z": 16500,
+    "height": 97.6923076923077,
+    "width": 1028.4615384615383,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "LegendCorp"
+                    }
+                  },
+                  "Property": "Legend"
+                }
+              },
+              "queryRef": "LegendCorp.Legend",
+              "nativeQueryRef": "Legend"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Msr Sales Buckets LP"
+                    }
+                  },
+                  "Property": "Sales EI (Bucket, LP)"
+                }
+              },
+              "queryRef": "Msr Sales Buckets LP.Sales EI (Bucket, LP)",
+              "nativeQueryRef": "EI",
+              "displayName": "EI"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Msr Sales Buckets LP"
+                    }
+                  },
+                  "Property": "Sales MS% (Bucket, LP)"
+                }
+              },
+              "queryRef": "Msr Sales Buckets LP.Sales MS% (Bucket, LP)",
+              "nativeQueryRef": "MS%",
+              "displayName": "MS%"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Msr Sales Buckets LP"
+                    }
+                  },
+                  "Property": "Sales +/-% vs PQ (Bucket, LP)"
+                }
+              },
+              "queryRef": "Msr Sales Buckets LP.Sales +/-% vs PY (Bucket, LP)",
+              "nativeQueryRef": "+/-% vs PP",
+              "displayName": "+/-% vs PP"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Msr Sales Buckets LP"
+                    }
+                  },
+                  "Property": "Sales PPG vs PY (Bucket, LP)"
+                }
+              },
+              "queryRef": "Msr Sales Buckets LP.Sales PPG vs PY (pp) (Bucket, LP)",
+              "nativeQueryRef": "PPG% vs PY",
+              "displayName": "PPG% vs PY"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Msr Sales Buckets LP"
+                    }
+                  },
+                  "Property": "Sales Measure (Bucket, LP)"
+                }
+              },
+              "queryRef": "Msr Sales Buckets LP.Sales Measure (Bucket, LP)",
+              "nativeQueryRef": "ACT",
+              "displayName": "ACT"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Msr Promo Buckets LP"
+                    }
+                  },
+                  "Property": "Promo EI (Bucket, LP)"
+                }
+              },
+              "queryRef": "Msr Promo Buckets LP.Promo EI (Bucket, LP)",
+              "nativeQueryRef": "EI1",
+              "displayName": "EI"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Msr Promo Buckets LP"
+                    }
+                  },
+                  "Property": "Promo MS% (Bucket, LP)"
+                }
+              },
+              "queryRef": "Msr Promo Buckets LP.Promo MS% (Bucket, LP)",
+              "nativeQueryRef": "Share%",
+              "displayName": "Share%"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Msr Promo Buckets LP"
+                    }
+                  },
+                  "Property": "Promo +/-% vs PQ (Bucket, LP)"
+                }
+              },
+              "queryRef": "Msr Promo Buckets LP.Promo +/-% vs PQ (Bucket, LP)",
+              "nativeQueryRef": "+/-% (PP)",
+              "displayName": "+/-% (PP)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Msr Promo Buckets LP"
+                    }
+                  },
+                  "Property": "Promo PPG vs PY (Bucket, LP)"
+                }
+              },
+              "queryRef": "Msr Promo Buckets LP.Promo PPG vs PY (Bucket, LP)",
+              "nativeQueryRef": "PPG% (PY)",
+              "displayName": "PPG% (PY)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Msr Promo Buckets LP"
+                    }
+                  },
+                  "Property": "Promo Measure (Bucket, LP)"
+                }
+              },
+              "queryRef": "LegendCorp (TopN + Target + Others).Promo Measure (Menarini + TopN + Others)",
+              "nativeQueryRef": "ACT1",
+              "displayName": "ACT"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Msr Fin Buckets LP"
+                    }
+                  },
+                  "Property": "Fin ACT vs BDG +/-% (Bucket, LP)"
+                }
+              },
+              "queryRef": "Msr Fin Buckets LP.Fin ACT vs BDG +/-% (Bucket, LP)",
+              "nativeQueryRef": "+/-% (BDG)",
+              "displayName": "+/-% (BDG)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Msr Fin Buckets LP"
+                    }
+                  },
+                  "Property": "Fin ACT vs PY PPG% (Bucket, LP)"
+                }
+              },
+              "queryRef": "Msr Fin Buckets LP.Fin ACT vs PY PPG% (Bucket, LP)",
+              "nativeQueryRef": "PPG% (PY)1",
+              "displayName": "PPG% (PY)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Msr Fin Buckets LP"
+                    }
+                  },
+                  "Property": "Fin ACT (Bucket, LP)"
+                }
+              },
+              "queryRef": "Msr Fin Buckets LP.Fin ACT (Bucket, LP)",
+              "nativeQueryRef": "ACT2",
+              "displayName": "ACT"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Corporation Buckets"
+                  }
+                },
+                "Property": "Bucket Rank"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "grid": [
+        {
+          "properties": {
+            "outlineStyle": {
+              "expr": {
+                "Literal": {
+                  "Value": "4D"
+                }
+              }
+            },
+            "gridVertical": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "values": [
+        {
+          "properties": {
+            "wordWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": ".Colours"
+                        }
+                      },
+                      "Property": "Colour Bucket Sales MS% EI (PY)"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 1
+                }
+              }
+            ],
+            "metadata": "Msr Sales Buckets LP.Sales EI (Bucket, LP)"
+          }
+        },
+        {
+          "properties": {
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": ".Colours"
+                        }
+                      },
+                      "Property": "Colour Bucket Sales +/-% (PP)"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 1
+                }
+              }
+            ],
+            "metadata": "Msr Sales Buckets LP.Sales +/-% vs PY (Bucket, LP)"
+          }
+        },
+        {
+          "properties": {
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": ".Colours"
+                        }
+                      },
+                      "Property": "Colour Bucket Sales PPG% (PY)"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 1
+                }
+              }
+            ],
+            "metadata": "Msr Sales Buckets LP.Sales PPG vs PY (pp) (Bucket, LP)"
+          }
+        },
+        {
+          "properties": {
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": ".Colours"
+                        }
+                      },
+                      "Property": "Colour Bucket Promo Share% PY EI"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 1
+                }
+              }
+            ],
+            "metadata": "Msr Promo Buckets LP.Promo EI (Bucket, LP)"
+          }
+        },
+        {
+          "properties": {
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": ".Colours"
+                        }
+                      },
+                      "Property": "Colour Bucket Promo +/-% (PP)"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 1
+                }
+              }
+            ],
+            "metadata": "Msr Promo Buckets LP.Promo +/-% vs PQ (Bucket, LP)"
+          }
+        },
+        {
+          "properties": {
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": ".Colours"
+                        }
+                      },
+                      "Property": "Colour Bucket Promo PPG% (PY)"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 1
+                }
+              }
+            ],
+            "metadata": "Msr Promo Buckets LP.Promo PPG vs PY (Bucket, LP)"
+          }
+        }
+      ],
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "columnHeaders": [
+        {
+          "properties": {
+            "columnAdjustment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'growToFit'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "heading": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Heading3'"
+                }
+              }
+            },
+            "titleWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "background": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": -0.1
+                    }
+                  }
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            },
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "lockAspect": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "general": [
+        {
+          "properties": {
+            "keepLayerOrder": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
+            },
+            "radius": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
+                }
+              }
+            },
+            "width": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "parentGroupName": "d830ad76637c01c386b1",
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "047c8757e5906791a760",
+        "ordinal": 0,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Msr Promo Buckets"
+              }
+            },
+            "Property": "Promo +/-% (vs PQ) (Bucket)"
+          }
+        },
+        "type": "Advanced",
+        "howCreated": "User"
+      },
+      {
+        "name": "e7f6583d608e82c37b01",
+        "ordinal": 1,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Msr Promo Buckets"
+              }
+            },
+            "Property": "Promo Share% (Bucket)"
+          }
+        },
+        "type": "Advanced",
+        "howCreated": "User"
+      },
+      {
+        "name": "17a790250b5d4cd9b071",
+        "ordinal": 2,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Msr Promo Buckets"
+              }
+            },
+            "Property": "Promo PPG % (vs PY) (Bucket)"
+          }
+        },
+        "type": "Advanced",
+        "howCreated": "User"
+      },
+      {
+        "name": "6b3eda0982048ccd567d",
+        "ordinal": 3,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Msr Promo Buckets"
+              }
+            },
+            "Property": "Promo Share% PY EI (Bucket)"
+          }
+        },
+        "type": "Advanced",
+        "howCreated": "User"
+      },
+      {
+        "name": "b8ee3df8103e3402e1bd",
+        "ordinal": 4,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Msr Sales Buckets"
+              }
+            },
+            "Property": "Sales Share% (Bucket)"
+          }
+        },
+        "type": "Advanced",
+        "howCreated": "User"
+      },
+      {
+        "name": "9b28c2b3aa5342a7beb7",
+        "ordinal": 5,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Msr Sales Buckets"
+              }
+            },
+            "Property": "Sales PPG % (vs PY) (Bucket)"
+          }
+        },
+        "type": "Advanced",
+        "howCreated": "User"
+      },
+      {
+        "name": "b48d09b08437cb007b51",
+        "ordinal": 6,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Msr Sales Buckets"
+              }
+            },
+            "Property": "Sales Share% PY EI (Bucket)"
+          }
+        },
+        "type": "Advanced",
+        "howCreated": "User"
+      },
+      {
+        "name": "a2a514a9091ec134e047",
+        "ordinal": 7,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Msr Promo Buckets LP"
+              }
+            },
+            "Property": "Promo Measure (Bucket, LP)"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "ece2be3036c2177adba4",
+        "ordinal": 8,
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Corporation Buckets"
+              }
+            },
+            "Property": "Slot"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "User"
+      },
+      {
+        "name": "b5989ea449d901d5130c",
+        "ordinal": 9,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Msr Sales Buckets LP"
+              }
+            },
+            "Property": "Sales Measure (Bucket, LP)"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "0369f211082e0e50ae70",
+        "ordinal": 10,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Corporation Buckets"
+              }
+            },
+            "Property": "Bucket Corporation Name"
+          }
+        },
+        "type": "Advanced",
+        "howCreated": "User"
+      },
+      {
+        "name": "ac3806685d1c10a22a50",
+        "ordinal": 11,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Msr Sales Buckets LP"
+              }
+            },
+            "Property": "Sales EI (Bucket, LP)"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "b87fc320c96921d55c01",
+        "ordinal": 12,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Msr Sales Buckets LP"
+              }
+            },
+            "Property": "Sales MS% (Bucket, LP)"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "509aa9f0d49d699b9a77",
+        "ordinal": 13,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Msr Sales Buckets LP"
+              }
+            },
+            "Property": "Sales +/-% vs PQ (Bucket, LP)"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "2911ec39de5c59173c6d",
+        "ordinal": 14,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Msr Sales Buckets LP"
+              }
+            },
+            "Property": "Sales PPG vs PY (Bucket, LP)"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "aa2ab4f86ba1ab0d1458",
+        "ordinal": 15,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Msr Promo Buckets LP"
+              }
+            },
+            "Property": "Promo EI (Bucket, LP)"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "628d0bb9427b87ae07ae",
+        "ordinal": 16,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Msr Promo Buckets LP"
+              }
+            },
+            "Property": "Promo MS% (Bucket, LP)"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "bf1fde32a4cc53cbe902",
+        "ordinal": 17,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Msr Promo Buckets LP"
+              }
+            },
+            "Property": "Promo +/-% vs PQ (Bucket, LP)"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "3629036e504d5deb5082",
+        "ordinal": 18,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Msr Promo Buckets LP"
+              }
+            },
+            "Property": "Promo PPG vs PY (Bucket, LP)"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "437f155e70555024e4a3",
+        "ordinal": 19,
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "LegendCorp"
+              }
+            },
+            "Property": "Legend"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "3fe07306368e16c4d6a9",
+        "ordinal": 20,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Msr Fin Buckets LP"
+              }
+            },
+            "Property": "Fin ACT vs BDG +/-% (Bucket, LP)"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "165bc924641898c9990c",
+        "ordinal": 21,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Msr Fin Buckets LP"
+              }
+            },
+            "Property": "Fin ACT vs PY PPG% (Bucket, LP)"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "912066e2a03b92a74616",
+        "ordinal": 22,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Msr Fin Buckets LP"
+              }
+            },
+            "Property": "Fin ACT (Bucket, LP)"
+          }
+        },
+        "type": "Advanced"
+      }
+    ],
+    "filterSortOrder": "Custom"
+  }
+}

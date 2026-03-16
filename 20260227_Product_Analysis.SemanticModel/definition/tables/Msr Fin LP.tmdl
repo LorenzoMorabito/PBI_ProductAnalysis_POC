@@ -1,0 +1,85 @@
+table 'Msr Fin LP'
+	lineageTag: e5acea34-46ef-493e-9dc9-5e7f7e5d4412
+
+	measure 'Fin LP ACT' =
+			
+			VAR lp = [Last QuarterStartDay (stable)]
+			RETURN
+			CALCULATE(
+			    'Msr Fin'[Fin ACT],
+			    REMOVEFILTERS(T_DIM_QUARTER),
+			    T_DIM_QUARTER[QuarterStartDay] = lp
+			)
+		lineageTag: f0e71913-0cae-4f40-b7ab-2ec30903e1fd
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Fin LP ACT PY' =
+			
+			VAR lp = [Last QuarterStartDay (stable)]
+			RETURN
+			CALCULATE(
+			    'Msr Fin'[Fin ACT PY],
+			    REMOVEFILTERS(T_DIM_QUARTER),
+			    T_DIM_QUARTER[QuarterStartDay] = lp
+			)
+		lineageTag: 2e97a35b-9c5d-4aef-84c5-c9e0c7b0044b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Fin LP ACT vs BDG +/-%' =
+			
+			DIVIDE( ([Fin LP ACT] - [Fin LP BDG] ), [Fin LP BDG])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 60cb123d-36b2-4ba4-8ffd-8172d6b225c6
+
+	measure 'Fin LP ACT vs PY PPG' =
+			
+			DIVIDE ( [Fin LP ACT] - [Fin LP ACT PY], [Fin LP ACT PY] )
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: c20f3be9-4783-4eed-ae89-92c96026b6fb
+
+	measure 'Fin LP BDG' =
+			
+			VAR lp = [Last QuarterStartDay (stable)]
+			RETURN
+			CALCULATE(
+			    'Msr Fin'[Fin BDG],
+			    REMOVEFILTERS(T_DIM_QUARTER),
+			    T_DIM_QUARTER[QuarterStartDay] = lp
+			)
+		lineageTag: 3845540d-ceab-4284-bff1-87796765520c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Fin LP BDG PY' =
+			
+			VAR lp = [Last QuarterStartDay (stable)]
+			RETURN
+			CALCULATE(
+			    'Msr Fin'[Fin BDG PY],
+			    REMOVEFILTERS(T_DIM_QUARTER),
+			    T_DIM_QUARTER[QuarterStartDay] = lp
+			)
+		lineageTag: 2774727e-6048-4fa8-84c3-297bf488c976
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Column
+		isHidden
+		formatString: 0
+		lineageTag: a0909578-8520-441d-8843-a70e585e2e30
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Msr Fin LP' = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = bec4c4bea3bd4e78861c15865922cc02
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":""}
+

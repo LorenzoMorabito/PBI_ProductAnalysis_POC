@@ -1,0 +1,55 @@
+table 'LegendSlot Groupped (Menarini + TopN + Others)'
+	lineageTag: ec74a79d-7bdc-4941-bd26-6b932b420e54
+
+	measure 'VAR tgt'
+		lineageTag: ae9d9f0f-07c8-496b-a459-9def9c99a034
+
+		annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":null}
+
+		annotation 277cc1b9-af89-4597-8e15-cacc25c0886b = To use special characters in a measure name, enclose the entire name in brackets ( [] ) and add a ] to any closing brackets in the name.
+
+	column Slot
+		lineageTag: a2976ba7-2d69-4ed0-a51d-5f7894eaf630
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Slot]
+
+		annotation SummarizationSetBy = Automatic
+
+	column SlotOrder
+		formatString: 0
+		lineageTag: ef082f50-7afd-4da0-a7f3-e9b693e757b2
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [SlotOrder]
+
+		annotation SummarizationSetBy = Automatic
+
+	column NIndex
+		formatString: 0
+		lineageTag: 50bb6376-ee26-4d89-9a73-618c96636757
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [NIndex]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'LegendSlot Groupped (Menarini + TopN + Others)' = calculated
+		mode: import
+		source =
+				
+				VAR MaxN = 10
+				RETURN
+				UNION(
+				    ROW("Slot", "MENARINI", "SlotOrder", 0, "NIndex", 0),
+				    SELECTCOLUMNS(
+				        GENERATESERIES(1, MaxN, 1),
+				        "Slot", "TOP " & [Value],
+				        "SlotOrder", [Value],
+				        "NIndex", [Value]
+				    ),
+				    ROW("Slot", "OTHERS", "SlotOrder", 999, "NIndex", 999)
+				)
+
+	annotation PBI_Id = 747e6b8a356b436bb3fdecc80977eb25
+

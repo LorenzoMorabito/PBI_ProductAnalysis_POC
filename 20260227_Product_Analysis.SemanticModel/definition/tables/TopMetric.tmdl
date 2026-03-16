@@ -1,0 +1,68 @@
+table TopMetric
+	lineageTag: d0ce02d6-fce3-4f0c-9701-61975b98c400
+
+	measure 'Top Metric Selected' =
+			
+			VAR m = SELECTEDVALUE(TopMetric[Metric], "Sales Units")
+			RETURN
+			SWITCH(
+			    m,
+			    "Sales Values", [Sales Values],
+			    "Promo Spend",  [Promo Spend],
+			    "Promo Voice",  [Promo Details],
+			    "Fin ACT",      [Fin ACT],
+			    "Fin BDG",      [Fin BDG],
+			    [Sales Units]
+			)
+		lineageTag: 6494e448-8ec3-4e46-87bf-daeba986abd2
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Top Metric (Last Period, Molecule)' =
+			
+			VAR lp = [Last QuarterStartDay (stable)]
+			RETURN
+			CALCULATE(
+			    [Top Metric Selected],
+			    REMOVEFILTERS(T_DIM_PRODUCT[Product]),
+			    KEEPFILTERS( T_DIM_QUARTER[QuarterStartDay] = lp )
+			)
+		lineageTag: 0723986d-ae0b-4b57-823c-2125e1ba94fe
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Top1 Spend Share' =
+			
+			VAR top1 =
+			    CALCULATE(
+			        [Promo Spend],
+			        FILTER(ALLSELECTED(T_DIM_PRODUCT[Product]), [Spend Rank] = 1)
+			    )
+			VAR tot =
+			    CALCULATE([Promo Spend], REMOVEFILTERS(T_DIM_PRODUCT[Product]))
+			RETURN DIVIDE(top1, tot)
+		lineageTag: 68363cc4-04cf-4b5e-9937-fd4905cc20ac
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Metric
+		dataType: string
+		lineageTag: 07fc7afa-80c0-41ab-9aad-ed4294342210
+		summarizeBy: none
+		sourceColumn: Metric
+
+		annotation SummarizationSetBy = Automatic
+
+	partition TopMetric = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WCk7MSS1WCM3LLClWitWB8cMSc0pTIQIBRfm5+QrBBal5KUj8sPzM5FQw3y0zT8HROQTOdnJxV4qNBQA=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Metric = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Metric", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

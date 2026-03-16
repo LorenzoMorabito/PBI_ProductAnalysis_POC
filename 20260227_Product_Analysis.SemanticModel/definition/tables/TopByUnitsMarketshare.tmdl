@@ -1,0 +1,58 @@
+table TopByUnitsMarketshare
+	lineageTag: 49692d34-0fde-429b-8d3d-8726fb902b32
+
+	measure 'Rank Product by Units MS (Last Period)' =
+			
+			VAR lp = [Last QuarterStartDay (stable)]
+			RETURN
+			RANKX(
+			    ALLSELECTED( T_DIM_PRODUCT[Product] ),
+			    CALCULATE(
+			        [Sales Units MS%],
+			        KEEPFILTERS( T_DIM_QUARTER[QuarterStartDay] = lp )
+			    ),
+			    ,
+			    DESC,
+			    Dense
+			)
+		formatString: 0
+		lineageTag: 2b443eea-0b07-401e-ab18-5546cbd33f59
+
+	measure 'Is TopN Product By MS (Last Period)' =
+			
+			VAR N = SELECTEDVALUE( 'TopN'[TopN], 10 )
+			RETURN
+			IF( [Rank Product by Units MS (Last Period)] <= N, 1, 0 )
+		formatString: 0
+		lineageTag: 514ef3a0-b8ea-4dc4-be83-9d3558ef71b6
+
+	measure 'Sales Market Share (Last Period)' =
+			
+			VAR lp = [Last QuarterStartDay (stable)]
+			RETURN
+			CALCULATE(
+			    [Sales Units MS%],
+			    REMOVEFILTERS(T_DIM_QUARTER),
+			    T_DIM_QUARTER[QuarterStartDay] = lp
+			)
+		lineageTag: 2a6f7530-d11e-45ab-b536-c8538e0edd30
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Column
+		formatString: 0
+		lineageTag: e5e6ed34-700a-4f0f-8991-adc15b40c9a6
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition TopByUnitsMarketshare = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = f80a4db9146f43589a5484f285d377e0
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":""}
+

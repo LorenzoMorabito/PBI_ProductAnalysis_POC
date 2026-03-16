@@ -1,0 +1,552 @@
+table 'Msr Sales'
+	lineageTag: b0ae9775-bee1-4944-b786-6a216e03018e
+
+	measure 'Sales Units' = SUM(T_FCT_SALES_A10P[Units])
+		lineageTag: 86580f17-9e6e-471f-bc2d-a75be719e3c6
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales Values' = SUM(T_FCT_SALES_A10P[EUR MNF])
+		lineageTag: 93f6ef17-b230-44fb-9152-c1795a2c34cf
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Counting Units' = SUM(T_FCT_SALES_A10P[Counting Units])
+		lineageTag: 569e45f7-79b4-4076-80c6-01e6d677dd7a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Market Units' =
+			
+			CALCULATE ( [Sales Units], REMOVEFILTERS ( T_DIM_PRODUCT[Product] ), REMOVEFILTERS( T_DIM_CORPORATION[Corporation] ) )
+		lineageTag: 43648e3c-59fb-47df-bfa3-99b38f7eb6c5
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales Units MS%' =
+			
+			DIVIDE ( [Sales Units], [Market Units (ATC4)] )
+		lineageTag: 99163056-b789-4f36-a9e0-d94ea54c460a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '# Products' = DISTINCTCOUNT ( T_FCT_SALES_A10P[Product] )
+		formatString: 0
+		lineageTag: e3984651-303d-4f8b-9816-2db274691573
+
+	measure '# Molecules' = DISTINCTCOUNT ( T_FCT_SALES_A10P[MoleculeNorm] )
+		formatString: 0
+		lineageTag: 707f6199-4c7d-4e05-bc81-19279517fcdb
+
+	measure 'Market Units PY' =
+			
+			CALCULATE ( [Market Units], SAMEPERIODLASTYEAR ( T_DIM_QUARTER[QuarterStartDay] ) )
+		lineageTag: c5da7324-3a4d-4902-8321-e7d74ff63432
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Market Units Δ% vs PY (QTR)' =
+			
+			DIVIDE ( [Market Units] - [Market Units PY], [Market Units PY] )
+		lineageTag: 0f42b6ab-dc8a-4d05-aac3-8a8756ff6262
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Market Units YTD' =
+			
+			TOTALYTD ( [Market Units], T_DIM_QUARTER[QuarterStartDay] )
+		lineageTag: bab7e676-a3f7-4c5d-937c-a585ed3f982a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Market Units YTD PY' =
+			
+			TOTALYTD ( [Market Units PY], T_DIM_QUARTER[QuarterStartDay] )
+		lineageTag: fb034d39-9bd8-45e1-a82e-826c354fb7dd
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Market Units Δ% vs PY (YTD)' =
+			
+			DIVIDE ( [Market Units YTD] - [Market Units YTD PY], [Market Units YTD PY] )
+		lineageTag: e679df31-d9b2-43e6-b987-0b7611941759
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Market Units Δ vs PY' =
+			
+			[Market Units] - [Market Units PY]
+		lineageTag: 61b43348-4069-45aa-ab1e-6ad087102167
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales Values Target Mol' =
+			
+			CALCULATE ( [Sales Values], REMOVEFILTERS ( T_DIM_CORPORATION[Corporation]) )
+		lineageTag: 36419adc-aac0-4878-9081-e75aa2985a84
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Market Units (ATC4)' =
+			
+			CALCULATE (
+			    [Sales Units],
+			    REMOVEFILTERS ( T_DIM_PRODUCT[Product] ),
+			    REMOVEFILTERS ( T_DIM_MOLECULE )
+			)
+		lineageTag: 8a9fe104-59ad-425c-9a68-c13a5263868a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Target MS% (Units)' =
+			
+			DIVIDE ( [Sales Values Target Mol], [Market Units (ATC4)] )
+		lineageTag: 58854b1b-49bf-440e-8f25-298472408a46
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'YoY % Market Units' =
+			
+			DIVIDE ( [Market Units] - [Market Units PY], [Market Units PY] )
+		lineageTag: 810f0637-85c8-4366-9b6c-dab1587697e2
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Market Units Δ vs PY color' =
+			
+			VAR v = [YoY % Market Units]
+			RETURN
+			IF ( ISBLANK(v), BLANK(), IF ( v >= 0, "#1A7F37", "#B42318" ) )
+		lineageTag: acbb2cba-9ff8-47f9-a9e6-169ac303bcfe
+
+	measure 'Market Units Δ vs PY label' =
+			
+			VAR v = [YoY % Market Units]
+			RETURN
+			IF (
+			    ISBLANK(v),
+			    BLANK(),
+			    (IF ( v >= 0, "▲ ", "▼ " )) & FORMAT ( v, "0.0%" )
+			)
+		lineageTag: 462900a7-e468-4dd7-a3ca-c7e1f0c2607a
+
+	measure 'Sales Units 3MM' =
+			
+			VAR AnchorMonth = MAX ( T_DIM_MONTH[MonthStartDay] )
+			RETURN
+			CALCULATE (
+			    [Sales Units],
+			    DATESINPERIOD ( T_DIM_MONTH[MonthStartDay], AnchorMonth, -3, MONTH )
+			)
+		lineageTag: e773cac4-3948-43b4-84d2-07dd26047d9a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales Units 3MM PY' =
+			
+			VAR AnchorMonth = MAX ( T_DIM_MONTH[MonthStartDay] )
+			VAR AnchorMonthPY = EDATE ( AnchorMonth, -12 )
+			RETURN
+			CALCULATE (
+			    [Sales Units],
+			    DATESINPERIOD ( T_DIM_MONTH[MonthStartDay], AnchorMonthPY, -3, MONTH )
+			)
+		lineageTag: 1b141b7c-7fa8-480e-be3e-55a722156cdb
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'EI Units % (3MM YoY)' =
+			
+			VAR cur = [Sales Units 3MM]
+			VAR py  = [Sales Units 3MM PY]
+			RETURN
+			( DIVIDE ( cur, py ) - 1 ) * 100
+		lineageTag: 5776aaaa-8a3e-43f0-b3fa-07470a7bd7e7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'EI Units Index (3MM, base=100)' =
+			
+			DIVIDE ( [Sales Units 3MM], [Sales Units 3MM PY] ) * 100
+		lineageTag: c028bc55-8400-4754-b993-0e2b82199d5a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Market Units MAT (4Q)' =
+			
+			VAR AnchorQ = MAX ( T_DIM_QUARTER[QuarterStartDay] )
+			
+			VAR WindowQ =
+			    TOPN (
+			        4,
+			        FILTER (
+			            ALL ( T_DIM_QUARTER[QuarterStartDay] ),
+			            T_DIM_QUARTER[QuarterStartDay] <= AnchorQ
+			        ),
+			        T_DIM_QUARTER[QuarterStartDay], DESC
+			    )
+			
+			-- Conta quanti quarter nella finestra hanno un valore NON BLANK
+			VAR QWithData =
+			    COUNTROWS (
+			        FILTER (
+			            WindowQ,
+			            VAR q = T_DIM_QUARTER[QuarterStartDay]
+			            RETURN
+			                NOT ISBLANK (
+			                    CALCULATE (
+			                        [Sales Units],
+			                        REMOVEFILTERS ( T_DIM_QUARTER ),
+			                        T_DIM_QUARTER[QuarterStartDay] = q
+			                    )
+			                )
+			        )
+			    )
+			
+			RETURN
+			IF (
+			    QWithData < 4,
+			    BLANK(),
+			    CALCULATE ( [Sales Units], REMOVEFILTERS ( T_DIM_QUARTER ), WindowQ )
+			)
+		lineageTag: 3ffd1a8b-516e-4cde-aa3c-5fbea7eb13a1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Market Units MAT PY (4Q)' =
+			
+			VAR AnchorQ = MAX ( T_DIM_QUARTER[QuarterStartDay] )
+			VAR AnchorPY = EDATE ( AnchorQ, -12 )
+			
+			VAR WindowPY =
+			    TOPN (
+			        4,
+			        FILTER (
+			            ALL ( T_DIM_QUARTER[QuarterStartDay] ),
+			            T_DIM_QUARTER[QuarterStartDay] <= AnchorPY
+			        ),
+			        T_DIM_QUARTER[QuarterStartDay], DESC
+			    )
+			
+			VAR QWithDataPY =
+			    COUNTROWS (
+			        FILTER (
+			            WindowPY,
+			            VAR q = T_DIM_QUARTER[QuarterStartDay]
+			            RETURN
+			                NOT ISBLANK (
+			                    CALCULATE (
+			                        [Sales Units],
+			                        REMOVEFILTERS ( T_DIM_QUARTER ),
+			                        T_DIM_QUARTER[QuarterStartDay] = q
+			                    )
+			                )
+			        )
+			    )
+			
+			RETURN
+			IF (
+			    QWithDataPY < 4,
+			    BLANK(),
+			    CALCULATE ( [Sales Units], REMOVEFILTERS ( T_DIM_QUARTER ), WindowPY )
+			)
+		lineageTag: f40b9d93-f68f-4458-913e-e8ba9446ca5a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales Units Δ vs PY' =
+			
+			[Sales Units] - [Sales Units PY]
+		lineageTag: 192dcc96-aa3c-4f5e-aea6-61ffe29a5781
+
+	measure 'Sales Units PY' =
+			
+			CALCULATE ( [Sales Units], SAMEPERIODLASTYEAR ( T_DIM_QUARTER[QuarterStartDay] ) )
+		lineageTag: 6b55abd2-30d4-4f9f-b7e1-3ed1deb6dbdb
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales Values PY' =
+			
+			CALCULATE ( [Sales Values], SAMEPERIODLASTYEAR ( T_DIM_QUARTER[QuarterStartDay] ) )
+		lineageTag: aacad6d9-6c29-45b6-966e-5fc2bc7577c3
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales Values Δ vs PY' =
+			
+			[Sales Values] - [Sales Values PY]
+		lineageTag: e8bf752a-9017-4a93-9888-9eaf89f53c03
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales Values Δ% vs PY (QTR)' =
+			
+			DIVIDE ( [Sales Values] - [Sales Values PY], [Sales Values PY] )
+		lineageTag: 1fc094db-b9ca-47e5-a6d2-1084d4944da8
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales Values MS%' =
+			
+			DIVIDE ( [Sales Values], [Market Values (ATC4)] )
+		lineageTag: d4d70e8a-849c-4993-a6f1-b8f44d987bbe
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Market Values (ATC4)' = ```
+			
+			CALCULATE ( [Sales Values], REMOVEFILTERS ( T_DIM_PRODUCT ) , 
+			                            REMOVEFILTERS ( T_DIM_MOLECULE ) , 
+			                            REMOVEFILTERS(T_DIM_CORPORATION), 
+			                            KEEPFILTERS( VALUES(T_DIM_PRODUCT[ATC4] )))
+			```
+		lineageTag: 28a17599-a3d0-42b2-951f-e6bfefd11fac
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales Values MS% TopN Mol (Frequenze Cumulate)' = ```
+			
+			VAR N = [TopN Value]
+			VAR TotalSales =
+			    CALCULATE ( [LP Sales Values], ALL ( T_DIM_MOLECULE[MoleculeNorm] ), ALL( T_DIM_CORPORATION ) )
+			VAR TopTable =
+			    TOPN (
+			        N,
+			        ALL ( T_DIM_MOLECULE[MoleculeNorm] ),
+			        CALCULATE ( [LP Sales Values] ),
+			        DESC
+			    )
+			VAR TopSales =
+			    SUMX ( TopTable, CALCULATE ( [LP Sales Values] ) )
+			RETURN
+			DIVIDE ( TopSales, TotalSales )
+			
+			```
+		lineageTag: 3732695e-63ff-4b03-a7f0-0f1e9d53fb37
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'LP Sales Values' =
+			
+			VAR lp = [Last QuarterStartDay (stable)]
+			RETURN
+			CALCULATE(
+			    [Sales Values],
+			    REMOVEFILTERS(T_DIM_QUARTER),
+			    T_DIM_QUARTER[QuarterStartDay] = lp
+			)
+		lineageTag: 9166657b-c04f-4a3d-bcf8-9b597e1e83a6
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'LP Sales Values MS%' =
+			
+			VAR lp = [Last QuarterStartDay (stable)]
+			RETURN
+			CALCULATE(
+			    [Sales Values MS%],
+			    REMOVEFILTERS(T_DIM_QUARTER),
+			    T_DIM_QUARTER[QuarterStartDay] = lp
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 777cb100-327f-4641-b71d-604da5291957
+
+	measure 'LP Sales Values +/-% vs PY (QTR)' =
+			
+			VAR lp = [Last QuarterStartDay (stable)]
+			RETURN
+			CALCULATE(
+			    [Sales Values Δ% vs PY (QTR)],
+			    REMOVEFILTERS(T_DIM_QUARTER),
+			    T_DIM_QUARTER[QuarterStartDay] = lp
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: bc3a41cb-129b-42ca-b879-1c8c79b0cc69
+
+	measure 'Sales Values MS% PY' = ```
+			
+			CALCULATE ( [Sales Values MS%], SAMEPERIODLASTYEAR ( T_DIM_QUARTER[QuarterStartDay] ) )
+			
+			```
+		lineageTag: c834d660-5e76-4d99-909c-222a23817c4a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales Values MS% Δ vs PY' =
+			
+			[LP Sales Values MS%] - [Sales Values MS% PY]
+		lineageTag: b70352c4-0533-47f3-a4be-527000022a74
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales Values MS% Δ% vs PY (QTR)' =
+			
+			DIVIDE ( [Sales Values MS%] - [Sales Values MS% PY], [Sales Values MS% PY] )
+		lineageTag: 1bc12614-72ca-4532-a206-fae8086f9434
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'MENARINI Sales Values' =
+			
+			CALCULATE(
+			    [Sales Values],
+			    REMOVEFILTERS(T_DIM_CORPORATION),
+			    T_DIM_CORPORATION[Corporation] = "MENARINI"
+			)
+		lineageTag: 6efa136b-2b9a-477b-99ee-f8498c9eb6f6
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'MENARINI Sales Values vs TopN' = ```
+			
+			VAR comp = [Top Competitor Corp (LP)]
+			RETURN
+			IF(
+			    NOT ISBLANK(comp),
+			    CALCULATE( [Sales Values], T_DIM_CORPORATION[Corporation] = comp )
+			)
+			
+			```
+		lineageTag: d5cda0f6-049b-41fd-8b8b-6885ae1bc329
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'MENARINI MS%' = ```
+			
+			DIVIDE( [MENARINI Sales Values], [Market Values (ATC4)] )
+			
+			```
+		lineageTag: c8b400a8-7c2b-42b1-9438-c87268ed866a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'MENARINI Top Competitor MS%' =
+			
+			DIVIDE( [MENARINI Sales Values vs TopN], [Market Values (ATC4)] )
+		lineageTag: 51b23b3d-7f18-4b0e-833c-9deadf754667
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales Values (Target)' =
+			
+			VAR view = SELECTEDVALUE(Dim_Entity[ViewBy], "Molecule")
+			VAR ent  = [Target Entity]
+			RETURN
+			IF(
+			    ent = "(Seleziona...)",
+			    BLANK(),
+			    SWITCH(
+			        view,
+			        "Molecule",
+			            CALCULATE(
+			                [Sales Values],
+			                TREATAS( {ent}, T_DIM_MOLECULE[MoleculeNorm] )
+			            ),
+			        "Corporation",
+			            CALCULATE(
+			                [Sales Values],
+			                TREATAS( {ent}, T_DIM_CORPORATION[Corporation] )
+			            )
+			    )
+			)
+		lineageTag: 502ec24c-362d-435d-80cb-646e091bc5f1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales Values EI (base 100, vs PY)' =
+			
+			VAR ms = [Sales Values MS%]
+			VAR ms_py = [Sales Values MS% PY]
+			RETURN IF( ISBLANK(ms_py), BLANK(), DIVIDE(ms, ms_py) * 100 )
+		lineageTag: 973a23ab-b18b-4f6a-b703-df3f90b87e25
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'LP Sales Values MS% EI PY (QTR) (ATC4)' =
+			
+			VAR lp = [Last QuarterStartDay (stable)]
+			RETURN
+			CALCULATE(
+			    [Sales Values EI (base 100, vs PY) (ATC4)],
+			    REMOVEFILTERS(T_DIM_QUARTER),
+			    T_DIM_QUARTER[QuarterStartDay] = lp
+			)
+		formatString: 0.0
+		lineageTag: 68bebd40-4ad0-48fe-ba5a-572d40fc2196
+
+	measure 'Market Values' =
+			
+			CALCULATE ( [Sales Values], REMOVEFILTERS ( T_DIM_MOLECULE ) , REMOVEFILTERS(T_DIM_CORPORATION))
+		lineageTag: 1bd87f4c-20fd-4f57-936a-cf78b5e91ec9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'LP Sales Values MS% (ATC4)' =
+			
+			VAR lp = [Last QuarterStartDay (stable)]
+			RETURN
+			CALCULATE(
+			    [Sales Values MS% (ATC4)],
+			    REMOVEFILTERS(T_DIM_QUARTER),
+			    T_DIM_QUARTER[QuarterStartDay] = lp
+			)*100
+		lineageTag: a59a904a-fba0-443e-a4a2-dc8082ed7fd2
+
+	measure 'Sales Values MS% (ATC4)' =
+			
+			DIVIDE ( [Sales Values], [Market Values (ATC4)] )
+		lineageTag: 8e1cc7dc-d175-4e1d-a334-0ce8d1c9d5ab
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales Values EI (base 100, vs PY) (ATC4)' =
+			
+			VAR ms = [Sales Values MS% (ATC4)]
+			VAR ms_py = [Sales Values MS% PY (ATC4)]
+			RETURN IF( ISBLANK(ms_py), BLANK(), DIVIDE(ms, ms_py) * 100 )
+		lineageTag: 7b8eb753-4778-42d6-8bfe-5933b2261352
+
+	measure 'Sales Values MS% PY (ATC4)' =
+			
+			CALCULATE ( [Sales Values MS% (ATC4)], SAMEPERIODLASTYEAR ( T_DIM_QUARTER[QuarterStartDay] ) )
+		lineageTag: 5269bbec-ecd1-4fcb-b09e-a617d138b4d6
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'LP Sales Values MS% EI PY (QTR)' =
+			
+			VAR lp = [Last QuarterStartDay (stable)]
+			RETURN
+			CALCULATE(
+			    [Sales Values EI (base 100, vs PY)],
+			    REMOVEFILTERS(T_DIM_QUARTER),
+			    T_DIM_QUARTER[QuarterStartDay] = lp
+			)
+		lineageTag: c006d861-71a2-416f-b70f-66277be0f964
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales Units MS% (log)' =
+			
+			LOG(DIVIDE ( [Sales Units], [Market Units (ATC4)] ))
+		lineageTag: d65e506c-a949-4db2-b720-0ae9b0692b62
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Column
+		isHidden
+		formatString: 0
+		lineageTag: 628661bc-b0a1-4812-904d-4c292d600044
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Msr Sales' = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = bf9ea5676f6d481584bb5e6358202977
+

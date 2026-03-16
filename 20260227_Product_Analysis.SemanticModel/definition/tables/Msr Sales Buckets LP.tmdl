@@ -1,0 +1,173 @@
+table 'Msr Sales Buckets LP'
+	lineageTag: ed380074-52f4-4ddd-9030-b15028859acd
+
+	measure 'Sales Measure (Bucket, LP)' =
+			
+			VAR lp = [Last QuarterStartDay (stable)]
+			RETURN
+			CALCULATE(
+			    [Sales Measure (Bucket)],
+			    REMOVEFILTERS( T_DIM_QUARTER ),
+			    T_DIM_QUARTER[QuarterStartDay] = lp
+			)
+		lineageTag: 5f1d761f-a2ca-43fd-b793-cf23b5e90361
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales Measure (Bucket, PQ)' =
+			
+			VAR pq = [QuarterStartDay PP (LP)]
+			RETURN
+			CALCULATE(
+			    [Sales Measure (Bucket)],
+			    REMOVEFILTERS(T_DIM_QUARTER),
+			    T_DIM_QUARTER[QuarterStartDay] = pq
+			)
+		lineageTag: cc039a5f-0501-4ffd-a274-6343c6994abc
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales Measure (Bucket, PY)' =
+			
+			VAR py = [PY QuarterStartDay (LP)]
+			RETURN
+			CALCULATE(
+			    [Sales Measure (Bucket)],
+			    REMOVEFILTERS(T_DIM_QUARTER),
+			    T_DIM_QUARTER[QuarterStartDay] = py
+			)
+		lineageTag: 4d0a0749-f56d-41c6-9dcb-0adef4974574
+
+	measure 'Sales QoQ% (Bucket, LP)' =
+			
+			VAR curr = [Sales Measure (Bucket, LP)]
+			VAR prev = [Sales Measure (Bucket, PQ)]
+			RETURN
+			DIVIDE(curr - prev, prev)
+		lineageTag: ef17a607-06cc-4cd5-a278-8190128c47d5
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales YoY% (Bucket, LP)' =
+			
+			VAR curr = [Sales Measure (Bucket, LP)]
+			VAR py   = [Sales Measure (Bucket, PY)]
+			RETURN
+			DIVIDE(curr - py, py)
+		lineageTag: 8ae7c810-36c6-48a8-a791-8cec557623f0
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales Market Total (LP)' =
+			
+			VAR lp = [Last QuarterStartDay (stable)]
+			RETURN
+			CALCULATE(
+			    [MetricSales (Selected)],
+			    REMOVEFILTERS(T_DIM_QUARTER),
+			    T_DIM_QUARTER[QuarterStartDay] = lp,
+			    REMOVEFILTERS(T_DIM_CORPORATION[Corporation])
+			)
+		lineageTag: 976db982-593e-4012-bcee-74ed565cba09
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales MS% (Bucket, LP)' =
+			
+			DIVIDE( [Sales Measure (Bucket, LP)], [Sales Market Total (LP)] )
+		lineageTag: 3c139209-cac5-4ee2-91dd-a5dd3665cdff
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales MS% (Bucket, PY)' =
+			
+			VAR py = [PY QuarterStartDay (LP)]
+			RETURN
+			CALCULATE(
+			    [Sales Share% (Bucket)],
+			    REMOVEFILTERS(T_DIM_QUARTER),
+			    T_DIM_QUARTER[QuarterStartDay] = py
+			)
+		lineageTag: 788431fa-ad0c-40bb-96c8-fe7408940db9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales EI (Bucket, LP)' =
+			
+			VAR ms    = [Sales MS% (Bucket, LP)]
+			VAR ms_py = [Sales MS% (Bucket, PY)]
+			RETURN
+			IF(ISBLANK(ms_py), BLANK(), DIVIDE(ms, ms_py) * 100)
+		lineageTag: 6d5ef544-d805-474a-a48b-6d3286d1ec2a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales +/- vs PQ (abs) (Bucket, LP)' =
+			
+			VAR curr = [Sales Measure (Bucket, LP)]
+			VAR pq   = [Sales Measure (Bucket, PQ)]
+			RETURN
+			IF( ISBLANK(pq), BLANK(), curr - pq )
+		lineageTag: eca6412f-0605-4b54-9583-af4ec4b3d5c5
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales +/-% vs PQ (Bucket, LP)' =
+			
+			VAR curr = [Sales Measure (Bucket, LP)]
+			VAR pq   = [Sales Measure (Bucket, PQ)]
+			RETURN
+			DIVIDE( curr - pq, pq )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 8c6e1f61-b527-4b29-a634-58da00069407
+
+	measure 'Sales Market Total (PY)' =
+			
+			VAR py = [PY QuarterStartDay (LP)]
+			RETURN
+			IF(
+			    ISBLANK(py),
+			    BLANK(),
+			    CALCULATE(
+			        [MetricSales (Selected)],
+			        REMOVEFILTERS( T_DIM_QUARTER ),
+			        T_DIM_QUARTER[QuarterStartDay] = py,
+			        REMOVEFILTERS( T_DIM_CORPORATION[Corporation] )
+			    )
+			)
+		lineageTag: 5646e8b9-5251-4422-9524-e69b282dac4c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales PPG vs PY (Bucket, LP)' =
+			
+			VAR ms    = [Sales Measure (Bucket, LP)]
+			VAR ms_py = [Sales Measure (Bucket, PY)]
+			RETURN
+			IF(
+			    ISBLANK(ms) || ISBLANK(ms_py),
+			    BLANK(),
+			    DIVIDE(ms - ms_py, ms_py)
+			)
+		lineageTag: 30fcf2a3-de27-43a7-a7c3-fcdb43da21fc
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Column
+		isHidden
+		formatString: 0
+		lineageTag: 31dea410-9533-4e08-b6a6-5887505da9ca
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Msr Sales Buckets LP' = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = 47fb048151f8427186ac1632d805020b
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":""}
+

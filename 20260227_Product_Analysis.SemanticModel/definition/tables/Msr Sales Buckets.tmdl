@@ -1,0 +1,250 @@
+table 'Msr Sales Buckets'
+	lineageTag: 888ea528-d35a-489a-8aaa-ac315d011993
+
+	measure 'Sales +/-% vs QoQ (Bucket)' =
+			
+			VAR curr = [Sales Measure (Bucket)]
+			VAR prev = [Sales Measure Prev Q (Bucket)]
+			RETURN
+			DIVIDE( curr - prev, prev )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 5e34c75a-6f32-428c-a8f1-72215b22dab1
+
+	measure 'Sales Market Total (Selected)' =
+			
+			CALCULATE(
+			    [MetricSales (Selected)],
+			    REMOVEFILTERS( T_DIM_CORPORATION[Corporation] )
+			)
+		lineageTag: 91b98616-7d9e-4633-89c5-f844a947547d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales Measure (Bucket)' =
+			
+			VAR tgt = "MENARINI"
+			VAR N   = [TopN Value]
+			VAR lp  = [Last QuarterStartDay (stable)]
+			VAR legend = SELECTEDVALUE( LegendCorp[Legend] )
+			
+			VAR CompCorps =
+			    FILTER(
+			        ALLSELECTED( T_DIM_CORPORATION[Corporation] ),
+			        T_DIM_CORPORATION[Corporation] <> tgt
+			            && NOT ISBLANK( T_DIM_CORPORATION[Corporation] )
+			    )
+			
+			VAR CompWithLP =
+			    ADDCOLUMNS(
+			        CompCorps,
+			        "__val_lp",
+			            CALCULATE(
+			                [TopBy Metric (Selected Safe)],
+			                REMOVEFILTERS( T_DIM_QUARTER ),
+			                T_DIM_QUARTER[QuarterStartDay] = lp
+			            )
+			    )
+			
+			VAR TopNTable = TOPN( N, CompWithLP, [__val_lp], DESC )
+			VAR TopNList  = SELECTCOLUMNS( TopNTable, "Corporation", T_DIM_CORPORATION[Corporation] )
+			
+			VAR CompList    = SELECTCOLUMNS( CompCorps, "Corporation", T_DIM_CORPORATION[Corporation] )
+			VAR OthersList  = EXCEPT( CompList, TopNList )
+			
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    legend = tgt,
+			        CALCULATE( [MetricSales (Selected Period)], TREATAS( {tgt}, T_DIM_CORPORATION[Corporation] ) ),
+			
+			    legend = "OTHERS",
+			        CALCULATE( [MetricSales (Selected Period)], TREATAS( OthersList, T_DIM_CORPORATION[Corporation] ) ),
+			
+			    CONTAINS( TopNList, [Corporation], legend ),
+			        CALCULATE( [MetricSales (Selected Period)], TREATAS( {legend}, T_DIM_CORPORATION[Corporation] ) ),
+			
+			    BLANK()
+			)
+		lineageTag: 012f1cc9-2e89-42ac-9eda-d6f0f34e17e1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales Measure Prev Q (Bucket)' =
+			
+			VAR prevQ = [QuarterStartDay PP (selected)]
+			RETURN
+			IF(
+			    ISBLANK(prevQ),
+			    BLANK(),
+			    CALCULATE(
+			        [Sales Measure (Bucket)],
+			        REMOVEFILTERS( T_DIM_QUARTER ),
+			        T_DIM_QUARTER[QuarterStartDay] = prevQ
+			    )
+			)
+		lineageTag: dffb884c-f0ac-4dd8-af25-d243800d409d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales Measure PY (Bucket)' =
+			
+			VAR pyQ = [QuarterStartDay PY (selected)]
+			RETURN
+			IF(
+			    ISBLANK(pyQ),
+			    BLANK(),
+			    CALCULATE(
+			        [Sales Measure (Bucket)],
+			        REMOVEFILTERS( T_DIM_QUARTER ),
+			        T_DIM_QUARTER[QuarterStartDay] = pyQ
+			    )
+			)
+		lineageTag: 9c84288b-db12-4869-aaad-7ad2abf6770d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales PPG % (vs PY) (Bucket)' =
+			
+			VAR curr = [Sales Measure (Bucket)]
+			VAR py   = [Sales Measure PY (Bucket)]
+			RETURN
+			DIVIDE( curr - py, py )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 6c4f47e1-1457-40ef-a33f-6932f8f3a2a9
+
+	measure 'Sales Share% (Bucket)' =
+			
+			VAR num = [Sales Measure (Bucket)]
+			VAR den = [Sales Market Total (Selected)]
+			RETURN
+			DIVIDE( num, den )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 295e44c1-deaa-4846-bb50-c8c566fa9010
+
+	measure 'Sales Share% PY (Bucket)' =
+			
+			VAR pyQ = [QuarterStartDay PY (selected)]
+			RETURN
+			IF(
+			    ISBLANK(pyQ),
+			    BLANK(),
+			    CALCULATE(
+			        [Sales Share% (Bucket)],
+			        REMOVEFILTERS( T_DIM_QUARTER ),
+			        T_DIM_QUARTER[QuarterStartDay] = pyQ
+			    )
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 34561281-2bdd-4354-a0d1-9eb0921c5a7c
+
+	measure 'Sales Share% PY EI (Bucket)' =
+			
+			VAR ms    = [Sales Share% (Bucket)]
+			VAR ms_py = [Sales Share% PY (Bucket)]
+			RETURN
+			IF( ISBLANK(ms_py), BLANK(), DIVIDE(ms, ms_py) * 100 )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: f6aa3fc6-607f-4cbf-8fbc-23fcba1f0a44
+
+	measure 'Sales Measure (Bucket) OLD' =
+			
+			VAR tgt = "MENARINI"
+			VAR lp  = [Last QuarterStartDay (stable)]
+			VAR N   = [TopN Value]
+			
+			VAR bucket = SELECTEDVALUE( 'Corporation Buckets'[Slot] )
+			VAR idx    = SELECTEDVALUE( 'Corporation Buckets'[NIndex] )
+			
+			-- Candidate corps (esclude Menarini)
+			VAR CompCorps =
+			    FILTER(
+			        VALUES( T_DIM_CORPORATION[Corporation] ),
+			        T_DIM_CORPORATION[Corporation] <> tgt
+			            && NOT ISBLANK( T_DIM_CORPORATION[Corporation] )
+			    )
+			
+			-- Ranking calcolato SOLO a LP (lista TopN stabile)
+			VAR CompWithLP =
+			    ADDCOLUMNS(
+			        CompCorps,
+			        "__val_lp",
+			            CALCULATE(
+			                [TopBy Metric (Selected Safe)],         -- <--- QUI definisci su cosa fai il TopN (Spending / Sales / ecc.)
+			                REMOVEFILTERS( T_DIM_QUARTER ),
+			                T_DIM_QUARTER[QuarterStartDay] = lp
+			            )
+			    )
+			
+			VAR TopNTable =
+			    TOPN( N, CompWithLP, [__val_lp], DESC, T_DIM_CORPORATION[Corporation], ASC )
+			
+			VAR TopNCorps =
+			    SELECTCOLUMNS( TopNTable, "Corporation", T_DIM_CORPORATION[Corporation] )
+			
+			VAR OthersCorps =
+			    EXCEPT(
+			        SELECTCOLUMNS(CompCorps, "Corporation", T_DIM_CORPORATION[Corporation]),
+			        TopNCorps
+			    )
+			
+			-- Corporation del bucket TOP idx
+			VAR OneTopCorp =
+			    SELECTCOLUMNS(
+			        TOPN(
+			            1,
+			            TOPN( idx, TopNTable, [__val_lp], DESC, T_DIM_CORPORATION[Corporation], ASC ),
+			            [__val_lp], ASC, T_DIM_CORPORATION[Corporation], DESC
+			        ),
+			        "Corporation", [Corporation]
+			    )
+			
+			RETURN
+			SWITCH(
+			    TRUE(),
+			
+			    bucket = "MENARINI",
+			        CALCULATE(
+			            [MetricSales (Selected)],
+			            TREATAS( {tgt}, T_DIM_CORPORATION[Corporation] )
+			        ),
+			
+			    LEFT(bucket,3) = "TOP" && idx <= N,
+			        CALCULATE(
+			            [MetricSales (Selected)],
+			            TREATAS( OneTopCorp, T_DIM_CORPORATION[Corporation] )
+			        ),
+			
+			    bucket = "OTHERS",
+			        IF(
+			            COUNTROWS(OthersCorps)=0,
+			            BLANK(),
+			            CALCULATE(
+			                [MetricSales (Selected)],
+			                TREATAS( OthersCorps, T_DIM_CORPORATION[Corporation] )
+			            )
+			        ),
+			
+			    BLANK()
+			)
+		lineageTag: 526ade69-86d2-4573-9b97-08531ff10bd9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Column
+		isHidden
+		formatString: 0
+		lineageTag: 349301ed-3491-45f1-9cf7-69fd3fba8eed
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Msr Sales Buckets' = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = 0157a0022e4f455ea65ed829a9832b36
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":""}
+

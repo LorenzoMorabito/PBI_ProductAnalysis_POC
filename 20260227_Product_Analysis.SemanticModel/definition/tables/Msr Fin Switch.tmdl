@@ -1,0 +1,37 @@
+table 'Msr Fin Switch'
+	lineageTag: 89f385d6-013b-4a11-bcc7-f13fb264bef9
+
+	measure 'Fin ACT vs (Selected) abs' =
+			
+			VAR comp = [Finance Compare (Selected)]
+			RETURN IF( ISBLANK(comp), BLANK(), [Fin ACT] - comp )
+		lineageTag: 66d7f652-664a-4c78-b0d9-724f7983d7dd
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Fin ACT vs (Selected) +/-%' =
+			
+			VAR comp = [Finance Compare (Selected)]
+			RETURN IF( ISBLANK(comp), BLANK(), DIVIDE([Fin ACT] - comp, comp) )
+		lineageTag: 8c387189-14b6-4838-8c2f-a9f1a1a27120
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Column
+		isHidden
+		formatString: 0
+		lineageTag: 7a4832c7-d0e0-453f-9500-8109ae9ec030
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Msr Fin Switch' = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = f9c9abb71f4644e797345931f46507e0
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":""}
+

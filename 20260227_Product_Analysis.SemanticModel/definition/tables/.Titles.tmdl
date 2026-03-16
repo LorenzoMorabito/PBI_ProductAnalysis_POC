@@ -1,0 +1,172 @@
+table '.Titles'
+	lineageTag: 88901b9c-24ee-46d3-a614-0eacabf144b2
+
+	measure 'Promo Diagram Act Vs PY' = ```
+			
+			VAR lbl = [MetricPromoLabel (Selected)]
+			VAR txt = lbl & " Actual Vs " & lbl & " PY"
+			RETURN txt
+			
+			```
+		lineageTag: 35e6222e-84a4-4c40-8e0d-1c1f13699213
+
+	measure 'Sales Visual Act Vs PY' =
+			
+			VAR lbl = [MetricSalesLabel (Selected)]
+			VAR txt = lbl & " Actual Vs " & lbl & " PY"
+			RETURN txt
+		lineageTag: e86d45eb-4b60-41de-95a2-43cda97ec22d
+
+	measure 'Promo Card MAT' =
+			
+			VAR lbl = [MetricPromoLabel (Selected)]
+			VAR txt = lbl & " MAT"
+			RETURN txt
+		lineageTag: 69c43c67-16a9-4abe-a554-43fe1562e4d6
+
+	measure 'Promo Card MAT PY' =
+			
+			VAR lbl = [MetricPromoLabel (Selected)]
+			VAR txt = lbl & " MAT PY"
+			RETURN txt
+		lineageTag: ffbc7f80-4c3b-460b-a41c-6676904d8bdd
+
+	measure 'Promo Card YTD' =
+			
+			VAR lbl = [MetricPromoLabel (Selected)]
+			VAR txt = lbl & " YTD"
+			RETURN txt
+		lineageTag: db4a93a4-647f-4663-a730-4d19ca5420ca
+
+	measure 'Promo Card YTD PY' =
+			
+			VAR lbl = [MetricPromoLabel (Selected)]
+			VAR txt = lbl & " YTD PY"
+			RETURN txt
+		lineageTag: cfde9339-f4a5-4bf4-baca-9f2cf323c22a
+
+	measure 'Promo Card ACT' =
+			
+			VAR lbl = [MetricPromoLabel (Selected)]
+			VAR txt = lbl & " ACT"
+			RETURN txt
+		lineageTag: fd43e006-b6d0-46a9-aa07-8d6434a5176e
+
+	measure 'Promo Card Previus Year' = ```
+			
+			VAR lbl = [MetricPromoLabel (Selected)]
+			VAR txt = "Previus Year - " & lbl 
+			RETURN txt
+			```
+		lineageTag: e35f63ff-6a71-402e-8e4f-45a58091b780
+
+	measure 'Sales Card ACT' =
+			
+			VAR lbl = [MetricSalesLabel (Selected)]
+			VAR txt = lbl & " ACT"
+			RETURN txt
+		lineageTag: 8d10c5a3-9fa2-49b3-b86b-53efe51484ac
+
+	measure 'Sales Card MAT' =
+			
+			VAR lbl = [MetricSalesLabel (Selected)]
+			VAR txt = lbl & " MAT"
+			RETURN txt
+		lineageTag: 00d5ba28-bf62-4bc1-9e50-73208fe270b0
+
+	measure 'Sales Card YTD' =
+			
+			VAR lbl = [MetricSalesLabel (Selected)]
+			VAR txt = lbl & " YTD"
+			RETURN txt
+		lineageTag: 08727a40-eecc-4c3d-be2f-82802703642b
+
+	measure 'Table TopN' =
+			
+			"Top " & [TopN Value] & " " &
+			[TopBy Dimension Label (Selected)] &
+			" by " & SELECTEDVALUE(SwitchTopByMesure[TopBy], "Sales Movers (Δ Abs)")
+		lineageTag: e0451f6d-3082-49dd-9cf0-030ce98598ef
+
+	measure 'Vis TopN MS%' =
+			
+			"MS% Trend - Top " & [TopN Value] & " " &
+			[TopBy Dimension Label (Selected)] &
+			" by " & SELECTEDVALUE(SwitchTopByMesure[TopBy], "Sales Movers (Δ Abs)")
+		lineageTag: 24dfbbe4-96b7-4b5a-918e-d671bbe21b44
+
+	measure 'Vis TopN SOV% vs MS%' =
+			
+			"SOV% vs MS% - Top " & [TopN Value] & " " &
+			[TopBy Dimension Label (Selected)] &
+			" by " & SELECTEDVALUE(SwitchTopByMesure[TopBy], "Sales Movers (Δ Abs)")
+		lineageTag: 90063c54-10cc-4e35-a927-beffa6d4dd81
+
+	measure 'Section DeepDive' =
+			
+			"Deep Dive — " & COALESCE([Selected Molecule], "Select a Finance-enabled molecule")
+		lineageTag: 36d6f0e5-e2f7-492f-b189-9fecd80d7f72
+
+	measure 'Finance Vis Act Vs Selected' =
+			
+			VAR lbl = 'SwitchCompareMode (Finance)'[Finance Compare Label (Selected)]
+			VAR txt = " ATC vs " & lbl
+			RETURN txt
+		lineageTag: a7b02f03-390d-4a3f-a5fc-b92577331255
+
+	measure 'Vis Trend Cat. Measure & Measure' =
+			
+			VAR cat = SELECTEDVALUE(SwitchCompetitiveMeasureSelector[Category], "Sales")
+			VAR met = [Selected Metric Label (Short)]
+			RETURN
+			"Trend " & cat & " " & met
+		lineageTag: c9c36d48-9936-4208-b56e-24567c3a78d5
+
+	measure 'Overview Table Promo Section' =
+			
+			VAR lbl = [MetricPromoLabel (Selected)]
+			VAR txt = "Promo (" & lbl & ")"
+			RETURN txt
+		lineageTag: 50abfa4e-6082-4fda-99ae-b04ded4dbd96
+
+	measure 'Overview Table Sales Section' =
+			
+			VAR lbl = [MetricSalesLabel (Selected)]
+			VAR txt = "Sales (" & lbl & ")"
+			RETURN txt
+		lineageTag: 281fce2e-a22c-4c2a-afc3-110a994c9b7b
+
+	measure 'Vis Trend by TopN Product' =
+			
+			VAR lbl = [MetricSalesLabel (Selected)]
+			VAR txt = lbl & " ACT"
+			RETURN txt
+			// Top N Corporation by Spending
+		lineageTag: 543bfa2e-7340-47ef-b1e7-34668747c93c
+
+	measure 'VisTrend TopN ByDim by ByMeasure' =
+			
+			VAR m = [Vis Trend Cat. Measure & Measure]
+			VAR txt = m & " - Top " & [TopN Value] & " " & [TopBy Dimension Label (Selected)] &
+			" by " & SELECTEDVALUE(SwitchTopByMesure[TopBy], "Sales Movers (Δ Abs)")
+			RETURN txt
+		lineageTag: 937e8316-48db-4fb5-8092-2aa337a59fe4
+
+	column Column
+		isHidden
+		formatString: 0
+		lineageTag: b87c62fc-7340-45df-a10a-33af4a812100
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition '.Titles' = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = f0f943ffae3948c5a2e5837b9c8d8721
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":""}
+

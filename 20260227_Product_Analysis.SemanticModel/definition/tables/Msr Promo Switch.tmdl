@@ -1,0 +1,250 @@
+table 'Msr Promo Switch'
+	lineageTag: c081c2ef-1545-45c8-b955-b758f70f5540
+
+	measure 'Switch Promo Market (ATC4)' =
+			
+			CALCULATE ('SwitchMeasureSelector (Promo)'[MetricPromo (Selected)])
+		formatString: 0
+		lineageTag: 17648692-8b4a-4b3f-9401-82e8387196f5
+
+	measure 'Switch Promo Market MAT (4Q)' =
+			
+			VAR AnchorQ = MAX ( T_DIM_QUARTER[QuarterStartDay] )
+			
+			VAR WindowQ =
+			    TOPN (
+			        4,
+			        FILTER (
+			            ALL ( T_DIM_QUARTER[QuarterStartDay] ),
+			            T_DIM_QUARTER[QuarterStartDay] <= AnchorQ
+			        ),
+			        T_DIM_QUARTER[QuarterStartDay], DESC
+			    )
+			
+			VAR QWithData =
+			    COUNTROWS (
+			        FILTER (
+			            WindowQ,
+			            VAR q = T_DIM_QUARTER[QuarterStartDay]
+			            RETURN
+			                NOT ISBLANK (
+			                    CALCULATE (
+			                        [MetricPromo (Selected)],
+			                        REMOVEFILTERS ( T_DIM_QUARTER ),
+			                        T_DIM_QUARTER[QuarterStartDay] = q
+			                    )
+			                )
+			        )
+			    )
+			
+			RETURN
+			IF (
+			    QWithData < 4,
+			    BLANK(),
+			    CALCULATE ( [MetricPromo (Selected)], REMOVEFILTERS ( T_DIM_QUARTER ), WindowQ )
+			)
+		lineageTag: df5f933a-0328-4090-89d7-06f9d08f4f17
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Switch Promo Market MAT PY (4Q)' =
+			
+			VAR AnchorQ = MAX ( T_DIM_QUARTER[QuarterStartDay] )
+			VAR AnchorPY = EDATE ( AnchorQ, -12 )
+			
+			VAR WindowPY =
+			    TOPN (
+			        4,
+			        FILTER (
+			            ALL ( T_DIM_QUARTER[QuarterStartDay] ),
+			            T_DIM_QUARTER[QuarterStartDay] <= AnchorPY
+			        ),
+			        T_DIM_QUARTER[QuarterStartDay], DESC
+			    )
+			
+			VAR QWithDataPY =
+			    COUNTROWS (
+			        FILTER (
+			            WindowPY,
+			            VAR q = T_DIM_QUARTER[QuarterStartDay]
+			            RETURN
+			                NOT ISBLANK (
+			                    CALCULATE (
+			                        [MetricPromo (Selected)],
+			                        REMOVEFILTERS ( T_DIM_QUARTER ),
+			                        T_DIM_QUARTER[QuarterStartDay] = q
+			                    )
+			                )
+			        )
+			    )
+			
+			RETURN
+			IF (
+			    QWithDataPY < 4,
+			    BLANK(),
+			    CALCULATE ( [MetricPromo (Selected)], REMOVEFILTERS ( T_DIM_QUARTER ), WindowPY )
+			)
+		lineageTag: 1df01dbf-476c-4fa0-a32e-bfa2c5894733
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Switch Promo Measure (Last Period)' =
+			
+			VAR lp = [Last QuarterStartDay (stable)]
+			RETURN
+			CALCULATE(
+			    [MetricPromo (Selected)],
+			    REMOVEFILTERS(T_DIM_QUARTER),
+			    T_DIM_QUARTER[QuarterStartDay] = lp
+			)
+		formatString: #,0
+		lineageTag: 3846e2ae-07d6-4e06-99e7-bcb9d4e9a505
+
+	measure 'Switch Promo Market PY' =
+			
+			CALCULATE ( 'Msr Promo Switch'[Switch Promo Market (ATC4)], SAMEPERIODLASTYEAR ( T_DIM_QUARTER[QuarterStartDay] ) )
+		lineageTag: 49fcde2e-0c50-4791-a4c2-fbe30113604b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Switch promo Market YTD' =
+			
+			TOTALYTD ( 'Msr Promo Switch'[Switch promo Market (ATC4)], T_DIM_QUARTER[QuarterStartDay] )
+		formatString: #,0
+		lineageTag: bf4e7da3-5fc5-474f-88b5-5c31d59c38f5
+
+	measure 'Switch Promo Market YTD PY' =
+			
+			TOTALYTD ( [Switch Promo Market PY], T_DIM_QUARTER[QuarterStartDay] )
+		formatString: #,0
+		lineageTag: d1842510-32a2-4a50-89e1-60715389e3ef
+
+	measure 'Switch Promo Measure (Last Period PY)' =
+			
+			VAR lp = [Last QuarterStartDay (stable)]
+			VAR lp_py_date = EDATE(lp, -12)
+			VAR lp_py =
+			    CALCULATE(
+			        MAX(T_DIM_QUARTER[QuarterStartDay]),
+			        FILTER(
+			            ALL(T_DIM_QUARTER[QuarterStartDay]),
+			            T_DIM_QUARTER[QuarterStartDay] <= lp_py_date
+			        )
+			    )
+			RETURN
+			CALCULATE(
+			    [MetricPromo (Selected)],
+			    REMOVEFILTERS(T_DIM_QUARTER),
+			    T_DIM_QUARTER[QuarterStartDay] = lp_py
+			)
+		formatString: 0
+		lineageTag: d790838e-b758-4185-be02-6d93d829b275
+
+	measure 'Switch Promo Market Δ% vs PY (YoY)' =
+			
+			DIVIDE ( [Switch Promo Market (ATC4)] - [Switch Promo Market PY], [Switch Promo Market PY] )
+		lineageTag: 7b160edf-56c0-430c-834b-4940c2c76001
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Switch Promo Market MAT (Dynamic)' =
+			
+			VAR AnchorQ = MAX ( T_DIM_QUARTER[QuarterStartDay] )
+			VAR SelectedQ = SELECTEDVALUE ( SwitchPeriodMode[Quarters], 4 )
+			
+			VAR WindowQ =
+			    TOPN (
+			        SelectedQ,
+			        FILTER (
+			            ALL ( T_DIM_QUARTER[QuarterStartDay] ),
+			            T_DIM_QUARTER[QuarterStartDay] <= AnchorQ
+			        ),
+			        T_DIM_QUARTER[QuarterStartDay], DESC
+			    )
+			
+			VAR QWithData =
+			    COUNTROWS (
+			        FILTER (
+			            WindowQ,
+			            VAR q = T_DIM_QUARTER[QuarterStartDay]
+			            RETURN
+			                NOT ISBLANK (
+			                    CALCULATE (
+			                        [MetricPromo (Selected)],
+			                        REMOVEFILTERS ( T_DIM_QUARTER ),
+			                        T_DIM_QUARTER[QuarterStartDay] = q
+			                    )
+			                )
+			        )
+			    )
+			
+			RETURN
+			IF (
+			    QWithData < SelectedQ,
+			    BLANK(),
+			    CALCULATE ( [MetricPromo (Selected)], REMOVEFILTERS ( T_DIM_QUARTER ), WindowQ )
+			)
+		formatString: #,0
+		lineageTag: dd51b98e-44e5-466b-a1ec-71d08f7e907b
+
+	measure 'Switch Promo Market MAT PY (Dynamic)' =
+			
+			VAR PeriodSelectedQ = SELECTEDVALUE ( SwitchPeriodMode[Quarters], 4 )
+			VAR AnchorQ         = MAX ( T_DIM_QUARTER[QuarterStartDay] )
+			VAR AnchorPY        = EDATE ( AnchorQ, -12 )
+			
+			VAR WindowPY =
+			    TOPN (
+			        PeriodSelectedQ,
+			        FILTER (
+			            ALL ( T_DIM_QUARTER[QuarterStartDay] ),
+			            T_DIM_QUARTER[QuarterStartDay] <= AnchorPY
+			        ),
+			        T_DIM_QUARTER[QuarterStartDay], DESC
+			    )
+			
+			VAR HasFullWindow = COUNTROWS ( WindowPY ) = PeriodSelectedQ
+			
+			VAR QWithDataPY =
+			    COUNTROWS (
+			        FILTER (
+			            WindowPY,
+			            VAR q = T_DIM_QUARTER[QuarterStartDay]
+			            RETURN
+			                NOT ISBLANK (
+			                    CALCULATE (
+			                        [MetricPromo (Selected)],
+			                        REMOVEFILTERS ( T_DIM_QUARTER ),
+			                        T_DIM_QUARTER[QuarterStartDay] = q
+			                    )
+			                )
+			        )
+			    )
+			
+			RETURN
+			IF (
+			    NOT HasFullWindow || QWithDataPY < PeriodSelectedQ,
+			    BLANK(),
+			    CALCULATE ( [MetricPromo (Selected)], REMOVEFILTERS ( T_DIM_QUARTER ), WindowPY )
+			)
+		formatString: #,0
+		lineageTag: 76b06d6c-3642-41b6-97a9-ffe7e100dc7c
+
+	column Column
+		isHidden
+		formatString: 0
+		lineageTag: 48ead3f5-5cf2-4aca-9bc1-ad9a47a18293
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Msr Promo Switch' = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = 6a3f18bbaa4e40869867426ea7676dac
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":""}
+

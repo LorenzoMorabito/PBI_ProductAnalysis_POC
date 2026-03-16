@@ -1,0 +1,34 @@
+table 'TopN Corp'
+	lineageTag: f0a6d808-b5fc-4d51-8643-8d20e1951541
+
+	measure 'Selected N Corp' = SELECTEDVALUE('TopN Corp'[Value], 10)
+		formatString: 0
+		lineageTag: 7ebb05e9-b3db-49e6-9fc6-d946338671b7
+
+	measure 'Rank Corporation' =
+			
+			RANKX(
+			    ALLSELECTED( T_DIM_CORPORATION[Corporation] ),
+			    CALCULATE( [Sales Units], REMOVEFILTERS( T_DIM_PRODUCT ) ),
+			    ,
+			    DESC,
+			    DENSE
+			)
+		formatString: 0
+		lineageTag: 81dc066f-cd82-4ad8-b68f-6de94a305b58
+
+	column Value
+		formatString: 0
+		lineageTag: 1d8a20cb-26f0-4554-b821-bbe1dab62e28
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Value]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'TopN Corp' = calculated
+		mode: import
+		source = GENERATESERIES(1, 50, 1)
+
+	annotation PBI_Id = 3580e971b538410ab9bc27c84ebdfe89
+

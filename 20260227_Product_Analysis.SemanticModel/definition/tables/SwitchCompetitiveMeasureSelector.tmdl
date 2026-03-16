@@ -1,0 +1,113 @@
+table SwitchCompetitiveMeasureSelector
+	lineageTag: e455b7f2-03db-45c7-a2e7-1af9b7d3f34c
+
+	measure 'Selected Metric Label (Short)' =
+			
+			VAR lbl = [Selected Metric Label (Raw)]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    LEFT(lbl, 6) = "Sales ",   MID(lbl, 7, LEN(lbl) - 6),
+			    LEFT(lbl, 6) = "Promo ",   MID(lbl, 7, LEN(lbl) - 6),
+			    LEFT(lbl, 8) = "Finance ", MID(lbl, 9, LEN(lbl) - 8),
+			    lbl
+			)
+		lineageTag: 9fd0192b-2de5-4086-b0cf-c4ed8a7f8104
+
+	measure 'Selected Metric Order' =
+			
+			SELECTEDVALUE(
+			    SwitchCompetitiveMeasureSelector[CompetitiveMetricsSelector Order]
+			)
+		formatString: 0
+		lineageTag: e818f672-7323-4e81-bba8-6c9a7cd1b8e8
+
+	measure 'Selected Metric Label (Raw)' =
+			
+			VAR ord = [Selected Metric Order]
+			RETURN
+			IF(
+			    ISBLANK(ord),
+			    "(Seleziona metrica)",
+			    LOOKUPVALUE(
+			        SwitchCompetitiveMeasureSelector[CompetitiveMetricsSelector],
+			        SwitchCompetitiveMeasureSelector[CompetitiveMetricsSelector Order],
+			        ord
+			    )
+			)
+		lineageTag: 811188d2-85da-40e0-8dfe-8e5b31e53cff
+
+	column CompetitiveMetricsSelector
+		lineageTag: 7aed2044-7901-4fc4-99cf-8f3be4719229
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'CompetitiveMetricsSelector Order'
+
+		relatedColumnDetails
+			groupByColumn: 'CompetitiveMetricsSelector Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'CompetitiveMetricsSelector Fields'
+		isHidden
+		lineageTag: 64e1fc9b-8a83-423f-b4bf-13437eb9d3fb
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'CompetitiveMetricsSelector Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'CompetitiveMetricsSelector Order'
+		isHidden
+		formatString: 0
+		lineageTag: df5e4b4a-2bce-4187-8c59-78e7d5fa6e22
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Category = ```
+			
+			VAR lbl = SwitchCompetitiveMeasureSelector[CompetitiveMetricsSelector]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    LEFT(lbl, 5) = "Promo",   "Promo",
+			    LEFT(lbl, 5) = "Sales",   "Sales",
+			    LEFT(lbl, 7) = "Finance", "Finance",
+			    BLANK()
+			)
+			
+			```
+		lineageTag: 11022bdf-de41-426f-9696-639d4765c5f6
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SwitchCompetitiveMeasureSelector = calculated
+		mode: import
+		source =
+				{
+				    ("Promo SOV", NAMEOF('Msr Promo'[Promo SOV% (ATC4)]), 0),
+				    ("Promo Contacts", NAMEOF('Msr Promo'[Promo Contacts]), 1),
+				    //("Promo ESOV", NAMEOF('Msr Promo'[Promo ESOV]), 2),
+				    ("Promo Details", NAMEOF('Msr Promo'[Promo Details]), 3),
+				    ("Promo Spend", NAMEOF('Msr Promo'[Promo Spend]), 4),
+				    //("Promo Spend €/1k Details", NAMEOF('Msr Promo'[Promo Spend €/1k Details]), 5),
+				    ("Sales Units", NAMEOF('Msr Sales'[Sales Units]), 6),
+				    ("Sales Units MS%", NAMEOF('Msr Sales'[Sales Units MS%]), 7),
+				    ("Sales Units MS% (Log)", NAMEOF('Msr Sales'[Sales Units MS% (log)]), 8),
+				    ("Sales Units PPG PY (abs)", NAMEOF('Msr Sales'[Sales Units Δ vs PY]), 9),
+				    ("Sales Values", NAMEOF('Msr Sales'[Sales Values]), 10),
+				    ("Sales Values MS%", NAMEOF('Msr Sales'[Sales Values MS%]), 11),
+				    ("Sales Values MS% PPG PY", NAMEOF('Msr Sales'[Sales Values MS% Δ vs PY]), 12)
+				}
+
+	annotation PBI_Id = 3fe3eea4536e4c6a9a158e40838c8068
+

@@ -1,0 +1,20 @@
+table 'Msr Promo Mkt Benchmark'
+	lineageTag: bda4081d-f805-4293-9eff-c62572da13f5
+
+	column Column
+		formatString: 0
+		lineageTag: a2062f3f-0559-48e8-acd0-9ea80d587c2b
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Msr Promo Mkt Benchmark' = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = 94771d28c9e740d0b0f1b3fedcf0bbe9
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":""}
+

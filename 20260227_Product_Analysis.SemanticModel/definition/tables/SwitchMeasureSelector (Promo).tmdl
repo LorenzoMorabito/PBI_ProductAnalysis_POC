@@ -1,0 +1,95 @@
+table 'SwitchMeasureSelector (Promo)'
+	lineageTag: 12dc2ec1-40f9-4335-b279-0825a4a686fc
+
+	measure 'MetricPromo (Selected)' =
+			
+			VAR k = SELECTEDVALUE('SwitchMeasureSelector (Promo)'[SwitchMeasurePromo Order], 0)
+			RETURN
+			SWITCH(
+			    k,
+			    0, [Promo Spend],
+			    1, [Promo Details],
+			    2, [Promo Contacts],
+			    3, [Promo Weighted Calls],
+			    [Promo Details]
+			)
+		lineageTag: 2ebc8088-277f-40f1-9f45-b2af3c69cb6d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'MetricPromoLabel (Selected)' =
+			
+			SELECTEDVALUE( 'SwitchMeasureSelector (Promo)'[MetricPromoBusinessLabel])
+		lineageTag: 775f9624-3a80-4e7b-a87b-58865e16e7a5
+
+	column SwitchMeasurePromo
+		lineageTag: 2c0596a2-a86c-4742-8cdf-211880c21116
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'SwitchMeasurePromo Order'
+
+		relatedColumnDetails
+			groupByColumn: 'SwitchMeasurePromo Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'SwitchMeasurePromo Fields'
+		isHidden
+		lineageTag: f75d5a78-a109-4b53-9c9a-35836b3ba4e8
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'SwitchMeasurePromo Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'SwitchMeasurePromo Order'
+		isHidden
+		formatString: 0
+		lineageTag: 0ad1bddc-5595-4cb6-9112-afd4d67bbf1d
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	column MetricPromoBusinessLabel
+		lineageTag: 8bcd3932-53b5-4a32-b139-5d8d6702b516
+		summarizeBy: none
+		sourceColumn: [Value4]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'SwitchMeasureSelector (Promo)' = calculated
+		mode: import
+		source = ```
+				{
+				    ("Spending", 
+				        NAMEOF('Msr Promo'[Promo Spend]), 
+				        0,
+				        "Spending"
+				    ),
+				    ("Details", 
+				        NAMEOF('Msr Promo'[Promo Details]), 
+				        1,
+				        "Details"
+				    ),
+				    ("Contacts", 
+				        NAMEOF('Msr Promo'[Promo Contacts]), 
+				        2,
+				        "Contacts"
+				    ),
+				    ("Weighted Calls", 
+				        NAMEOF('Msr Promo'[Promo Weighted Calls]),
+				        3,
+				        "Weighted Calls"
+				    )
+				}
+				```
+
+	annotation PBI_Id = 1d4d8620645b4da283ed7f528140629e
+

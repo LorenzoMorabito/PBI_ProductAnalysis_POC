@@ -1,0 +1,49 @@
+table 'TopN Prod'
+	lineageTag: 9c89d3f0-9c68-49cb-9167-8b35a34facad
+
+	measure 'Selected N Prod' = SELECTEDVALUE('TopN Prod'[Value], 5)
+		formatString: 0
+		lineageTag: ef9b96f3-2e1c-4fa6-928a-e4189dce1e17
+
+	measure 'Rank Product (within Corp)' =
+			
+			RANKX(
+			    ALLSELECTED( T_DIM_PRODUCT[Product] ),
+			    [Sales Units],
+			    ,
+			    DESC,
+			    DENSE
+			)
+		formatString: 0
+		lineageTag: d34d2c92-fc38-429b-a694-de1f3d64cd24
+
+	measure 'Show Row (TopN Corp & TopN Prod)' =
+			
+			VAR nCorp = [Selected N Corp]
+			VAR nProd = [Selected N Prod]
+			VAR corpOK = [Rank Corporation] <= nCorp
+			VAR prodOK = [Rank Product (within Corp)] <= nProd
+			RETURN
+			IF(
+			    ISINSCOPE( T_DIM_PRODUCT[Product] ),
+			    IF( corpOK && prodOK, 1, 0 ),
+			    IF( corpOK, 1, 0 )
+			)
+		formatString: 0
+		lineageTag: 1093a642-a724-43c5-8c31-2f446959e2c5
+
+	column Value
+		formatString: 0
+		lineageTag: c44cd2bf-4c88-4977-a16f-c43f302bf2c8
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Value]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'TopN Prod' = calculated
+		mode: import
+		source = GENERATESERIES(1, 50, 1)
+
+	annotation PBI_Id = d2d6fc790b5e4f9db835a347be7007ca
+

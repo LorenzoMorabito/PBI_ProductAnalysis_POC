@@ -1,0 +1,160 @@
+table SwitchPeriodMode
+	lineageTag: fc07d8a8-6836-4573-aef1-4e7faa0b6c4c
+
+	measure 'MetricSales (Selected Period)' =
+			
+			VAR SelectedQ = SELECTEDVALUE ( SwitchPeriodMode[Quarters], 1 )
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    SelectedQ = 1, 'Msr Sales Switch'[Switch Sales Market],
+			    SelectedQ > 1, [Switch Sales Market ROLLING (Dynamic)]
+			)
+		lineageTag: 65411cb9-9401-4b22-8750-6ec38ddc04e9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'MetricPromo (Selected Period)' =
+			
+			VAR SelectedQ = SELECTEDVALUE ( SwitchPeriodMode[Quarters], 1 )
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    SelectedQ = 1, 'Msr Promo Switch'[Switch Promo Market (ATC4)],
+			    SelectedQ > 1, [Switch Promo Market MAT (Dynamic)]
+			)
+		lineageTag: 7c6ca757-aaa9-4a70-bf34-75a4620166ed
+
+	measure 'MetricSales (Selected Period PY)' =
+			
+			VAR SelectedQ = SELECTEDVALUE ( SwitchPeriodMode[Quarters], 1 )
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    SelectedQ = 1, 'Msr Sales Switch'[Switch Sales Market PY],
+			    SelectedQ > 1, [Switch Sales Market ROLLING PY (Dynamic)]
+			)
+		lineageTag: efc98fc2-49b5-4ce4-9333-1b2da81141f6
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'MetricPromo (Selected Period PY)' =
+			
+			VAR SelectedQ = SELECTEDVALUE ( SwitchPeriodMode[Quarters], 1 )
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    SelectedQ = 1, 'Msr Promo Switch'[Switch Promo Market PY],
+			    SelectedQ > 1, [Switch Promo Market MAT PY (Dynamic)]
+			)
+		lineageTag: 957bc4d6-1e54-4494-a7a9-f09bd2a70104
+
+	measure 'Switch Sales Δ% vs PY (YoY)' =
+			
+			DIVIDE ( [MetricSales (Selected Period)] - [MetricSales (Selected Period PY)], [MetricSales (Selected Period PY)] )
+		lineageTag: 2a6adb2a-6690-49f9-9a1c-9f717c4f2502
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Switch Promo Δ% vs PY (YoY)' =
+			
+			DIVIDE ( [MetricPromo (Selected Period)] - [MetricPromo (Selected Period PY)], [MetricPromo (Selected Period PY)] )
+		lineageTag: e4333b36-5da1-435b-ad04-105c20249999
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Has PY' =
+			
+			NOT ISBLANK( [MetricSales (Selected Period PY)] )
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: f83694b5-9d10-49f0-9976-14b5d3b3d70c
+
+	measure 'NumPeriodMAT (slected)' =
+			
+			VAR SelectedQ = SELECTEDVALUE ( SwitchPeriodMode[Quarters], 4 )
+			RETURN SelectedQ
+		formatString: 0
+		lineageTag: c65f812d-c718-49cb-95fb-92daa7189667
+
+	measure 'Switch Sales Δ% vs PY (Colour)' = ```
+			
+			VAR ValoreAttuale = [MetricSales (Selected)] 
+			VAR ValoreRiferimento = [MetricSales (Selected Period PY)]
+			
+			RETURN
+			IF (
+			    ValoreAttuale >= ValoreRiferimento,
+			    "1",
+			    "0"
+			)
+			```
+		lineageTag: 5831700c-593d-4cd7-8a22-1f144c2ab3c0
+
+	measure 'Switch Promo Δ% vs PY (Colour)' = ```
+			
+			VAR ValoreAttuale = [MetricPromo (Selected)] 
+			VAR ValoreRiferimento = [MetricPromo (Selected Period PY)]
+			
+			RETURN
+			IF (
+			    ValoreAttuale >= ValoreRiferimento,
+			    "1",
+			    "0"
+			)
+			```
+		lineageTag: 30b087dc-bbec-40c6-a54f-e88e84865236
+
+	measure 'Switch Promo Δ vs PY (YoY)' = ( [MetricPromo (Selected Period)] - [MetricPromo (Selected Period PY)])
+		formatString: 0
+		lineageTag: 7241422d-1b81-4502-b96c-805429c37989
+
+	measure 'Switch Sales Δ vs PY (YoY)' = ( [MetricSales (Selected Period)] - [MetricSales (Selected Period PY)] )
+		lineageTag: 961aeb31-ddab-490e-8f16-efebe9592797
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Mode
+		lineageTag: 567eda17-158e-4ba1-a422-4a55a9c62621
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Mode]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quarters
+		formatString: 0
+		lineageTag: 3248a93c-cd75-432a-83eb-6f5b6ef950e5
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Quarters]
+
+		annotation SummarizationSetBy = Automatic
+
+	column SortOrder
+		formatString: 0
+		lineageTag: a0f58bc8-e4c2-4cf5-ba6f-43566cc3001a
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [SortOrder]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SwitchPeriodMode = calculated
+		mode: import
+		source = ```
+				
+				DATATABLE (
+				    "Mode", STRING,
+				    "Quarters", INTEGER,
+				    "SortOrder", INTEGER,
+				    {   
+				        {"QTR", 1, 1}, 
+				        //{"MAT (2Q)", 2, 2}, 
+				        //{"MAT (3Q)", 3, 3},
+				        {"MAT (4Q)", 4, 4} 
+				    }
+				)
+				```
+
+	annotation PBI_Id = 96a06698e89b44478274cc171989eedb
+

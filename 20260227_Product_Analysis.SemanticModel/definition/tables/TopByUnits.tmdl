@@ -1,0 +1,66 @@
+table TopByUnits
+	lineageTag: f84d6813-9d6e-4fcb-a5ab-01a589a27e76
+
+	measure 'Is TopN Product' =
+			
+			VAR N = SELECTEDVALUE( 'TopN'[TopN], 10 )
+			RETURN
+			IF( [Rank Product by Units (Last Period)] <= N, 1, 0 )
+		formatString: 0
+		lineageTag: a4fca36c-34c4-48d4-9b81-4801fc2b2436
+
+	measure 'Is TopN Product (Last Period)' =
+			
+			VAR N = SELECTEDVALUE( 'TopN'[TopN], 10 )
+			RETURN
+			IF( [Rank Product by Units (Last Period)] <= N, 1, 0 )
+		formatString: 0
+		lineageTag: a7fc668a-868d-46cf-8bbc-acff2e33ee99
+
+	measure 'Rank Product by Units (Last Period)' =
+			
+			VAR lp = [Last QuarterStartDay (stable)]
+			RETURN
+			RANKX(
+			    ALLSELECTED( T_DIM_PRODUCT[Product] ),
+			    CALCULATE(
+			        [Sales Units],
+			        KEEPFILTERS( T_DIM_QUARTER[QuarterStartDay] = lp )
+			    ),
+			    ,
+			    DESC,
+			    Dense
+			)
+		formatString: 0
+		lineageTag: 894b6964-ad46-4324-89a3-6c39fb591f87
+
+	measure 'Sales Units (Last Period)' =
+			
+			VAR lp = [Last QuarterStartDay (stable)]
+			RETURN
+			CALCULATE(
+			    [Sales Units],
+			    REMOVEFILTERS(T_DIM_QUARTER),
+			    T_DIM_QUARTER[QuarterStartDay] = lp
+			)
+		lineageTag: e453ef2b-ab89-455e-8c39-f0222a293999
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Column
+		formatString: 0
+		lineageTag: 9529406a-ca56-4307-84fb-125bc7d72aa7
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition TopByUnits = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = a99c6c33564147ebbefb2dd6890d7299
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":""}
+

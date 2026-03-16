@@ -1,0 +1,68 @@
+table 'Msr Promo MEN'
+	lineageTag: 714212a0-e731-40c4-98cc-43be6dddafe6
+
+	measure 'MENARINI % Share of Voice' =
+			
+			DIVIDE( [MENARINI Promo Product Details], [Market Promo Product Details] )
+		lineageTag: 8481da73-eb97-40a6-b77f-cc6fbb8833ce
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'MENARINI ESOV' = ```
+			
+			[MENARINI % Share of Voice] - [MENARINI MS%]
+			
+			```
+		lineageTag: cb6f9855-2d5f-4de0-8cdc-23699f796e10
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'MENARINI Promo Product Details' =
+			
+			CALCULATE( [Market Promo Product Details], T_DIM_CORPORATION[Corporation] = "MENARINI" )
+		formatString: 0
+		lineageTag: 3318bc0d-f641-4849-8541-067e76d44e51
+
+	measure 'MENARINI Promo Top Competitor Product Details' =
+			
+			VAR comp = [Top Competitor Corp (LP)]
+			RETURN
+			IF(
+			    NOT ISBLANK(comp),
+			    CALCULATE( [Promo Details], T_DIM_CORPORATION[Corporation] = comp )
+			)
+		formatString: 0
+		lineageTag: 148aefd7-e230-4d32-8072-a96eb2f6a0e0
+
+	measure 'MENARINI Top Competiror ESOV' =
+			
+			[MENARINI Top Competitor % Share of Voice SOV] - [MENARINI Top Competitor MS%]
+		lineageTag: 26b90971-f050-491f-a2d6-cf8205390d2e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'MENARINI Top Competitor % Share of Voice SOV' =
+			
+			DIVIDE( [MENARINI Promo Top Competitor Product Details], [Market Promo Product Details] )
+		lineageTag: 22bcdee3-e8b7-4020-83ec-9867eb451106
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Column
+		isHidden
+		formatString: 0
+		lineageTag: 07c14329-07d0-4c2d-9f7f-021931def1fd
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Msr Promo MEN' = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = 7fffd4fb5926497cae34b9820976da9b
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":""}
+

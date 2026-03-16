@@ -1,0 +1,22 @@
+table SwitchCompetitiveMeasureCategory
+	lineageTag: 4a11d045-16fd-4008-a70d-a60ee5384618
+
+	column Category
+		lineageTag: 9a02a2b0-f23a-4d07-b568-547afaf90216
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Category]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SwitchCompetitiveMeasureCategory = calculated
+		mode: import
+		source =
+				
+				DATATABLE(
+				  "Category", STRING,
+				  { {"Promo"}, {"Sales"}, {"Finance"} }
+				)
+
+	annotation PBI_Id = 94584fbe2df24950a109421cfd133196
+

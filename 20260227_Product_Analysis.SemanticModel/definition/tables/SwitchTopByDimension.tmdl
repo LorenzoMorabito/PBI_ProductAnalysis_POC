@@ -1,0 +1,54 @@
+table SwitchTopByDimension
+	lineageTag: fbc00435-5ce6-4e50-aa1d-0728452c61e1
+
+	measure 'TopBy Dimension Label (Selected)' = ```
+			
+			VAR ord = SELECTEDVALUE( SwitchTopByDimension[Parameter Order], 0 )
+			RETURN IF( ord = 0, "Product", "Corporation" )
+			
+			```
+		lineageTag: e8431f6c-7764-42c3-a324-6dfd7677c510
+
+	column 'TopBy Dimension (Selected)'
+		lineageTag: 9f425cd3-2355-43d9-8c25-c4c75e34600c
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Parameter Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Parameter Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parameter Fields'
+		lineageTag: 318f695b-3d49-48a1-9b14-c3cec57b3cdd
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Parameter Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parameter Order'
+		formatString: 0
+		lineageTag: 121a1b4b-9552-4116-b783-811d2b96ea32
+		summarizeBy: none
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SwitchTopByDimension = calculated
+		mode: import
+		source =
+				{
+				    ("Product", NAMEOF('T_DIM_PRODUCT'[Product]), 0),
+				    ("Corporation", NAMEOF('T_DIM_CORPORATION'[Corporation]), 1)
+				}
+
+	annotation PBI_Id = 6e8edf71b61b45b2a6ce80572762a441
+

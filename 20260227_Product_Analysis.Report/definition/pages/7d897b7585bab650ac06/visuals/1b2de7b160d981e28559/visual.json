@@ -1,0 +1,1110 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "1b2de7b160d981e28559",
+  "position": {
+    "x": 0,
+    "y": 16.391097902906957,
+    "z": 3000,
+    "height": 193.39953271028037,
+    "width": 925.61248748748733,
+    "tabOrder": 3000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "T_DIM_PRODUCT"
+                    }
+                  },
+                  "Property": "ATC4 Code"
+                }
+              },
+              "queryRef": "T_DIM_PRODUCT.ATC4 Code",
+              "nativeQueryRef": "ATC4",
+              "displayName": "ATC4"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "T_DIM_PRODUCT"
+                    }
+                  },
+                  "Property": "Corporation"
+                }
+              },
+              "queryRef": "T_DIM_PRODUCT.Corporation",
+              "nativeQueryRef": "Corp.",
+              "displayName": "Corp."
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "T_DIM_PRODUCT"
+                    }
+                  },
+                  "Property": "MoleculeNorm"
+                }
+              },
+              "queryRef": "T_DIM_PRODUCT.MoleculeNorm",
+              "nativeQueryRef": "Mol.",
+              "displayName": "Mol."
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "T_DIM_PRODUCT"
+                    }
+                  },
+                  "Property": "Product"
+                }
+              },
+              "queryRef": "T_DIM_PRODUCT.Product",
+              "nativeQueryRef": "Product"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Msr Sales"
+                    }
+                  },
+                  "Property": "LP Sales Values MS% (ATC4)"
+                }
+              },
+              "queryRef": "MeasureSales.LP Sales Values MS% (ATC4)",
+              "nativeQueryRef": "MS%",
+              "displayName": "MS%"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Msr Sales"
+                    }
+                  },
+                  "Property": "LP Sales Values MS% EI PY (QTR) (ATC4)"
+                }
+              },
+              "queryRef": "MeasureSales.LP Sales Value EI PY (QTR)",
+              "nativeQueryRef": "EI",
+              "displayName": "EI"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Msr Sales"
+                    }
+                  },
+                  "Property": "LP Sales Values +/-% vs PY (QTR)"
+                }
+              },
+              "queryRef": "MeasureSales.LP Sales Values Δ% vs PY (QTR)",
+              "nativeQueryRef": "PPG% (PY)",
+              "displayName": "PPG% (PY)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Msr Sales"
+                    }
+                  },
+                  "Property": "LP Sales Values"
+                }
+              },
+              "queryRef": "MeasureSales.LP Sales Values",
+              "nativeQueryRef": "ACT",
+              "displayName": "ACT"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Msr Promo LP"
+                    }
+                  },
+                  "Property": "LP Promo SOV% EI vs PY (QTR) (ATC4)"
+                }
+              },
+              "queryRef": "MeasurePromo.LP Promo % Share of Voice EI PY (QTR)",
+              "nativeQueryRef": "P EI",
+              "displayName": "P EI"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Msr Promo LP"
+                    }
+                  },
+                  "Property": "LP Promo SOV% (ATC4)"
+                }
+              },
+              "queryRef": "MeasurePromo.LP Promo % Share of Voice",
+              "nativeQueryRef": "SOV%",
+              "displayName": "SOV%"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Msr Promo LP"
+                    }
+                  },
+                  "Property": "LP Promo Details +/-% vs PY (QTR)"
+                }
+              },
+              "queryRef": "MeasurePromo.LP Promo Product Details +/-% vs PY (QTR)",
+              "nativeQueryRef": "PPG% (PY)1",
+              "displayName": "PPG% (PY)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Msr Promo LP"
+                    }
+                  },
+                  "Property": "LP Promo Details"
+                }
+              },
+              "queryRef": "MeasurePromo.LP Promo Product Details",
+              "nativeQueryRef": "ACT1",
+              "displayName": "ACT"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Msr Promo LP"
+                    }
+                  },
+                  "Property": "LP Promo ESOV"
+                }
+              },
+              "queryRef": "MeasurePromo.LP Promo Excess of Spending (ESOV)",
+              "nativeQueryRef": "ESOV1",
+              "displayName": "ESOV"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Msr Fin LP"
+                    }
+                  },
+                  "Property": "Fin LP ACT"
+                }
+              },
+              "queryRef": "MeasureFinance.LP Finance ACT",
+              "nativeQueryRef": "ACT2",
+              "displayName": "ACT"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Msr Fin LP"
+                    }
+                  },
+                  "Property": "Fin LP ACT vs PY PPG"
+                }
+              },
+              "queryRef": "MeasureFinance.LP Finance Δ% ACT vs PY",
+              "nativeQueryRef": "PPG% (PY)2",
+              "displayName": "PPG% (PY)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Msr Fin LP"
+                    }
+                  },
+                  "Property": "Fin LP ACT vs BDG +/-%"
+                }
+              },
+              "queryRef": "MeasureFinance.LP Finance ACT +/-% vs BDG",
+              "nativeQueryRef": "+/-% vs BDG",
+              "displayName": "+/-% vs BDG"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Msr Sales"
+                  }
+                },
+                "Property": "LP Sales Values MS% (ATC4)"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "values": [
+        {
+          "properties": {
+            "wordWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": ".Colours"
+                        }
+                      },
+                      "Property": "Colour LP Sales Values MS% EI PY (QTR) (ATC4)"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 1
+                }
+              }
+            ],
+            "metadata": "MeasureSales.LP Sales Value EI PY (QTR)"
+          }
+        },
+        {
+          "properties": {
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": ".Colours"
+                        }
+                      },
+                      "Property": "Colour LP Promo SOV% EI vs PY (QTR) (ATC4)"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 1
+                }
+              }
+            ],
+            "metadata": "MeasurePromo.LP Promo % Share of Voice EI PY (QTR)"
+          }
+        },
+        {
+          "properties": {
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": ".Colours"
+                        }
+                      },
+                      "Property": "Colour LP Sales Values +/-% vs PY (QTR)"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 1
+                }
+              }
+            ],
+            "metadata": "MeasureSales.LP Sales Values Δ% vs PY (QTR)"
+          }
+        },
+        {
+          "properties": {
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": ".Colours"
+                        }
+                      },
+                      "Property": "Colour LP Promo Details +/-% vs PY (QTR)"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 1
+                }
+              }
+            ],
+            "metadata": "MeasurePromo.LP Promo Product Details +/-% vs PY (QTR)"
+          }
+        },
+        {
+          "properties": {},
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 2
+                }
+              }
+            ],
+            "metadata": "MeasurePromo.LP Promo Product Details +/-% vs PY (QTR)"
+          }
+        }
+      ],
+      "columnHeaders": [
+        {
+          "properties": {
+            "fontFamily": {
+              "expr": {
+                "Literal": {
+                  "Value": "'''Segoe UI Semibold'', wf_segoe-ui_semibold, helvetica, arial, sans-serif'"
+                }
+              }
+            },
+            "alignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Center'"
+                }
+              }
+            },
+            "wordWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "columnAdjustment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'growToFit'"
+                }
+              }
+            },
+            "autoSizeColumnWidth": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "grid": [
+        {
+          "properties": {
+            "gridVertical": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "outlineStyle": {
+              "expr": {
+                "Literal": {
+                  "Value": "4D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "4D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "T_DIM_PRODUCT.Corporation"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "4D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "T_DIM_PRODUCT.MoleculeNorm"
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": ".Titles"
+                    }
+                  },
+                  "Property": "Table TopN"
+                }
+              }
+            },
+            "heading": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Heading3'"
+                }
+              }
+            },
+            "titleWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "background": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": -0.1
+                    }
+                  }
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            },
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
+            },
+            "radius": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
+                }
+              }
+            },
+            "width": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "lockAspect": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "general": [
+        {
+          "properties": {
+            "keepLayerOrder": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "visualTooltip": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "parentGroupName": "279d4c06e4c3dc13d966",
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "0114c319c6367c64cf8e",
+        "ordinal": 0,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Msr Sales Switch"
+              }
+            },
+            "Property": "Switch Sales Measure (Last Period)"
+          }
+        },
+        "type": "Advanced",
+        "howCreated": "User"
+      },
+      {
+        "name": "d4b38262e5033cac3e86",
+        "ordinal": 1,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Msr Sales Switch"
+              }
+            },
+            "Property": "Switch Sales Measure (Last Period)"
+          }
+        },
+        "type": "Advanced",
+        "howCreated": "User"
+      },
+      {
+        "name": "eb3a071305636495b6a8",
+        "ordinal": 2,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "TopN"
+              }
+            },
+            "Property": "Show in Driver Table (TopN + Target)"
+          }
+        },
+        "type": "Advanced",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "t",
+              "Entity": "TopN",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "Comparison": {
+                  "ComparisonKind": 0,
+                  "Left": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Source": "t"
+                        }
+                      },
+                      "Property": "Show in Driver Table (TopN + Target)"
+                    }
+                  },
+                  "Right": {
+                    "Literal": {
+                      "Value": "1L"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "howCreated": "User"
+      },
+      {
+        "name": "be6ee917d32f9643bf0a",
+        "ordinal": 3,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Msr Sales"
+              }
+            },
+            "Property": "Sales Values"
+          }
+        },
+        "type": "Advanced",
+        "howCreated": "User"
+      },
+      {
+        "name": "2920644f29d7484f8daf",
+        "ordinal": 4,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Msr Promo"
+              }
+            },
+            "Property": "Promo Spend"
+          }
+        },
+        "type": "Advanced",
+        "howCreated": "User"
+      },
+      {
+        "name": "499013a6a6f4082bda26",
+        "ordinal": 5,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Msr Promo"
+              }
+            },
+            "Property": "Promo Details"
+          }
+        },
+        "type": "Advanced",
+        "howCreated": "User"
+      },
+      {
+        "name": "dd4d329a7751b01e2951",
+        "ordinal": 6,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Msr Sales"
+              }
+            },
+            "Property": "Sales Values Δ% vs PY (QTR)"
+          }
+        },
+        "type": "Advanced",
+        "howCreated": "User"
+      },
+      {
+        "name": "98d6765ee5f725287fb0",
+        "ordinal": 7,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Msr Promo"
+              }
+            },
+            "Property": "Promo Spend Δ% vs PY (QTR)"
+          }
+        },
+        "type": "Advanced",
+        "howCreated": "User"
+      },
+      {
+        "name": "6b49a93b9327397c5f2e",
+        "ordinal": 8,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Msr Promo"
+              }
+            },
+            "Property": "Promo Details +/-% vs PY (QTR)"
+          }
+        },
+        "type": "Advanced",
+        "howCreated": "User"
+      },
+      {
+        "name": "ba076b078b6a05ee05f3",
+        "ordinal": 9,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Msr Promo"
+              }
+            },
+            "Property": "Promo Spend €/1k Details"
+          }
+        },
+        "type": "Advanced",
+        "howCreated": "User"
+      },
+      {
+        "name": "f23157cd5fa3a0adc3d8",
+        "ordinal": 10,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Msr Promo"
+              }
+            },
+            "Property": "Promo SOV% (ATC4)"
+          }
+        },
+        "type": "Advanced",
+        "howCreated": "User"
+      },
+      {
+        "name": "3cd9efa09e013da0f5af",
+        "ordinal": 11,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Msr Sales"
+              }
+            },
+            "Property": "Sales Values MS%"
+          }
+        },
+        "type": "Advanced",
+        "howCreated": "User"
+      },
+      {
+        "name": "3384949bade8617a2455",
+        "ordinal": 12,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Msr Promo"
+              }
+            },
+            "Property": "Promo ESOV"
+          }
+        },
+        "type": "Advanced",
+        "howCreated": "User"
+      },
+      {
+        "name": "737e9c6afbb878c9eca8",
+        "ordinal": 13,
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "T_DIM_CORPORATION"
+              }
+            },
+            "Property": "Corporation"
+          }
+        },
+        "type": "TopN",
+        "howCreated": "User"
+      },
+      {
+        "name": "2bbbfc19d52405f3e6b7",
+        "ordinal": 14,
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "T_DIM_QUARTER"
+              }
+            },
+            "Property": "QuarterStartDay"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "User"
+      },
+      {
+        "name": "2bcc0921b612a9648182",
+        "ordinal": 15,
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "T_DIM_MOLECULE"
+              }
+            },
+            "Property": "MoleculeNorm"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "User"
+      },
+      {
+        "name": "0f84837eb0cbc08d2a66",
+        "ordinal": 16,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Msr Sales"
+              }
+            },
+            "Property": "LP Sales Values"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "5023282bdf5a3f82fe72",
+        "ordinal": 18,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Msr Promo LP"
+              }
+            },
+            "Property": "LP Promo Spend"
+          }
+        },
+        "type": "Advanced",
+        "howCreated": "User"
+      },
+      {
+        "name": "e94cedc9c52d58d486e7",
+        "ordinal": 19,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Msr Promo"
+              }
+            },
+            "Property": "LP Promo Spend Δ% vs PY (QTR)"
+          }
+        },
+        "type": "Advanced",
+        "howCreated": "User"
+      },
+      {
+        "name": "a832684ca4039352f690",
+        "ordinal": 20,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Msr Promo LP"
+              }
+            },
+            "Property": "LP Promo Spend €/1k Details"
+          }
+        },
+        "type": "Advanced",
+        "howCreated": "User"
+      },
+      {
+        "name": "8f3fa00ced2375d63298",
+        "ordinal": 21,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Msr Promo LP"
+              }
+            },
+            "Property": "LP Promo Details"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "dc05ccbe5af1995d970e",
+        "ordinal": 22,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Msr Promo LP"
+              }
+            },
+            "Property": "LP Promo Details +/-% vs PY (QTR)"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "18e53bb20950a8997831",
+        "ordinal": 23,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Msr Promo LP"
+              }
+            },
+            "Property": "LP Promo SOV% (ATC4)"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "4c40fe1038ba16cdd942",
+        "ordinal": 25,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Msr Sales"
+              }
+            },
+            "Property": "LP Sales Values MS%"
+          }
+        },
+        "type": "Advanced",
+        "howCreated": "User"
+      }
+    ],
+    "filterSortOrder": "Custom"
+  }
+}

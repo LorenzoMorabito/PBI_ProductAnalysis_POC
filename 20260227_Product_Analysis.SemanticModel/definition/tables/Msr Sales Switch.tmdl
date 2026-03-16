@@ -1,0 +1,457 @@
+table 'Msr Sales Switch'
+	lineageTag: 949ee30d-d0cc-4f65-bea7-1245bbb40e62
+
+	measure 'Switch Sales Market' =
+			
+			CALCULATE (
+			    [MetricSales (Selected)]
+			)
+		lineageTag: 69ba4878-4c31-4635-a613-27a3bb616784
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Switch Sales Market PY' =
+			
+			CALCULATE ( 'Msr Sales Switch'[Switch Sales Market], SAMEPERIODLASTYEAR ( T_DIM_QUARTER[QuarterStartDay] ) )
+		lineageTag: 236da82a-a0d3-4227-9b34-83cfeb48a831
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Switch Sales Market YTD' =
+			
+			TOTALYTD ( 'Msr Sales Switch'[Switch Sales Market], T_DIM_QUARTER[QuarterStartDay] )
+		lineageTag: 441384d0-c03c-45b5-8196-2dcefc8eadfd
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Switch Sales Market YTD PY' =
+			
+			TOTALYTD ( [Switch Sales Market PY], T_DIM_QUARTER[QuarterStartDay] )
+		lineageTag: 36c37bef-dccd-4545-a195-3eee5087997d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Switch Sales Market Δ% vs PY (YoY)' =
+			
+			DIVIDE ( [Switch Sales Market] - [Switch Sales Market PY], [Switch Sales Market PY] )
+		lineageTag: f7919fb1-abc9-4ed6-b909-a67c3ca334ac
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Switch Sales Market Δ% vs PY (YTD)' =
+			
+			DIVIDE ( [Switch Sales Market YTD] - [Switch Sales Market YTD PY], [Switch Sales Market YTD PY] )
+		lineageTag: 23e450ba-9ca3-4e05-83ff-4cc04c1695ae
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Switch Sales Market Δ vs PY' =
+			
+			[Switch Sales Market] - [Switch Sales Market PY]
+		lineageTag: fba246b9-1c96-4f71-8ddc-aea7bac893f4
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Switch Sales Market MAT (4Q)' = ```
+			
+			VAR AnchorQ = MAX ( T_DIM_QUARTER[QuarterStartDay] )
+			
+			VAR WindowQ =
+			    TOPN (
+			        4,
+			        FILTER (
+			            ALL ( T_DIM_QUARTER[QuarterStartDay] ),
+			            T_DIM_QUARTER[QuarterStartDay] <= AnchorQ
+			        ),
+			        T_DIM_QUARTER[QuarterStartDay], DESC
+			    )
+			
+			VAR QWithData =
+			    COUNTROWS (
+			        FILTER (
+			            WindowQ,
+			            VAR q = T_DIM_QUARTER[QuarterStartDay]
+			            RETURN
+			                NOT ISBLANK (
+			                    CALCULATE (
+			                        [MetricSales (Selected)],
+			                        REMOVEFILTERS ( T_DIM_QUARTER ),
+			                        T_DIM_QUARTER[QuarterStartDay] = q
+			                    )
+			                )
+			        )
+			    )
+			
+			RETURN
+			IF (
+			    QWithData < 4,
+			    BLANK(),
+			    CALCULATE ( [MetricSales (Selected)], REMOVEFILTERS ( T_DIM_QUARTER ), WindowQ )
+			)
+			
+			```
+		lineageTag: 80dee182-849d-4d99-aae8-cf7730cc6a44
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Switch Sales Market MAT PY (4Q)' =
+			
+			VAR AnchorQ = MAX ( T_DIM_QUARTER[QuarterStartDay] )
+			VAR AnchorPY = EDATE ( AnchorQ, -12 )
+			
+			VAR WindowPY =
+			    TOPN (
+			        4,
+			        FILTER (
+			            ALL ( T_DIM_QUARTER[QuarterStartDay] ),
+			            T_DIM_QUARTER[QuarterStartDay] <= AnchorPY
+			        ),
+			        T_DIM_QUARTER[QuarterStartDay], DESC
+			    )
+			
+			VAR QWithDataPY =
+			    COUNTROWS (
+			        FILTER (
+			            WindowPY,
+			            VAR q = T_DIM_QUARTER[QuarterStartDay]
+			            RETURN
+			                NOT ISBLANK (
+			                    CALCULATE (
+			                        [MetricSales (Selected)],
+			                        REMOVEFILTERS ( T_DIM_QUARTER ),
+			                        T_DIM_QUARTER[QuarterStartDay] = q
+			                    )
+			                )
+			        )
+			    )
+			
+			RETURN
+			IF (
+			    QWithDataPY < 4,
+			    BLANK(),
+			    CALCULATE ( [MetricSales (Selected)], REMOVEFILTERS ( T_DIM_QUARTER ), WindowPY )
+			)
+		lineageTag: b72f1ccc-7869-406e-b999-228406158396
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Switch Sales Measure (Last Period)' =
+			
+			VAR lp = [Last QuarterStartDay (stable)]
+			RETURN
+			CALCULATE(
+			    [MetricSales (Selected)],
+			    REMOVEFILTERS(T_DIM_QUARTER),
+			    T_DIM_QUARTER[QuarterStartDay] = lp
+			)
+		lineageTag: 226990cb-f596-41e9-bfe2-de7a6d470b60
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Switch Sales Measure (Last Period PY)' =
+			
+			VAR lp = [Last QuarterStartDay (stable)]
+			VAR lp_py_date = EDATE(lp, -12)
+			VAR lp_py =
+			    CALCULATE(
+			        MAX(T_DIM_QUARTER[QuarterStartDay]),
+			        FILTER(
+			            ALL(T_DIM_QUARTER[QuarterStartDay]),
+			            T_DIM_QUARTER[QuarterStartDay] <= lp_py_date
+			        )
+			    )
+			RETURN
+			CALCULATE(
+			    [MetricSales (Selected)],
+			    REMOVEFILTERS(T_DIM_QUARTER),
+			    T_DIM_QUARTER[QuarterStartDay] = lp_py
+			)
+		lineageTag: 472f2072-1224-4bae-b087-89f6227e6e3e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Switch Sales Target Share %' =
+			
+			DIVIDE ( [MetricSales (Selected)], 'Msr Sales Switch'[Switch Sales Market] )
+		lineageTag: 2a18608e-80bb-4860-84cb-e1d20fe061fa
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Switch Sales Market Δ% vs PY (MAT)' =
+			
+			DIVIDE ( [Switch Sales Market MAT (4Q)] - [Switch Sales Market MAT PY (4Q)], [Switch Sales Market MAT PY (4Q)] )
+		lineageTag: 53eaa3fe-065c-4c43-a0ee-7aef8714ad7b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Switch Sales Market ROLLING (Dynamic)' =
+			
+			VAR AnchorQ = MAX ( T_DIM_QUARTER[QuarterStartDay] )
+			VAR PeriodSelectedQ = SELECTEDVALUE ( SwitchPeriodMode[Quarters], 4 )
+			VAR WindowQ =
+			    TOPN (
+			        PeriodSelectedQ,
+			        FILTER (
+			            ALL ( T_DIM_QUARTER[QuarterStartDay] ),
+			            T_DIM_QUARTER[QuarterStartDay] <= AnchorQ
+			        ),
+			        T_DIM_QUARTER[QuarterStartDay], DESC
+			    )
+			
+			VAR QWithData =
+			    COUNTROWS (
+			        FILTER (
+			            WindowQ,
+			            VAR q = T_DIM_QUARTER[QuarterStartDay]
+			            RETURN
+			                NOT ISBLANK (
+			                    CALCULATE (
+			                        [MetricSales (Selected)],
+			                        REMOVEFILTERS ( T_DIM_QUARTER ),
+			                        T_DIM_QUARTER[QuarterStartDay] = q
+			                    )
+			                )
+			        )
+			    )
+			
+			RETURN
+			IF (
+			    QWithData < PeriodSelectedQ,
+			    BLANK(),
+			    CALCULATE ( [MetricSales (Selected)], REMOVEFILTERS ( T_DIM_QUARTER ), WindowQ )
+			)
+		lineageTag: c2dcc3b3-15d3-467f-ba54-193a7e0522b8
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Switch Sales Market ROLLING PY (Dynamic)' =
+			
+			VAR PeriodSelectedQ = SELECTEDVALUE ( SwitchPeriodMode[Quarters], 4 )
+			VAR AnchorQ         = MAX ( T_DIM_QUARTER[QuarterStartDay] )
+			VAR AnchorPY        = EDATE ( AnchorQ, -12 )
+			
+			VAR WindowPY =
+			    TOPN (
+			        PeriodSelectedQ,
+			        FILTER (
+			            ALL ( T_DIM_QUARTER[QuarterStartDay] ),
+			            T_DIM_QUARTER[QuarterStartDay] <= AnchorPY
+			        ),
+			        T_DIM_QUARTER[QuarterStartDay], DESC
+			    )
+			
+			VAR HasFullWindow = COUNTROWS ( WindowPY ) = PeriodSelectedQ
+			
+			VAR QWithDataPY =
+			    COUNTROWS (
+			        FILTER (
+			            WindowPY,
+			            VAR q = T_DIM_QUARTER[QuarterStartDay]
+			            RETURN
+			                NOT ISBLANK (
+			                    CALCULATE (
+			                        [MetricSales (Selected)],
+			                        REMOVEFILTERS ( T_DIM_QUARTER ),
+			                        T_DIM_QUARTER[QuarterStartDay] = q
+			                    )
+			                )
+			        )
+			    )
+			
+			RETURN
+			IF (
+			    NOT HasFullWindow || QWithDataPY < PeriodSelectedQ,
+			    BLANK(),
+			    CALCULATE ( [MetricSales (Selected)], REMOVEFILTERS ( T_DIM_QUARTER ), WindowPY )
+			)
+		lineageTag: ed90d636-24b1-4d60-a392-49f0f66a3e00
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Switch MENARINI LP PY' =
+			
+			VAR lp = [Last QuarterStartDay (stable)]
+			VAR lp_py_date = EDATE(lp, -12)
+			VAR lp_py =
+			    CALCULATE(
+			        MAX(T_DIM_QUARTER[QuarterStartDay]),
+			        FILTER(
+			            ALL(T_DIM_QUARTER[QuarterStartDay]),
+			            T_DIM_QUARTER[QuarterStartDay] <= lp_py_date
+			        )
+			    )
+			RETURN
+			CALCULATE(
+			    [MetricSales (Selected)],
+			    REMOVEFILTERS(T_DIM_QUARTER),
+			    T_DIM_QUARTER[QuarterStartDay] = lp_py,
+			    T_DIM_CORPORATION[Corporation] = "MENARINI"
+			)
+		lineageTag: ceffba67-d6fd-4f99-937d-ec8f26bef788
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Switch MENARINI LP' =
+			
+			VAR lp = [Last QuarterStartDay (stable)]
+			RETURN
+			CALCULATE(
+			    [MetricSales (Selected)],
+			    REMOVEFILTERS(T_DIM_QUARTER),
+			    T_DIM_QUARTER[QuarterStartDay] = lp,
+			    T_DIM_CORPORATION[Corporation] = "MENARINI"
+			)
+		lineageTag: cd26f6b1-2453-4d00-88c4-2dac56a31fac
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Switch MENARINI Mkt' =
+			
+			CALCULATE (
+			    [MetricSales (Selected)],
+			    REMOVEFILTERS( T_DIM_CORPORATION ),
+			    KEEPFILTERS( T_DIM_CORPORATION[Corporation] = "MENARINI" )
+			)
+		lineageTag: fbd93545-6905-43a7-a0c8-c46532949bcb
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Switch MENARINI Mkt YTD' =
+			
+			TOTALYTD ( 'Msr Sales Switch'[Switch MENARINI Mkt], T_DIM_QUARTER[QuarterStartDay] )
+		lineageTag: 51268223-a58e-4900-b6d4-803a39666c34
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Switch MENARINI Mkt YTD PY' =
+			
+			TOTALYTD ( [Switch MENARINI Mkt PY], T_DIM_QUARTER[QuarterStartDay] )
+		lineageTag: 8fbd19db-1088-4b40-bd6a-cdb6a625b29b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Switch MENARINI Mkt PY' =
+			
+			CALCULATE ( 'Msr Sales Switch'[Switch MENARINI Mkt], SAMEPERIODLASTYEAR ( T_DIM_QUARTER[QuarterStartDay] ) )
+		lineageTag: 5701f010-7beb-4884-b237-135401a24efa
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Switch MENARINI Mkt ROL (Dynamic)' = ```
+			
+			VAR AnchorQ = MAX ( T_DIM_QUARTER[QuarterStartDay] )
+			VAR PeriodSelectedQ = SELECTEDVALUE ( SwitchPeriodMode[Quarters], 4 )
+			VAR WindowQ =
+			    TOPN (
+			        PeriodSelectedQ,
+			        FILTER (
+			            ALL ( T_DIM_QUARTER[QuarterStartDay] ),
+			            T_DIM_QUARTER[QuarterStartDay] <= AnchorQ
+			        ),
+			        T_DIM_QUARTER[QuarterStartDay], DESC
+			    )
+			
+			VAR QWithData =
+			    COUNTROWS (
+			        FILTER (
+			            WindowQ,
+			            VAR q = T_DIM_QUARTER[QuarterStartDay]
+			            RETURN
+			                NOT ISBLANK (
+			                    CALCULATE (
+			                        [MetricSales (Selected)],
+			                        REMOVEFILTERS ( T_DIM_QUARTER ),
+			                        REMOVEFILTERS( T_DIM_CORPORATION),
+			                        T_DIM_CORPORATION[Corporation] = "MENARINI",
+			                        T_DIM_QUARTER[QuarterStartDay] = q
+			                    )
+			                )
+			        )
+			    )
+			
+			RETURN
+			IF (
+			    QWithData < PeriodSelectedQ,
+			    BLANK(),
+			    CALCULATE ( [MetricSales (Selected)], 
+			    REMOVEFILTERS ( T_DIM_QUARTER ), 
+			    WindowQ,
+			    REMOVEFILTERS( T_DIM_CORPORATION ),
+			    T_DIM_CORPORATION[Corporation] = "MENARINI"
+			    )
+			)
+			```
+		lineageTag: 2011be0e-c051-4402-9f7e-7cc789b489e0
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Switch MENARINI Mkt ROLL PY (Dynamic)' = ```
+			
+			VAR PeriodSelectedQ = SELECTEDVALUE ( SwitchPeriodMode[Quarters], 4 )
+			VAR AnchorQ         = MAX ( T_DIM_QUARTER[QuarterStartDay] )
+			VAR AnchorPY        = EDATE ( AnchorQ, -12 )
+			
+			VAR WindowPY =
+			    TOPN (
+			        PeriodSelectedQ,
+			        FILTER (
+			            ALL ( T_DIM_QUARTER[QuarterStartDay] ),
+			            T_DIM_QUARTER[QuarterStartDay] <= AnchorPY
+			        ),
+			        T_DIM_QUARTER[QuarterStartDay], DESC
+			    )
+			
+			VAR HasFullWindow = COUNTROWS ( WindowPY ) = PeriodSelectedQ
+			
+			VAR QWithDataPY =
+			    COUNTROWS (
+			        FILTER (
+			            WindowPY,
+			            VAR q = T_DIM_QUARTER[QuarterStartDay]
+			            RETURN
+			                NOT ISBLANK (
+			                    CALCULATE (
+			                        [MetricSales (Selected)],
+			                        REMOVEFILTERS ( T_DIM_QUARTER ),
+			                        REMOVEFILTERS( T_DIM_CORPORATION ),
+			                        T_DIM_QUARTER[QuarterStartDay] = q,
+			                        T_DIM_CORPORATION[Corporation] = "MENARINI"
+			                    )
+			                )
+			        )
+			    )
+			
+			RETURN
+			IF (
+			    NOT HasFullWindow || QWithDataPY < PeriodSelectedQ,
+			    BLANK(),
+			    CALCULATE ( [MetricSales (Selected)], 
+			    REMOVEFILTERS ( T_DIM_QUARTER ) , 
+			    WindowPY,
+			    REMOVEFILTERS( T_DIM_CORPORATION ),
+			    T_DIM_CORPORATION[Corporation] = "MENARINI"
+			    )
+			)
+			```
+		lineageTag: 14987207-7c83-46ef-be31-a1f6741f271f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Column
+		isHidden
+		formatString: 0
+		lineageTag: 3c6434b2-962b-4cfc-9837-92e4f342ce23
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Msr Sales Switch' = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = d84f3e76a46c411394d92f3fd7488465
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":""}
+

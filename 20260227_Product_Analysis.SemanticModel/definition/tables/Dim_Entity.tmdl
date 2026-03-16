@@ -1,0 +1,77 @@
+table Dim_Entity
+	lineageTag: 78d2444c-fb57-4c4c-8b50-0775fce1df09
+
+	measure 'Target Entity' =
+			
+			SELECTEDVALUE( Dim_Entity[Entity], "(Seleziona...)" )
+		lineageTag: 3b3f9207-d34c-44fa-aca2-dfebcda3d4c1
+
+	measure 'Is Target Selected' =
+			
+			IF( [Target Entity] = "(Seleziona...)", 0, 1 )
+		formatString: 0
+		lineageTag: 8c8be460-e404-4b1b-89dc-c59b30f02051
+
+	measure 'DeepDive Message' =
+			
+			IF( [Is Target Selected] = 0, "Seleziona un target per avviare il deep dive", BLANK() )
+		lineageTag: 8c23ce1c-ff2e-4114-a04f-569ca4ed207b
+
+	column ViewBy
+		lineageTag: 53b03910-2102-4b8b-9dd6-43b9065d9144
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [ViewBy]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Entity
+		lineageTag: 5c85f813-d2c6-4791-be86-917c050e4291
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Entity]
+
+		annotation SummarizationSetBy = Automatic
+
+	column SortKey
+		formatString: 0
+		lineageTag: 69808b91-0110-4a5d-add8-d6df88da2e4e
+		summarizeBy: count
+		isNameInferred
+		sourceColumn: [SortKey]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Entity = calculated
+		mode: import
+		source =
+				
+				VAR Placeholder =
+				    DATATABLE(
+				        "ViewBy", STRING,
+				        "Entity", STRING,
+				        "SortKey", INTEGER,
+				        {
+				            {"Product",     "(Seleziona...)", 0},
+				            {"Corporation", "(Seleziona...)", 0}
+				        }
+				    )
+				VAR Mole =
+				    SELECTCOLUMNS(
+				        DISTINCT( T_DIM_PRODUCT[Product] ),
+				        "ViewBy",  "Product",
+				        "Entity",  T_DIM_PRODUCT[Product],
+				        "SortKey", 1
+				    )
+				VAR Corp =
+				    SELECTCOLUMNS(
+				        DISTINCT( T_DIM_CORPORATION[Corporation] ),
+				        "ViewBy",  "Corporation",
+				        "Entity",  T_DIM_CORPORATION[Corporation],
+				        "SortKey", 1
+				    )
+				RETURN
+				UNION( Placeholder, Mole, Corp )
+
+	annotation PBI_Id = c0697649d07b4445a73c2f8cbf994590
+

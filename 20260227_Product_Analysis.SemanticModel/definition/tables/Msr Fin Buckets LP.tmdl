@@ -1,0 +1,58 @@
+table 'Msr Fin Buckets LP'
+	lineageTag: 92604e21-94b9-4267-b53e-f9b329a5847e
+
+	measure 'Fin ACT (Bucket, LP)' =
+			
+			VAR lp = [Last QuarterStartDay (stable)]
+			RETURN
+			CALCULATE(
+			    [Fin ACT (Buckets)],
+			    REMOVEFILTERS( T_DIM_QUARTER ),
+			    T_DIM_QUARTER[QuarterStartDay] = lp
+			)
+		lineageTag: db21a9b6-ba37-4e58-828a-236029281e4b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Fin ACT vs BDG +/-% (Bucket, LP)' =
+			
+			VAR lp = [Last QuarterStartDay (stable)]
+			RETURN
+			CALCULATE(
+			    [Fin ACT vs BDG +-% (Buckets)],
+			    REMOVEFILTERS( T_DIM_QUARTER ),
+			    T_DIM_QUARTER[QuarterStartDay] = lp
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: e88b6ae8-107b-414c-a22e-525f0ccc36ea
+
+	measure 'Fin ACT vs PY PPG% (Bucket, LP)' =
+			
+			VAR lp = [Last QuarterStartDay (stable)]
+			RETURN
+			CALCULATE(
+			    [Fin ACT vs PY PPG% (Buckets)],
+			    REMOVEFILTERS( T_DIM_QUARTER ),
+			    T_DIM_QUARTER[QuarterStartDay] = lp
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 17110ff9-39f8-47f4-8044-64923ef53e90
+
+	column Column
+		isHidden
+		formatString: 0
+		lineageTag: 8a6aacd2-d7b0-40f3-8034-eb2b8ca4fc04
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Msr Fin Buckets LP' = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = 54848e529df440db8361fe55562c62ad
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":""}
+

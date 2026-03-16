@@ -1,0 +1,17 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "635629163ad870a2e016",
+  "position": {
+    "x": 701.75,
+    "y": 976.11910221475864,
+    "z": 2000,
+    "height": 120,
+    "width": 340,
+    "tabOrder": 0
+  },
+  "visualGroup": {
+    "displayName": "Finance Filter",
+    "groupMode": "ScaleMode"
+  },
+  "isHidden": true
+}

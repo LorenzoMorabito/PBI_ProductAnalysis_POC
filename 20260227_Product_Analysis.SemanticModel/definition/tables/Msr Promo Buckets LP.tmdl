@@ -1,0 +1,166 @@
+table 'Msr Promo Buckets LP'
+	lineageTag: b13fa757-36e1-44c0-bd0f-1ac56b1e2139
+
+	measure 'Promo Measure (Bucket, LP)' =
+			
+			VAR lp = [Last QuarterStartDay (stable)]
+			RETURN
+			CALCULATE(
+			    [Promo Measure (Bucket)],
+			    REMOVEFILTERS( T_DIM_QUARTER ),
+			    T_DIM_QUARTER[QuarterStartDay] = lp
+			)
+		lineageTag: 78c20947-2456-4d45-abf1-8d1270e679a6
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Promo +/- vs PQ (abs) (Bucket, LP)' =
+			
+			VAR curr = [Promo Measure (Bucket, LP)]
+			VAR pq   = [Promo Measure (Bucket, PQ)]
+			RETURN
+			IF( ISBLANK(pq), BLANK(), curr - pq )
+		lineageTag: e6012ee4-592e-457c-8794-1646bcc7d91d
+
+	measure 'Promo +/-% vs PQ (Bucket, LP)' =
+			
+			VAR curr = [Promo Measure (Bucket, LP)]
+			VAR pq   = [Promo Measure (Bucket, PQ)]
+			RETURN
+			DIVIDE( curr - pq, pq )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: f62dd613-7910-431c-bee2-5ed1cf9c73f2
+
+	measure 'Promo EI (Bucket, LP)' =
+			
+			VAR ms    = [Promo MS% (Bucket, LP)]
+			VAR ms_py = [Promo MS% (Bucket, PY)]
+			RETURN
+			IF(ISBLANK(ms_py), BLANK(), DIVIDE(ms, ms_py) * 100)
+		formatString: 0.0
+		lineageTag: 71dc15cf-b0b6-4193-a88b-b6f003b6acfc
+
+	measure 'Promo Market Total (LP)' =
+			
+			VAR lp = [Last QuarterStartDay (stable)]
+			RETURN
+			CALCULATE(
+			    [MetricPromo (Selected)],
+			    REMOVEFILTERS(T_DIM_QUARTER),
+			    T_DIM_QUARTER[QuarterStartDay] = lp,
+			    REMOVEFILTERS(T_DIM_CORPORATION[Corporation])
+			)
+		formatString: 0
+		lineageTag: 0c423cef-859f-42ca-a834-1b05cce3b757
+
+	measure 'Promo Market Total (PY)' =
+			
+			VAR py = [PY QuarterStartDay (LP)]
+			RETURN
+			IF(
+			    ISBLANK(py),
+			    BLANK(),
+			    CALCULATE(
+			        [MetricPromo (Selected)],
+			        REMOVEFILTERS( T_DIM_QUARTER ),
+			        T_DIM_QUARTER[QuarterStartDay] = py,
+			        REMOVEFILTERS( T_DIM_CORPORATION[Corporation] )
+			    )
+			)
+		formatString: 0
+		lineageTag: 474205de-85ed-4289-a3a5-9dab24d44e15
+
+	measure 'Promo Measure (Bucket, PQ)' =
+			
+			VAR pq = [QuarterStartDay PP (LP)]
+			RETURN
+			CALCULATE(
+			    [Promo Measure (Bucket)],
+			    REMOVEFILTERS(T_DIM_QUARTER),
+			    T_DIM_QUARTER[QuarterStartDay] = pq
+			)
+		formatString: 0
+		lineageTag: 303eeb5b-2db7-44b0-b4e9-4e6e76377588
+
+	measure 'Promo Measure (Bucket, PY)' =
+			
+			VAR py = [PY QuarterStartDay (LP)]
+			RETURN
+			CALCULATE(
+			    [Promo Measure (Bucket)],
+			    REMOVEFILTERS(T_DIM_QUARTER),
+			    T_DIM_QUARTER[QuarterStartDay] = py
+			)
+		formatString: 0
+		lineageTag: 18614693-b631-4725-afaa-fef3d8b85447
+
+	measure 'Promo MS% (Bucket, LP)' =
+			
+			DIVIDE( [Promo Measure (Bucket, LP)], [Promo Market Total (LP)] )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 57ca249b-4423-42f3-a167-d9d7fc417310
+
+	measure 'Promo MS% (Bucket, PY)' =
+			
+			VAR py = [PY QuarterStartDay (LP)]
+			RETURN
+			CALCULATE(
+			    [Promo Share% (Bucket)],
+			    REMOVEFILTERS(T_DIM_QUARTER),
+			    T_DIM_QUARTER[QuarterStartDay] = py
+			)
+		lineageTag: 6356af1d-d5a2-4357-b044-f20eb28dd2cc
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Promo PPG vs PY (Bucket, LP)' =
+			
+			VAR ms    = [Promo Measure (Bucket, LP)]
+			VAR ms_py = [Promo Measure (Bucket, PY)]
+			RETURN
+			IF(
+			    ISBLANK(ms) || ISBLANK(ms_py),
+			    BLANK(),
+			    DIVIDE(ms - ms_py, ms_py)
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 0ed45751-5aa2-4ab9-ac40-d6a1e3aca44a
+
+	measure 'Promo QoQ% (Bucket, LP)' =
+			
+			VAR curr = [Promo Measure (Bucket, LP)]
+			VAR prev = [Promo Measure (Bucket, PQ)]
+			RETURN
+			DIVIDE(curr - prev, prev)
+		lineageTag: 52bbcc79-129b-4790-9e0c-2fbd5d0406bd
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Promo YoY% (Bucket, LP)' =
+			
+			VAR curr = [Promo Measure (Bucket, LP)]
+			VAR py   = [Promo Measure (Bucket, PY)]
+			RETURN
+			DIVIDE(curr - py, py)
+		lineageTag: e07ce512-ec83-4ccb-ad94-558cc07094c3
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Column
+		isHidden
+		formatString: 0
+		lineageTag: 4cb141ff-979b-412d-bd70-7ae090b36ce1
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Msr Promo Buckets LP' = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = 34613ba105b641d38aa09b9e8c6dba82
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":""}
+

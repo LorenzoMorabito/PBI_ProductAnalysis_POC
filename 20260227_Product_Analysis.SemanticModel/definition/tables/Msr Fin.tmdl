@@ -1,0 +1,76 @@
+table 'Msr Fin'
+	lineageTag: 1bed53ab-1532-4fba-8857-14854a06b5d8
+
+	measure 'Fin ACT' = ```
+			SUM ( T_FCT_FIN[ACT] )
+			
+			```
+		lineageTag: e2771a44-7257-4f23-bd3b-00aaca510b0c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Fin BDG' = SUM ( T_FCT_FIN[BDG] )
+		lineageTag: 44e991e1-8bb3-4bbf-98db-9bdbcc9fecf6
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Fin ACT vs BDG abs' = [Fin ACT] - [Fin BDG]
+		lineageTag: 3105dd82-ca87-4cde-9f71-a43357181501
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Fin ACT vs BDG +-%' = DIVIDE ( [Fin ACT vs BDG abs], [Fin BDG] )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 73813f07-2192-4b5a-ac8b-c2368dec3313
+
+	measure 'Fin ACT PY' =
+			
+			CALCULATE (
+			    [Fin ACT],
+			    DATEADD ( T_DIM_MONTH[MonthStartDay], -1, YEAR )
+			)
+		lineageTag: f134409b-ba68-4481-9857-2eb056603d85
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Fin ACT vs PY PPG%' =
+			
+			DIVIDE ( [Fin ACT] - [Fin ACT PY], [Fin ACT PY] )
+		lineageTag: 111764bd-3295-427d-8a0a-8de6cff8b7e5
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Fin BDG PY' =
+			
+			CALCULATE (
+			    [Fin BDG],
+			    DATEADD ( T_DIM_MONTH[MonthStartDay], -1, YEAR )
+			)
+		lineageTag: f7fe74bd-5f0c-464c-a1a8-a4fd51837d98
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Fin ACT vs PP +/-%' =
+			
+			DIVIDE( ([Fin ACT] - [Fin ACT PY] ), [Fin ACT PY])
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 07ad12d7-45b2-46a1-ab75-18c149ef0ac9
+
+	column Column
+		isHidden
+		formatString: 0
+		lineageTag: 76e2ca44-ff97-48ed-98e6-855a5c2141fd
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Msr Fin' = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = a628e9c3b81f47c2aba9d0123cb171ce
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":""}
+

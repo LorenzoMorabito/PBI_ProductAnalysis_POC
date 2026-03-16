@@ -1,0 +1,18 @@
+table MaxLag
+	lineageTag: d16f185a-17db-4c15-87d5-d9cb68bc2dbb
+
+	column Value
+		formatString: 0
+		lineageTag: a47208b0-21b2-42e9-b955-6c84eedea4d6
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Value]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition MaxLag = calculated
+		mode: import
+		source = GENERATESERIES(0, 8, 1)
+
+	annotation PBI_Id = 8a5a75e67a11483d8b5636a67e575c56
+

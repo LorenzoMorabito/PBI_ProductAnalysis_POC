@@ -1,0 +1,366 @@
+table 'Msr Promo'
+	lineageTag: 3a8d131f-6dd4-420c-a86d-674324dcd0a4
+
+	measure 'Promo Spend' =
+			
+			SUM ( T_FCT_PROMO_A10P_CD[Spending Total EUR] )
+		formatString: 0
+		lineageTag: c3330d88-8925-4f27-b285-10d38942adde
+
+	measure 'Total Promo Spending €' =
+			
+			CALCULATE ( [Promo Spend], REMOVEFILTERS ( T_DIM_PRODUCT[Product] ) )
+		formatString: 0
+		lineageTag: ac0118d8-c148-4eb4-bd0f-6bfb20b2c564
+
+	measure '% Share of Investments' =
+			
+			DIVIDE ( [Promo Spend], [Total Promo Spending €] )
+		lineageTag: 82569e5f-8cd5-4b96-aedd-2359a4d66941
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Promo Details' =
+			
+			SUM ( T_FCT_PROMO_A10P_CD[Product Details] )
+		formatString: 0
+		lineageTag: 8648fb05-b527-43d1-bd7c-20c38537dd3d
+
+	measure 'Market Promo Product Details' =
+			
+			CALCULATE ( [Promo Details], REMOVEFILTERS ( T_DIM_MOLECULE[MoleculeNorm] ), REMOVEFILTERS( T_DIM_CORPORATION[Corporation] ) )
+		formatString: 0
+		lineageTag: 153be49b-e0fd-41ba-a983-530a3c84f10a
+
+	measure 'Promo SOV% (ATC4)' =
+			
+			DIVIDE ( [Promo Details], [Market Promo Product Details (ATC4)] )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: b9240727-478d-4802-9f60-dbff322a0396
+
+	measure 'Target Spend (Molecule)' =
+			
+			CALCULATE ( [Promo Spend], REMOVEFILTERS ( T_DIM_PRODUCT[Product] ) )
+		lineageTag: 178b794a-cdf0-4652-a0fd-9272a150b267
+
+	measure '% Share of Spend Target' =
+			
+			DIVIDE ( [Target Spend (Molecule)], [Market Spend (ATC4 - Total)] )
+		lineageTag: 748eb95c-b109-40ac-ba0c-57b8c90f4ffc
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Target Contacts (Molecule)' =
+			
+			CALCULATE ( [Promo Contacts], REMOVEFILTERS ( T_DIM_PRODUCT[Product] ) )
+		lineageTag: 79ecbf8e-16b1-4301-8e5d-654e88e89676
+
+	measure 'Cost per Contact (Target)' =
+			
+			DIVIDE ( [Target Spend (Molecule)], [Target Contacts (Molecule)] )
+		lineageTag: 76e703da-286f-4441-b926-97f1a6269d29
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Promo Contacts' = SUM(T_FCT_PROMO_A10P_CD[Contact Number])
+		formatString: 0
+		lineageTag: a98ecc87-5e62-4316-9e10-2c6ef5c16400
+
+	measure 'Market Spend (ATC4 - Total)' =
+			
+			CALCULATE (
+			    [Promo Spend],
+			    REMOVEFILTERS ( T_DIM_PRODUCT[Product] ),
+			    REMOVEFILTERS ( T_DIM_MOLECULE ),
+			    REMOVEFILTERS ( T_FCT_PROMO_A10P_CD[Specialty] ),
+			    REMOVEFILTERS ( T_FCT_PROMO_A10P_CD[Cam Channels] ),
+			    REMOVEFILTERS ( T_FCT_PROMO_A10P_CD[Contact Type] )
+			)
+		formatString: 0
+		lineageTag: 2c825b0e-52b4-4fe2-b6fb-60611cc1fd13
+
+	measure 'Promo Spend €/1k Units' =
+			
+			DIVIDE ( [Market Spend (ATC4 - Total)], [Market Units] ) * 1000
+		lineageTag: e73c5682-6e6c-4f76-9fd9-763f0e44f582
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Promo Quality Index' = SUM(T_FCT_PROMO_A10P_CD[Quality Index])
+		formatString: 0
+		lineageTag: b550ab72-c21f-4d62-bff5-37261b00321e
+
+	measure 'Promo Details (Selected Product)' = [Promo Details]
+		formatString: 0
+		lineageTag: 194fbc1c-2ae5-4cc3-a40c-4e9639ebc521
+
+	measure '% Voice Split (Digital/Traditional)' =
+			
+			DIVIDE( [Promo Details (Selected Product)], [Promo Details] )
+		lineageTag: 841b3864-90fb-4d95-8381-50b2c2de5b27
+
+	measure '% Share of Spend' = DIVIDE([Promo Spend], [Market Spend (ATC4 - Total)])
+		lineageTag: 113afef0-38d5-4911-8f00-1f61d3320fb7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Promo Spend Δ vs PY' =
+			
+			[Promo Spend] - [Promo Spend PY]
+		lineageTag: 81e1ab67-0266-47b6-b0b6-685184350c05
+
+	measure 'Promo Spend PY' =
+			
+			CALCULATE ( [Promo Spend], SAMEPERIODLASTYEAR ( T_DIM_QUARTER[QuarterStartDay] ) )
+		formatString: 0
+		lineageTag: f900a1ee-cd80-4057-a5f6-7330b249f2c4
+
+	measure 'Promo Details PY' =
+			
+			CALCULATE ( [Promo Details], SAMEPERIODLASTYEAR ( T_DIM_QUARTER[QuarterStartDay] ) )
+		formatString: 0
+		lineageTag: 37c2f2a8-4040-41b2-ad8f-dd7dd1c09b41
+
+	measure 'Promo Details PPG vs PY' =
+			
+			[Promo Details] - [Promo Details PY]
+		formatString: 0
+		lineageTag: 8605b9b3-db79-4888-88e5-f6b83ec98454
+
+	measure 'Promo Spend Δ% vs PY (QTR)' =
+			
+			DIVIDE ( [Promo Spend] - [Promo Spend PY], [Promo Spend PY] )
+		lineageTag: 7c2040b8-539b-4de9-9172-1da397b4044d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Promo Details +/-% vs PY (QTR)' =
+			
+			DIVIDE ( [Promo Details] - [Promo Details PY], [Promo Details PY] )
+		lineageTag: 69e2bcd5-4949-4301-bc7d-b8def20323ba
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Promo Spend €/1k Details' =
+			
+			DIVIDE ( [Promo Spend], [Promo Details] ) * 1000
+		lineageTag: d0b3eddf-0f97-4830-80d7-84722acfa052
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Promo ESOV' =
+			
+			([Promo SOV% (ATC4)] - [Sales Values MS%])*100
+		lineageTag: 909aa638-cd41-4c9f-b384-a1d8ca8cd19d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Promo Spend €/1k Details (Median)' = ```
+			
+			VAR Base =
+			    FILTER (
+			        ADDCOLUMNS (
+			            ALL ( T_DIM_MOLECULE[MoleculeNorm] ),
+			            "x", CALCULATE ( [Promo Spend €/1k Details] )
+			        ),
+			        NOT ISBLANK ( [x] )
+			    )
+			RETURN
+			PERCENTILEX.INC ( Base, [x], 0.5 )
+			
+			```
+		lineageTag: c91739d5-cede-4d85-8138-78842c92a1d5
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Promo Spend €/1k Details (P25)' = ```
+			
+			VAR Base =
+			    FILTER (
+			        ADDCOLUMNS (
+			            ALL ( T_DIM_MOLECULE[MoleculeNorm] ),
+			            "x", CALCULATE ( [Promo Spend €/1k Details] )
+			        ),
+			        NOT ISBLANK ( [x] )
+			    )
+			RETURN
+			PERCENTILEX.INC ( Base, [x], 0.25 )
+			
+			```
+		lineageTag: e3e083e6-b510-4824-84da-6dbe65e00668
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Promo Spend €/1k Details P75' =
+			
+			VAR Base =
+			    FILTER (
+			        ADDCOLUMNS (
+			            ALL ( T_DIM_MOLECULE[MoleculeNorm] ),
+			            "x", CALCULATE ( [Promo Spend €/1k Details] )
+			        ),
+			        NOT ISBLANK ( [x] )
+			    )
+			RETURN
+			PERCENTILEX.INC ( Base, [x], 0.75 )
+		lineageTag: 413d3a83-c9b5-4388-a809-be635e3a2ec3
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Promo ESOV (Median)' = ```
+			
+			VAR Base =
+			    FILTER (
+			        ADDCOLUMNS (
+			            ALL ( T_DIM_MOLECULE[MoleculeNorm] ),
+			            "x", CALCULATE ( [Promo ESOV] )
+			        ),
+			        NOT ISBLANK ( [x] )
+			    )
+			RETURN
+			PERCENTILEX.INC ( Base, [x], 0.5 )
+			
+			```
+		lineageTag: 34004181-c1ae-4831-9018-0d411758ab2d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Promo ESOV (P25)' = ```
+			
+			VAR Base =
+			    FILTER (
+			        ADDCOLUMNS (
+			            ALL ( T_DIM_MOLECULE[MoleculeNorm] ),
+			            "x", CALCULATE ( [Promo ESOV] )
+			        ),
+			        NOT ISBLANK ( [x] )
+			    )
+			RETURN
+			PERCENTILEX.INC ( Base, [x], 0.25 )
+			
+			```
+		lineageTag: d1686517-99d8-497f-a34e-84d55126d4d8
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Promo ESOV (P75)' =
+			
+			VAR Base =
+			    FILTER (
+			        ADDCOLUMNS (
+			            ALL ( T_DIM_MOLECULE[MoleculeNorm] ),
+			            "x", CALCULATE ( [Promo ESOV] )
+			        ),
+			        NOT ISBLANK ( [x] )
+			    )
+			RETURN
+			PERCENTILEX.INC ( Base, [x], 0.75 )
+		lineageTag: 720ff1ba-1682-4005-a3d8-484e46102a26
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales Values MS% TopN Corp (Frequenze Cumulate)' = ```
+			
+			VAR N = [TopN Value]
+			VAR TotalSales =
+			    CALCULATE ( [LP Sales Values], ALL ( T_DIM_MOLECULE[MoleculeNorm] ), ALL( T_DIM_CORPORATION ) )
+			VAR TopTable =
+			    TOPN (
+			        N,
+			        ALL ( T_DIM_CORPORATION[Corporation] ),
+			        CALCULATE ( [LP Sales Values] ),
+			        DESC
+			    )
+			VAR TopSales =
+			    SUMX ( TopTable, CALCULATE ( [LP Sales Values] ) )
+			RETURN
+			DIVIDE ( TopSales, TotalSales )
+			
+			```
+		lineageTag: 20e7c414-3af0-49e8-9b36-35199a6dd1a1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'LP Promo Spend Δ% vs PY (QTR)' =
+			
+			VAR lp = [Last QuarterStartDay (stable)]
+			RETURN
+			CALCULATE(
+			    [Promo Spend Δ% vs PY (QTR)],
+			    REMOVEFILTERS(T_DIM_QUARTER),
+			    T_DIM_QUARTER[QuarterStartDay] = lp
+			)
+		lineageTag: 1d7fde22-a781-4bf5-9932-ed7d243a4730
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Promo Weighted Calls' = SUM(T_FCT_PROMO_A10P_CD[Weighted Calls])
+		formatString: #,0
+		lineageTag: e8bb0bf3-5b02-4180-9bc2-dc52246d206e
+
+	measure 'Promo SOV% EI vs PY (ATC4)' =
+			
+			VAR ms = [Promo SOV% (ATC4)]
+			VAR ms_py = [Promo SOV% PY (ATC4)]
+			RETURN IF( ISBLANK(ms_py), BLANK(), DIVIDE(ms, ms_py) * 100 )
+		formatString: 0
+		lineageTag: 738c6618-301e-48ca-8f70-d89a1a9d268d
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 'Promo SOV% PY (ATC4)' =
+			
+			CALCULATE ( [Promo SOV% (ATC4)], SAMEPERIODLASTYEAR ( T_DIM_QUARTER[QuarterStartDay] ) )
+		lineageTag: 207a78c8-f705-4d2c-bd2c-80bd810e33a9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Market Promo Product Details (ATC4)' = ```
+			
+			CALCULATE ( [Market Promo Product Details], REMOVEFILTERS ( T_DIM_PRODUCT ) , 
+			                            REMOVEFILTERS ( T_DIM_MOLECULE ) , 
+			                            REMOVEFILTERS(T_DIM_CORPORATION), 
+			                            KEEPFILTERS( VALUES(T_DIM_PRODUCT[ATC4] )))
+			```
+		formatString: 0
+		lineageTag: a96dd1d9-e446-4313-bd44-3c86e4fbd948
+
+	measure 'Promo SOV%' =
+			
+			DIVIDE ( [Promo Details], [Market Promo Product Details] )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: d32bb0a4-b7c4-4bcb-95c7-c39c12c1ed3e
+
+	measure 'Promo SOV% EI vs PY' =
+			
+			VAR ms = [Promo SOV%]
+			VAR ms_py = [Promo SOV% PY (ATC4)]
+			RETURN IF( ISBLANK(ms_py), BLANK(), DIVIDE(ms, ms_py) * 100 )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: fbb3c3ad-c3e9-4b30-b804-bdcb287171f2
+
+	measure 'Promo SOV% PY' =
+			
+			CALCULATE ( [Promo SOV%], SAMEPERIODLASTYEAR ( T_DIM_QUARTER[QuarterStartDay] ) )
+		lineageTag: 123fca54-d084-400b-ae73-b7d4f8cf9e86
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Column
+		isHidden
+		formatString: 0
+		lineageTag: 306ad38f-2300-4087-84a5-5893581beb65
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Msr Promo' = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = 597750d892cc4a02b8ddb1b4b93b1048
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":""}
+

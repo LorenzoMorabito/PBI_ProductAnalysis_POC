@@ -1,0 +1,183 @@
+table '.Colours'
+	lineageTag: aab146c7-d16b-4de8-830f-2499640796a2
+
+	measure 'Colour LP Promo SOV% EI vs PY (QTR) (ATC4)' =
+			
+			VAR v = [LP Promo SOV% EI vs PY (QTR) (ATC4)]
+			VAR eps = 100
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(v), BLANK(),
+			    v < eps, "bad",
+			    ABS(v) = eps, "neutral",
+			    v > eps, "good",
+			    BLANK()
+			)
+		lineageTag: 3103f33f-1ed4-47a1-a1c3-649e9a111a14
+
+	measure 'Colour LP Sales Values MS% EI PY (QTR) (ATC4)' =
+			
+			VAR v = [LP Sales Values MS% EI PY (QTR) (ATC4)]
+			VAR eps = 100
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(v), BLANK(),
+			    v < eps, "bad",
+			    ABS(v) = eps, "neutral",
+			    v > eps, "good",
+			    BLANK()
+			)
+		lineageTag: 16dd6144-8f7e-4fdb-87c9-c27a2b5ebf80
+
+	measure 'Colour LP Promo Details +/-% vs PY (QTR)' =
+			
+			VAR v = [LP Promo Details +/-% vs PY (QTR)]
+			VAR eps = 0.0001
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(v), BLANK(),
+			    v < -eps, "bad",
+			    ABS(v) <= eps, "neutral",
+			    v > eps, "neutral",
+			    BLANK()
+			)
+		lineageTag: 8df34e79-a393-40cd-85b7-2a6ee205c7c8
+
+	measure 'Colour LP Sales Values +/-% vs PY (QTR)' =
+			
+			VAR v = [LP Sales Values +/-% vs PY (QTR)]
+			VAR eps = 0.0001
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(v), BLANK(),
+			    v < -eps, "bad",
+			    ABS(v) <= eps, "neutral",
+			    v > eps, "neutral",
+			    BLANK()
+			)
+		lineageTag: 934a247a-f5d8-4ed8-9b26-8251ee168e81
+
+	measure 'Colour Shape Visual BG' = "background"
+		lineageTag: e8d454c7-9d11-4508-a334-686551dd40eb
+
+	measure 'Colour H1 font' = "backgroundLight"
+		lineageTag: 9f3b087e-0e06-4ed1-9abe-fd6cb2d2e267
+
+	measure 'Colour H1 Shape BG' = "backgroundLgh"
+		lineageTag: cccc5a7a-c890-424a-a20f-6fb4fa2a5071
+
+	measure 'Colour MENARINI' = "#940303"
+		lineageTag: a82c0065-f4d3-459e-819f-7f2cc19b45ce
+
+	measure 'Colour Bucket Sales +/-% (PP)' =
+			
+			VAR v = [Sales +/-% vs PQ (Bucket, LP)]
+			VAR eps = 0.0001
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(v), BLANK(),
+			    v < -eps, "bad",
+			    ABS(v) <= eps, "neutral",
+			    v > eps, "neutral",
+			    BLANK()
+			)
+		lineageTag: 57bcad03-0dab-4544-a147-bea3036f8cc7
+
+	measure 'Colour Bucket Sales PPG% (PY)' =
+			
+			VAR v = [Sales PPG % (vs PY) (Bucket)]
+			VAR eps = 0.0001
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(v), BLANK(),
+			    v < -eps, "bad",
+			    ABS(v) <= eps, "neutral",
+			    v > eps, "neutral",
+			    BLANK()
+			)
+		lineageTag: 3131d746-83f9-4f3d-9e51-c84e52a75c52
+
+	measure 'Colour Bucket Sales MS% EI (PY)' =
+			
+			VAR v = [Sales EI (Bucket, LP)]
+			VAR eps = 100
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(v), BLANK(),
+			    v < eps, "bad",
+			    ABS(v) = eps, "neutral",
+			    v > eps, "good",
+			    BLANK()
+			)
+		lineageTag: 761a0ba4-605e-45c2-9675-553ccbd40ffe
+
+	measure 'Colour Bucket Promo Share% PY EI' =
+			
+			VAR v = [Promo EI (Bucket, LP)]
+			VAR eps = 100
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(v), BLANK(),
+			    v < eps, "bad",
+			    ABS(v) = eps, "neutral",
+			    v > eps, "good",
+			    BLANK()
+			)
+		lineageTag: 5899d450-0cda-4b90-ad92-4dba15e5247f
+
+	measure 'Colour Bucket Promo +/-% (PP)' =
+			
+			VAR v = [Promo +/-% vs PQ (Bucket, LP)]
+			VAR eps = 0.001
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(v), BLANK(),
+			    v < -eps, "bad",
+			    ABS(v) <= eps, "neutral",
+			    v > eps, "neutral",
+			    BLANK()
+			)
+		lineageTag: b17c0dcf-92f5-4e72-9b24-d6ce5a407789
+
+	measure 'Colour Bucket Promo PPG% (PY)' =
+			
+			VAR v = [Promo PPG vs PY (Bucket, LP)]
+			VAR eps = 0.001
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(v), BLANK(),
+			    v < -eps, "bad",
+			    ABS(v) <= eps, "neutral",
+			    v > eps, "neutral",
+			    BLANK()
+			)
+		lineageTag: ee155b90-987c-47fd-93d6-0f8a417b4d9e
+
+	column Column
+		isHidden
+		formatString: 0
+		lineageTag: 12da3119-9184-420d-ac6d-4c4700c46868
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition '.Colours' = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = cf95a2c42ae0403cb7461bf9da451307
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":""}
+

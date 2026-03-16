@@ -1,0 +1,281 @@
+table TopN
+	lineageTag: 54d107bb-db01-45f8-8675-69aacd776453
+
+	measure 'TopN Value' = SELECTEDVALUE('TopN'[TopN], 3)
+		formatString: 0
+		lineageTag: 1c31abae-1dbf-404c-8762-c34860a3276e
+
+	measure 'Rank Molecule Movers' =
+			
+			RANKX(
+			    ALL( T_DIM_MOLECULE[MoleculeNorm] ),
+			    [LP Sales Values],
+			    ,
+			    DESC,
+			    Dense
+			)
+		formatString: 0
+		lineageTag: c8e798b2-c98d-4118-b2e7-f2f5ab9326c1
+
+	measure 'Is TopN Molecule' =
+			
+			VAR N = [TopN Value]
+			RETURN IF( [Rank Molecule Movers] <= N, 1, 0 )
+		formatString: 0
+		lineageTag: 91cc8e08-11ce-43c5-b876-a8f7dda72ad9
+
+	measure 'Is TopN Corporation' =
+			
+			VAR N = [TopN Value]
+			RETURN IF( [Rank Corporation Movers] <= N, 1, 0 )
+		lineageTag: 422f9d6a-2c86-40a2-8ed8-1835f4748957
+
+	measure 'Rank Corporation Movers' =
+			
+			RANKX(
+			    ALL( T_DIM_CORPORATION[Corporation] ),
+			    [LP Sales Values],
+			    ,
+			    DESC,
+			    Dense
+			)
+		formatString: 0
+		lineageTag: 7efb385c-6957-4508-81b9-de1fe7757349
+
+	measure 'Rank Movers by Parameter Selected' = ```
+			
+			VAR ViewOrd =
+			    SELECTEDVALUE( SwitchTopByDimension[Parameter Order], 0 )
+			VAR lp = [Last QuarterStartDay (stable)]
+			RETURN
+			SWITCH(
+			    ViewOrd,
+			    0,
+			        RANKX(
+			            ALL( T_DIM_PRODUCT[Product]),
+			            CALCULATE([TopBy Metric (Selected Safe)], 
+			                        REMOVEFILTERS(T_DIM_QUARTER), 
+			                        T_DIM_QUARTER[QuarterStartDay] = lp ),
+			            ,                        
+			            DESC,
+			            Dense
+			        ),
+			    1,
+			        RANKX(
+			            ALL( T_DIM_CORPORATION[Corporation] ),
+			            CALCULATE( [TopBy Metric (Selected Safe)],
+			                        REMOVEFILTERS(T_DIM_QUARTER), 
+			                        T_DIM_QUARTER[QuarterStartDay] = lp),
+			            ,
+			            DESC,
+			            Dense
+			        )
+			)
+			```
+		formatString: 0
+		lineageTag: 642d392e-1c5b-4cbb-932e-edb674c1e0ff
+
+	measure 'Is TopN by Parameter Selected' =
+			
+			VAR N = [TopN Value]
+			RETURN IF( [Rank Movers by Parameter Selected] <= N, 1, 0 )
+		formatString: 0
+		lineageTag: 98b4d245-eb6d-4e48-83db-03272892de53
+
+	measure 'Top Competitor Corp (LP)' = ```
+			
+			VAR base =
+			    FILTER(
+			        ALL(T_DIM_CORPORATION[Corporation]),
+			        T_DIM_CORPORATION[Corporation] <> "MENARINI"
+			    )
+			VAR t =
+			    TOPN(
+			        1,
+			        base,
+			        CALCULATE( [LP Sales Values] ),
+			        DESC
+			    )
+			RETURN
+			MAXX(t, T_DIM_CORPORATION[Corporation])
+			
+			```
+		lineageTag: 3ed2c415-0c23-44cb-8b38-db8220005ccd
+
+	measure 'Rank Movers (LP, Excl Target)' =
+			
+			VAR ViewOrd = SELECTEDVALUE( SwitchTopByDimension[Parameter Order], 0 )
+			VAR tgt = [Target Entity]
+			RETURN
+			SWITCH(
+			    ViewOrd,
+			    0,
+			        RANKX(
+			            FILTER( ALL(T_DIM_PRODUCT[Product]), T_DIM_PRODUCT[Product] <> tgt ),
+			            [Top Metric (LP)],
+			            ,
+			            DESC, Dense
+			        ),
+			    1,
+			        RANKX(
+			            FILTER( ALL(T_DIM_CORPORATION[Corporation]), T_DIM_CORPORATION[Corporation] <> tgt ),
+			            [Top Metric (LP)],
+			            ,
+			            DESC, Dense
+			        )
+			)
+		formatString: 0
+		lineageTag: abe6c8a4-878b-4a16-a7af-b5b4efa4b610
+
+	measure 'Show in Driver Table' =
+			
+			VAR N = [TopN Value]
+			VAR tgt = [Target Entity]
+			VAR target_selected = [Is Target Selected]
+			VAR ViewOrd = SELECTEDVALUE( SwitchTopByDimension[Parameter Order], 0 )
+			VAR current_entity =
+			    SWITCH(
+			        ViewOrd,
+			        0, SELECTEDVALUE(T_DIM_PRODUCT[Product]),
+			        1, SELECTEDVALUE(T_DIM_CORPORATION[Corporation])
+			    )
+			RETURN
+			IF(
+			    target_selected = 0,
+			    IF( [Rank Movers by Parameter Selected] <= N, 1, 0 ),
+			    IF(
+			        current_entity = tgt,
+			        1,
+			        IF( [Rank Movers (LP, Excl Target)] <= N - 1, 1, 0 )
+			    )
+			)
+		formatString: 0
+		lineageTag: feb8ce17-fd6b-40d2-8840-0ab4ce53df5e
+
+	measure 'Show in Driver Table (TopN + Target)' =
+			
+			VAR N = [TopN Value]
+			VAR tgt = [Target Entity]
+			VAR target_selected = [Is Target Selected]
+			VAR ViewOrd = SELECTEDVALUE( SwitchTopByDimension[Parameter Order], 0 )
+			VAR current_entity =
+			    SWITCH(
+			        ViewOrd,
+			        //0, SELECTEDVALUE(T_DIM_MOLECULE[MoleculeNorm]),
+			        0, SELECTEDVALUE(T_DIM_PRODUCT[MoleculeNorm]),
+			        1, SELECTEDVALUE(T_DIM_CORPORATION[Corporation])
+			    )
+			RETURN
+			IF(
+			    target_selected = 0,
+			        IF( [Rank Movers (LP)] <= N, 1, 0 ),
+			    IF(
+			        current_entity = tgt,
+			        1,
+			        IF( [Rank Movers (LP, Excl Target)] <= N, 1, 0 )
+			    )
+			)
+		formatString: 0
+		lineageTag: c345911a-3d5d-4f0c-b5c1-9d3053f564fb
+
+	measure 'Is Target Row' =
+			
+			VAR tgt = [Target Entity]
+			VAR target_selected = [Is Target Selected]
+			VAR ViewOrd = SELECTEDVALUE( SwitchTopByDimension[Parameter Order], 0 )
+			VAR current_entity =
+			    SWITCH(
+			        ViewOrd,
+			        0, SELECTEDVALUE( T_DIM_PRODUCT[Product] ),
+			        1, SELECTEDVALUE( T_DIM_CORPORATION[Corporation] )
+			    )
+			RETURN
+			IF( target_selected = 1 && current_entity = tgt, 1, 0 )
+		formatString: 0
+		lineageTag: 567f7b61-a34f-4d4b-8c47-62e89ba221fb
+
+	measure 'Target Badge' =
+			
+			IF( [Is Target Row] = 1, "★", BLANK() )
+		lineageTag: 73ba8317-3730-403c-9b5c-a5f553ba5787
+
+	measure 'DEBUG AnchorQ' =
+			
+			[Last QuarterStartDay (stable)]
+		formatString: General Date
+		lineageTag: d48d94e7-e2dd-42d7-8907-ee27bef43dae
+
+	measure 'AnchorQ (Ranking)' =
+			
+			CALCULATE(
+			    MAX( T_DIM_QUARTER[QuarterStartDay] ),
+			    ALLSELECTED( T_DIM_QUARTER[QuarterStartDay] )
+			)
+		formatString: General Date
+		lineageTag: 534e78f2-a65d-4f56-a661-9f91b7f66a6d
+
+	measure 'Top Metric (LP)' =
+			
+			VAR lp = [AnchorQ (Ranking)]
+			RETURN
+			CALCULATE(
+			    [TopBy Metric (Selected Safe)],
+			    REMOVEFILTERS( T_DIM_QUARTER ),
+			    T_DIM_QUARTER[QuarterStartDay] = lp
+			)
+		lineageTag: 32f77b05-66f7-4a41-91ba-e3dcdd585e63
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Rank Movers (LP)' =
+			
+			VAR ViewOrd = SELECTEDVALUE( SwitchTopByDimension[Parameter Order], 0 )
+			RETURN
+			SWITCH(
+			    ViewOrd,
+			    0,
+			        RANKX(
+			            ALL( T_DIM_PRODUCT[Product] ),
+			            [Top Metric (LP)],
+			            ,
+			            DESC, Dense
+			        ),
+			    1,
+			        RANKX(
+			            ALL( T_DIM_CORPORATION[Corporation] ),
+			            [Top Metric (LP)],
+			            ,
+			            DESC, Dense
+			        )
+			)
+		formatString: 0
+		lineageTag: 22755e50-31df-4f8c-a597-edb93d889ebd
+
+	measure 'Color (Target Highlight)' =
+			
+			IF(
+			    [Is Target Row] = 1,
+			    "#D62728",      -- rosso target
+			    "#BDBDBD"       -- grigio altri
+			)
+		lineageTag: b358f91a-10ca-4243-9b77-b115708d4e88
+
+	column TopN
+		formatString: 0
+		lineageTag: de8301b6-bba7-49c8-8d82-de356a18f76f
+		summarizeBy: none
+		sourceColumn: [Value]
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 0
+				}
+
+		annotation SummarizationSetBy = User
+
+	partition TopN = calculated
+		mode: import
+		source = GENERATESERIES(1, 20, 1)
+
+	annotation PBI_Id = 0e8f3a94e9e14ec5b3920c6086d43725
+

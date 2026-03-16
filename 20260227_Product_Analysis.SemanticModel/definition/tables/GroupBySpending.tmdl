@@ -1,0 +1,99 @@
+table GroupBySpending
+	lineageTag: 5a621c32-4092-48b9-b846-dd7c2d611869
+
+	measure 'Spend Bucket %' =
+			
+			DIVIDE(
+			    [Promo Spend],
+			    CALCULATE([Promo Spend], REMOVEFILTERS(T_DIM_PRODUCT[Product]))
+			)
+		lineageTag: ff248391-bcbd-41aa-8d8f-2cc676900430
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Promo Spend (Bucket)' =
+			
+			VAR bucket = SELECTEDVALUE(GroupBySpending[Bucket])
+			VAR base =
+			    ADDCOLUMNS(
+			        ALLSELECTED(T_DIM_PRODUCT[Product]),
+			        "__spend", [Promo Spend]
+			    )
+			VAR ranked =
+			    ADDCOLUMNS(
+			        base,
+			        "__rank", RANKX(base, [__spend], , DESC, Dense)
+			    )
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    bucket = "Top1",     SUMX(FILTER(ranked, [__rank] = 1), [__spend]),
+			    bucket = "Top2-5",   SUMX(FILTER(ranked, [__rank] >= 2 && [__rank] <= 5), [__spend]),
+			    bucket = "Top6-10",  SUMX(FILTER(ranked, [__rank] >= 6 && [__rank] <= 10), [__spend]),
+			    bucket = "Rest",     SUMX(FILTER(ranked, [__rank] > 10), [__spend])
+			)
+		formatString: 0
+		lineageTag: 4c544b8a-55eb-4438-81d8-78218bf2f575
+
+	measure 'Spend Rank' =
+			
+			RANKX(ALLSELECTED(T_DIM_PRODUCT[Product]), [Promo Spend], , DESC, Dense)
+		formatString: 0
+		lineageTag: f966d19b-5a0d-4563-b098-bc3851091b44
+
+	measure 'Spend Cum Share' =
+			
+			VAR r = [Spend Rank]
+			RETURN
+			DIVIDE(
+			    CALCULATE([Promo Spend], FILTER(ALLSELECTED(T_DIM_PRODUCT[Product]), [Spend Rank] <= r)),
+			    [Total Promo Spending €]
+			)
+		lineageTag: 7fc46f47-5b59-47c7-b071-7c6ec36d314e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Spend Bucket' =
+			
+			VAR r = [Spend Rank]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    r = 1, "Top1",
+			    r <= 5, "Top2-5",
+			    r <= 10, "Top6-10",
+			    "Rest"
+			)
+		lineageTag: 4299acdc-f866-46fb-bad8-60f743825545
+
+	column Bucket
+		dataType: string
+		lineageTag: 74217e83-d704-44af-99a5-9db2bd2f87b6
+		summarizeBy: none
+		sourceColumn: Bucket
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sort
+		dataType: int64
+		formatString: 0
+		lineageTag: 69f71ccc-1862-4b83-9ff2-3ca61b0de99d
+		summarizeBy: sum
+		sourceColumn: Sort
+
+		annotation SummarizationSetBy = Automatic
+
+	partition GroupBySpending = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WCskvMFTSUTJUitUBc4x0TYFcIxjXTNfQAMg3BvODUotLgBwTpdhYAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Bucket = _t, Sort = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Bucket", type text}, {"Sort", Int64.Type}}),
+				    #"Sorted Rows" = Table.Sort(#"Changed Type",{{"Sort", Order.Ascending}})
+				in
+				    #"Sorted Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,264 @@
+table T_FCT_PROMO_A10P_CD
+	lineageTag: 7fe48a54-a03b-400b-9804-14aa29168bdc
+
+	column Country
+		dataType: string
+		lineageTag: 7f37710a-64b1-405f-b9c8-70931d4cfbad
+		summarizeBy: none
+		sourceColumn: Country
+
+		annotation SummarizationSetBy = Automatic
+
+	column ATC4
+		dataType: string
+		lineageTag: 6d794ac4-9e3d-40c2-9636-dd68b0f848ed
+		summarizeBy: none
+		sourceColumn: ATC4
+
+		annotation SummarizationSetBy = Automatic
+
+	column Corporation
+		dataType: string
+		lineageTag: 4b5ae9dd-cb52-48a8-8db9-f1e01abe407a
+		summarizeBy: none
+		sourceColumn: Corporation
+
+		annotation SummarizationSetBy = Automatic
+
+	column Molecule
+		dataType: string
+		lineageTag: 781480a1-27a1-43cf-b9a8-f7a0c408032c
+		summarizeBy: none
+		sourceColumn: Molecule
+
+		annotation SummarizationSetBy = Automatic
+
+	column MoleculeNorm
+		dataType: string
+		lineageTag: 8fd7a459-dc44-41aa-ad5b-5bba7fbcf20c
+		summarizeBy: none
+		sourceColumn: MoleculeNorm
+
+		annotation SummarizationSetBy = Automatic
+
+	column Product
+		dataType: string
+		lineageTag: 2ca4ebb1-e553-4297-b972-c7e5fbe3fb6a
+		summarizeBy: none
+		sourceColumn: Product
+
+		annotation SummarizationSetBy = Automatic
+
+	column Specialty
+		dataType: string
+		lineageTag: 1681c8a1-4f6e-4da0-befc-a2828ef2a2bd
+		summarizeBy: none
+		sourceColumn: Specialty
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Cam Channels'
+		dataType: string
+		lineageTag: d6df519e-525d-4f7c-9855-56c497d724db
+		summarizeBy: none
+		sourceColumn: Cam Channels
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Contact Type'
+		dataType: string
+		lineageTag: 4e7b7dc2-3d63-438f-b725-692f0872e497
+		summarizeBy: none
+		sourceColumn: Contact Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Contact Quality'
+		dataType: string
+		lineageTag: 8e1f6f4d-772a-42be-82d9-22455f8a3dd2
+		summarizeBy: none
+		sourceColumn: Contact Quality
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Current Prescribing'
+		dataType: string
+		lineageTag: 06b0a00b-fc82-4809-b529-ef0df7b9b2e8
+		summarizeBy: none
+		sourceColumn: Current Prescribing
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Future Prescribing'
+		dataType: string
+		lineageTag: 00827229-cece-4e1f-ab87-8f32930a7f1c
+		summarizeBy: none
+		sourceColumn: Future Prescribing
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'NPS Scale'
+		dataType: string
+		lineageTag: f3634be7-f313-499a-abc0-5aa57e3092c3
+		summarizeBy: none
+		sourceColumn: NPS Scale
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Calendar Quarter'
+		dataType: string
+		lineageTag: b1416215-cc3c-45f6-9e08-24035b25a798
+		summarizeBy: none
+		sourceColumn: Calendar Quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	column QuarterStartDay
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 8a9d714c-97ea-459e-83cd-8e21394dca02
+		summarizeBy: none
+		sourceColumn: QuarterStartDay
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column QuarterEndDay
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: b44be8a3-53e7-4102-895e-1a27f8c1016d
+		summarizeBy: none
+		sourceColumn: QuarterEndDay
+
+		variation Variation
+			isDefault
+			relationship: 9d0c5e83-0e14-4046-ac46-95b52eff5d4b
+			defaultHierarchy: LocalDateTable_c0d7c937-021d-4265-9d16-9ad02c4d485f.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Product Details'
+		dataType: int64
+		formatString: 0
+		lineageTag: f7f78785-1113-4cc3-b385-6dd0aa2ea857
+		summarizeBy: sum
+		sourceColumn: Product Details
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Contact Number'
+		dataType: int64
+		formatString: 0
+		lineageTag: 13450c2b-02af-403a-9ce1-7618af322c0e
+		summarizeBy: sum
+		sourceColumn: Contact Number
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mentions
+		dataType: int64
+		formatString: 0
+		lineageTag: 1f898f47-377f-4445-895c-4f4e373857f9
+		summarizeBy: sum
+		sourceColumn: Mentions
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Weighted Calls'
+		dataType: int64
+		formatString: 0
+		lineageTag: d1aa1929-c816-42fc-8bed-4f502d82b144
+		summarizeBy: sum
+		sourceColumn: Weighted Calls
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Spending Total EUR'
+		dataType: int64
+		formatString: 0
+		lineageTag: 835b3060-c8b4-4f38-8c63-9791fe0e545e
+		summarizeBy: sum
+		sourceColumn: Spending Total EUR
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Quality Index'
+		dataType: int64
+		formatString: 0
+		lineageTag: 9b7cd0dd-a6c0-414d-a969-10566760bf12
+		summarizeBy: sum
+		sourceColumn: Quality Index
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Converted Contacts'
+		dataType: int64
+		formatString: 0
+		lineageTag: febdeca5-bf5a-454c-a3e8-11b7a82a0eb3
+		summarizeBy: sum
+		sourceColumn: Converted Contacts
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'NPS all channels'
+		dataType: int64
+		formatString: 0
+		lineageTag: fe3973dc-a1ad-41d1-a805-c7bf4e6ebd6b
+		summarizeBy: sum
+		sourceColumn: NPS all channels
+
+		annotation SummarizationSetBy = Automatic
+
+	column InteractionGroup
+		dataType: string
+		lineageTag: 434b370c-11e8-4187-99de-79c177d8dae9
+		summarizeBy: none
+		sourceColumn: InteractionGroup
+
+		annotation SummarizationSetBy = Automatic
+
+	partition T_FCT_PROMO_A10P_CD = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\ukg15381\Downloads\POC_DASHBOARD\data_source\PBI A10P_CD.csv"),[Delimiter=",", Columns=23, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Country", type text}, {"ATC4", type text}, {"Int Corporation", type text}, {"Molecule", type text}, {"Local Brand", type text}, {"Specialty", type text}, {"Cam Channels", type text}, {"Contact Type", type text}, {"Contact Quality", type text}, {"Current Prescribing", type text}, {"Future Prescribing", type text}, {"NPS Scale", Int64.Type}, {"Calendar Quarter", type text}, {"QuarterDate", type date}, {"QuarterLabel", type date}, {"Product Details", Int64.Type}, {"Contact Number", Int64.Type}, {"Mentions", Int64.Type}, {"Weighted Calls", Int64.Type}, {"Spending Total EUR", Int64.Type}, {"Quality Index", Int64.Type}, {"Converted Contacts", Int64.Type}, {"NPS all channels", Int64.Type}}),
+				    #"Uppercased Text" = Table.TransformColumns(Table.TransformColumnTypes(#"Changed Type", {{"NPS Scale", type text}}, "it-IT"),{{"Country", Text.Upper, type text}, {"ATC4", Text.Upper, type text}, {"Int Corporation", Text.Upper, type text}, {"Molecule", Text.Upper, type text}, {"Local Brand", Text.Upper, type text}, {"Specialty", Text.Upper, type text}, {"Cam Channels", Text.Upper, type text}, {"Contact Type", Text.Upper, type text}, {"Contact Quality", Text.Upper, type text}, {"Current Prescribing", Text.Upper, type text}, {"Future Prescribing", Text.Upper, type text}, {"NPS Scale", Text.Upper, type text}, {"Calendar Quarter", Text.Upper, type text}}),
+				    #"Trimmed Text" = Table.TransformColumns(#"Uppercased Text",{{"Country", Text.Trim, type text}, {"ATC4", Text.Trim, type text}, {"Int Corporation", Text.Trim, type text}, {"Molecule", Text.Trim, type text}, {"Local Brand", Text.Trim, type text}, {"Specialty", Text.Trim, type text}, {"Cam Channels", Text.Trim, type text}, {"Contact Type", Text.Trim, type text}, {"Contact Quality", Text.Trim, type text}, {"Current Prescribing", Text.Trim, type text}, {"Future Prescribing", Text.Trim, type text}, {"NPS Scale", Text.Trim, type text}, {"Calendar Quarter", Text.Trim, type text}}),
+				    #"Cleaned Text" = Table.TransformColumns(#"Trimmed Text",{{"Country", Text.Clean, type text}, {"ATC4", Text.Clean, type text}, {"Int Corporation", Text.Clean, type text}, {"Molecule", Text.Clean, type text}, {"Local Brand", Text.Clean, type text}, {"Specialty", Text.Clean, type text}, {"Cam Channels", Text.Clean, type text}, {"Contact Type", Text.Clean, type text}, {"Contact Quality", Text.Clean, type text}, {"Current Prescribing", Text.Clean, type text}, {"Future Prescribing", Text.Clean, type text}, {"NPS Scale", Text.Clean, type text}, {"Calendar Quarter", Text.Clean, type text}}),
+				    #"Uppercased Text1" = Table.TransformColumns(#"Cleaned Text",{{"Calendar Quarter", Text.Upper, type text}}),
+				    #"Trimmed Text1" = Table.TransformColumns(#"Uppercased Text1",{{"Calendar Quarter", Text.Trim, type text}}),
+				    #"Cleaned Text1" = Table.TransformColumns(#"Trimmed Text1",{{"Calendar Quarter", Text.Clean, type text}}),
+				    #"Calculated End of Quarter" = Table.TransformColumns(#"Cleaned Text1",{{"QuarterDate", Date.EndOfQuarter, type date}}),
+				    #"Calculated Start of Quarter" = Table.TransformColumns(#"Calculated End of Quarter",{{"QuarterDate", Date.StartOfQuarter, type date}}),
+				    #"Calculated End of Quarter1" = Table.TransformColumns(#"Calculated Start of Quarter",{{"QuarterLabel", Date.EndOfQuarter, type date}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Calculated End of Quarter1",{{"QuarterDate", "QuarterStartDay"}, {"QuarterLabel", "QuarterEndDay"}}),
+				    #"Duplicated Column" = Table.DuplicateColumn(#"Renamed Columns", "Molecule", "Molecule - Copy"),
+				    #"Replaced Value" = Table.ReplaceValue(#"Duplicated Column","+","|",Replacer.ReplaceText,{"Molecule - Copy"}),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Replaced Value",{{"Molecule - Copy", "MoleculeNorm"}}),
+				    #"Reordered Columns" = Table.ReorderColumns(#"Renamed Columns1",{"Country", "ATC4", "Int Corporation", "Molecule", "MoleculeNorm", "Local Brand", "Specialty", "Cam Channels", "Contact Type", "Contact Quality", "Current Prescribing", "Future Prescribing", "NPS Scale", "Calendar Quarter", "QuarterStartDay", "QuarterEndDay", "Product Details", "Contact Number", "Mentions", "Weighted Calls", "Spending Total EUR", "Quality Index", "Converted Contacts", "NPS all channels"}),
+				    #"Replaced Errors" = Table.ReplaceErrorValues(#"Reordered Columns", {{"NPS Scale", None.Type}}),
+				    #"Renamed Columns2" = Table.RenameColumns(#"Replaced Errors",{{"Local Brand", "Product"}, {"Int Corporation", "Corporation"}}),
+				    add_interaction_group = Table.AddColumn( #"Renamed Columns2",
+				                                            "InteractionGroup",
+				                                            each
+				                                                let ct = Text.Upper(Text.Trim([Contact Type]))
+				                                                in
+				                                                    if List.Contains({"FACE TO FACE","VIA TELEPHONE","POSTAL"}, ct)
+				                                                    then "Traditional"
+				                                                    else "Digital",
+				                                            type text),
+				    #"Uppercased Text2" = Table.TransformColumns(add_interaction_group,{{"InteractionGroup", Text.Upper, type text}}),
+				    #"Trimmed Text2" = Table.TransformColumns(#"Uppercased Text2",{{"InteractionGroup", Text.Trim, type text}}),
+				    #"Cleaned Text2" = Table.TransformColumns(#"Trimmed Text2",{{"InteractionGroup", Text.Clean, type text}})
+				in
+				   #"Cleaned Text2"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

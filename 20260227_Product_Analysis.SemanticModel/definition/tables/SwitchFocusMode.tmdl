@@ -1,0 +1,22 @@
+table SwitchFocusMode
+	lineageTag: 928ca7da-1436-412a-8ed7-31b9f8ce8925
+
+	column Focus
+		lineageTag: d1df03af-2ec2-43a0-8aa3-c778267e4139
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Focus]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SwitchFocusMode = calculated
+		mode: import
+		source =
+				
+				DATATABLE (
+				    "Focus", STRING,
+				    { {"ALL"}, {"SALES"}, {"PROMO"}, {"FINANCE"} }
+				)
+
+	annotation PBI_Id = d596be653f424fcba5b5a86815af627c
+

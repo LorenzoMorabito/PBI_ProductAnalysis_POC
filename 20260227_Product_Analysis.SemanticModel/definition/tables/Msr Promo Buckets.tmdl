@@ -1,0 +1,245 @@
+table 'Msr Promo Buckets'
+	lineageTag: d5a2e557-0c75-42ad-8e45-778b5459d898
+
+	measure 'Promo +/-% (vs PQ) (Bucket)' =
+			
+			VAR curr = [Promo Measure (Bucket)]
+			VAR prev = [Promo Measure Prev Q (Bucket)]
+			RETURN
+			DIVIDE( curr - prev, prev )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 19ed0104-d13a-4b43-a0ad-2cee380de4db
+
+	measure 'Promo Market Total (Selected)' =
+			
+			CALCULATE(
+			    [MetricPromo (Selected)],
+			    REMOVEFILTERS( T_DIM_CORPORATION[Corporation] )
+			)
+		formatString: 0
+		lineageTag: e1b0c3b5-be8f-44e8-b004-bf3fbec35c7c
+
+	measure 'Promo Measure Prev Q (Bucket)' =
+			
+			VAR prevQ = [QuarterStartDay PP (selected)]
+			RETURN
+			IF(
+			    ISBLANK(prevQ),
+			    BLANK(),
+			    CALCULATE(
+			        [Promo Measure (Bucket)],
+			        REMOVEFILTERS( T_DIM_QUARTER ),
+			        T_DIM_QUARTER[QuarterStartDay] = prevQ
+			    )
+			)
+		formatString: 0
+		lineageTag: acf752ce-a5cc-4e74-b2cf-114652b61517
+
+	measure 'Promo Measure PY (Bucket)' =
+			
+			VAR pyQ = [QuarterStartDay PY (selected)]
+			RETURN
+			IF(
+			    ISBLANK(pyQ),
+			    BLANK(),
+			    CALCULATE(
+			        [Promo Measure (Bucket)],
+			        REMOVEFILTERS( T_DIM_QUARTER ),
+			        T_DIM_QUARTER[QuarterStartDay] = pyQ
+			    )
+			)
+		formatString: 0
+		lineageTag: 2bfbae3a-9ff6-45f0-aa12-4d1896495c17
+
+	measure 'Promo PPG % (vs PY) (Bucket)' =
+			
+			VAR curr = [Promo Measure (Bucket)]
+			VAR py   = [Promo Measure PY (Bucket)]
+			RETURN
+			DIVIDE( curr - py, py )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 4ce13ff0-c20a-4902-a108-c7f2eaddf596
+
+	measure 'Promo Share% (Bucket)' =
+			
+			VAR num = [Promo Measure (Bucket)]
+			VAR den = [Promo Market Total (Selected)]
+			RETURN
+			DIVIDE( num, den )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: de788e4b-0b35-4249-aea6-b4366156f049
+
+	measure 'Promo Share% PY (Bucket)' =
+			
+			VAR pyQ = [QuarterStartDay PY (selected)]
+			RETURN
+			IF(
+			    ISBLANK(pyQ),
+			    BLANK(),
+			    CALCULATE(
+			        [Promo Share% (Bucket)],
+			        REMOVEFILTERS( T_DIM_QUARTER ),
+			        T_DIM_QUARTER[QuarterStartDay] = pyQ
+			    )
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 2adf603b-efe6-47d7-a82b-0abc456b7386
+
+	measure 'Promo Share% PY EI (Bucket)' =
+			
+			VAR ms    = [Promo Share% (Bucket)]
+			VAR ms_py = [Promo Share% PY (Bucket)]
+			RETURN
+			IF( ISBLANK(ms_py), BLANK(), DIVIDE(ms, ms_py) * 100 )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 80cfa8cc-9dfe-40ff-97a7-f6c523405208
+
+	measure 'Promo Measure (Bucket)' =
+			
+			VAR tgt = "MENARINI"
+			VAR N   = [TopN Value]
+			VAR lp  = [Last QuarterStartDay (stable)]
+			VAR legend = SELECTEDVALUE( LegendCorp[Legend] )
+			
+			VAR CompCorps =
+			    FILTER(
+			        ALLSELECTED( T_DIM_CORPORATION[Corporation] ),
+			        T_DIM_CORPORATION[Corporation] <> tgt
+			            && NOT ISBLANK( T_DIM_CORPORATION[Corporation] )
+			    )
+			
+			VAR CompWithLP =
+			    ADDCOLUMNS(
+			        CompCorps,
+			        "__val_lp",
+			            CALCULATE(
+			                [TopBy Metric (Selected Safe)],
+			                REMOVEFILTERS( T_DIM_QUARTER ),
+			                T_DIM_QUARTER[QuarterStartDay] = lp
+			            )
+			    )
+			
+			VAR TopNTable = TOPN( N, CompWithLP, [__val_lp], DESC )
+			VAR TopNList  = SELECTCOLUMNS( TopNTable, "Corporation", T_DIM_CORPORATION[Corporation] )
+			
+			VAR CompList    = SELECTCOLUMNS( CompCorps, "Corporation", T_DIM_CORPORATION[Corporation] )
+			VAR OthersList  = EXCEPT( CompList, TopNList )
+			
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    legend = tgt,
+			        CALCULATE( [MetricPromo (Selected Period)], TREATAS( {tgt}, T_DIM_CORPORATION[Corporation] ) ),
+			
+			    legend = "OTHERS",
+			        CALCULATE( [MetricPromo (Selected Period)], TREATAS( OthersList, T_DIM_CORPORATION[Corporation] ) ),
+			
+			    CONTAINS( TopNList, [Corporation], legend ),
+			        CALCULATE( [MetricPromo (Selected Period)], TREATAS( {legend}, T_DIM_CORPORATION[Corporation] ) ),
+			
+			    BLANK()
+			)
+		formatString: 0
+		lineageTag: 467ff77b-da62-4d4d-b0e1-e9628ace7c8f
+
+	measure 'Promo Measure (Bucket) OLD' =
+			
+			VAR tgt = "MENARINI"
+			VAR lp  = [Last QuarterStartDay (stable)]
+			VAR N   = [TopN Value]
+			
+			VAR bucket = SELECTEDVALUE( 'Corporation Buckets'[Slot] )
+			VAR idx    = SELECTEDVALUE( 'Corporation Buckets'[NIndex] )
+			
+			-- Candidate corps (esclude Menarini)
+			VAR CompCorps =
+			    FILTER(
+			        VALUES( T_DIM_CORPORATION[Corporation] ),
+			        T_DIM_CORPORATION[Corporation] <> tgt
+			            && NOT ISBLANK( T_DIM_CORPORATION[Corporation] )
+			    )
+			
+			-- Ranking calcolato SOLO a LP (lista TopN stabile)
+			VAR CompWithLP =
+			    ADDCOLUMNS(
+			        CompCorps,
+			        "__val_lp",
+			            CALCULATE(
+			                [MetricPromo (Selected)],        -- oppure la metrica di ranking fissa (es: [Promo Spend])
+			                REMOVEFILTERS( T_DIM_QUARTER ),
+			                T_DIM_QUARTER[QuarterStartDay] = lp
+			            )
+			    )
+			
+			VAR TopNTable =
+			    TOPN( N, CompWithLP, [__val_lp], DESC, T_DIM_CORPORATION[Corporation], ASC )
+			
+			VAR TopNCorps =
+			    SELECTCOLUMNS( TopNTable, "Corporation", T_DIM_CORPORATION[Corporation] )
+			
+			VAR OthersCorps =
+			    EXCEPT(
+			        SELECTCOLUMNS(CompCorps, "Corporation", T_DIM_CORPORATION[Corporation]),
+			        TopNCorps
+			    )
+			
+			-- Corporation del bucket TOP idx
+			VAR OneTopCorp =
+			    SELECTCOLUMNS(
+			        TOPN(
+			            1,
+			            TOPN( idx, TopNTable, [__val_lp], DESC, T_DIM_CORPORATION[Corporation], ASC ),
+			            [__val_lp], ASC, T_DIM_CORPORATION[Corporation], DESC
+			        ),
+			        "Corporation", [Corporation]
+			    )
+			
+			RETURN
+			SWITCH(
+			    TRUE(),
+			
+			    bucket = "MENARINI",
+			        CALCULATE(
+			            [MetricPromo (Selected)],
+			            TREATAS( {tgt}, T_DIM_CORPORATION[Corporation] )
+			        ),
+			
+			    LEFT(bucket,3) = "TOP" && idx <= N,
+			        CALCULATE(
+			            [MetricPromo (Selected)],
+			            TREATAS( OneTopCorp, T_DIM_CORPORATION[Corporation] )
+			        ),
+			
+			    bucket = "OTHERS",
+			        IF(
+			            COUNTROWS(OthersCorps)=0,
+			            BLANK(),
+			            CALCULATE(
+			                [MetricPromo (Selected)],
+			                TREATAS( OthersCorps, T_DIM_CORPORATION[Corporation] )
+			            )
+			        ),
+			
+			    BLANK()
+			)
+		formatString: 0
+		lineageTag: 7d60ac1a-9f96-45f7-bb41-b9d0f0baf367
+
+	column Column
+		isHidden
+		formatString: 0
+		lineageTag: c036927d-5662-49e7-a2b5-7ee8c83a5db5
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Msr Promo Buckets' = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = 56cb002174cb454f9b28be91091b1f23
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":""}
+

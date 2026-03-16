@@ -1,0 +1,133 @@
+table LegendCorp
+	lineageTag: 5c3112f0-9290-43bc-bf56-7b559589e55c
+
+	measure 'Sales (Legend TopN + Others)' =
+			
+			VAR tgt = "MENARINI"
+			VAR N   = [TopN Value]
+			VAR lp  = [Last QuarterStartDay (stable)]
+			VAR legend = SELECTEDVALUE( LegendCorp[Legend] )
+			
+			VAR CompCorps =
+			    FILTER(
+			        ALLSELECTED( T_DIM_CORPORATION[Corporation] ),
+			        T_DIM_CORPORATION[Corporation] <> tgt
+			            && NOT ISBLANK( T_DIM_CORPORATION[Corporation] )
+			    )
+			
+			VAR CompWithLP =
+			    ADDCOLUMNS(
+			        CompCorps,
+			        "__val_lp",
+			            CALCULATE(
+			                [TopBy Metric (Selected Safe)],
+			                REMOVEFILTERS( T_DIM_QUARTER ),
+			                T_DIM_QUARTER[QuarterStartDay] = lp
+			            )
+			    )
+			
+			VAR TopNTable = TOPN( N, CompWithLP, [__val_lp], DESC )
+			VAR TopNList  = SELECTCOLUMNS( TopNTable, "Corporation", T_DIM_CORPORATION[Corporation] )
+			
+			VAR CompList    = SELECTCOLUMNS( CompCorps, "Corporation", T_DIM_CORPORATION[Corporation] )
+			VAR OthersList  = EXCEPT( CompList, TopNList )
+			
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    legend = tgt,
+			        CALCULATE( [MetricSales (Selected Period)], TREATAS( {tgt}, T_DIM_CORPORATION[Corporation] ) ),
+			
+			    legend = "OTHERS",
+			        CALCULATE( [MetricSales (Selected Period)], TREATAS( OthersList, T_DIM_CORPORATION[Corporation] ) ),
+			
+			    CONTAINS( TopNList, [Corporation], legend ),
+			        CALCULATE( [MetricSales (Selected Period)], TREATAS( {legend}, T_DIM_CORPORATION[Corporation] ) ),
+			
+			    BLANK()
+			)
+		lineageTag: e1ee126b-9f58-43a0-8c9f-dc1238ec54d3
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Promo (Legend TopN + Others)' =
+			
+			VAR tgt = "MENARINI"
+			VAR N   = [TopN Value]
+			VAR lp  = [Last QuarterStartDay (stable)]
+			VAR legend = SELECTEDVALUE( LegendCorp[Legend] )
+			
+			VAR CompCorps =
+			    FILTER(
+			        ALLSELECTED( T_DIM_CORPORATION[Corporation] ),
+			        T_DIM_CORPORATION[Corporation] <> tgt
+			            && NOT ISBLANK( T_DIM_CORPORATION[Corporation] )
+			    )
+			
+			VAR CompWithLP =
+			    ADDCOLUMNS(
+			        CompCorps,
+			        "__val_lp",
+			            CALCULATE(
+			                [TopBy Metric (Selected Safe)],
+			                REMOVEFILTERS( T_DIM_QUARTER ),
+			                T_DIM_QUARTER[QuarterStartDay] = lp
+			            )
+			    )
+			
+			VAR TopNTable = TOPN( N, CompWithLP, [__val_lp], DESC )
+			VAR TopNList  = SELECTCOLUMNS( TopNTable, "Corporation", T_DIM_CORPORATION[Corporation] )
+			
+			VAR CompList    = SELECTCOLUMNS( CompCorps, "Corporation", T_DIM_CORPORATION[Corporation] )
+			VAR OthersList  = EXCEPT( CompList, TopNList )
+			
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    legend = tgt,
+			        CALCULATE( [MetricPromo (Selected Period)], TREATAS( {tgt}, T_DIM_CORPORATION[Corporation] ) ),
+			
+			    legend = "OTHERS",
+			        CALCULATE( [MetricPromo (Selected Period)], TREATAS( OthersList, T_DIM_CORPORATION[Corporation] ) ),
+			
+			    CONTAINS( TopNList, [Corporation], legend ),
+			        CALCULATE( [MetricPromo (Selected Period)], TREATAS( {legend}, T_DIM_CORPORATION[Corporation] ) ),
+			
+			    BLANK()
+			)
+		formatString: 0
+		lineageTag: f311bd68-f5b6-4666-bf9e-40601d9431b7
+
+	measure 'Selected Legend Corp' =
+			
+			SELECTEDVALUE( LegendCorp[Legend] )
+		lineageTag: a64336f8-9dac-40d4-a7ad-d1fcf6ed5e45
+
+	column Legend
+		lineageTag: 525c0445-9bd0-45a8-aa96-ef2f0d8ea3af
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Legend]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition LegendCorp = calculated
+		mode: import
+		source =
+				
+				VAR tgt = "MENARINI"
+				VAR Corps =
+				    FILTER(
+				        DISTINCT( T_DIM_CORPORATION[Corporation] ),
+				        NOT ISBLANK( T_DIM_CORPORATION[Corporation] )
+				            && T_DIM_CORPORATION[Corporation] <> tgt
+				    )
+				RETURN
+				UNION(
+				    ROW( "Legend", tgt ),
+				    SELECTCOLUMNS( Corps, "Legend", T_DIM_CORPORATION[Corporation] ),
+				    ROW( "Legend", "OTHERS" )
+				)
+
+	annotation PBI_Id = 237acf4223834b5c8f068b591bc5ae10
+

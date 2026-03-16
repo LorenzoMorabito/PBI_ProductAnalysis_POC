@@ -1,0 +1,76 @@
+DEFINE
+	VAR __DS0FilterTable = 
+		TREATAS({"'T_DIM_CORPORATION'[Corporation]"}, 'SwitchTopByDimension'[Parameter Fields])
+
+	VAR __DS0FilterTable2 = 
+		TREATAS({"Spending"}, 'SwitchTopByMesure'[TopBy])
+
+	VAR __DS0FilterTable3 = 
+		TREATAS({3}, 'TopN'[TopN])
+
+	VAR __DS0FilterTable4 = 
+		TREATAS(
+			{"'MeasurePromo'[Promo Spend]"},
+			'SwitchMeasureSelector (Promo)'[SwitchMeasurePromo Fields]
+		)
+
+	VAR __DS0FilterTable5 = 
+		TREATAS(
+			{"'MeasureSales'[Sales Values]"},
+			'SwitchMeasureSelector (Sales)'[SwitchMeasure Fields]
+		)
+
+	VAR __DS0FilterTable6 = 
+		TREATAS({"QTR"}, 'SwitchPeriodMode'[Mode])
+
+	VAR __DS0FilterTable7 = 
+		TREATAS({2023,
+			2024,
+			2025,
+			2022}, 'T_DIM_QUARTER'[Year])
+
+	VAR __DS0FilterTable8 = 
+		TREATAS({"vs BDG"}, 'SwitchCompareMode (Finance)'[Compare])
+
+	VAR __DS0FilterTable9 = 
+		TREATAS({"Promo"}, 'SwitchCompetitiveMeasureCategory'[Category])
+
+	VAR __DS0FilterTable10 = 
+		TREATAS(
+			{"'MeasurePromo'[Promo Spend]"},
+			'SwitchCompetitiveMeasureSelector'[CompetitiveMetricsSelector Fields]
+		)
+
+	VAR __DS0FilterTable11 = 
+		TREATAS({TRUE}, 'T_DIM_QUARTER'[Quarter_IsInPromo])
+
+	VAR __DS0FilterTable12 = 
+		TREATAS({TRUE}, 'T_DIM_QUARTER'[Quarter_IsInSales])
+
+	VAR __DS0Core = 
+		SUMMARIZECOLUMNS(
+			'T_DIM_QUARTER'[QuarterStartDay],
+			__DS0FilterTable,
+			__DS0FilterTable2,
+			__DS0FilterTable3,
+			__DS0FilterTable4,
+			__DS0FilterTable5,
+			__DS0FilterTable6,
+			__DS0FilterTable7,
+			__DS0FilterTable8,
+			__DS0FilterTable9,
+			__DS0FilterTable10,
+			__DS0FilterTable11,
+			__DS0FilterTable12,
+			"Switch_Sales_Market_ROLLING__Dynamic_", 'Msr Sales Switch'[Switch Sales Market ROLLING (Dynamic)],
+			"Switch_Sales_Market_ROLLING_PY__Dynamic_", 'Msr Sales Switch'[Switch Sales Market ROLLING PY (Dynamic)]
+		)
+
+	VAR __DS0BodyLimited = 
+		TOPN(1002, __DS0Core, 'T_DIM_QUARTER'[QuarterStartDay], 0)
+
+EVALUATE
+	__DS0BodyLimited
+
+ORDER BY
+	'T_DIM_QUARTER'[QuarterStartDay]
