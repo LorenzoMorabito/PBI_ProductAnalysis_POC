@@ -1,4 +1,5 @@
 table 'MOD Finance Compare Selector'
+	lineageTag: 8639821e-f8a2-464d-bbcd-113a59fe0c42
 
 	measure 'Finance Compare (Selected)' =
 			
@@ -7,14 +8,17 @@ table 'MOD Finance Compare Selector'
 			  "vs BDG", [Input Fin BDG],
 			  "vs PY",  [Input Fin ACT PY]
 			)
+		lineageTag: 008fc379-ce99-4763-bd0f-81a58a386cb9
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Finance Compare Label (Selected)' =
 			
 			SELECTEDVALUE('MOD Finance Compare Selector'[Label], "BGT")
+		lineageTag: 063d3d67-3e91-4f9b-8333-38be16fe26e6
 
 	column Compare
+		lineageTag: 15e02437-809f-4c31-a047-f4ea5af5c7c0
 		summarizeBy: none
 		isNameInferred
 		sourceColumn: [Compare]
@@ -22,6 +26,7 @@ table 'MOD Finance Compare Selector'
 		annotation SummarizationSetBy = Automatic
 
 	column Label
+		lineageTag: c76f39c5-0ab6-4329-89fb-eef9026b6175
 		summarizeBy: none
 		isNameInferred
 		sourceColumn: [Label]
@@ -30,7 +35,7 @@ table 'MOD Finance Compare Selector'
 
 	partition 'MOD Finance Compare Selector' = calculated
 		mode: import
-		source = ```
+		source =
 				
 				DATATABLE(
 				    "Compare", STRING,
@@ -40,4 +45,4 @@ table 'MOD Finance Compare Selector'
 				        {"vs PY", "PY"}
 				    }
 				)
-				```
+

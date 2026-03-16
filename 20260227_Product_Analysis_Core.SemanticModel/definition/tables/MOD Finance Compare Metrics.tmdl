@@ -1,6 +1,8 @@
 table 'MOD Finance Compare Metrics'
+	lineageTag: 8fdec94b-9715-4fe2-8f51-fe598649d1ff
 
 	measure 'Selected Reference Value' = [Finance Compare (Selected)]
+		lineageTag: 695fb31d-89ec-4189-9483-e0efa4e5b60b
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
@@ -8,6 +10,7 @@ table 'MOD Finance Compare Metrics'
 			
 			VAR comp = [Finance Compare (Selected)]
 			RETURN IF( ISBLANK(comp), BLANK(), [Input Fin ACT] - comp )
+		lineageTag: b3e9300d-a76a-461e-b2b5-3b37139ad803
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
@@ -16,10 +19,12 @@ table 'MOD Finance Compare Metrics'
 			VAR comp = [Finance Compare (Selected)]
 			RETURN IF( ISBLANK(comp), BLANK(), DIVIDE([Input Fin ACT] - comp, comp) )
 		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 741da782-b5cb-403c-a711-d727ecc0539b
 
 	column Column
 		isHidden
 		formatString: 0
+		lineageTag: 4165cc7a-ac12-4f55-8fff-918d1817e9e3
 		summarizeBy: sum
 		isNameInferred
 		sourceColumn: [Column]
@@ -29,3 +34,4 @@ table 'MOD Finance Compare Metrics'
 	partition 'MOD Finance Compare Metrics' = calculated
 		mode: import
 		source = Row("Column", BLANK())
+
