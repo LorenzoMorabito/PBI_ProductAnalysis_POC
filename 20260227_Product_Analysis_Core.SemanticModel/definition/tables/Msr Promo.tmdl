@@ -1,0 +1,114 @@
+table 'Msr Promo'
+
+	measure 'Promo Spend' =
+			
+			SUM ( T_FCT_PROMO_A10P_CD[Spending Total EUR] )
+		formatString: 0
+
+	measure 'Promo Details' =
+			
+			SUM ( T_FCT_PROMO_A10P_CD[Product Details] )
+		formatString: 0
+
+	measure 'Promo Contacts' = SUM(T_FCT_PROMO_A10P_CD[Contact Number])
+		formatString: 0
+
+	measure 'Promo Weighted Calls' = SUM(T_FCT_PROMO_A10P_CD[Weighted Calls])
+		formatString: #,0
+
+	measure 'Total Promo Spending €' =
+			
+			CALCULATE ( [Promo Spend], REMOVEFILTERS ( T_DIM_PRODUCT[Product] ) )
+		formatString: 0
+
+	measure 'Market Spend (ATC4 - Total)' =
+			
+			CALCULATE (
+			    [Promo Spend],
+			    REMOVEFILTERS ( T_DIM_PRODUCT[Product] ),
+			    REMOVEFILTERS ( T_DIM_MOLECULE ),
+			    REMOVEFILTERS ( T_FCT_PROMO_A10P_CD[Specialty] ),
+			    REMOVEFILTERS ( T_FCT_PROMO_A10P_CD[Cam Channels] ),
+			    REMOVEFILTERS ( T_FCT_PROMO_A10P_CD[Contact Type] )
+			)
+		formatString: 0
+
+	measure '% Share of Spend' = DIVIDE([Promo Spend], [Market Spend (ATC4 - Total)])
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Market Promo Product Details' =
+			
+			CALCULATE ( [Promo Details], REMOVEFILTERS ( T_DIM_MOLECULE[MoleculeNorm] ), REMOVEFILTERS ( T_DIM_CORPORATION[Corporation] ) )
+		formatString: 0
+
+	measure 'Market Promo Product Details (ATC4)' =
+			
+			CALCULATE (
+			    [Market Promo Product Details],
+			    REMOVEFILTERS ( T_DIM_PRODUCT ),
+			    REMOVEFILTERS ( T_DIM_MOLECULE ),
+			    REMOVEFILTERS ( T_DIM_CORPORATION ),
+			    KEEPFILTERS ( VALUES ( T_DIM_PRODUCT[ATC4] ) )
+			)
+		formatString: 0
+
+	measure 'Promo SOV%' =
+			
+			DIVIDE ( [Promo Details], [Market Promo Product Details] )
+		formatString: 0.0%;-0.0%;0.0%
+
+	measure 'Promo SOV% (ATC4)' =
+			
+			DIVIDE ( [Promo Details], [Market Promo Product Details (ATC4)] )
+		formatString: 0.0%;-0.0%;0.0%
+
+	measure 'Promo Spend PY' =
+			
+			CALCULATE ( [Promo Spend], SAMEPERIODLASTYEAR ( T_DIM_QUARTER[QuarterStartDay] ) )
+		formatString: 0
+
+	measure 'Promo Spend Δ vs PY' =
+			
+			[Promo Spend] - [Promo Spend PY]
+
+	measure 'Promo Spend Δ% vs PY (QTR)' =
+			
+			DIVIDE ( [Promo Spend] - [Promo Spend PY], [Promo Spend PY] )
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Promo Details PY' =
+			
+			CALCULATE ( [Promo Details], SAMEPERIODLASTYEAR ( T_DIM_QUARTER[QuarterStartDay] ) )
+		formatString: 0
+
+	measure 'Promo Details PPG vs PY' =
+			
+			[Promo Details] - [Promo Details PY]
+		formatString: 0
+
+	measure 'Promo Details +/-% vs PY (QTR)' =
+			
+			DIVIDE ( [Promo Details] - [Promo Details PY], [Promo Details PY] )
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Promo ESOV' =
+			
+			([Promo SOV% (ATC4)] - [Sales Values MS%]) * 100
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Column
+		isHidden
+		formatString: 0
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Msr Promo' = calculated
+		mode: import
+		source = Row("Column", BLANK())

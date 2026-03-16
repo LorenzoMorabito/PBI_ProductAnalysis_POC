@@ -1,0 +1,135 @@
+table T_DIM_MONTH
+	lineageTag: cf2fc821-5401-47da-a123-7c03600b1fc6
+
+	column MonthStartDay
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 95b57fc5-7e45-4f9e-a5df-c0bf3d0a3dd6
+		summarizeBy: none
+		sourceColumn: MonthStartDay
+
+		variation Variation
+			isDefault
+			relationship: deb3433e-d107-478a-b281-5b2e068d5fcc
+			defaultHierarchy: LocalDateTable_15c6dca1-2b3c-4e79-8f12-3d7a84872447.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: 4a52cac5-ca8d-4037-8f36-c7f902ca008d
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthNum
+		dataType: int64
+		formatString: 0
+		lineageTag: f4284171-4531-4876-bab7-5ca74a28242b
+		summarizeBy: sum
+		sourceColumn: MonthNum
+
+		annotation SummarizationSetBy = Automatic
+
+	column QuarterStartDay
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: f5bbbe0a-3f22-45c0-8ce4-223b2071a456
+		summarizeBy: none
+		sourceColumn: QuarterStartDay
+
+		variation Variation
+			isDefault
+			relationship: f39cea6f-f1fd-4fac-b18d-dfb4165ae0b9
+			defaultHierarchy: LocalDateTable_116ad773-8b4e-431b-92b3-2b4099dae644.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column QuarterNum
+		dataType: int64
+		formatString: 0
+		lineageTag: f45c5143-0a9e-445d-a904-eec2e2369a48
+		summarizeBy: sum
+		sourceColumn: QuarterNum
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthKey
+		dataType: string
+		lineageTag: e9e138d1-9682-4035-b96a-fc6254633005
+		summarizeBy: none
+		sourceColumn: MonthKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthLabel
+		dataType: string
+		lineageTag: 667329c6-582a-4c3b-8704-c56b50607e0b
+		summarizeBy: none
+		sourceColumn: MonthLabel
+
+		annotation SummarizationSetBy = Automatic
+
+	column QuarterKey
+		dataType: string
+		lineageTag: 0110e696-6d47-439b-a844-770541d496e0
+		summarizeBy: none
+		sourceColumn: QuarterKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column QuarterLabel
+		dataType: string
+		lineageTag: 4582d4ef-41b2-4e37-976c-5049c2012e0e
+		summarizeBy: none
+		sourceColumn: QuarterLabel
+
+		annotation SummarizationSetBy = Automatic
+
+	partition T_DIM_MONTH = m
+		mode: import
+		source =
+				let
+				    // Prendo tutte le date disponibili (month e quarter) per trovare un range unico
+				    SalesQ = List.Transform(T_FCT_SALES_A10P[QuarterStartDay], each Date.From(_)),
+				    PromoQ = List.Transform(T_FCT_PROMO_A10P_CD[QuarterStartDay], each Date.From(_)),
+				    FinM   = List.Transform(T_FCT_FIN[MonthStartDay], each Date.From(_)),
+				
+				    MinDate = List.Min(List.Combine({SalesQ, PromoQ, FinM})),
+				    MaxDate = List.Max(List.Combine({SalesQ, PromoQ, FinM})),
+				
+				    StartMonth = Date.StartOfMonth(MinDate),
+				    EndMonth   = Date.StartOfMonth(MaxDate),
+				
+				    Months = List.Generate(
+				        () => StartMonth,
+				        each _ <= EndMonth,
+				        each Date.AddMonths(_, 1)
+				    ),
+				
+				    DimMonth0 = Table.FromList(Months, Splitter.SplitByNothing(), {"MonthStartDay"}),
+				    DimMonth1 = Table.TransformColumnTypes(DimMonth0, {{"MonthStartDay", type date}}),
+				
+				    AddYear   = Table.AddColumn(DimMonth1, "Year", each Date.Year([MonthStartDay]), Int64.Type),
+				    AddMonthN = Table.AddColumn(AddYear, "MonthNum", each Date.Month([MonthStartDay]), Int64.Type),
+				    AddQStart = Table.AddColumn(AddMonthN, "QuarterStartDay", each Date.StartOfQuarter([MonthStartDay]), type date),
+				    AddQNum   = Table.AddColumn(AddQStart, "QuarterNum", each Date.QuarterOfYear([MonthStartDay]), Int64.Type),
+				
+				    AddMonthKey   = Table.AddColumn(AddQNum, "MonthKey", each Text.From([Year]) & Text.PadStart(Text.From([MonthNum]), 2, "0"), type text),
+				    AddMonthLabel = Table.AddColumn(AddMonthKey, "MonthLabel", each Date.ToText([MonthStartDay], "MMM yyyy"), type text),
+				
+				    AddQuarterKey   = Table.AddColumn(AddMonthLabel, "QuarterKey", each Text.From([Year]) & "Q" & Text.From([QuarterNum]), type text),
+				    AddQuarterLabel = Table.AddColumn(AddQuarterKey, "QuarterLabel", each "Q" & Text.From([QuarterNum]) & " " & Text.From([Year]), type text)
+				in
+				    AddQuarterLabel
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Exception
+

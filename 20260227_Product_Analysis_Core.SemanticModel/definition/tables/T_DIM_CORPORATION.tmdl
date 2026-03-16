@@ -1,0 +1,25 @@
+table T_DIM_CORPORATION
+	lineageTag: b009e5da-9a3b-4bd3-b928-836680a0cc95
+
+	column Corporation
+		dataType: string
+		lineageTag: 08e63ebe-2f20-496c-b030-243c4dd68494
+		summarizeBy: none
+		sourceColumn: Corporation
+
+		annotation SummarizationSetBy = Automatic
+
+	partition T_DIM_CORPORATION = m
+		mode: import
+		source =
+				let
+				    Source = Table.Combine({T_FCT_SALES_A10P, T_FCT_PROMO_A10P_CD}),
+				    #"Removed Other Columns" = Table.SelectColumns(Source,{"Corporation"}),
+				    #"Removed Duplicates" = Table.Distinct(#"Removed Other Columns")
+				in
+				    #"Removed Duplicates"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Exception
+

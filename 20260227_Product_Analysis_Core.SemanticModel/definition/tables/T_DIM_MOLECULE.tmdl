@@ -1,0 +1,62 @@
+table T_DIM_MOLECULE
+	lineageTag: 83cf93f4-c494-45bf-bf0a-00f25d7b58e9
+
+	column MoleculeNorm
+		dataType: string
+		lineageTag: 6b05720b-2268-42a3-999c-cd7ca0920f74
+		summarizeBy: none
+		sourceColumn: MoleculeNorm
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mol_IsInSales
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 392c50e0-cef5-4c8e-8f24-c38337a0f66e
+		summarizeBy: none
+		sourceColumn: Mol_IsInSales
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mol_IsInPromo
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 71613a61-47e1-41db-8745-a658c87422d8
+		summarizeBy: none
+		sourceColumn: Mol_IsInPromo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mol_IsInFinance
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 412a01f4-53d5-4f96-bc4d-125b122527c2
+		summarizeBy: none
+		sourceColumn: Mol_IsInFinance
+
+		annotation SummarizationSetBy = Automatic
+
+	partition T_DIM_MOLECULE = m
+		mode: import
+		source =
+				let
+				    SalesT = Table.Distinct( Table.SelectColumns(T_FCT_SALES_A10P, {"MoleculeNorm"}) ),
+				    PromoT = Table.Distinct( Table.SelectColumns(T_FCT_PROMO_A10P_CD, {"MoleculeNorm"}) ),
+				    FinT   = Table.Distinct( Table.SelectColumns(T_FCT_FIN, {"MoleculeNorm"}) ),
+				
+				    AllT = Table.Distinct( Table.Combine({SalesT, PromoT, FinT}) ),
+				
+				    SalesL = List.Buffer(SalesT[MoleculeNorm]),
+				    PromoL = List.Buffer(PromoT[MoleculeNorm]),
+				    FinL   = List.Buffer(FinT[MoleculeNorm]),
+				
+				    AddSales  = Table.AddColumn(AllT, "IsInSales", each List.Contains(SalesL, [MoleculeNorm]), type logical),
+				    AddPromo  = Table.AddColumn(AddSales, "IsInPromo", each List.Contains(PromoL, [MoleculeNorm]), type logical),
+				    AddFin    = Table.AddColumn(AddPromo, "IsInFinance", each List.Contains(FinL, [MoleculeNorm]), type logical),
+				    #"Renamed Columns" = Table.RenameColumns(AddFin,{{"IsInFinance", "Mol_IsInFinance"}, {"IsInSales", "Mol_IsInSales"}, {"IsInPromo", "Mol_IsInPromo"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table

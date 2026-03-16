@@ -1,0 +1,92 @@
+table 'Msr Sales'
+
+	measure 'Sales Units' = SUM(T_FCT_SALES_A10P[Units])
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales Values' = SUM(T_FCT_SALES_A10P[EUR MNF])
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Counting Units' = SUM(T_FCT_SALES_A10P[Counting Units])
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Market Units' =
+			
+			CALCULATE ( [Sales Units], REMOVEFILTERS ( T_DIM_PRODUCT[Product] ), REMOVEFILTERS ( T_DIM_CORPORATION[Corporation] ) )
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Market Units (ATC4)' =
+			
+			CALCULATE ( [Sales Units], REMOVEFILTERS ( T_DIM_PRODUCT[Product] ), REMOVEFILTERS ( T_DIM_MOLECULE ) )
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales Units MS%' =
+			
+			DIVIDE ( [Sales Units], [Market Units (ATC4)] )
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales Units PY' =
+			
+			CALCULATE ( [Sales Units], SAMEPERIODLASTYEAR ( T_DIM_QUARTER[QuarterStartDay] ) )
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales Values PY' =
+			
+			CALCULATE ( [Sales Values], SAMEPERIODLASTYEAR ( T_DIM_QUARTER[QuarterStartDay] ) )
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales Values Δ vs PY' =
+			
+			[Sales Values] - [Sales Values PY]
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales Values Δ% vs PY (QTR)' =
+			
+			DIVIDE ( [Sales Values] - [Sales Values PY], [Sales Values PY] )
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Market Values' =
+			
+			CALCULATE ( [Sales Values], REMOVEFILTERS ( T_DIM_MOLECULE ), REMOVEFILTERS ( T_DIM_CORPORATION ) )
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Market Values (ATC4)' =
+			
+			CALCULATE (
+			    [Sales Values],
+			    REMOVEFILTERS ( T_DIM_PRODUCT ),
+			    REMOVEFILTERS ( T_DIM_MOLECULE ),
+			    REMOVEFILTERS ( T_DIM_CORPORATION ),
+			    KEEPFILTERS ( VALUES ( T_DIM_PRODUCT[ATC4] ) )
+			)
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales Values MS%' =
+			
+			DIVIDE ( [Sales Values], [Market Values (ATC4)] )
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Column
+		isHidden
+		formatString: 0
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Msr Sales' = calculated
+		mode: import
+		source = Row("Column", BLANK())

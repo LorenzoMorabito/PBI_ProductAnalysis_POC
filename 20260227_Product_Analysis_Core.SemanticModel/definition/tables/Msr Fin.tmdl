@@ -1,0 +1,46 @@
+table 'Msr Fin'
+
+	measure 'Fin ACT' =
+			
+			SUM ( T_FCT_FIN[ACT] )
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Fin BDG' = SUM ( T_FCT_FIN[BDG] )
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Fin ACT vs BDG abs' = [Fin ACT] - [Fin BDG]
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Fin ACT vs BDG +-%' = DIVIDE ( [Fin ACT vs BDG abs], [Fin BDG] )
+		formatString: 0.0%;-0.0%;0.0%
+
+	measure 'Fin ACT PY' =
+			
+			CALCULATE (
+			    [Fin ACT],
+			    DATEADD ( T_DIM_MONTH[MonthStartDay], -1, YEAR )
+			)
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Fin ACT vs PY PPG%' =
+			
+			DIVIDE ( [Fin ACT] - [Fin ACT PY], [Fin ACT PY] )
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Column
+		isHidden
+		formatString: 0
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Msr Fin' = calculated
+		mode: import
+		source = Row("Column", BLANK())
