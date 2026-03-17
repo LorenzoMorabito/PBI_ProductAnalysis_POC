@@ -48,6 +48,7 @@ Gli asset oggi considerati autorevoli sono:
 - [Setup](docs/SETUP.md)
 - [Workflow](docs/WORKFLOW.md)
 - [Repository Contract](docs/REPOSITORY_CONTRACT.md)
+- [Core Audit](docs/CORE_AUDIT.md)
 - [Topology Note](REPO_TOPOLOGY.md)
 
 ## Stato attuale
