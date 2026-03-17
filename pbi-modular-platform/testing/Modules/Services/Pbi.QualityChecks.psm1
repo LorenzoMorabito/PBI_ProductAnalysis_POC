@@ -3,12 +3,16 @@ function Get-PbiQualityRuleCatalog {
         [PSCustomObject]@{ Scope = "Module"; RuleId = "module.manifest.valid"; Description = "Required manifest properties are present."; Severity = "Error" },
         [PSCustomObject]@{ Scope = "Module"; RuleId = "module.semantic-table.exists"; Description = "Every declared semantic table file exists."; Severity = "Error" },
         [PSCustomObject]@{ Scope = "Module"; RuleId = "module.report-page.exists"; Description = "Declared report page assets exist."; Severity = "Error" },
+        [PSCustomObject]@{ Scope = "Module"; RuleId = "architecture.module.core-table.forbidden"; Description = "Modules do not declare semantic tables reserved for the semantic core contract."; Severity = "Error" },
         [PSCustomObject]@{ Scope = "Module"; RuleId = "semantic.measure-name.unique"; Description = "Measure names are unique within the module."; Severity = "Error" },
         [PSCustomObject]@{ Scope = "Module"; RuleId = "semantic.local-path.forbidden"; Description = "Semantic assets do not contain hardcoded local absolute paths."; Severity = "Error" },
         [PSCustomObject]@{ Scope = "Module"; RuleId = "report.json.parse"; Description = "All report asset JSON files parse correctly."; Severity = "Error" },
         [PSCustomObject]@{ Scope = "Module"; RuleId = "report.entity.module-reference"; Description = "Module visuals do not reference undeclared MOD tables."; Severity = "Error" },
         [PSCustomObject]@{ Scope = "Module"; RuleId = "report.textbox.no-query"; Description = "Textbox visuals do not carry semantic queries."; Severity = "Error" },
         [PSCustomObject]@{ Scope = "Module"; RuleId = "report.field-parameter.requires-metadata"; Description = "Non-slicer visuals do not project field parameter tables directly without metadata."; Severity = "Error" },
+        [PSCustomObject]@{ Scope = "Project"; RuleId = "architecture.core-contract.table-allowed"; Description = "The core baseline project only contains tables approved by the semantic core contract."; Severity = "Error" },
+        [PSCustomObject]@{ Scope = "Project"; RuleId = "architecture.core-contract.table-required"; Description = "The core baseline project contains every required core table."; Severity = "Error" },
+        [PSCustomObject]@{ Scope = "Project"; RuleId = "architecture.core-contract.no-installed-modules"; Description = "The core baseline project does not carry installed module metadata."; Severity = "Error" },
         [PSCustomObject]@{ Scope = "Project"; RuleId = "semantic.measure-name.unique"; Description = "Measure names are unique across the whole semantic model."; Severity = "Error" },
         [PSCustomObject]@{ Scope = "Project"; RuleId = "semantic.local-path.forbidden"; Description = "Semantic model definitions do not contain hardcoded local absolute paths."; Severity = "Error" },
         [PSCustomObject]@{ Scope = "Project"; RuleId = "report.page-folder.exists"; Description = "Every page in pages.json has a folder and page.json."; Severity = "Error" },
@@ -163,6 +167,10 @@ function Invoke-PbiModuleQualityChecks {
             $results.Add($result)
         }
 
+        foreach ($result in (Invoke-PbiModuleArchitectureRules -Module $module)) {
+            $results.Add($result)
+        }
+
         foreach ($result in (Invoke-PbiModuleSemanticRules -Module $module)) {
             $results.Add($result)
         }
@@ -185,6 +193,10 @@ function Invoke-PbiProjectQualityChecks {
 
     $project = Resolve-PbiConsumerProject -ProjectPath $ProjectPath
     $results = New-Object System.Collections.Generic.List[object]
+
+    foreach ($result in (Invoke-PbiProjectArchitectureRules -Project $project)) {
+        $results.Add($result)
+    }
 
     foreach ($result in (Invoke-PbiProjectSemanticRules -Project $project)) {
         $results.Add($result)

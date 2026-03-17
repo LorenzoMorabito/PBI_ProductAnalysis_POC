@@ -32,7 +32,9 @@ $installerModulePaths = @(
 $testingModulePaths = @(
     (Join-Path $scriptRoot "Modules/Common/Pbi.TestResults.psm1"),
     (Join-Path $scriptRoot "Modules/Core/Pbi.TestDiscovery.psm1"),
+    (Join-Path $scriptRoot "Modules/Core/Pbi.ArchitectureContract.psm1"),
     (Join-Path $scriptRoot "Modules/Rules/Pbi.ManifestRules.psm1"),
+    (Join-Path $scriptRoot "Modules/Rules/Pbi.ArchitectureRules.psm1"),
     (Join-Path $scriptRoot "Modules/Rules/Pbi.SemanticRules.psm1"),
     (Join-Path $scriptRoot "Modules/Rules/Pbi.ReportRules.psm1"),
     (Join-Path $scriptRoot "Modules/Services/Pbi.QualityChecks.psm1")

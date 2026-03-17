@@ -22,6 +22,8 @@ Architecture:
 Current rules focus on the failures we have already seen in real work:
 - duplicate measure names
 - missing semantic or report assets declared by a module
+- modules that attempt to declare tables reserved for the semantic core
+- core baseline projects that drift away from the approved semantic core contract
 - invalid JSON in report assets
 - textbox visuals that incorrectly carry semantic queries
 - stale module report references to removed `MOD_*` tables

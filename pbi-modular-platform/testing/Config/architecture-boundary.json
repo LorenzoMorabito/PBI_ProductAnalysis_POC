@@ -1,0 +1,22 @@
+{
+  "coreProjectIds": [
+    "20260227_Product_Analysis_Core"
+  ],
+  "coreAllowedTables": [
+    "T_FCT_SALES_A10P",
+    "T_FCT_PROMO_A10P_CD",
+    "T_FCT_FIN",
+    "T_DIM_COUNTRY",
+    "T_DIM_MOLECULE",
+    "T_DIM_ACT4",
+    "T_DIM_PRODUCT",
+    "T_DIM_MONTH",
+    "T_DIM_QUARTER",
+    "T_DIM_CORPORATION",
+    "T_DIM_SPECIALTY",
+    "T_DIM_CHANNELS",
+    "Msr Sales",
+    "Msr Promo",
+    "Msr Fin"
+  ]
+}
