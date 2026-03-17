@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/bookmark/2.0.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/bookmark/2.1.0/schema.json",
   "displayName": "GB Filters Close",
   "name": "5aa23e81c55041a60a51",
   "options": {
@@ -3632,12 +3632,6 @@
                   }
                 ]
               }
-            }
-          },
-          "498191385c2e4dec46a7": {
-            "singleVisual": {
-              "visualType": "shape",
-              "objects": {}
             }
           },
           "82cd0b96b442ec066b40": {

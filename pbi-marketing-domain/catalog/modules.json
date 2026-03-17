@@ -14,7 +14,7 @@
     },
     {
       "moduleId": "flex_table_flat_mvp",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "status": "prototype",
       "path": "packages/flex_table_flat_mvp",
       "displayName": "FlexTableFlat",

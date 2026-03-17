@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
   "name": "38a6bf9170912017b274",
   "position": {
     "x": 127.71821203919967,
@@ -95,7 +95,7 @@
                           [
                             {
                               "Literal": {
-                                "Value": "'''Msr Sales''[Sales Units MS%]'"
+                                "Value": "'''Msr Sales''[Sales Units MS% (log)]'"
                               }
                             }
                           ]
@@ -123,7 +123,7 @@
                                 "0": [
                                   {
                                     "Literal": {
-                                      "Value": "'''Msr Sales''[Sales Units MS%]'"
+                                      "Value": "'''Msr Sales''[Sales Units MS% (log)]'"
                                     }
                                   }
                                 ]
@@ -147,7 +147,7 @@
                         },
                         "valueMap": [
                           {
-                            "0": "Sales Units MS%"
+                            "0": "Sales Units MS% (Log)"
                           }
                         ]
                       }

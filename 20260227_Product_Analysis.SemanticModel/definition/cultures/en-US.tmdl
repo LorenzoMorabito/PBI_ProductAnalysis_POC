@@ -22674,16 +22674,6 @@ cultureInfo en-US
 			            },
 			            "Weight": 0.605
 			          }
-			        },
-			        {
-			          "MS%": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
-			          }
 			        }
 			      ]
 			    },
@@ -36900,42 +36890,1914 @@ cultureInfo en-US
 			          }
 			        }
 			      ]
-			    }
-			  },
-			  "Relationships": {
-			    "t_dim_quarter_quarter_start_day_date_hierarchy_has_t_dim_quarter_quarter_start_day_year": {
-			      "Binding": {
-			        "ConceptualEntity": "T_DIM_QUARTER"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "t_dim_quarter.quarter_start_day.date_hierarchy": {
-			          "Target": {
-			            "Entity": "t_dim_quarter.quarter_start_day.date_hierarchy"
-			          }
-			        },
-			        "t_dim_quarter.quarter_start_day.year": {
-			          "Target": {
-			            "Entity": "t_dim_quarter.quarter_start_day.year"
-			          }
+			    },
+			    "msr_sale.sales_units_MS_log": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Msr Sales",
+			          "ConceptualProperty": "Sales Units MS% (log)"
 			        }
 			      },
-			      "Phrasings": [
+			      "State": "Generated",
+			      "Terms": [
 			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "t_dim_quarter.quarter_start_day.date_hierarchy"
-			            },
-			            "Object": {
-			              "Role": "t_dim_quarter.quarter_start_day.year"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "quarter_start_day_date_hierarchies_have_quarter_start_day_years"
+			          "sales units MS% (log)": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "sales units MS%": {
+			            "State": "Generated",
+			            "Weight": 0.75
+			          }
 			        }
 			      ]
 			    },
+			    "msr_promo.promo_calls_with_positive_prescribing": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Msr Promo",
+			          "ConceptualProperty": "Promo Calls with Positive Prescribing"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "promo calls with positive prescribing": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "promo song with positive prescribing": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.52
+			          }
+			        },
+			        {
+			          "promo noise with positive prescribing": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.504
+			          }
+			        },
+			        {
+			          "promo cry with positive prescribing": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.504
+			          }
+			        },
+			        {
+			          "promo sound with positive prescribing": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.504
+			          }
+			        },
+			        {
+			          "promo plea with positive prescribing": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.494
+			          }
+			        },
+			        {
+			          "promo invitation with positive prescribing": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.494
+			          }
+			        },
+			        {
+			          "promo demand with positive prescribing": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.479
+			          }
+			        },
+			        {
+			          "promo request with positive prescribing": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.479
+			          }
+			        },
+			        {
+			          "promo appeal with positive prescribing": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.479
+			          }
+			        },
+			        {
+			          "promo bid with positive prescribing": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.479
+			          }
+			        }
+			      ]
+			    },
+			    "msr_promo.promo_contacts_with_positive_prescribing": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Msr Promo",
+			          "ConceptualProperty": "Promo Contacts with Positive Prescribing"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "promo contacts with positive prescribing": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "promo acquaintance with positive prescribing": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.52
+			          }
+			        },
+			        {
+			          "promo friend with positive prescribing": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.52
+			          }
+			        },
+			        {
+			          "promo interaction with positive prescribing": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.52
+			          }
+			        },
+			        {
+			          "promo relation with positive prescribing": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.52
+			          }
+			        },
+			        {
+			          "promo connection with positive prescribing": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.52
+			          }
+			        },
+			        {
+			          "promo associate with positive prescribing": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.504
+			          }
+			        },
+			        {
+			          "promo link with positive prescribing": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.504
+			          }
+			        },
+			        {
+			          "promo exchange with positive prescribing": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.504
+			          }
+			        },
+			        {
+			          "promo communication with positive prescribing": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.479
+			          }
+			        },
+			        {
+			          "promo dealing with positive prescribing": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.479
+			          }
+			        }
+			      ]
+			    },
+			    "msr_promo.promo_conversion_rate_calls_": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Msr Promo",
+			          "ConceptualProperty": "Promo Conversion Rate Calls %"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "promo conversion rate calls %": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "promo conversion rate call percentage": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.78
+			          }
+			        },
+			        {
+			          "promo conversion rate call pct": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.757
+			          }
+			        }
+			      ]
+			    },
+			    "msr_promo.promo_conversion_rate_contacts_": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Msr Promo",
+			          "ConceptualProperty": "Promo Conversion Rate Contacts %"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "promo conversion rate contacts %": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "promo conversion rate contact percentage": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.78
+			          }
+			        },
+			        {
+			          "promo conversion rate contact pct": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.757
+			          }
+			        }
+			      ]
+			    },
+			    "msr_promo.LP_promo_contacts": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Msr Promo",
+			          "ConceptualProperty": "LP Promo Contacts"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "LP promo contacts": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "contacts": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "lp promo acquaintance": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.508
+			          }
+			        },
+			        {
+			          "lp promo friend": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.508
+			          }
+			        },
+			        {
+			          "lp promo interaction": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.508
+			          }
+			        },
+			        {
+			          "lp promo relation": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.508
+			          }
+			        },
+			        {
+			          "lp promo connection": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.508
+			          }
+			        },
+			        {
+			          "lp promo associate": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.492
+			          }
+			        },
+			        {
+			          "lp promo link": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.492
+			          }
+			        },
+			        {
+			          "lp promo exchange": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.492
+			          }
+			        },
+			        {
+			          "acquaintance": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.491
+			          }
+			        },
+			        {
+			          "friend": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.491
+			          }
+			        }
+			      ]
+			    },
+			    "msr_promo.LP_promo_contacts_with_positive_prescribing": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Msr Promo",
+			          "ConceptualProperty": "LP Promo Contacts with Positive Prescribing"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "LP promo contacts with positive prescribing": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "msr_promo.LP_promo_conversion_rate_contacts_": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Msr Promo",
+			          "ConceptualProperty": "LP Promo Conversion Rate Contacts %"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "LP promo conversion rate contacts %": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "msr_promo.promo_NPS": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Msr Promo",
+			          "ConceptualProperty": "Promo NPS"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "promo NPS": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "NPS": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        }
+			      ]
+			    },
+			    "msr_promo.measure": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Msr Promo",
+			          "ConceptualProperty": "Measure"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "measure": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "degree": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.491
+			          }
+			        },
+			        {
+			          "quota": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.491
+			          }
+			        },
+			        {
+			          "extent": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.491
+			          }
+			        },
+			        {
+			          "portion": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.476
+			          }
+			        },
+			        {
+			          "ration": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.476
+			          }
+			        }
+			      ]
+			    },
+			    "msr_promo.LP_promo_NPS": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Msr Promo",
+			          "ConceptualProperty": "LP Promo NPS"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "LP promo NPS": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "NPS": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        }
+			      ]
+			    },
+			    "scatter_preset": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "ScatterPreset"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "scatter preset": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "ScatterPreset": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.99
+			          }
+			        },
+			        {
+			          "preset": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "set": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.476
+			          }
+			        },
+			        {
+			          "firm": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.476
+			          }
+			        }
+			      ]
+			    },
+			    "scatter_preset.preset_key": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "ScatterPreset",
+			          "ConceptualProperty": "PresetKey"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "preset key": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "PresetKey": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.99
+			          }
+			        },
+			        {
+			          "key": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "main": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.476
+			          }
+			        },
+			        {
+			          "basic": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.476
+			          }
+			        },
+			        {
+			          "fundamental": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.476
+			          }
+			        },
+			        {
+			          "central": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.476
+			          }
+			        },
+			        {
+			          "major": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.476
+			          }
+			        },
+			        {
+			          "keynote": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.476
+			          }
+			        },
+			        {
+			          "essential": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.476
+			          }
+			        },
+			        {
+			          "preset solution": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.475
+			          }
+			        },
+			        {
+			          "preset explanation": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.475
+			          }
+			        },
+			        {
+			          "preset basis": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.475
+			          }
+			        }
+			      ]
+			    },
+			    "scatter_preset.preset_name": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "ScatterPreset",
+			          "ConceptualProperty": "PresetName"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "preset name": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "name": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "PresetName": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.99
+			          }
+			        },
+			        {
+			          "preset": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "preset nickname": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "preset title": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "preset label": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "preset tag": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "set": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.476
+			          }
+			        },
+			        {
+			          "firm": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.476
+			          }
+			        }
+			      ],
+			      "NameType": "Name"
+			    },
+			    "scatter_preset.sort_order": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "ScatterPreset",
+			          "ConceptualProperty": "SortOrder"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "sort order": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "SortOrder": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.99
+			          }
+			        },
+			        {
+			          "order": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "sort instruction": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.5
+			          }
+			        },
+			        {
+			          "sort direction": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.5
+			          }
+			        },
+			        {
+			          "sort edict": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.5
+			          }
+			        },
+			        {
+			          "instruction": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.491
+			          }
+			        },
+			        {
+			          "direction": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.491
+			          }
+			        },
+			        {
+			          "edict": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.491
+			          }
+			        },
+			        {
+			          "sort command": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.485
+			          }
+			        },
+			        {
+			          "sort directive": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.485
+			          }
+			        },
+			        {
+			          "sort demand": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.485
+			          }
+			        },
+			        {
+			          "sort mandate": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.485
+			          }
+			        }
+			      ]
+			    },
+			    "scatter_preset.X_axis_label": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "ScatterPreset",
+			          "ConceptualProperty": "XAxisLabel"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "X axis label": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "XAxisLabel": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.99
+			          }
+			        },
+			        {
+			          "axis label": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "x axis sticker": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.762
+			          }
+			        },
+			        {
+			          "axis sticker": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.75
+			          }
+			        },
+			        {
+			          "x axis tag": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.739
+			          }
+			        },
+			        {
+			          "x axis decal": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.739
+			          }
+			        },
+			        {
+			          "axis tag": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "axis decal": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "x axis name tag": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.604
+			          }
+			        },
+			        {
+			          "axis name tag": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.589
+			          }
+			        }
+			      ]
+			    },
+			    "scatter_preset.Y_axis_label": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "ScatterPreset",
+			          "ConceptualProperty": "YAxisLabel"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Y axis label": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "YAxisLabel": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.99
+			          }
+			        },
+			        {
+			          "axis label": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "y axis sticker": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.762
+			          }
+			        },
+			        {
+			          "axis sticker": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.75
+			          }
+			        },
+			        {
+			          "y axis tag": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.739
+			          }
+			        },
+			        {
+			          "y axis decal": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.739
+			          }
+			        },
+			        {
+			          "axis tag": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "axis decal": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "y axis name tag": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.604
+			          }
+			        },
+			        {
+			          "axis name tag": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.589
+			          }
+			        }
+			      ]
+			    },
+			    "scatter_preset.size_label": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "ScatterPreset",
+			          "ConceptualProperty": "SizeLabel"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "size label": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "SizeLabel": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.99
+			          }
+			        },
+			        {
+			          "size sticker": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.75
+			          }
+			        },
+			        {
+			          "size tag": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "size decal": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "size name tag": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.589
+			          }
+			        }
+			      ]
+			    },
+			    "scatter_preset.scatter_preset_selected": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "ScatterPreset",
+			          "ConceptualProperty": "Scatter Preset Selected"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "scatter preset selected": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "scatter_preset.scatter_x": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "ScatterPreset",
+			          "ConceptualProperty": "Scatter X"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "scatter x": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "x": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "Asse X": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "scatter_preset.scatter_y": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "ScatterPreset",
+			          "ConceptualProperty": "Scatter Y"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "scatter y": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "y": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "Asse Y": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "scatter_preset.scatter_size": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "ScatterPreset",
+			          "ConceptualProperty": "Scatter Size"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "scatter size": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "size": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "scatter extent": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.5
+			          }
+			        },
+			        {
+			          "scatter magnitude": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.5
+			          }
+			        },
+			        {
+			          "extent": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.491
+			          }
+			        },
+			        {
+			          "magnitude": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.491
+			          }
+			        },
+			        {
+			          "scatter scope": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.485
+			          }
+			        },
+			        {
+			          "scope": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.476
+			          }
+			        },
+			        {
+			          "scatter volume": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.475
+			          }
+			        },
+			        {
+			          "volume": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.466
+			          }
+			        },
+			        {
+			          "scatter dimension": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.461
+			          }
+			        },
+			        {
+			          "scatter mass": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.461
+			          }
+			        }
+			      ]
+			    },
+			    "scatter_preset.scatter_size_safe": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "ScatterPreset",
+			          "ConceptualProperty": "Scatter Size Safe"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "scatter size safe": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "safe": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "size safe": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "innocent": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.476
+			          }
+			        },
+			        {
+			          "anodyne": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.476
+			          }
+			        },
+			        {
+			          "Size": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "scatter_preset.scatter_x_label": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "ScatterPreset",
+			          "ConceptualProperty": "Scatter X Label"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "scatter x label": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "x label": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "scatter x sticker": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.762
+			          }
+			        },
+			        {
+			          "x sticker": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.75
+			          }
+			        },
+			        {
+			          "scatter x tag": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.739
+			          }
+			        },
+			        {
+			          "scatter x decal": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.739
+			          }
+			        },
+			        {
+			          "x tag": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "x decal": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "scatter x name tag": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.604
+			          }
+			        },
+			        {
+			          "x name tag": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.589
+			          }
+			        }
+			      ]
+			    },
+			    "scatter_preset.scatter_y_label": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "ScatterPreset",
+			          "ConceptualProperty": "Scatter Y Label"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "scatter y label": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "y label": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "scatter y sticker": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.762
+			          }
+			        },
+			        {
+			          "y sticker": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.75
+			          }
+			        },
+			        {
+			          "scatter y tag": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.739
+			          }
+			        },
+			        {
+			          "scatter y decal": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.739
+			          }
+			        },
+			        {
+			          "y tag": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "y decal": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "scatter y name tag": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.604
+			          }
+			        },
+			        {
+			          "y name tag": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.589
+			          }
+			        }
+			      ]
+			    },
+			    "scatter_preset.scatter_size_label": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "ScatterPreset",
+			          "ConceptualProperty": "Scatter Size Label"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "scatter size label": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "scatter size sticker": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.762
+			          }
+			        },
+			        {
+			          "scatter size tag": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.739
+			          }
+			        },
+			        {
+			          "scatter size decal": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.739
+			          }
+			        },
+			        {
+			          "scatter size name tag": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.604
+			          }
+			        }
+			      ]
+			    },
+			    "scatter_preset.scatter_title": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "ScatterPreset",
+			          "ConceptualProperty": "Scatter Title"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "scatter title": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "title": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "scatter designation": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.75
+			          }
+			        },
+			        {
+			          "designation": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.736
+			          }
+			        },
+			        {
+			          "scatter name": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "scatter award": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "scatter call": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "scatter heading": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "scatter label": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "award": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.714
+			          }
+			        },
+			        {
+			          "heading": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.714
+			          }
+			        }
+			      ]
+			    }
+			  },
+			  "Relationships": {
 			    "t_dim_quarter_quarter_start_day_has_date_hierarchy": {
 			      "Binding": {
 			        "ConceptualEntity": "T_DIM_QUARTER"
@@ -37097,7 +38959,7 @@ cultureInfo en-US
 			          },
 			          "State": "Generated",
 			          "Weight": 0.99,
-			          "ID": "quarter_start_day_date_hierarchies_have_quarter_start_day_years1"
+			          "ID": "quarter_start_day_date_hierarchies_have_quarter_start_day_years"
 			        }
 			      ]
 			    },
@@ -37757,7 +39619,7 @@ cultureInfo en-US
 			          },
 			          "State": "Generated",
 			          "Weight": 0.99,
-			          "ID": "quarter_start_day_date_hierarchies_have_quarter_start_day_years2"
+			          "ID": "quarter_start_day_date_hierarchies_have_quarter_start_day_years1"
 			        }
 			      ]
 			    },
@@ -38678,6 +40540,1240 @@ cultureInfo en-US
 			          "State": "Generated",
 			          "Weight": 0.99,
 			          "ID": "t_dim_countries_have_t_fct_fins"
+			        }
+			      ]
+			    },
+			    "switch_top_by_dimension_has_scatter_preset_scatter_title": {
+			      "Binding": {
+			        "ConceptualEntity": "SwitchTopByDimension"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "switch_top_by_dimension": {
+			          "Target": {
+			            "Entity": "switch_top_by_dimension"
+			          }
+			        },
+			        "scatter_preset.scatter_title": {
+			          "Target": {
+			            "Entity": "scatter_preset.scatter_title"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "switch_top_by_dimension"
+			            },
+			            "Object": {
+			              "Role": "scatter_preset.scatter_title"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "switch_top_by_dimension_have_scatter_title"
+			        }
+			      ]
+			    },
+			    "scatter_preset_has_scatter_title": {
+			      "Binding": {
+			        "ConceptualEntity": "ScatterPreset"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "scatter_preset": {
+			          "Target": {
+			            "Entity": "scatter_preset"
+			          }
+			        },
+			        "scatter_preset.scatter_title": {
+			          "Target": {
+			            "Entity": "scatter_preset.scatter_title"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "scatter_preset"
+			            },
+			            "Object": {
+			              "Role": "scatter_preset.scatter_title"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "scatter_presets_have_scatter_title"
+			        }
+			      ]
+			    },
+			    "scatter_preset_has_scatter_size_label": {
+			      "Binding": {
+			        "ConceptualEntity": "ScatterPreset"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "scatter_preset": {
+			          "Target": {
+			            "Entity": "scatter_preset"
+			          }
+			        },
+			        "scatter_preset.scatter_size_label": {
+			          "Target": {
+			            "Entity": "scatter_preset.scatter_size_label"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "scatter_preset"
+			            },
+			            "Object": {
+			              "Role": "scatter_preset.scatter_size_label"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "scatter_presets_have_scatter_size_label"
+			        }
+			      ]
+			    },
+			    "scatter_preset_has_scatter_y_label": {
+			      "Binding": {
+			        "ConceptualEntity": "ScatterPreset"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "scatter_preset": {
+			          "Target": {
+			            "Entity": "scatter_preset"
+			          }
+			        },
+			        "scatter_preset.scatter_y_label": {
+			          "Target": {
+			            "Entity": "scatter_preset.scatter_y_label"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "scatter_preset"
+			            },
+			            "Object": {
+			              "Role": "scatter_preset.scatter_y_label"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "scatter_presets_have_scatter_y_label"
+			        }
+			      ]
+			    },
+			    "scatter_preset_has_scatter_x_label": {
+			      "Binding": {
+			        "ConceptualEntity": "ScatterPreset"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "scatter_preset": {
+			          "Target": {
+			            "Entity": "scatter_preset"
+			          }
+			        },
+			        "scatter_preset.scatter_x_label": {
+			          "Target": {
+			            "Entity": "scatter_preset.scatter_x_label"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "scatter_preset"
+			            },
+			            "Object": {
+			              "Role": "scatter_preset.scatter_x_label"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "scatter_presets_have_scatter_x_label"
+			        }
+			      ]
+			    },
+			    "t_fct_sale_a_1_0p_has_scatter_preset_scatter_size_safe": {
+			      "Binding": {
+			        "ConceptualEntity": "T_FCT_SALES_A10P"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "t_fct_sale_a_1_0p": {
+			          "Target": {
+			            "Entity": "t_fct_sale_a_1_0p"
+			          }
+			        },
+			        "scatter_preset.scatter_size_safe": {
+			          "Target": {
+			            "Entity": "scatter_preset.scatter_size_safe"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "t_fct_sale_a_1_0p"
+			            },
+			            "Object": {
+			              "Role": "scatter_preset.scatter_size_safe"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "t_fct_sale_a_1_0p_have_scatter_size_safe"
+			        }
+			      ]
+			    },
+			    "t_fct_promo_a_1_0p_cd_has_scatter_preset_scatter_size_safe": {
+			      "Binding": {
+			        "ConceptualEntity": "T_FCT_PROMO_A10P_CD"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "t_fct_promo_a_1_0p_cd": {
+			          "Target": {
+			            "Entity": "t_fct_promo_a_1_0p_cd"
+			          }
+			        },
+			        "scatter_preset.scatter_size_safe": {
+			          "Target": {
+			            "Entity": "scatter_preset.scatter_size_safe"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "t_fct_promo_a_1_0p_cd"
+			            },
+			            "Object": {
+			              "Role": "scatter_preset.scatter_size_safe"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "t_fct_promo_a_1_0p_cd_have_scatter_size_safe"
+			        }
+			      ]
+			    },
+			    "switch_top_by_mesure_has_scatter_preset_scatter_size_safe": {
+			      "Binding": {
+			        "ConceptualEntity": "SwitchTopByMesure"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "switch_top_by_mesure": {
+			          "Target": {
+			            "Entity": "switch_top_by_mesure"
+			          }
+			        },
+			        "scatter_preset.scatter_size_safe": {
+			          "Target": {
+			            "Entity": "scatter_preset.scatter_size_safe"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "switch_top_by_mesure"
+			            },
+			            "Object": {
+			              "Role": "scatter_preset.scatter_size_safe"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "switch_top_by_mesure_have_scatter_size_safe"
+			        }
+			      ]
+			    },
+			    "scatter_preset_has_scatter_size_safe": {
+			      "Binding": {
+			        "ConceptualEntity": "ScatterPreset"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "scatter_preset": {
+			          "Target": {
+			            "Entity": "scatter_preset"
+			          }
+			        },
+			        "scatter_preset.scatter_size_safe": {
+			          "Target": {
+			            "Entity": "scatter_preset.scatter_size_safe"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "scatter_preset"
+			            },
+			            "Object": {
+			              "Role": "scatter_preset.scatter_size_safe"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "scatter_presets_have_scatter_size_safe"
+			        }
+			      ]
+			    },
+			    "t_fct_sale_a_1_0p_has_scatter_preset_scatter_size": {
+			      "Binding": {
+			        "ConceptualEntity": "T_FCT_SALES_A10P"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "t_fct_sale_a_1_0p": {
+			          "Target": {
+			            "Entity": "t_fct_sale_a_1_0p"
+			          }
+			        },
+			        "scatter_preset.scatter_size": {
+			          "Target": {
+			            "Entity": "scatter_preset.scatter_size"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "t_fct_sale_a_1_0p"
+			            },
+			            "Object": {
+			              "Role": "scatter_preset.scatter_size"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "t_fct_sale_a_1_0p_have_scatter_size"
+			        }
+			      ]
+			    },
+			    "t_fct_promo_a_1_0p_cd_has_scatter_preset_scatter_size": {
+			      "Binding": {
+			        "ConceptualEntity": "T_FCT_PROMO_A10P_CD"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "t_fct_promo_a_1_0p_cd": {
+			          "Target": {
+			            "Entity": "t_fct_promo_a_1_0p_cd"
+			          }
+			        },
+			        "scatter_preset.scatter_size": {
+			          "Target": {
+			            "Entity": "scatter_preset.scatter_size"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "t_fct_promo_a_1_0p_cd"
+			            },
+			            "Object": {
+			              "Role": "scatter_preset.scatter_size"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "t_fct_promo_a_1_0p_cd_have_scatter_size"
+			        }
+			      ]
+			    },
+			    "switch_top_by_mesure_has_scatter_preset_scatter_size": {
+			      "Binding": {
+			        "ConceptualEntity": "SwitchTopByMesure"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "switch_top_by_mesure": {
+			          "Target": {
+			            "Entity": "switch_top_by_mesure"
+			          }
+			        },
+			        "scatter_preset.scatter_size": {
+			          "Target": {
+			            "Entity": "scatter_preset.scatter_size"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "switch_top_by_mesure"
+			            },
+			            "Object": {
+			              "Role": "scatter_preset.scatter_size"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "switch_top_by_mesure_have_scatter_size"
+			        }
+			      ]
+			    },
+			    "scatter_preset_has_scatter_size": {
+			      "Binding": {
+			        "ConceptualEntity": "ScatterPreset"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "scatter_preset": {
+			          "Target": {
+			            "Entity": "scatter_preset"
+			          }
+			        },
+			        "scatter_preset.scatter_size": {
+			          "Target": {
+			            "Entity": "scatter_preset.scatter_size"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "scatter_preset"
+			            },
+			            "Object": {
+			              "Role": "scatter_preset.scatter_size"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "scatter_presets_have_scatter_size"
+			        }
+			      ]
+			    },
+			    "t_fct_sale_a_1_0p_has_scatter_preset_scatter_y": {
+			      "Binding": {
+			        "ConceptualEntity": "T_FCT_SALES_A10P"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "t_fct_sale_a_1_0p": {
+			          "Target": {
+			            "Entity": "t_fct_sale_a_1_0p"
+			          }
+			        },
+			        "scatter_preset.scatter_y": {
+			          "Target": {
+			            "Entity": "scatter_preset.scatter_y"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "t_fct_sale_a_1_0p"
+			            },
+			            "Object": {
+			              "Role": "scatter_preset.scatter_y"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "t_fct_sale_a_1_0p_have_scatter_y"
+			        }
+			      ]
+			    },
+			    "t_fct_promo_a_1_0p_cd_has_scatter_preset_scatter_y": {
+			      "Binding": {
+			        "ConceptualEntity": "T_FCT_PROMO_A10P_CD"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "t_fct_promo_a_1_0p_cd": {
+			          "Target": {
+			            "Entity": "t_fct_promo_a_1_0p_cd"
+			          }
+			        },
+			        "scatter_preset.scatter_y": {
+			          "Target": {
+			            "Entity": "scatter_preset.scatter_y"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "t_fct_promo_a_1_0p_cd"
+			            },
+			            "Object": {
+			              "Role": "scatter_preset.scatter_y"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "t_fct_promo_a_1_0p_cd_have_scatter_y"
+			        }
+			      ]
+			    },
+			    "scatter_preset_has_scatter_y": {
+			      "Binding": {
+			        "ConceptualEntity": "ScatterPreset"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "scatter_preset": {
+			          "Target": {
+			            "Entity": "scatter_preset"
+			          }
+			        },
+			        "scatter_preset.scatter_y": {
+			          "Target": {
+			            "Entity": "scatter_preset.scatter_y"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "scatter_preset"
+			            },
+			            "Object": {
+			              "Role": "scatter_preset.scatter_y"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "scatter_presets_have_scatter_y"
+			        }
+			      ]
+			    },
+			    "t_fct_sale_a_1_0p_has_scatter_preset_scatter_x": {
+			      "Binding": {
+			        "ConceptualEntity": "T_FCT_SALES_A10P"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "t_fct_sale_a_1_0p": {
+			          "Target": {
+			            "Entity": "t_fct_sale_a_1_0p"
+			          }
+			        },
+			        "scatter_preset.scatter_x": {
+			          "Target": {
+			            "Entity": "scatter_preset.scatter_x"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "t_fct_sale_a_1_0p"
+			            },
+			            "Object": {
+			              "Role": "scatter_preset.scatter_x"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "t_fct_sale_a_1_0p_have_scatter_x"
+			        }
+			      ]
+			    },
+			    "t_fct_promo_a_1_0p_cd_has_scatter_preset_scatter_x": {
+			      "Binding": {
+			        "ConceptualEntity": "T_FCT_PROMO_A10P_CD"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "t_fct_promo_a_1_0p_cd": {
+			          "Target": {
+			            "Entity": "t_fct_promo_a_1_0p_cd"
+			          }
+			        },
+			        "scatter_preset.scatter_x": {
+			          "Target": {
+			            "Entity": "scatter_preset.scatter_x"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "t_fct_promo_a_1_0p_cd"
+			            },
+			            "Object": {
+			              "Role": "scatter_preset.scatter_x"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "t_fct_promo_a_1_0p_cd_have_scatter_x"
+			        }
+			      ]
+			    },
+			    "scatter_preset_has_scatter_x": {
+			      "Binding": {
+			        "ConceptualEntity": "ScatterPreset"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "scatter_preset": {
+			          "Target": {
+			            "Entity": "scatter_preset"
+			          }
+			        },
+			        "scatter_preset.scatter_x": {
+			          "Target": {
+			            "Entity": "scatter_preset.scatter_x"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "scatter_preset"
+			            },
+			            "Object": {
+			              "Role": "scatter_preset.scatter_x"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "scatter_presets_have_scatter_x"
+			        }
+			      ]
+			    },
+			    "scatter_preset_has_scatter_preset_selected": {
+			      "Binding": {
+			        "ConceptualEntity": "ScatterPreset"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "scatter_preset": {
+			          "Target": {
+			            "Entity": "scatter_preset"
+			          }
+			        },
+			        "scatter_preset.scatter_preset_selected": {
+			          "Target": {
+			            "Entity": "scatter_preset.scatter_preset_selected"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "scatter_preset"
+			            },
+			            "Object": {
+			              "Role": "scatter_preset.scatter_preset_selected"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "scatter_presets_have_scatter_preset_selected"
+			        }
+			      ]
+			    },
+			    "scatter_preset_has_size_label": {
+			      "Binding": {
+			        "ConceptualEntity": "ScatterPreset"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "scatter_preset": {
+			          "Target": {
+			            "Entity": "scatter_preset"
+			          }
+			        },
+			        "scatter_preset.size_label": {
+			          "Target": {
+			            "Entity": "scatter_preset.size_label"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "scatter_preset"
+			            },
+			            "Object": {
+			              "Role": "scatter_preset.size_label"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "scatter_presets_have_size_labels"
+			        }
+			      ]
+			    },
+			    "scatter_preset_has_Y_axis_label": {
+			      "Binding": {
+			        "ConceptualEntity": "ScatterPreset"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "scatter_preset": {
+			          "Target": {
+			            "Entity": "scatter_preset"
+			          }
+			        },
+			        "scatter_preset.Y_axis_label": {
+			          "Target": {
+			            "Entity": "scatter_preset.Y_axis_label"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "scatter_preset"
+			            },
+			            "Object": {
+			              "Role": "scatter_preset.Y_axis_label"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "scatter_presets_have_Y_axis_labels"
+			        }
+			      ]
+			    },
+			    "scatter_preset_has_X_axis_label": {
+			      "Binding": {
+			        "ConceptualEntity": "ScatterPreset"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "scatter_preset": {
+			          "Target": {
+			            "Entity": "scatter_preset"
+			          }
+			        },
+			        "scatter_preset.X_axis_label": {
+			          "Target": {
+			            "Entity": "scatter_preset.X_axis_label"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "scatter_preset"
+			            },
+			            "Object": {
+			              "Role": "scatter_preset.X_axis_label"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "scatter_presets_have_X_axis_labels"
+			        }
+			      ]
+			    },
+			    "scatter_preset_has_sort_order": {
+			      "Binding": {
+			        "ConceptualEntity": "ScatterPreset"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "scatter_preset": {
+			          "Target": {
+			            "Entity": "scatter_preset"
+			          }
+			        },
+			        "scatter_preset.sort_order": {
+			          "Target": {
+			            "Entity": "scatter_preset.sort_order"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "scatter_preset"
+			            },
+			            "Object": {
+			              "Role": "scatter_preset.sort_order"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "scatter_presets_have_sort_orders"
+			        }
+			      ]
+			    },
+			    "scatter_preset_has_preset_name": {
+			      "Binding": {
+			        "ConceptualEntity": "ScatterPreset"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "scatter_preset": {
+			          "Target": {
+			            "Entity": "scatter_preset"
+			          }
+			        },
+			        "scatter_preset.preset_name": {
+			          "Target": {
+			            "Entity": "scatter_preset.preset_name"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "scatter_preset"
+			            },
+			            "Object": {
+			              "Role": "scatter_preset.preset_name"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "scatter_presets_have_preset_names"
+			        },
+			        {
+			          "Name": {
+			            "Subject": {
+			              "Role": "scatter_preset"
+			            },
+			            "Name": {
+			              "Role": "scatter_preset.preset_name"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "preset_names_are_names_IDs_of_scatter_presets"
+			        }
+			      ]
+			    },
+			    "scatter_preset_has_preset_key": {
+			      "Binding": {
+			        "ConceptualEntity": "ScatterPreset"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "scatter_preset": {
+			          "Target": {
+			            "Entity": "scatter_preset"
+			          }
+			        },
+			        "scatter_preset.preset_key": {
+			          "Target": {
+			            "Entity": "scatter_preset.preset_key"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "scatter_preset"
+			            },
+			            "Object": {
+			              "Role": "scatter_preset.preset_key"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "scatter_presets_have_preset_keys"
+			        }
+			      ]
+			    },
+			    "t_fct_promo_a_1_0p_cd_has_msr_promo_LP_promo_NPS": {
+			      "Binding": {
+			        "ConceptualEntity": "T_FCT_PROMO_A10P_CD"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "t_fct_promo_a_1_0p_cd": {
+			          "Target": {
+			            "Entity": "t_fct_promo_a_1_0p_cd"
+			          }
+			        },
+			        "msr_promo.LP_promo_NPS": {
+			          "Target": {
+			            "Entity": "msr_promo.LP_promo_NPS"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "t_fct_promo_a_1_0p_cd"
+			            },
+			            "Object": {
+			              "Role": "msr_promo.LP_promo_NPS"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "t_fct_promo_a_1_0p_cd_have_LP_promo_NPS"
+			        }
+			      ]
+			    },
+			    "msr_promo_has_measure": {
+			      "Binding": {
+			        "ConceptualEntity": "Msr Promo"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "msr_promo": {
+			          "Target": {
+			            "Entity": "msr_promo"
+			          }
+			        },
+			        "msr_promo.measure": {
+			          "Target": {
+			            "Entity": "msr_promo.measure"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "msr_promo"
+			            },
+			            "Object": {
+			              "Role": "msr_promo.measure"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "msr_promos_have_measure"
+			        }
+			      ]
+			    },
+			    "t_fct_promo_a_1_0p_cd_has_msr_promo_promo_NPS": {
+			      "Binding": {
+			        "ConceptualEntity": "T_FCT_PROMO_A10P_CD"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "t_fct_promo_a_1_0p_cd": {
+			          "Target": {
+			            "Entity": "t_fct_promo_a_1_0p_cd"
+			          }
+			        },
+			        "msr_promo.promo_NPS": {
+			          "Target": {
+			            "Entity": "msr_promo.promo_NPS"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "t_fct_promo_a_1_0p_cd"
+			            },
+			            "Object": {
+			              "Role": "msr_promo.promo_NPS"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "t_fct_promo_a_1_0p_cd_have_promo_NPS"
+			        }
+			      ]
+			    },
+			    "t_fct_promo_a_1_0p_cd_has_msr_promo_LP_promo_conversion_rate_contacts_": {
+			      "Binding": {
+			        "ConceptualEntity": "T_FCT_PROMO_A10P_CD"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "t_fct_promo_a_1_0p_cd": {
+			          "Target": {
+			            "Entity": "t_fct_promo_a_1_0p_cd"
+			          }
+			        },
+			        "msr_promo.LP_promo_conversion_rate_contacts_": {
+			          "Target": {
+			            "Entity": "msr_promo.LP_promo_conversion_rate_contacts_"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "t_fct_promo_a_1_0p_cd"
+			            },
+			            "Object": {
+			              "Role": "msr_promo.LP_promo_conversion_rate_contacts_"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "t_fct_promo_a_1_0p_cd_have_LP_promo_conversion_rate_contacts_"
+			        }
+			      ]
+			    },
+			    "t_fct_promo_a_1_0p_cd_has_msr_promo_LP_promo_contacts_with_positive_prescribing": {
+			      "Binding": {
+			        "ConceptualEntity": "T_FCT_PROMO_A10P_CD"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "t_fct_promo_a_1_0p_cd": {
+			          "Target": {
+			            "Entity": "t_fct_promo_a_1_0p_cd"
+			          }
+			        },
+			        "msr_promo.LP_promo_contacts_with_positive_prescribing": {
+			          "Target": {
+			            "Entity": "msr_promo.LP_promo_contacts_with_positive_prescribing"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "t_fct_promo_a_1_0p_cd"
+			            },
+			            "Object": {
+			              "Role": "msr_promo.LP_promo_contacts_with_positive_prescribing"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "t_fct_promo_a_1_0p_cd_have_LP_promo_contacts_with_positive_prescribing"
+			        }
+			      ]
+			    },
+			    "t_fct_promo_a_1_0p_cd_has_msr_promo_LP_promo_contacts": {
+			      "Binding": {
+			        "ConceptualEntity": "T_FCT_PROMO_A10P_CD"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "t_fct_promo_a_1_0p_cd": {
+			          "Target": {
+			            "Entity": "t_fct_promo_a_1_0p_cd"
+			          }
+			        },
+			        "msr_promo.LP_promo_contacts": {
+			          "Target": {
+			            "Entity": "msr_promo.LP_promo_contacts"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "t_fct_promo_a_1_0p_cd"
+			            },
+			            "Object": {
+			              "Role": "msr_promo.LP_promo_contacts"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "t_fct_promo_a_1_0p_cd_have_LP_promo_contacts"
+			        }
+			      ]
+			    },
+			    "t_fct_promo_a_1_0p_cd_has_msr_promo_promo_conversion_rate_contacts_": {
+			      "Binding": {
+			        "ConceptualEntity": "T_FCT_PROMO_A10P_CD"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "t_fct_promo_a_1_0p_cd": {
+			          "Target": {
+			            "Entity": "t_fct_promo_a_1_0p_cd"
+			          }
+			        },
+			        "msr_promo.promo_conversion_rate_contacts_": {
+			          "Target": {
+			            "Entity": "msr_promo.promo_conversion_rate_contacts_"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "t_fct_promo_a_1_0p_cd"
+			            },
+			            "Object": {
+			              "Role": "msr_promo.promo_conversion_rate_contacts_"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "t_fct_promo_a_1_0p_cd_have_promo_conversion_rate_contacts_"
+			        }
+			      ]
+			    },
+			    "t_fct_promo_a_1_0p_cd_has_msr_promo_promo_conversion_rate_calls_": {
+			      "Binding": {
+			        "ConceptualEntity": "T_FCT_PROMO_A10P_CD"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "t_fct_promo_a_1_0p_cd": {
+			          "Target": {
+			            "Entity": "t_fct_promo_a_1_0p_cd"
+			          }
+			        },
+			        "msr_promo.promo_conversion_rate_calls_": {
+			          "Target": {
+			            "Entity": "msr_promo.promo_conversion_rate_calls_"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "t_fct_promo_a_1_0p_cd"
+			            },
+			            "Object": {
+			              "Role": "msr_promo.promo_conversion_rate_calls_"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "t_fct_promo_a_1_0p_cd_have_promo_conversion_rate_calls_"
+			        }
+			      ]
+			    },
+			    "t_fct_promo_a_1_0p_cd_has_msr_promo_promo_contacts_with_positive_prescribing": {
+			      "Binding": {
+			        "ConceptualEntity": "T_FCT_PROMO_A10P_CD"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "t_fct_promo_a_1_0p_cd": {
+			          "Target": {
+			            "Entity": "t_fct_promo_a_1_0p_cd"
+			          }
+			        },
+			        "msr_promo.promo_contacts_with_positive_prescribing": {
+			          "Target": {
+			            "Entity": "msr_promo.promo_contacts_with_positive_prescribing"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "t_fct_promo_a_1_0p_cd"
+			            },
+			            "Object": {
+			              "Role": "msr_promo.promo_contacts_with_positive_prescribing"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "t_fct_promo_a_1_0p_cd_have_promo_contacts_with_positive_prescribing"
+			        }
+			      ]
+			    },
+			    "t_fct_promo_a_1_0p_cd_has_msr_promo_promo_calls_with_positive_prescribing": {
+			      "Binding": {
+			        "ConceptualEntity": "T_FCT_PROMO_A10P_CD"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "t_fct_promo_a_1_0p_cd": {
+			          "Target": {
+			            "Entity": "t_fct_promo_a_1_0p_cd"
+			          }
+			        },
+			        "msr_promo.promo_calls_with_positive_prescribing": {
+			          "Target": {
+			            "Entity": "msr_promo.promo_calls_with_positive_prescribing"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "t_fct_promo_a_1_0p_cd"
+			            },
+			            "Object": {
+			              "Role": "msr_promo.promo_calls_with_positive_prescribing"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "t_fct_promo_a_1_0p_cd_have_promo_calls_with_positive_prescribing"
+			        }
+			      ]
+			    },
+			    "t_fct_sale_a_1_0p_has_msr_sale_sales_units_MS_log": {
+			      "Binding": {
+			        "ConceptualEntity": "T_FCT_SALES_A10P"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "t_fct_sale_a_1_0p": {
+			          "Target": {
+			            "Entity": "t_fct_sale_a_1_0p"
+			          }
+			        },
+			        "msr_sale.sales_units_MS_log": {
+			          "Target": {
+			            "Entity": "msr_sale.sales_units_MS_log"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "t_fct_sale_a_1_0p"
+			            },
+			            "Object": {
+			              "Role": "msr_sale.sales_units_MS_log"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "t_fct_sale_a_1_0p_have_sales_units_MS_log"
 			        }
 			      ]
 			    },
@@ -47489,6 +50585,39 @@ cultureInfo en-US
 			          "State": "Generated",
 			          "Weight": 0.99,
 			          "ID": "switch_top_by_dimension_have_vis_TopN_SOV_vs_MS"
+			        }
+			      ]
+			    },
+			    "scatter_preset_has_title_vis_TopN_SOV_vs_MS": {
+			      "Binding": {
+			        "ConceptualEntity": "ScatterPreset"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "scatter_preset": {
+			          "Target": {
+			            "Entity": "scatter_preset"
+			          }
+			        },
+			        "title.vis_TopN_SOV_vs_MS": {
+			          "Target": {
+			            "Entity": "title.vis_TopN_SOV_vs_MS"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "scatter_preset"
+			            },
+			            "Object": {
+			              "Role": "title.vis_TopN_SOV_vs_MS"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "scatter_presets_have_vis_TopN_SOV_vs_MS"
 			        }
 			      ]
 			    },
@@ -60114,6 +63243,39 @@ cultureInfo en-US
 			          "State": "Generated",
 			          "Weight": 0.9,
 			          "ID": "t_fct_fins_are_started_on_quarter_start_days"
+			        }
+			      ]
+			    },
+			    "t_dim_quarter_quarter_start_day_date_hierarchy_has_t_dim_quarter_quarter_start_day_year": {
+			      "Binding": {
+			        "ConceptualEntity": "T_DIM_QUARTER"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "t_dim_quarter.quarter_start_day.date_hierarchy": {
+			          "Target": {
+			            "Entity": "t_dim_quarter.quarter_start_day.date_hierarchy"
+			          }
+			        },
+			        "t_dim_quarter.quarter_start_day.year": {
+			          "Target": {
+			            "Entity": "t_dim_quarter.quarter_start_day.year"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "t_dim_quarter.quarter_start_day.date_hierarchy"
+			            },
+			            "Object": {
+			              "Role": "t_dim_quarter.quarter_start_day.year"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "quarter_start_day_date_hierarchies_have_quarter_start_day_years2"
 			        }
 			      ]
 			    },

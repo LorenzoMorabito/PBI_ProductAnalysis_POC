@@ -7,7 +7,7 @@
     "z": 200,
     "height": 492,
     "width": 1232,
-    "tabOrder": 3
+    "tabOrder": 4
   },
   "visual": {
     "visualType": "tableEx",
@@ -20,15 +20,90 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "MOD Flex Flat Columns"
+                      "Entity": "T_DIM_COUNTRY"
                     }
                   },
-                  "Property": "MOD Flex Flat Columns"
+                  "Property": "Country"
                 }
               },
-              "queryRef": "MOD Flex Flat Columns.MOD Flex Flat Columns",
-              "nativeQueryRef": "MOD Flex Flat Columns",
-              "active": true
+              "queryRef": "T_DIM_COUNTRY.Country",
+              "nativeQueryRef": "Country",
+              "displayName": "Country"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "T_DIM_PRODUCT"
+                    }
+                  },
+                  "Property": "Product"
+                }
+              },
+              "queryRef": "T_DIM_PRODUCT.Product",
+              "nativeQueryRef": "Product",
+              "displayName": "Product"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "MOD Flex Flat Inputs"
+                    }
+                  },
+                  "Property": "Flat Input Sales Values"
+                }
+              },
+              "queryRef": "MOD Flex Flat Inputs.Flat Input Sales Values",
+              "nativeQueryRef": "Sales Values",
+              "displayName": "Sales Values"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "MOD Flex Flat Inputs"
+                    }
+                  },
+                  "Property": "Flat Input Sales Units"
+                }
+              },
+              "queryRef": "MOD Flex Flat Inputs.Flat Input Sales Units",
+              "nativeQueryRef": "Sales Units",
+              "displayName": "Sales Units"
+            }
+          ],
+          "fieldParameters": [
+            {
+              "parameterExpr": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "MOD Flex Flat Dimensions"
+                    }
+                  },
+                  "Property": "Flat Dimension"
+                }
+              },
+              "index": 0,
+              "length": 2
+            },
+            {
+              "parameterExpr": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "MOD Flex Flat Measures"
+                    }
+                  },
+                  "Property": "Flat Measure"
+                }
+              },
+              "index": 2,
+              "length": 2
             }
           ]
         }

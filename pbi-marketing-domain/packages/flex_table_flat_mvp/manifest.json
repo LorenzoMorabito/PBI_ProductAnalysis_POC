@@ -1,6 +1,6 @@
 {
   "moduleId": "flex_table_flat_mvp",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "domain": "marketing",
   "status": "prototype",
   "description": "Importable flat flex table with selectable dimension and measure columns rendered in a standard table visual.",
@@ -29,7 +29,8 @@
   "provides": {
     "semanticTables": [
       "MOD Flex Flat Inputs",
-      "MOD Flex Flat Columns"
+      "MOD Flex Flat Dimensions",
+      "MOD Flex Flat Measures"
     ],
     "reportPage": {
       "name": "9c7a5b4d3e2f1a0b6c8d",

@@ -74,7 +74,9 @@ table ScatterPreset
 
 	measure 'Scatter Size Label' =
 			
-			SELECTEDVALUE( ScatterPreset[SizeLabel], "Size" )
+			VAR lbl = SELECTEDVALUE( ScatterPreset[SizeLabel], "Size" )
+			VAR txt = "Size: " & lbl
+			RETURN txt
 		lineageTag: cf9a2a7e-c118-4170-973f-ec86a7a5ba78
 
 	measure 'Scatter Title' =

@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
-  "name": "flex_flat_columns_slicer",
+  "name": "flex_flat_measures_slicer",
   "position": {
-    "x": 24,
+    "x": 464,
     "y": 108,
-    "z": 100,
+    "z": 101,
     "height": 68,
-    "width": 420,
-    "tabOrder": 2
+    "width": 792,
+    "tabOrder": 3
   },
   "visual": {
     "visualType": "slicer",
@@ -20,16 +20,16 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "MOD Flex Flat Dimensions"
+                      "Entity": "MOD Flex Flat Measures"
                     }
                   },
-                  "Property": "Flat Dimension"
+                  "Property": "Flat Measure"
                 }
               },
-              "queryRef": "MOD Flex Flat Dimensions.Flat Dimension",
-              "nativeQueryRef": "Flat Dimension",
+              "queryRef": "MOD Flex Flat Measures.Flat Measure",
+              "nativeQueryRef": "Flat Measure",
               "active": true,
-              "displayName": "Dimensions"
+              "displayName": "Measures"
             }
           ]
         }
@@ -70,8 +70,8 @@
                 "Version": 2,
                 "From": [
                   {
-                    "Name": "d",
-                    "Entity": "MOD Flex Flat Dimensions",
+                    "Name": "m",
+                    "Entity": "MOD Flex Flat Measures",
                     "Type": 0
                   }
                 ],
@@ -84,10 +84,10 @@
                             "Column": {
                               "Expression": {
                                 "SourceRef": {
-                                  "Source": "d"
+                                  "Source": "m"
                                 }
                               },
-                              "Property": "Flat Dimension Fields"
+                              "Property": "Flat Measure Fields"
                             }
                           }
                         ],
@@ -95,14 +95,28 @@
                           [
                             {
                               "Literal": {
-                                "Value": "'''T_DIM_COUNTRY''[Country]'"
+                                "Value": "'''MOD Flex Flat Inputs''[Flat Input Sales Values]'"
                               }
                             }
                           ],
                           [
                             {
                               "Literal": {
-                                "Value": "'''T_DIM_PRODUCT''[Product]'"
+                                "Value": "'''MOD Flex Flat Inputs''[Flat Input Sales Units]'"
+                              }
+                            }
+                          ],
+                          [
+                            {
+                              "Literal": {
+                                "Value": "'''MOD Flex Flat Inputs''[Flat Input Promo Spend]'"
+                              }
+                            }
+                          ],
+                          [
+                            {
+                              "Literal": {
+                                "Value": "'''MOD Flex Flat Inputs''[Flat Input Counting Units]'"
                               }
                             }
                           ]
@@ -116,10 +130,10 @@
                             "Column": {
                               "Expression": {
                                 "SourceRef": {
-                                  "Entity": "MOD Flex Flat Dimensions"
+                                  "Entity": "MOD Flex Flat Measures"
                                 }
                               },
-                              "Property": "Flat Dimension"
+                              "Property": "Flat Measure"
                             }
                           }
                         ],
@@ -130,7 +144,7 @@
                                 "0": [
                                   {
                                     "Literal": {
-                                      "Value": "'''T_DIM_COUNTRY''[Country]'"
+                                      "Value": "'''MOD Flex Flat Inputs''[Flat Input Sales Values]'"
                                     }
                                   }
                                 ]
@@ -141,7 +155,29 @@
                                 "0": [
                                   {
                                     "Literal": {
-                                      "Value": "'''T_DIM_PRODUCT''[Product]'"
+                                      "Value": "'''MOD Flex Flat Inputs''[Flat Input Sales Units]'"
+                                    }
+                                  }
+                                ]
+                              }
+                            ],
+                            [
+                              {
+                                "0": [
+                                  {
+                                    "Literal": {
+                                      "Value": "'''MOD Flex Flat Inputs''[Flat Input Promo Spend]'"
+                                    }
+                                  }
+                                ]
+                              }
+                            ],
+                            [
+                              {
+                                "0": [
+                                  {
+                                    "Literal": {
+                                      "Value": "'''MOD Flex Flat Inputs''[Flat Input Counting Units]'"
                                     }
                                   }
                                 ]
@@ -154,10 +190,10 @@
                                 "Column": {
                                   "Expression": {
                                     "SourceRef": {
-                                      "Entity": "MOD Flex Flat Dimensions"
+                                      "Entity": "MOD Flex Flat Measures"
                                     }
                                   },
-                                  "Property": "Flat Dimension Fields"
+                                  "Property": "Flat Measure Fields"
                                 }
                               }
                             }
@@ -165,10 +201,16 @@
                         },
                         "valueMap": [
                           {
-                            "0": "Country"
+                            "0": "Sales Values"
                           },
                           {
-                            "0": "Product"
+                            "0": "Sales Units"
+                          },
+                          {
+                            "0": "Promo Spend"
+                          },
+                          {
+                            "0": "Counting Units"
                           }
                         ]
                       }
@@ -188,7 +230,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Dimensions'"
+                  "Value": "'Measures'"
                 }
               }
             },

@@ -6,8 +6,7 @@
     "y": 0,
     "z": 0,
     "height": 289.44444444444446,
-    "width": 417.64619883040939,
-    "tabOrder": 0
+    "width": 417.64619883040939
   },
   "visual": {
     "visualType": "EnhancedScatterChart1443994985041",
@@ -62,7 +61,8 @@
                 }
               },
               "queryRef": "ScatterPreset.Scatter X",
-              "nativeQueryRef": "Scatter X"
+              "nativeQueryRef": " Asse X",
+              "displayName": " Asse X"
             }
           ]
         },
@@ -80,7 +80,8 @@
                 }
               },
               "queryRef": "ScatterPreset.Scatter Y",
-              "nativeQueryRef": "Scatter Y"
+              "nativeQueryRef": "Asse Y",
+              "displayName": "Asse Y"
             }
           ]
         },
@@ -98,7 +99,8 @@
                 }
               },
               "queryRef": "ScatterPreset.Scatter Size Safe",
-              "nativeQueryRef": "Scatter Size Safe"
+              "nativeQueryRef": "Size",
+              "displayName": "Size"
             }
           ]
         }
@@ -110,10 +112,10 @@
               "Measure": {
                 "Expression": {
                   "SourceRef": {
-                    "Entity": "ScatterPreset"
+                    "Entity": "Msr Promo LP"
                   }
                 },
-                "Property": "Scatter X"
+                "Property": "LP Promo SOV% (ATC4)"
               }
             },
             "direction": "Descending"
@@ -154,6 +156,13 @@
         {
           "properties": {
             "showAxisTitle": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "show": {
               "expr": {
                 "Literal": {
                   "Value": "true"

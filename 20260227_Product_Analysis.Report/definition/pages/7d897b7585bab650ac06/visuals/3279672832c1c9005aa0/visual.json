@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
   "name": "3279672832c1c9005aa0",
   "position": {
     "x": 4.1977869986168752,
@@ -68,6 +68,24 @@
             }
           ]
         },
+        "Tooltips": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ScatterPreset"
+                    }
+                  },
+                  "Property": "Scatter X Label"
+                }
+              },
+              "queryRef": "ScatterPreset.Scatter X Label",
+              "nativeQueryRef": "Scatter X Label"
+            }
+          ]
+        },
         "Y": {
           "projections": [
             {
@@ -78,12 +96,12 @@
                       "Entity": "Msr Sales"
                     }
                   },
-                  "Property": "Sales Units MS%"
+                  "Property": "Sales Units MS% (log)"
                 }
               },
-              "queryRef": "Msr Sales.Sales Units MS%",
-              "nativeQueryRef": "Sales Units MS%",
-              "displayName": "Sales Units MS%"
+              "queryRef": "Msr Sales.Sales Units MS% (log)",
+              "nativeQueryRef": "Sales Units MS% (Log)",
+              "displayName": "Sales Units MS% (Log)"
             }
           ],
           "fieldParameters": [

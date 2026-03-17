@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Select any mix of dimensions and core measures. The standard table will render every selected item as a normal output column."
+                    "value": "Select one or more dimensions and one or more measures. The standard table renders descriptive columns first and numeric columns after them."
                   }
                 ]
               }

@@ -6,7 +6,8 @@
     "y": 25.555019638276463,
     "z": 1000,
     "height": 46.111111111111107,
-    "width": 179.65250965250965
+    "width": 179.65250965250965,
+    "tabOrder": 0
   },
   "visual": {
     "visualType": "slicer",
@@ -49,15 +50,7 @@
       ],
       "selection": [
         {
-          "properties": {
-            "strictSingleSelect": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            }
-          }
+          "properties": {}
         }
       ],
       "general": [

@@ -1,13 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
   "name": "fd519e15ac273a997a22",
   "position": {
-    "x": 5.0657894736842035,
-    "y": 22.777777777777825,
+    "x": 5.065789473684049,
+    "y": 22.777777777777771,
     "z": 1000,
     "height": 289.44444444444446,
-    "width": 417.64619883040939,
-    "tabOrder": 0
+    "width": 417.64619883040939
   },
   "visualGroup": {
     "displayName": "Promo",

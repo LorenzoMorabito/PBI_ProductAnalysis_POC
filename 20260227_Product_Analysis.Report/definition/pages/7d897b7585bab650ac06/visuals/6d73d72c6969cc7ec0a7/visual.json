@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
   "name": "6d73d72c6969cc7ec0a7",
   "position": {
     "x": 329.16666666666669,
@@ -7,7 +7,7 @@
     "z": 3000,
     "height": 316.66666666666669,
     "width": 505.83333333333337,
-    "tabOrder": 13000
+    "tabOrder": 15000
   },
   "visualGroup": {
     "displayName": "Sales",

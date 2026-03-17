@@ -6,7 +6,7 @@
     "y": 108,
     "z": 100,
     "height": 68,
-    "width": 1232,
+    "width": 420,
     "tabOrder": 2
   },
   "visual": {
@@ -20,15 +20,16 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "MOD Flex Flat Columns"
+                      "Entity": "MOD Flex Flat Dimensions"
                     }
                   },
-                  "Property": "MOD Flex Flat Columns"
+                  "Property": "Flat Dimension"
                 }
               },
-              "queryRef": "MOD Flex Flat Columns.MOD Flex Flat Columns",
-              "nativeQueryRef": "MOD Flex Flat Columns",
-              "active": true
+              "queryRef": "MOD Flex Flat Dimensions.Flat Dimension",
+              "nativeQueryRef": "Flat Dimension",
+              "active": true,
+              "displayName": "Dimensions"
             }
           ]
         }
@@ -57,83 +58,20 @@
                   "Value": "false"
                 }
               }
+            },
+            "selectAllCheckboxEnabled": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
             }
           }
         }
       ],
       "general": [
         {
-          "properties": {
-            "filter": {
-              "filter": {
-                "Version": 2,
-                "From": [
-                  {
-                    "Name": "c",
-                    "Entity": "MOD Flex Flat Columns",
-                    "Type": 0
-                  }
-                ],
-                "Where": [
-                  {
-                    "Condition": {
-                      "In": {
-                        "Expressions": [
-                          {
-                            "Column": {
-                              "Expression": {
-                                "SourceRef": {
-                                  "Source": "c"
-                                }
-                              },
-                              "Property": "MOD Flex Flat Columns"
-                            }
-                          }
-                        ],
-                        "Values": [
-                          [
-                            {
-                              "Literal": {
-                                "Value": "'Country'"
-                              }
-                            }
-                          ],
-                          [
-                            {
-                              "Literal": {
-                                "Value": "'Product'"
-                              }
-                            }
-                          ],
-                          [
-                            {
-                              "Literal": {
-                                "Value": "'Sales Values'"
-                              }
-                            }
-                          ],
-                          [
-                            {
-                              "Literal": {
-                                "Value": "'Promo Spend'"
-                              }
-                            }
-                          ],
-                          [
-                            {
-                              "Literal": {
-                                "Value": "'Fin ACT'"
-                              }
-                            }
-                          ]
-                        ]
-                      }
-                    }
-                  }
-                ]
-              }
-            }
-          }
+          "properties": {}
         }
       ]
     },
@@ -144,7 +82,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Columns'"
+                  "Value": "'Dimensions'"
                 }
               }
             },

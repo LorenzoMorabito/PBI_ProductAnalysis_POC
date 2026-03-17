@@ -4,8 +4,9 @@ Flat-table companion module for the existing pivot-style flex table.
 
 Contents:
 - wrapper measures around the curated core sales, promo, and finance measures
-- one flat column selector parameter that mixes dimensions and measures
-- one standard `tableEx` visual that renders the selected columns as normal table columns
+- one field parameter for selectable dimension columns
+- one field parameter for selectable measure columns
+- one standard `tableEx` visual that renders the selected dimensions and measures as normal output columns
 
 Current selectable columns:
 - dimensions:
@@ -49,4 +50,6 @@ Required core contract:
 
 Notes:
 - this module is intentionally flat: selected dimensions are rendered as normal columns, not row groups
-- the current interaction pattern uses a single multi-select slicer for all output columns
+- the interaction pattern uses two multi-select slicers:
+  - one for descriptive dimension columns
+  - one for numeric measure columns
