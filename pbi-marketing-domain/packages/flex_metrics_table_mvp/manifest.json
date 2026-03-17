@@ -1,6 +1,6 @@
 {
   "moduleId": "flex_metrics_table_mvp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "domain": "marketing",
   "status": "prototype",
   "description": "Importable flexible core metrics table with dynamic row dimension selector and multi-select metric columns across sales, promo, and finance.",

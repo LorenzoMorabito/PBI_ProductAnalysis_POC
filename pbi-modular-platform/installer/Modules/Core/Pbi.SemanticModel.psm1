@@ -34,6 +34,88 @@ function Test-PbiMeasureExists {
         Select-String -Pattern $measurePattern -SimpleMatch:$false | Select-Object -First 1)
 }
 
+function Get-PbiMeasureNamesFromTmdlContent {
+    param([Parameter(Mandatory = $true)][string]$Content)
+
+    $pattern = "(?m)^\s*measure\s+(?:'((?:[^']|'')+)'|([A-Za-z_][A-Za-z0-9_]*))(?=\s*=|\s*$)"
+    $matches = [regex]::Matches($Content, $pattern)
+    $measureNames = New-Object System.Collections.Generic.List[string]
+
+    foreach ($match in $matches) {
+        if ($match.Groups[1].Success) {
+            $measureNames.Add($match.Groups[1].Value.Replace("''", "'"))
+        }
+        elseif ($match.Groups[2].Success) {
+            $measureNames.Add($match.Groups[2].Value)
+        }
+    }
+
+    return @($measureNames | Select-Object -Unique)
+}
+
+function Get-PbiProjectMeasureNames {
+    param(
+        [Parameter(Mandatory = $true)]$Project,
+        [string[]]$ExcludeTables = @()
+    )
+
+    $tableDirectory = Get-PbiTableDefinitionDirectory -Project $Project
+    $measureNames = New-Object System.Collections.Generic.List[string]
+
+    foreach ($tablePath in (Get-ChildItem -Path $tableDirectory -Filter "*.tmdl")) {
+        $tableName = [System.IO.Path]::GetFileNameWithoutExtension($tablePath.Name)
+
+        if ($ExcludeTables -contains $tableName) {
+            continue
+        }
+
+        $content = Get-Content -Path $tablePath.FullName -Raw
+        foreach ($measureName in (Get-PbiMeasureNamesFromTmdlContent -Content $content)) {
+            $measureNames.Add($measureName)
+        }
+    }
+
+    return @($measureNames | Select-Object -Unique)
+}
+
+function Get-PbiModuleMeasureNames {
+    param(
+        [Parameter(Mandatory = $true)]$Module,
+        [Parameter(Mandatory = $true)]$Manifest
+    )
+
+    $sourceSemanticPath = Join-Path $Module.PackageRoot "semantic"
+    $measureNames = New-Object System.Collections.Generic.List[string]
+
+    foreach ($tableName in @($Manifest.provides.semanticTables)) {
+        $sourcePath = Join-Path $sourceSemanticPath ($tableName + ".tmdl")
+        $content = Get-Content -Path $sourcePath -Raw
+
+        foreach ($measureName in (Get-PbiMeasureNamesFromTmdlContent -Content $content)) {
+            $measureNames.Add($measureName)
+        }
+    }
+
+    return @($measureNames | Select-Object -Unique)
+}
+
+function Test-PbiModuleMeasureConflicts {
+    param(
+        [Parameter(Mandatory = $true)]$Project,
+        [Parameter(Mandatory = $true)]$Module,
+        [Parameter(Mandatory = $true)]$Manifest
+    )
+
+    $existingMeasureNames = Get-PbiProjectMeasureNames -Project $Project -ExcludeTables @($Manifest.provides.semanticTables)
+    $moduleMeasureNames = Get-PbiModuleMeasureNames -Module $Module -Manifest $Manifest
+    $conflicts = @($moduleMeasureNames | Where-Object { $existingMeasureNames -contains $_ } | Sort-Object -Unique)
+
+    return [PSCustomObject]@{
+        HasConflicts = ($conflicts.Count -gt 0)
+        Conflicts    = $conflicts
+    }
+}
+
 function Test-PbiColumnExists {
     param(
         [Parameter(Mandatory = $true)]$Project,
@@ -188,6 +270,14 @@ function Install-PbiSemanticAssets {
     $sourceSemanticPath = Join-Path $Module.PackageRoot "semantic"
     $tableDirectory = Get-PbiTableDefinitionDirectory -Project $Project
     Ensure-PbiDirectory -Path $tableDirectory
+    $measureConflicts = Test-PbiModuleMeasureConflicts -Project $Project -Module $Module -Manifest $Manifest
+
+    if ($measureConflicts.HasConflicts) {
+        throw ("Module '{0}' defines measure names already present in project '{1}': {2}" -f
+            $Module.ModuleId,
+            $Project.ProjectId,
+            ($measureConflicts.Conflicts -join ", "))
+    }
 
     foreach ($tableName in @($Manifest.provides.semanticTables)) {
         $sourcePath = Join-Path $sourceSemanticPath ($tableName + ".tmdl")
@@ -207,4 +297,4 @@ function Install-PbiSemanticAssets {
     Set-Content -Path $modelPath -Value $modelContent -Encoding utf8
 }
 
-Export-ModuleMember -Function Get-PbiTmdlIdentifier, Test-PbiMeasureExists, Test-PbiColumnExists, Test-PbiModuleRequirements, Test-PbiSemanticAssetsPresent, Install-PbiSemanticAssets
+Export-ModuleMember -Function Get-PbiTmdlIdentifier, Test-PbiMeasureExists, Test-PbiColumnExists, Test-PbiModuleRequirements, Test-PbiSemanticAssetsPresent, Install-PbiSemanticAssets, Test-PbiModuleMeasureConflicts

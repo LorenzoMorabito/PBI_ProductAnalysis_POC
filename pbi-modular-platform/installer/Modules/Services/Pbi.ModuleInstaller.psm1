@@ -61,6 +61,7 @@ function Invoke-PbiProjectValidation {
 
     foreach ($module in $modules) {
         $validation = Test-PbiModuleRequirements -Project $project -Manifest $module.Manifest
+        $measureConflicts = Test-PbiModuleMeasureConflicts -Project $project -Module $module -Manifest $module.Manifest
         $mappings = Resolve-PbiModuleMapping -Module $module -Project $project -OverrideMapping $overrideMapping
 
         $results += [PSCustomObject]@{
@@ -69,9 +70,10 @@ function Invoke-PbiProjectValidation {
             DisplayName     = $module.DisplayName
             Version         = $module.Version
             Installed       = (Test-PbiModuleAlreadyInstalled -Project $project -Module $module)
-            IsValid         = $validation.IsValid
+            IsValid         = ($validation.IsValid -and -not $measureConflicts.HasConflicts)
             MissingMeasures = (($validation.MissingMeasures | Sort-Object) -join ", ")
             MissingColumns  = (($validation.MissingColumns | Sort-Object) -join ", ")
+            MeasureConflicts = (($measureConflicts.Conflicts | Sort-Object) -join ", ")
             Mappings        = $mappings
         }
     }
@@ -95,11 +97,16 @@ function Install-PbiModulePackage {
     $overrideMapping = Get-PbiMappingOverrides -MappingFile $MappingFile
     $mappings = Resolve-PbiModuleMapping -Module $module -Project $project -OverrideMapping $overrideMapping
     $validation = Test-PbiModuleRequirements -Project $project -Manifest $module.Manifest
+    $measureConflicts = Test-PbiModuleMeasureConflicts -Project $project -Module $module -Manifest $module.Manifest
 
     if (-not $validation.IsValid) {
         $missingMeasureText = ($validation.MissingMeasures | Sort-Object) -join ", "
         $missingColumnText = ($validation.MissingColumns | Sort-Object) -join ", "
         throw "Project '$($project.ProjectId)' is missing module requirements. Measures: [$missingMeasureText] Columns: [$missingColumnText]"
+    }
+
+    if ($measureConflicts.HasConflicts) {
+        throw "Project '$($project.ProjectId)' already contains measure names required by module '$ModuleId': [$($measureConflicts.Conflicts -join ", ")]"
     }
 
     if ((Test-PbiModuleAlreadyInstalled -Project $project -Module $module) -and -not $Force) {

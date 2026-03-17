@@ -3,7 +3,7 @@
   "packages": [
     {
       "moduleId": "flex_metrics_table_mvp",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "status": "prototype",
       "path": "packages/flex_metrics_table_mvp",
       "displayName": "Flex Metrics Table MVP",

@@ -2,7 +2,7 @@
   "installedModules": [
     {
       "moduleId": "flex_metrics_table_mvp",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "source": "pbi-marketing-domain/packages/flex_metrics_table_mvp",
       "mappings": {
         "coreMeasures": {
