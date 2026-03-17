@@ -32,5 +32,6 @@ ref table T_DIM_CHANNELS
 ref table 'Msr Sales'
 ref table 'Msr Promo'
 ref table 'Msr Fin'
+
 ref cultureInfo en-US
 

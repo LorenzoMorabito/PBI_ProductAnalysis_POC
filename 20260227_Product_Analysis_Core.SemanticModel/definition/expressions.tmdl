@@ -1,4 +1,4 @@
-expression root_path = "__SET_LOCAL_DATA_SOURCE_PATH__\" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+expression root_path = "C:\work\MEN_Marketing\PBI_ProductAnalysis_POC\data_source\" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
 	lineageTag: 623b97e2-0393-4e7a-a89f-1a0b6b6a1933
 
 	annotation PBI_NavigationStepName = Navigation
