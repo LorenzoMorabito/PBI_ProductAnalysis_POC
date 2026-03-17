@@ -51,6 +51,8 @@ Gli asset oggi considerati autorevoli sono:
 - [Core Audit](docs/CORE_AUDIT.md)
 - [Core vs Modules](docs/ARCHITECTURE_BOUNDARY.md)
 - [Target Repo Structure](docs/TARGET_REPO_STRUCTURE.md)
+- [UAT Pilot](docs/UAT_PILOT.md)
+- [UAT Feedback Template](docs/UAT_FEEDBACK_TEMPLATE.md)
 - [Topology Note](REPO_TOPOLOGY.md)
 
 ## Stato attuale
