@@ -1,0 +1,159 @@
+table ScatterPreset
+	lineageTag: c9d0f6af-4070-4879-aec0-262b3119e3c2
+
+	measure 'Scatter Preset Selected' =
+			
+			SELECTEDVALUE( ScatterPreset[PresetKey], 1 )
+		formatString: 0
+		lineageTag: d782cf44-aa5b-459c-a837-5a204f97c6c6
+
+	measure 'Scatter X' =
+			
+			VAR k = [Scatter Preset Selected]
+			RETURN
+			    SWITCH(
+			        k,
+			        1, [LP Promo SOV% (ATC4)],
+			        2, [LP Promo ESOV],
+			        3, [LP Promo SOV% (ATC4)],
+			        4, [LP Promo NPS],
+			        BLANK()
+			    )
+		lineageTag: 1a38289e-e34b-414e-90ba-1b6221133d44
+
+	measure 'Scatter Y' =
+			
+			VAR k = [Scatter Preset Selected]
+			RETURN
+			    SWITCH(
+			        k,
+			        1, [LP Sales Values MS%],
+			        2, [LP Sales Values MS%],
+			        3, [Sales Values],
+			        4, [LP Promo Conversion Rate Contacts %],
+			        BLANK()
+			    )
+		lineageTag: 43dc124f-d2f0-4b53-bace-3358389871a9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Scatter Size' =
+			
+			VAR k = [Scatter Preset Selected]
+			RETURN
+			    SWITCH(
+			        k,
+			        1, [TopBy Metric (Selected)],
+			        2, [TopBy Metric (Selected)],
+			        3, [TopBy Metric (Selected)],
+			        4, [Promo Weighted Calls],
+			        BLANK()
+			    )
+		lineageTag: da0cdb8f-cb9b-4728-b9b7-45d12b7ff994
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Scatter Size Safe' =
+			
+			VAR x = [Scatter Size]
+			RETURN
+			    IF( ISBLANK(x), -1e99, x )
+		lineageTag: 306329c6-4ca5-49af-8e39-88d1873fe5d6
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Scatter X Label' =
+			
+			SELECTEDVALUE( ScatterPreset[XAxisLabel], "X Axis" )
+		lineageTag: 8aeffe97-fd32-46e1-a359-f2d768a07f62
+
+	measure 'Scatter Y Label' =
+			
+			SELECTEDVALUE( ScatterPreset[YAxisLabel], "Y Axis" )
+		lineageTag: ce66da9e-1885-4152-989f-0934c1cb2be1
+
+	measure 'Scatter Size Label' =
+			
+			SELECTEDVALUE( ScatterPreset[SizeLabel], "Size" )
+		lineageTag: cf9a2a7e-c118-4170-973f-ec86a7a5ba78
+
+	measure 'Scatter Title' =
+			
+			VAR p = SELECTEDVALUE( ScatterPreset[PresetName], "SOV vs MS" )
+			VAR d = [TopBy Dimension Label (Selected)]
+			RETURN
+			    p & " | " & d
+		lineageTag: 32a2f740-7a74-4a4e-858c-c29e48357b37
+
+	column PresetKey
+		formatString: 0
+		lineageTag: c0a11ed5-51df-44c2-b36e-deb39ab034ca
+		summarizeBy: count
+		isNameInferred
+		sourceColumn: [PresetKey]
+
+		annotation SummarizationSetBy = Automatic
+
+	column PresetName
+		lineageTag: 9cf3a1af-24b3-4f80-a99f-08d7397bd915
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [PresetName]
+
+		annotation SummarizationSetBy = Automatic
+
+	column SortOrder
+		formatString: 0
+		lineageTag: a5691432-4bb9-48b4-a98d-be11d40f4cc0
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [SortOrder]
+
+		annotation SummarizationSetBy = Automatic
+
+	column XAxisLabel
+		lineageTag: 9abd3033-9765-4d56-beda-2b5aa0f3b0a3
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [XAxisLabel]
+
+		annotation SummarizationSetBy = Automatic
+
+	column YAxisLabel
+		lineageTag: 2f2df49b-2e8f-4b06-a4a0-cf29fd2e1472
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [YAxisLabel]
+
+		annotation SummarizationSetBy = Automatic
+
+	column SizeLabel
+		lineageTag: 00fb740f-ea76-4caf-a873-09e5d784c448
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [SizeLabel]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition ScatterPreset = calculated
+		mode: import
+		source = ```
+				
+				DATATABLE(
+				    "PresetKey", INTEGER,
+				    "PresetName", STRING,
+				    "SortOrder", INTEGER,
+				    "XAxisLabel", STRING,
+				    "YAxisLabel", STRING,
+				    "SizeLabel", STRING,
+				    {
+				        { 1, "SOV vs MS", 1, "SOV%", "MS%", "Top Metric" },
+				        { 2, "ESOV vs MS", 2, "ESOV", "MS%", "Top Metric" },
+				        { 3, "SOV vs Sales Values", 3, "SOV%", "Sales Values", "Top Metric" },
+				        { 4, "Conv.Rate vs NPS", 1, "Conv. Rate", "NPS", "Weighted Calls"} 
+				    }
+				)
+				```
+
+	annotation PBI_Id = 0f417fce94fc4d0394edb88dd492cff8
+

@@ -346,6 +346,111 @@ table 'Msr Promo'
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	measure 'Promo Calls with Positive Prescribing' =
+			
+			CALCULATE (
+			    [Promo Details],
+			    FILTER (
+			        T_FCT_PROMO_A10P_CD,
+			        T_FCT_PROMO_A10P_CD[Future Prescribing] = "INCREASE (OR WILL BEGIN TO PRESCRIBE)"
+			            || (
+			                T_FCT_PROMO_A10P_CD[Current Prescribing] = "FREQUENTLY"
+			                    && T_FCT_PROMO_A10P_CD[Future Prescribing] = "REMAIN UNCHANGED"
+			            )
+			    )
+			)
+		formatString: 0
+		lineageTag: 998e6c3b-1f6e-4a64-93c9-3f078089c767
+
+	measure 'Promo Contacts with Positive Prescribing' =
+			
+			CALCULATE (
+			    [Promo Contacts],
+			    FILTER (
+			        T_FCT_PROMO_A10P_CD,
+			        T_FCT_PROMO_A10P_CD[Future Prescribing] = "INCREASE (OR WILL BEGIN TO PRESCRIBE)"
+			            || (
+			                T_FCT_PROMO_A10P_CD[Current Prescribing] = "FREQUENTLY"
+			                    && T_FCT_PROMO_A10P_CD[Future Prescribing] = "REMAIN UNCHANGED"
+			            )
+			    )
+			)
+		lineageTag: d5a7993e-1644-4e53-b203-dd9ea744ea5e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Promo Conversion Rate Calls %' =
+			
+			DIVIDE ( [Promo Calls with Positive Prescribing], [Promo Details] )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 6aabb0cb-f717-45da-9af8-07ea078286b3
+
+	measure 'Promo Conversion Rate Contacts %' =
+			
+			DIVIDE ( [Promo Contacts with Positive Prescribing], [Promo Contacts] )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: a7b81fb4-0dd1-450e-ac50-4a8f9a732057
+
+	measure 'LP Promo Contacts' =
+			
+			VAR lp = [Last QuarterStartDay (stable)]
+			RETURN
+			CALCULATE(
+			    [Promo Contacts],
+			    REMOVEFILTERS(T_DIM_QUARTER),
+			    T_DIM_QUARTER[QuarterStartDay] = lp
+			)
+		formatString: 0
+		lineageTag: e54bcfc3-e443-41ae-be6e-e25b89d2e411
+
+	measure 'LP Promo Contacts with Positive Prescribing' =
+			
+			VAR lp = [Last QuarterStartDay (stable)]
+			RETURN
+			CALCULATE(
+			    [Promo Contacts with Positive Prescribing],
+			    REMOVEFILTERS(T_DIM_QUARTER),
+			    T_DIM_QUARTER[QuarterStartDay] = lp
+			)
+		formatString: 0
+		lineageTag: 25103b9b-9f50-4440-bcbc-eced10922fcd
+
+	measure 'LP Promo Conversion Rate Contacts %' =
+			
+			VAR lp = [Last QuarterStartDay (stable)]
+			RETURN
+			CALCULATE(
+			    [Promo Conversion Rate Contacts %],
+			    REMOVEFILTERS(T_DIM_QUARTER),
+			    T_DIM_QUARTER[QuarterStartDay] = lp
+			)
+		lineageTag: 3f914b54-e2bf-46ea-b9e3-a5b5b07f968f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Promo NPS' =
+			
+			SUM(T_FCT_PROMO_A10P_CD[NPS all channels])
+		formatString: 0
+		lineageTag: 1ab6ad95-3c76-48fa-997f-cc8d030fc24a
+
+	measure Measure
+		lineageTag: 948feb99-dde3-4f0d-8166-121a05cfc967
+
+		annotation 43dbc3e8-3a1c-4b6f-9923-b49ff7d6691c = True
+
+	measure 'LP Promo NPS' =
+			
+			VAR lp = [Last QuarterStartDay (stable)]
+			RETURN
+			CALCULATE(
+			    [Promo NPS],
+			    REMOVEFILTERS(T_DIM_QUARTER),
+			    T_DIM_QUARTER[QuarterStartDay] = lp
+			)
+		formatString: 0
+		lineageTag: 6a16efc2-ffbc-41b5-b462-742548b4bf18
+
 	column Column
 		isHidden
 		formatString: 0

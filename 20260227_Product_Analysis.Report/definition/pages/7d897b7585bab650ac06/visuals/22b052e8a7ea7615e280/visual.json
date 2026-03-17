@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
   "name": "22b052e8a7ea7615e280",
   "position": {
     "x": 0,
@@ -55,15 +55,14 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Msr Promo LP"
+                      "Entity": "ScatterPreset"
                     }
                   },
-                  "Property": "LP Promo SOV% (ATC4)"
+                  "Property": "Scatter X"
                 }
               },
-              "queryRef": "MeasurePromo.LP Promo % Share of Voice",
-              "nativeQueryRef": "SOV%",
-              "displayName": "SOV%"
+              "queryRef": "ScatterPreset.Scatter X",
+              "nativeQueryRef": "Scatter X"
             }
           ]
         },
@@ -74,15 +73,14 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Msr Sales"
+                      "Entity": "ScatterPreset"
                     }
                   },
-                  "Property": "LP Sales Values MS%"
+                  "Property": "Scatter Y"
                 }
               },
-              "queryRef": "MeasureSales.LP Sales Values MS%",
-              "nativeQueryRef": "MS%",
-              "displayName": "MS%"
+              "queryRef": "ScatterPreset.Scatter Y",
+              "nativeQueryRef": "Scatter Y"
             }
           ]
         },
@@ -93,14 +91,14 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "SwitchTopByMesure"
+                      "Entity": "ScatterPreset"
                     }
                   },
-                  "Property": "TopBy Metric (Selected Safe)"
+                  "Property": "Scatter Size Safe"
                 }
               },
-              "queryRef": "SwitchTopByMesure.Top Metric (Selected Safe)",
-              "nativeQueryRef": "TopBy Metric (Selected Safe)"
+              "queryRef": "ScatterPreset.Scatter Size Safe",
+              "nativeQueryRef": "Scatter Size Safe"
             }
           ]
         }
@@ -112,10 +110,10 @@
               "Measure": {
                 "Expression": {
                   "SourceRef": {
-                    "Entity": "Msr Promo LP"
+                    "Entity": "ScatterPreset"
                   }
                 },
-                "Property": "LP Promo SOV% (ATC4)"
+                "Property": "Scatter X"
               }
             },
             "direction": "Descending"
@@ -153,19 +151,6 @@
         }
       ],
       "categoryAxis": [
-        {
-          "properties": {
-            "showAxisTitle": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "valueAxis": [
         {
           "properties": {
             "showAxisTitle": {
@@ -462,7 +447,8 @@
             "Property": "LP Promo SOV% (ATC4)"
           }
         },
-        "type": "Advanced"
+        "type": "Advanced",
+        "howCreated": "User"
       },
       {
         "name": "ed99ae01360ccc8d61f7",
@@ -493,7 +479,8 @@
             "Property": "LP Sales Values MS%"
           }
         },
-        "type": "Advanced"
+        "type": "Advanced",
+        "howCreated": "User"
       },
       {
         "name": "d724b0572dba4735ac09",

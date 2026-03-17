@@ -82,6 +82,7 @@ ref table 'Msr Sales Buckets'
 ref table LegendCorp
 ref table 'Msr Fin Buckets'
 ref table 'Msr Fin Buckets LP'
+ref table ScatterPreset
 
 ref cultureInfo en-US
 

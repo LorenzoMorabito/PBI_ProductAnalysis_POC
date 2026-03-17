@@ -34,9 +34,8 @@ table 'Msr Promo LP'
 			    REMOVEFILTERS(T_DIM_QUARTER),
 			    T_DIM_QUARTER[QuarterStartDay] = lp
 			)
+		formatString: 0.0%;-0.0%;0.0%
 		lineageTag: 06163a6e-a437-4e3d-9186-ee4b16cb20a2
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'LP Promo SOV%' =
 			

@@ -97,9 +97,9 @@ table '.Titles'
 
 	measure 'Vis TopN SOV% vs MS%' =
 			
-			"SOV% vs MS% - Top " & [TopN Value] & " " &
+			[Scatter Title] & " - Top " & [TopN Value] & " " &
 			[TopBy Dimension Label (Selected)] &
-			" by " & SELECTEDVALUE(SwitchTopByMesure[TopBy], "Sales Movers (Δ Abs)")
+			" by " & SELECTEDVALUE(SwitchTopByMesure[TopBy], "Sales Movers (+/- Abs)")
 		lineageTag: 90063c54-10cc-4e35-a927-beffa6d4dd81
 
 	measure 'Section DeepDive' =

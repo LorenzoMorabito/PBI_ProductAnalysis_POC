@@ -4,8 +4,8 @@
     {
       "ordinal": 0,
       "scrollPosition": {
-        "x": 3065.5287767330551,
-        "y": 2909448.9184617768
+        "x": 2391.7021286310928,
+        "y": 2909194.4355782419
       },
       "nodes": [
         {
@@ -738,6 +738,18 @@
             "y": 0
           },
           "nodeIndex": "Msr Fin Buckets LP",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 4590.7453386464931,
+            "y": 0
+          },
+          "nodeIndex": "ScatterPreset",
           "size": {
             "height": 200,
             "width": 234
