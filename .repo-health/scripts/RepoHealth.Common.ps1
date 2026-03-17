@@ -16,6 +16,44 @@ function Get-RepoHealthConfig {
     return (Get-Content -Path $Path -Raw | ConvertFrom-Json -Depth 20)
 }
 
+function Get-RepoHealthTimestampInfo {
+    param([string]$RunTimestamp)
+
+    if ([string]::IsNullOrWhiteSpace($RunTimestamp)) {
+        $timestampUtc = [System.DateTimeOffset]::UtcNow
+    }
+    else {
+        $timestampUtc = [System.DateTimeOffset]::Parse(
+            $RunTimestamp,
+            [System.Globalization.CultureInfo]::InvariantCulture,
+            [System.Globalization.DateTimeStyles]::AssumeUniversal
+        ).ToUniversalTime()
+    }
+
+    return [PSCustomObject]@{
+        iso_utc        = $timestampUtc.ToString("yyyy-MM-ddTHH:mm:ssZ")
+        file_safe_utc  = $timestampUtc.ToString("yyyy-MM-ddTHH-mm-ssZ")
+        date_time_utc  = $timestampUtc.UtcDateTime
+    }
+}
+
+function Get-RepoHealthRepositoryName {
+    param(
+        [Parameter(Mandatory = $true)][string]$RepoRoot,
+        [string]$RepositoryName
+    )
+
+    if (-not [string]::IsNullOrWhiteSpace($RepositoryName)) {
+        return $RepositoryName
+    }
+
+    if ($env:GITHUB_REPOSITORY) {
+        return $env:GITHUB_REPOSITORY
+    }
+
+    return Split-Path -Leaf $RepoRoot
+}
+
 function Invoke-RepoHealthGit {
     param(
         [Parameter(Mandatory = $true)][string]$RepoRoot,
@@ -141,6 +179,41 @@ function Test-RepoHealthPathExcluded {
     return $false
 }
 
+function Test-RepoHealthPathAllowed {
+    param(
+        [Parameter(Mandatory = $true)][string]$RelativePath,
+        [string[]]$AllowedPaths
+    )
+
+    if (-not $AllowedPaths) {
+        return $false
+    }
+
+    $normalizedPath = $RelativePath.Replace("\", "/")
+    if ($normalizedPath.StartsWith("./")) {
+        $normalizedPath = $normalizedPath.Substring(2)
+    }
+    elseif ($normalizedPath.StartsWith("/")) {
+        $normalizedPath = $normalizedPath.Substring(1)
+    }
+
+    foreach ($allowedPath in $AllowedPaths) {
+        $normalizedAllowedPath = $allowedPath.Replace("\", "/")
+        if ($normalizedAllowedPath.StartsWith("./")) {
+            $normalizedAllowedPath = $normalizedAllowedPath.Substring(2)
+        }
+        elseif ($normalizedAllowedPath.StartsWith("/")) {
+            $normalizedAllowedPath = $normalizedAllowedPath.Substring(1)
+        }
+
+        if ($normalizedPath.Equals($normalizedAllowedPath, [System.StringComparison]::OrdinalIgnoreCase)) {
+            return $true
+        }
+    }
+
+    return $false
+}
+
 function Get-RepoHealthTrackedFiles {
     param([Parameter(Mandatory = $true)][string]$RepoRoot)
 
@@ -182,6 +255,7 @@ function Get-RepoHealthRepositoryMetrics {
     $gitSizeBytes = Get-RepoHealthDirectorySizeBytes -Path $gitDir
     $trackedFiles = Get-RepoHealthTrackedFiles -RepoRoot $RepoRoot
     $excludedPrefixes = @($Config.excluded_paths | ForEach-Object { Get-RepoHealthNormalizedPrefix -Prefix $_ })
+    $allowedTrackedExcludedPaths = @($Config.allowed_tracked_excluded_paths)
     $currentFiles = Get-ChildItem -Path $RepoRoot -Recurse -Force -File | Where-Object {
         $_.FullName -notlike (Join-Path $gitDir "*") -and
         -not (Test-RepoHealthPathExcluded -RelativePath (Get-RepoHealthRelativePath -RepoRoot $RepoRoot -FullPath $_.FullName) -ExcludedPrefixes $excludedPrefixes)
@@ -216,7 +290,10 @@ function Get-RepoHealthRepositoryMetrics {
 
     $trackedExcludedFiles = @(
         $trackedFiles |
-            Where-Object { Test-RepoHealthPathExcluded -RelativePath $_ -ExcludedPrefixes $excludedPrefixes } |
+            Where-Object {
+                (Test-RepoHealthPathExcluded -RelativePath $_ -ExcludedPrefixes $excludedPrefixes) -and
+                -not (Test-RepoHealthPathAllowed -RelativePath $_ -AllowedPaths $allowedTrackedExcludedPaths)
+            } |
             Sort-Object
     )
 
@@ -317,6 +394,38 @@ function Read-RepoHealthPreviousMetrics {
     return (Get-Content -Path $LatestMetricsPath -Raw | ConvertFrom-Json -Depth 50)
 }
 
+function Get-RepoHealthHistoryPaths {
+    param(
+        [Parameter(Mandatory = $true)][string]$HistoryRootPath,
+        [Parameter(Mandatory = $true)]$Config,
+        [Parameter(Mandatory = $true)][string]$RunTimestampKey
+    )
+
+    $runsDirectoryPath = Join-Path $HistoryRootPath $Config.runs_directory_name
+    $gitSizerDirectoryPath = Join-Path $HistoryRootPath $Config.git_sizer_directory_name
+
+    return [PSCustomObject]@{
+        history_root_path      = $HistoryRootPath
+        latest_metrics_path    = Join-Path $HistoryRootPath $Config.latest_metrics_name
+        history_csv_path       = Join-Path $HistoryRootPath $Config.history_csv_name
+        runs_directory_path    = $runsDirectoryPath
+        git_sizer_directory_path = $gitSizerDirectoryPath
+        run_json_path          = Join-Path $runsDirectoryPath ($RunTimestampKey + ".json")
+        run_summary_path       = Join-Path $runsDirectoryPath ($RunTimestampKey + ".md")
+        run_git_sizer_path     = Join-Path $gitSizerDirectoryPath ($RunTimestampKey + ".txt")
+    }
+}
+
+function Ensure-RepoHealthHistoryStructure {
+    param(
+        [Parameter(Mandatory = $true)]$HistoryPaths
+    )
+
+    Ensure-RepoHealthDirectory -Path $HistoryPaths.history_root_path
+    Ensure-RepoHealthDirectory -Path $HistoryPaths.runs_directory_path
+    Ensure-RepoHealthDirectory -Path $HistoryPaths.git_sizer_directory_path
+}
+
 function Get-RepoHealthGrowthPct {
     param(
         [double]$Current,
@@ -415,38 +524,86 @@ function Get-RepoHealthHistoryRow {
     param([Parameter(Mandatory = $true)]$Metrics)
 
     return [PSCustomObject]@{
-        timestamp     = $Metrics.timestamp
-        commit        = $Metrics.commit
-        branch        = $Metrics.branch
-        size_pack_mb  = Convert-RepoHealthNumberToInvariantString -Value $Metrics.git_core.size_pack_mb
-        git_size_mb   = Convert-RepoHealthNumberToInvariantString -Value $Metrics.repo.git_size_mb
-        max_blob_mb   = Convert-RepoHealthNumberToInvariantString -Value $Metrics.history.max_blob_mb
-        blob_over_1mb = $Metrics.history.blob_over_1mb
-        blob_over_5mb = $Metrics.history.blob_over_5mb
-        largest_blob  = $Metrics.history.max_blob_path
-        status        = $Metrics.policy.status
+        timestamp               = $Metrics.timestamp
+        repository              = $Metrics.repository
+        branch                  = $Metrics.branch
+        commit_sha              = $Metrics.commit
+        commit_count            = $Metrics.repo.commit_count
+        size_pack_mb            = Convert-RepoHealthNumberToInvariantString -Value $Metrics.git_core.size_pack_mb
+        git_size_mb             = Convert-RepoHealthNumberToInvariantString -Value $Metrics.repo.git_size_mb
+        max_blob_mb             = Convert-RepoHealthNumberToInvariantString -Value $Metrics.history.max_blob_mb
+        blob_over_1mb           = $Metrics.history.blob_over_1mb
+        blob_over_5mb           = $Metrics.history.blob_over_5mb
+        current_largest_file_mb = Convert-RepoHealthNumberToInvariantString -Value $Metrics.repo.largest_current_file_mb
+        forbidden_file_count    = @($Metrics.repo.forbidden_files).Count
+        status                  = $Metrics.policy.status
     }
 }
 
-function Update-RepoHealthHistory {
+function Test-RepoHealthCsvSchemaMatches {
     param(
-        [Parameter(Mandatory = $true)]$Metrics,
-        [Parameter(Mandatory = $true)][string]$HistoryCsvPath,
-        [Parameter(Mandatory = $true)][string]$LatestMetricsPath
+        [Parameter(Mandatory = $true)][string]$CsvPath,
+        [Parameter(Mandatory = $true)]$ExpectedRow
     )
 
-    $historyParent = Split-Path $HistoryCsvPath -Parent
-    Ensure-RepoHealthDirectory -Path $historyParent
+    if (-not (Test-Path $CsvPath)) {
+        return $true
+    }
+
+    $headerLine = (Get-Content -Path $CsvPath -TotalCount 1)
+    if ([string]::IsNullOrWhiteSpace($headerLine)) {
+        return $true
+    }
+
+    $existingColumns = @(
+        $headerLine.Trim('"').Split('","') |
+            ForEach-Object { $_.Trim() }
+    )
+    $expectedColumns = @($ExpectedRow.PSObject.Properties.Name)
+
+    if ($existingColumns.Count -ne $expectedColumns.Count) {
+        return $false
+    }
+
+    for ($index = 0; $index -lt $expectedColumns.Count; $index++) {
+        if ($existingColumns[$index] -ne $expectedColumns[$index]) {
+            return $false
+        }
+    }
+
+    return $true
+}
+
+function Update-RepoHealthHistoryStore {
+    param(
+        [Parameter(Mandatory = $true)]$Metrics,
+        [Parameter(Mandatory = $true)]$HistoryPaths,
+        [Parameter(Mandatory = $true)][string]$SummaryMarkdown,
+        [string]$GitSizerRuntimePath
+    )
+
+    Ensure-RepoHealthHistoryStructure -HistoryPaths $HistoryPaths
 
     $row = Get-RepoHealthHistoryRow -Metrics $Metrics
-    if (Test-Path $HistoryCsvPath) {
-        $row | Export-Csv -Path $HistoryCsvPath -NoTypeInformation -Append
-    }
-    else {
-        $row | Export-Csv -Path $HistoryCsvPath -NoTypeInformation
+    if (-not (Test-RepoHealthCsvSchemaMatches -CsvPath $HistoryPaths.history_csv_path -ExpectedRow $row)) {
+        $legacyPath = "{0}.legacy-{1}.csv" -f $HistoryPaths.history_csv_path, ([DateTime]::UtcNow.ToString("yyyyMMddHHmmss"))
+        Move-Item -Path $HistoryPaths.history_csv_path -Destination $legacyPath -Force
     }
 
-    Write-RepoHealthJsonFile -Path $LatestMetricsPath -InputObject $Metrics
+    if (Test-Path $HistoryPaths.history_csv_path) {
+        $row | Export-Csv -Path $HistoryPaths.history_csv_path -NoTypeInformation -Append
+    }
+    else {
+        $row | Export-Csv -Path $HistoryPaths.history_csv_path -NoTypeInformation
+    }
+
+    Write-RepoHealthJsonFile -Path $HistoryPaths.latest_metrics_path -InputObject $Metrics
+    Write-RepoHealthJsonFile -Path $HistoryPaths.run_json_path -InputObject $Metrics
+    Write-RepoHealthSummaryFile -Path $HistoryPaths.run_summary_path -Content $SummaryMarkdown
+
+    if ($GitSizerRuntimePath -and (Test-Path $GitSizerRuntimePath)) {
+        Copy-Item -Path $GitSizerRuntimePath -Destination $HistoryPaths.run_git_sizer_path -Force
+    }
 }
 
 function Get-RepoHealthSummaryMarkdown {
@@ -464,6 +621,7 @@ function Get-RepoHealthSummaryMarkdown {
     $lines.Add("| Metric | Value |")
     $lines.Add("| --- | --- |")
     $lines.Add("| Status | $($Metrics.policy.status) |")
+    $lines.Add("| Repository | $($Metrics.repository) |")
     $lines.Add("| Branch | $($Metrics.branch) |")
     $lines.Add(("| Commit | `{0}` |" -f $shortCommit))
     $lines.Add("| Size pack | $($Metrics.git_core.size_pack_mb) MB |")
