@@ -23,6 +23,7 @@ Current MVP:
   - `install-module`
 - implemented domain resolver:
   - `finance`
+  - `marketing`
 
 Architecture:
 - `Modules/Common`

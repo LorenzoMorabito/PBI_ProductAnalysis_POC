@@ -1,0 +1,113 @@
+table 'MOD Flex Table Metrics'
+	lineageTag: 9ad5d329-2db1-4474-a2d1-76b8244d3021
+
+	measure 'Flex Table Selected Value' =
+			
+			VAR SelectedMeasure = SELECTEDVALUE('MOD Flex Table Measure Selector'[MeasureKey])
+			VAR AxisKey = SELECTEDVALUE('MOD Flex Table Axis'[DimensionKey])
+			VAR AxisValue = SELECTEDVALUE('MOD Flex Table Axis'[AxisLabel])
+			RETURN
+			SWITCH(
+			    AxisKey,
+			    "Molecule",
+			        CALCULATE(
+			            SWITCH(
+			                SelectedMeasure,
+			                "sales_values", [Input Sales Values],
+			                "sales_units", [Input Sales Units],
+			                "counting_units", [Input Counting Units],
+			                "promo_spend", [Input Promo Spend],
+			                "promo_details", [Input Promo Details],
+			                "promo_contacts", [Input Promo Contacts],
+			                "promo_weighted_calls", [Input Promo Weighted Calls],
+			                "fin_act", [Input Fin ACT],
+			                "fin_bdg", [Input Fin BDG],
+			                "fin_act_py", [Input Fin ACT PY],
+			                BLANK()
+			            ),
+			            KEEPFILTERS(TREATAS({AxisValue}, T_DIM_MOLECULE[MoleculeNorm]))
+			        ),
+			    "Country",
+			        CALCULATE(
+			            SWITCH(
+			                SelectedMeasure,
+			                "sales_values", [Input Sales Values],
+			                "sales_units", [Input Sales Units],
+			                "counting_units", [Input Counting Units],
+			                "promo_spend", [Input Promo Spend],
+			                "promo_details", [Input Promo Details],
+			                "promo_contacts", [Input Promo Contacts],
+			                "promo_weighted_calls", [Input Promo Weighted Calls],
+			                "fin_act", [Input Fin ACT],
+			                "fin_bdg", [Input Fin BDG],
+			                "fin_act_py", [Input Fin ACT PY],
+			                BLANK()
+			            ),
+			            KEEPFILTERS(TREATAS({AxisValue}, T_DIM_COUNTRY[Country]))
+			        ),
+			    "Quarter",
+			        CALCULATE(
+			            SWITCH(
+			                SelectedMeasure,
+			                "sales_values", [Input Sales Values],
+			                "sales_units", [Input Sales Units],
+			                "counting_units", [Input Counting Units],
+			                "promo_spend", [Input Promo Spend],
+			                "promo_details", [Input Promo Details],
+			                "promo_contacts", [Input Promo Contacts],
+			                "promo_weighted_calls", [Input Promo Weighted Calls],
+			                "fin_act", [Input Fin ACT],
+			                "fin_bdg", [Input Fin BDG],
+			                "fin_act_py", [Input Fin ACT PY],
+			                BLANK()
+			            ),
+			            KEEPFILTERS(TREATAS({AxisValue}, T_DIM_QUARTER[QuarterKey]))
+			        ),
+			    BLANK()
+			)
+		formatString: #,0.00
+		lineageTag: 3ad9ece3-2136-42e7-b713-8e3df6e2471a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Flex Table Row Has Data' =
+			
+			VAR NonBlankMeasureCount =
+			    SUMX(
+			        VALUES('MOD Flex Table Measure Selector'[MeasureKey]),
+			        VAR CurrentMeasureKey = 'MOD Flex Table Measure Selector'[MeasureKey]
+			        RETURN
+			            IF(
+			                NOT ISBLANK(
+			                    CALCULATE(
+			                        [Flex Table Selected Value],
+			                        TREATAS({CurrentMeasureKey}, 'MOD Flex Table Measure Selector'[MeasureKey])
+			                    )
+			                ),
+			                1,
+			                0
+			            )
+			    )
+			RETURN
+			IF(NonBlankMeasureCount > 0, 1)
+		formatString: 0
+		lineageTag: 82c527ac-c700-4f50-9f8a-fba2ab2bcc95
+
+	measure 'Flex Table Title' =
+			
+			"Flexible Core Metrics Table | " & SELECTEDVALUE('MOD Flex Table Axis'[DimensionLabel], "Molecule")
+		lineageTag: f7b9e2a3-fc89-4533-ae54-ef56c48fc917
+
+	column Column
+		isHidden
+		formatString: 0
+		lineageTag: 2e00cded-66a0-47a9-a699-ecb837fa9e1b
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'MOD Flex Table Metrics' = calculated
+		mode: import
+		source = Row("Column", BLANK())

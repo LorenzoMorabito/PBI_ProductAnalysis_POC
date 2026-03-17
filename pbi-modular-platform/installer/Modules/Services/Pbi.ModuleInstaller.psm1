@@ -19,6 +19,9 @@ function Resolve-PbiModuleMapping {
         "finance" {
             return (Resolve-PbiFinanceModuleMapping -Manifest $Module.Manifest -OverrideMapping $OverrideMapping)
         }
+        "marketing" {
+            return (Resolve-PbiMarketingModuleMapping -Manifest $Module.Manifest -OverrideMapping $OverrideMapping)
+        }
         default {
             throw "No mapping resolver is implemented for domain '$($Module.Domain)'."
         }
@@ -38,7 +41,7 @@ function Test-PbiModuleAlreadyInstalled {
         return $true
     }
 
-    return ((Test-PbiSemanticAssetsPresent -Project $Project -Manifest $Module.Manifest) -or
+    return ((Test-PbiSemanticAssetsPresent -Project $Project -Manifest $Module.Manifest) -and
         (Test-PbiReportAssetsPresent -Project $Project -Manifest $Module.Manifest))
 }
 

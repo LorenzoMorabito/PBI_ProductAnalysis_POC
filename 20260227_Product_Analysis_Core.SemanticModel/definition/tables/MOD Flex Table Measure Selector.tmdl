@@ -1,0 +1,57 @@
+table 'MOD Flex Table Measure Selector'
+	lineageTag: e96317e4-8ed8-4ad2-a8c1-b6bd06fc4e0f
+
+	column MeasureKey
+		isHidden
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [MeasureKey]
+
+		annotation SummarizationSetBy = Automatic
+
+	column DisplayLabel
+		summarizeBy: none
+		sortByColumn: MeasureSort
+		isNameInferred
+		sourceColumn: [DisplayLabel]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Domain
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Domain]
+
+		annotation SummarizationSetBy = Automatic
+
+	column MeasureSort
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [MeasureSort]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'MOD Flex Table Measure Selector' = calculated
+		mode: import
+		source = ```
+				DATATABLE(
+				    "MeasureKey", STRING,
+				    "DisplayLabel", STRING,
+				    "Domain", STRING,
+				    "MeasureSort", INTEGER,
+				    {
+				        {"sales_values", "Sales Values", "Sales", 1},
+				        {"sales_units", "Sales Units", "Sales", 2},
+				        {"counting_units", "Counting Units", "Sales", 3},
+				        {"promo_spend", "Promo Spend", "Promo", 4},
+				        {"promo_details", "Promo Details", "Promo", 5},
+				        {"promo_contacts", "Promo Contacts", "Promo", 6},
+				        {"promo_weighted_calls", "Promo Weighted Calls", "Promo", 7},
+				        {"fin_act", "Fin ACT", "Finance", 8},
+				        {"fin_bdg", "Fin BDG", "Finance", 9},
+				        {"fin_act_py", "Fin ACT PY", "Finance", 10}
+				    }
+				)
+				```

@@ -1,0 +1,16 @@
+{
+  "domain": "marketing",
+  "packages": [
+    {
+      "moduleId": "flex_metrics_table_mvp",
+      "version": "0.1.0",
+      "status": "prototype",
+      "path": "packages/flex_metrics_table_mvp",
+      "displayName": "Flex Metrics Table MVP",
+      "consumerCompatibility": [
+        "marketing/product-analysis-core",
+        "marketing/product-analysis-flextable"
+      ]
+    }
+  ]
+}

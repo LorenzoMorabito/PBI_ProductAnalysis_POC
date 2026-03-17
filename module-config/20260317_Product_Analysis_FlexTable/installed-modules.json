@@ -1,0 +1,38 @@
+{
+  "installedModules": [
+    {
+      "moduleId": "flex_metrics_table_mvp",
+      "version": "0.1.0",
+      "source": "pbi-marketing-domain/packages/flex_metrics_table_mvp",
+      "mappings": {
+        "coreMeasures": {
+          "Sales Values": "Sales Values",
+          "Sales Units": "Sales Units",
+          "Counting Units": "Counting Units",
+          "Promo Spend": "Promo Spend",
+          "Promo Details": "Promo Details",
+          "Promo Contacts": "Promo Contacts",
+          "Promo Weighted Calls": "Promo Weighted Calls",
+          "Fin ACT": "Fin ACT",
+          "Fin BDG": "Fin BDG",
+          "Fin ACT PY": "Fin ACT PY"
+        },
+        "coreColumns": {
+          "T_DIM_MOLECULE[MoleculeNorm]": "T_DIM_MOLECULE[MoleculeNorm]",
+          "T_DIM_COUNTRY[Country]": "T_DIM_COUNTRY[Country]",
+          "T_DIM_QUARTER[QuarterKey]": "T_DIM_QUARTER[QuarterKey]"
+        }
+      },
+      "installedObjects": {
+        "tables": [
+          "MOD Flex Table Inputs",
+          "MOD Flex Table Measure Selector",
+          "MOD Flex Table Axis",
+          "MOD Flex Table Metrics"
+        ],
+        "page": "6f8d2c1e4b5a70918342"
+      },
+      "installedAt": "2026-03-17T02:16:47"
+    }
+  ]
+}

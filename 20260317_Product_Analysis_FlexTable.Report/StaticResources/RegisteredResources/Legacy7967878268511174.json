@@ -1,0 +1,88 @@
+{
+  "name": "Legacy",
+  "dataColors": [
+    "#6B797C",
+    "#362B2B",
+    "#B08D72",
+    "#40484A",
+    "#86989C",
+    "#5B3D35",
+    "#928F8B",
+    "#242828",
+    "#3599B8",
+    "#DFBFBF",
+    "#4AC5BB",
+    "#5F6B6D",
+    "#FB8281",
+    "#F4D25A",
+    "#7F898A",
+    "#A4DDEE",
+    "#FDAB89",
+    "#B687AC",
+    "#28738A",
+    "#A78F8F",
+    "#168980",
+    "#293537",
+    "#BB4A4A",
+    "#B59525",
+    "#475052",
+    "#6A9FB0",
+    "#BD7150",
+    "#7B4F71",
+    "#1B4D5C",
+    "#706060",
+    "#0F5C55",
+    "#1C2325"
+  ],
+  "foreground": "#24212E",
+  "background": "#FFFFFF",
+  "foregroundNeutralSecondary": "#6E5746",
+  "backgroundLight": "#FCF7F0",
+  "foregroundNeutralTertiary": "#928F8B",
+  "backgroundNeutral": "#EDE8E1",
+  "tableAccent": "#566164",
+  "maximum": "#2A9843",
+  "center": "#5E5E5E",
+  "minimum": "#9F4826",
+  "bad": "#A93A1C",
+  "neutral": "#4C4C4C",
+  "good": "#36962B",
+  "textClasses": {
+    "label": {
+      "fontFace": "wf_standard-font, helvetica, arial, sans-serif",
+      "fontSize": 8
+    },
+    "callout": {
+      "fontSize": 10
+    },
+    "header": {
+      "fontFace": "wf_standard-font, helvetica, arial, sans-serif",
+      "fontSize": 8
+    },
+    "title": {
+      "fontSize": 8
+    }
+  },
+  "visualStyles": {
+    "*": {
+      "*": {
+        "outspacePane": [
+          {
+            "titleSize": 8,
+            "headerSize": 8
+          }
+        ],
+        "filterCard": [
+          {
+            "$id": "Applied",
+            "textSize": 8
+          },
+          {
+            "$id": "Available",
+            "textSize": 8
+          }
+        ]
+      }
+    }
+  }
+}

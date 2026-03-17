@@ -1,0 +1,70 @@
+table 'MOD Flex Table Axis'
+	lineageTag: 0ea3b2f7-1e8d-4a0f-92fe-5b95f134b925
+
+	column DimensionKey
+		isHidden
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [DimensionKey]
+
+		annotation SummarizationSetBy = Automatic
+
+	column DimensionLabel
+		summarizeBy: none
+		sortByColumn: DimensionSort
+		isNameInferred
+		sourceColumn: [DimensionLabel]
+
+		annotation SummarizationSetBy = Automatic
+
+	column DimensionSort
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [DimensionSort]
+
+		annotation SummarizationSetBy = Automatic
+
+	column AxisLabel
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [AxisLabel]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'MOD Flex Table Axis' = calculated
+		mode: import
+		source =
+				UNION(
+				    SELECTCOLUMNS(
+				        FILTER(
+				            VALUES(T_DIM_MOLECULE[MoleculeNorm]),
+				            NOT ISBLANK(T_DIM_MOLECULE[MoleculeNorm])
+				        ),
+				        "DimensionKey", "Molecule",
+				        "DimensionLabel", "Molecule",
+				        "DimensionSort", 1,
+				        "AxisLabel", T_DIM_MOLECULE[MoleculeNorm]
+				    ),
+				    SELECTCOLUMNS(
+				        FILTER(
+				            VALUES(T_DIM_COUNTRY[Country]),
+				            NOT ISBLANK(T_DIM_COUNTRY[Country])
+				        ),
+				        "DimensionKey", "Country",
+				        "DimensionLabel", "Country",
+				        "DimensionSort", 2,
+				        "AxisLabel", T_DIM_COUNTRY[Country]
+				    ),
+				    SELECTCOLUMNS(
+				        FILTER(
+				            VALUES(T_DIM_QUARTER[QuarterKey]),
+				            NOT ISBLANK(T_DIM_QUARTER[QuarterKey])
+				        ),
+				        "DimensionKey", "Quarter",
+				        "DimensionLabel", "Quarter",
+				        "DimensionSort", 3,
+				        "AxisLabel", T_DIM_QUARTER[QuarterKey]
+				    )
+				)

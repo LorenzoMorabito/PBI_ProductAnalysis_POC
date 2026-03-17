@@ -21,6 +21,7 @@ $modulePaths = @(
     "Modules/Core/Pbi.SemanticModel.psm1",
     "Modules/Core/Pbi.Report.psm1",
     "Modules/Domains/Finance/Pbi.Finance.psm1",
+    "Modules/Domains/Marketing/Pbi.Marketing.psm1",
     "Modules/Services/Pbi.ModuleInstaller.psm1"
 )
 
