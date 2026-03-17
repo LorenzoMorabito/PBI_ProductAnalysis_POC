@@ -1,0 +1,54 @@
+table 'MOD Flex Flat Measures'
+	lineageTag: 4767d810-c675-49d8-b779-6072ba15bc11
+
+	column 'Flat Measure'
+		lineageTag: 0e1ddc16-fbf8-4ce4-a293-3351fbb42ef7
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Flat Measure Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Flat Measure Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Flat Measure Fields'
+		isHidden
+		lineageTag: e71158cf-abd2-43cc-bfd9-3827ad1c6d78
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Flat Measure Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Flat Measure Order'
+		isHidden
+		formatString: 0
+		lineageTag: 2a07efcf-23b5-42d5-a28a-0214e38db6bf
+		summarizeBy: none
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'MOD Flex Flat Measures' = calculated
+		mode: import
+		source =
+				{
+				    ("Sales Values", NAMEOF('MOD Flex Flat Inputs'[Flat Input Sales Values]), 0),
+				    ("Sales Units", NAMEOF('MOD Flex Flat Inputs'[Flat Input Sales Units]), 1),
+				    ("Counting Units", NAMEOF('MOD Flex Flat Inputs'[Flat Input Counting Units]), 2),
+				    ("Promo Spend", NAMEOF('MOD Flex Flat Inputs'[Flat Input Promo Spend]), 3),
+				    ("Promo Details", NAMEOF('MOD Flex Flat Inputs'[Flat Input Promo Details]), 4),
+				    ("Promo Contacts", NAMEOF('MOD Flex Flat Inputs'[Flat Input Promo Contacts]), 5),
+				    ("Promo Weighted Calls", NAMEOF('MOD Flex Flat Inputs'[Flat Input Promo Weighted Calls]), 6),
+				    ("Fin ACT", NAMEOF('MOD Flex Flat Inputs'[Flat Input Fin ACT]), 7),
+				    ("Fin BDG", NAMEOF('MOD Flex Flat Inputs'[Flat Input Fin BDG]), 8),
+				    ("Fin ACT PY", NAMEOF('MOD Flex Flat Inputs'[Flat Input Fin ACT PY]), 9)
+				}
+

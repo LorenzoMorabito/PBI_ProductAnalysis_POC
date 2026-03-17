@@ -1,0 +1,28 @@
+table T_DIM_CHANNELS
+	lineageTag: 3ac0411f-8424-4a81-8566-50a1fcebd062
+
+	column 'Cam Channels'
+		dataType: string
+		lineageTag: 6c9adb94-b215-43bf-9cc7-ed1434ca2d63
+		summarizeBy: none
+		sourceColumn: Cam Channels
+
+		annotation SummarizationSetBy = Automatic
+
+	partition T_DIM_CHANNELS = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(root_path & "PBI A10P_CD.csv"),[Delimiter=",", Columns=23, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Removed Other Columns1" = Table.SelectColumns(#"Promoted Headers",{"Cam Channels"}),
+				    #"Removed Duplicates" = Table.Distinct(#"Removed Other Columns1"),
+				    #"Uppercased Text" = Table.TransformColumns(#"Removed Duplicates",{{"Cam Channels", Text.Upper, type text}}),
+				    #"Trimmed Text" = Table.TransformColumns(#"Uppercased Text",{{"Cam Channels", Text.Trim, type text}})
+				in
+				    #"Trimmed Text"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

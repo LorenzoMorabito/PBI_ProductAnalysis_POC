@@ -1,0 +1,25 @@
+table T_DIM_ACT4
+	lineageTag: 09ca596b-b3a9-49c5-9a33-c83f6e6ee139
+
+	column ATC4
+		dataType: string
+		lineageTag: dd975789-3bae-47a1-8dde-61bf4ba327f5
+		summarizeBy: none
+		sourceColumn: ATC4
+
+		annotation SummarizationSetBy = Automatic
+
+	partition T_DIM_ACT4 = m
+		mode: import
+		source =
+				let
+				    Source = Table.Combine({T_FCT_SALES_A10P, T_FCT_PROMO_A10P_CD}),
+				    #"Removed Other Columns" = Table.SelectColumns(Source,{"ATC4"}),
+				    #"Removed Duplicates" = Table.Distinct(#"Removed Other Columns")
+				in
+				    #"Removed Duplicates"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
