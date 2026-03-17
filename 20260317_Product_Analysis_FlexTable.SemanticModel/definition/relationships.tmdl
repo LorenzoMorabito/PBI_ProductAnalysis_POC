@@ -1,62 +1,61 @@
-relationship AutoDetected_4a8356cb-787d-4792-bcac-973c62c1d044
+relationship REL_FIN_COUNTRY
 	fromColumn: T_FCT_FIN.Country
 	toColumn: T_DIM_COUNTRY.Country
 
-relationship AutoDetected_dd603154-687c-4e4b-8631-bec46432f3a6
+relationship REL_PROMO_COUNTRY
 	fromColumn: T_FCT_PROMO_A10P_CD.Country
 	toColumn: T_DIM_COUNTRY.Country
 
-relationship AutoDetected_7c5290bc-c00b-41c1-8bb3-6c2b378a579c
+relationship REL_SALES_COUNTRY
 	fromColumn: T_FCT_SALES_A10P.Country
 	toColumn: T_DIM_COUNTRY.Country
 
-relationship AutoDetected_9979feb5-688a-4f69-ad0e-c14864aec003
+relationship REL_PROMO_PRODUCT
 	fromColumn: T_FCT_PROMO_A10P_CD.Product
 	toColumn: T_DIM_PRODUCT.Product
 
-relationship AutoDetected_99dd5bc7-5a68-41bd-a62f-77be39c89fd3
+relationship REL_SALES_PRODUCT
 	fromColumn: T_FCT_SALES_A10P.Product
 	toColumn: T_DIM_PRODUCT.Product
 
-relationship AutoDetected_a6f4d014-aa9f-4f31-86ad-5b6dbbaec6a0
+relationship REL_MONTH_QUARTER
 	fromColumn: T_DIM_MONTH.QuarterKey
 	toColumn: T_DIM_QUARTER.QuarterKey
 
-relationship dc0f27fe-18b3-b39d-ff73-fd144fed6092
+relationship REL_FIN_MONTH
 	fromColumn: T_FCT_FIN.MonthStartDay
 	toColumn: T_DIM_MONTH.MonthStartDay
 
-relationship ea5b9cec-f42e-03a8-8e3f-15e7dc51c504
+relationship REL_PROMO_QUARTER
 	fromColumn: T_FCT_PROMO_A10P_CD.QuarterStartDay
 	toColumn: T_DIM_QUARTER.QuarterStartDay
 
-relationship ff5923cb-14f0-7c26-e427-db15de28b54a
+relationship REL_SALES_QUARTER
 	fromColumn: T_FCT_SALES_A10P.QuarterStartDay
 	toColumn: T_DIM_QUARTER.QuarterStartDay
 
-relationship AutoDetected_fc210452-ffae-435d-b165-351b9c2d189b
+relationship REL_PROMO_SPECIALTY
 	fromColumn: T_FCT_PROMO_A10P_CD.Specialty
 	toColumn: T_DIM_SPECIALTY.Specialty
 
-relationship AutoDetected_b50bbd45-0d45-4cf0-9094-2cf449f32f95
+relationship REL_PROMO_CHANNELS
 	fromColumn: T_FCT_PROMO_A10P_CD.'Cam Channels'
 	toColumn: T_DIM_CHANNELS.'Cam Channels'
 
-relationship AutoDetected_05f31a5d-d952-4e6b-a4df-1296b09d1507
+relationship REL_PRODUCT_CORPORATION
 	fromColumn: T_DIM_PRODUCT.Corporation
 	toColumn: T_DIM_CORPORATION.Corporation
 
-relationship AutoDetected_091690a7-df38-4613-a249-f22418208e6a
+relationship REL_PRODUCT_ATC4
 	fromColumn: T_DIM_PRODUCT.ATC4
 	toColumn: T_DIM_ACT4.ATC4
 
-relationship cf27f1bd-ec01-1c19-b14b-79efd8dfb0ef
-	crossFilteringBehavior: bothDirections
+relationship REL_MOLECULE_PRODUCT
 	fromCardinality: one
 	fromColumn: T_DIM_MOLECULE.MoleculeNorm
 	toColumn: T_DIM_PRODUCT.MoleculeNorm
 
-relationship 55a33200-b2dc-7355-22e8-b05578dd5e37
+relationship REL_FIN_PRODUCT_MOLECULE
 	fromColumn: T_FCT_FIN.MoleculeNorm
 	toColumn: T_DIM_PRODUCT.MoleculeNorm
 

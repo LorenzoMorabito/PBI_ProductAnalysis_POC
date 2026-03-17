@@ -13,15 +13,15 @@ Stato attuale del core:
 
 - `15` tabelle
 - `15` relazioni
-- `10` relazioni `AutoDetected`
-- `1` relazione bidirezionale
+- `0` relazioni `AutoDetected`
+- `0` relazioni bidirezionali
 
 Verdetto:
 
 - il `Core` e ora pulito dal punto di vista dei moduli `MOD_*`
 - non risultano helper report-specifici residui
 - gli artefatti `Auto Date/Time` sono stati rimossi dal core
-- alcune relazioni vanno industrializzate, soprattutto quelle `AutoDetected`
+- le relazioni del core sono ora esplicite e con naming intenzionale
 
 ## Classificazione oggetti
 
@@ -51,27 +51,22 @@ Verdetto:
 
 ## Relazioni da attenzionare
 
-### Da riesplicitare
+### Stato attuale
 
-Le `10` relazioni `AutoDetected` non sono sbagliate per forza, ma non sono ancora abbastanza governate per un core industrializzato.
+Le relazioni residue del core hanno ora naming esplicito, per esempio:
 
-Target successivo:
+- `REL_FIN_COUNTRY`
+- `REL_PROMO_PRODUCT`
+- `REL_MONTH_QUARTER`
+- `REL_MOLECULE_PRODUCT`
 
-- renderle esplicite e intenzionali
-- verificare cardinalita e chiavi
-- evitare dipendenza implicita da comportamento Desktop
-
-### Da rivedere
-
-Relazione bidirezionale in [relationships.tmdl](../20260227_Product_Analysis_Core.SemanticModel/definition/relationships.tmdl):
-
-- `T_DIM_MOLECULE[MoleculeNorm] -> T_DIM_PRODUCT[MoleculeNorm]`
-- `crossFilteringBehavior: bothDirections`
+La relazione tra [T_DIM_MOLECULE](../20260227_Product_Analysis_Core.SemanticModel/definition/tables/T_DIM_MOLECULE.tmdl) e [T_DIM_PRODUCT](../20260227_Product_Analysis_Core.SemanticModel/definition/tables/T_DIM_PRODUCT.tmdl) e stata riportata a filtro monodirezionale.
 
 Verdetto:
 
-- `REVIEW`
-- puo essere corretta per il modello attuale, ma e un punto ad alto rischio per ambiguita di filtro e performance
+- miglioramento architetturale approvato
+- minore rischio di ambiguita di filtro
+- resta comunque da verificare nel tempo se `T_DIM_MOLECULE` debba restare snowflake su `T_DIM_PRODUCT` oppure diventare una dimensione ancora piu esplicita
 
 ## Misure core
 
@@ -96,6 +91,6 @@ Classificazione approvabile per il prossimo sprint:
 
 ## Backlog successivo
 
-1. Riesplicitare le relazioni `AutoDetected`
-2. Rivalutare la relazione bidirezionale `Molecule -> Product`
+1. Verificare cardinalita e chiavi delle relazioni ora esplicitate
+2. Validare funzionalmente i report piu sensibili sul filtro `Molecule -> Product`
 3. Verificare se `T_DIM_SPECIALTY` e `T_DIM_CHANNELS` devono restare nel core oppure diventare domain-core promo
