@@ -3,7 +3,6 @@ table 'MOD Flex Table Axis'
 
 	column DimensionKey
 		isHidden
-		lineageTag: ae39f9dc-0892-42f8-9ece-583fe9e66cf1
 		summarizeBy: none
 		isNameInferred
 		sourceColumn: [DimensionKey]
@@ -11,18 +10,16 @@ table 'MOD Flex Table Axis'
 		annotation SummarizationSetBy = Automatic
 
 	column DimensionLabel
-		lineageTag: 3db728e1-1eea-451d-8800-e8eac66f2d6a
 		summarizeBy: none
+		sortByColumn: DimensionSort
 		isNameInferred
 		sourceColumn: [DimensionLabel]
-		sortByColumn: DimensionSort
 
 		annotation SummarizationSetBy = Automatic
 
 	column DimensionSort
 		isHidden
 		formatString: 0
-		lineageTag: ec31f161-3ffa-41b1-9fbf-5a34424fd8c2
 		summarizeBy: none
 		isNameInferred
 		sourceColumn: [DimensionSort]
@@ -30,7 +27,6 @@ table 'MOD Flex Table Axis'
 		annotation SummarizationSetBy = Automatic
 
 	column AxisLabel
-		lineageTag: d60bf615-7e79-4fb0-b9f5-2c4cc02d507f
 		summarizeBy: none
 		isNameInferred
 		sourceColumn: [AxisLabel]
@@ -102,4 +98,3 @@ table 'MOD Flex Table Axis'
 				        "AxisLabel", T_DIM_ACT4[ATC4]
 				    )
 				)
-

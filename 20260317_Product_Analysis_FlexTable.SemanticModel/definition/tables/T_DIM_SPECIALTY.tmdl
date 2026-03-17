@@ -1,0 +1,28 @@
+table T_DIM_SPECIALTY
+	lineageTag: 9fef3b5a-8604-48d2-a922-491a959df97e
+
+	column Specialty
+		dataType: string
+		lineageTag: 73f5f2d8-ade2-4418-87dc-581fee2f764a
+		summarizeBy: none
+		sourceColumn: Specialty
+
+		annotation SummarizationSetBy = Automatic
+
+	partition T_DIM_SPECIALTY = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\work\MEN_Marketing\PBI_ProductAnalysis_POC\data_source\PBI A10P_CD.csv"),[Delimiter=",", Columns=23, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Removed Other Columns" = Table.SelectColumns(#"Promoted Headers",{"Specialty"}),
+				    #"Removed Duplicates" = Table.Distinct(#"Removed Other Columns"),
+				    #"Uppercased Text" = Table.TransformColumns(#"Removed Duplicates",{{"Specialty", Text.Upper, type text}}),
+				    #"Trimmed Text" = Table.TransformColumns(#"Uppercased Text",{{"Specialty", Text.Trim, type text}})
+				in
+				   #"Trimmed Text"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

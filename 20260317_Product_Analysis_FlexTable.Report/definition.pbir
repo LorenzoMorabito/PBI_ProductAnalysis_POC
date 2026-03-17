@@ -3,7 +3,7 @@
   "version": "4.0",
   "datasetReference": {
     "byPath": {
-      "path": "../20260227_Product_Analysis_Core.SemanticModel"
+      "path": "../20260317_Product_Analysis_FlexTable.SemanticModel"
     }
   }
 }

@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
   "name": "flex_table_dimension_slicer",
   "position": {
     "x": 24,
@@ -69,7 +69,7 @@
                 "Version": 2,
                 "From": [
                   {
-                    "Name": "m",
+                    "Name": "a",
                     "Entity": "MOD Flex Table Axis",
                     "Type": 0
                   }
@@ -83,7 +83,7 @@
                             "Column": {
                               "Expression": {
                                 "SourceRef": {
-                                  "Source": "m"
+                                  "Source": "a"
                                 }
                               },
                               "Property": "DimensionLabel"
@@ -102,13 +102,6 @@
                             {
                               "Literal": {
                                 "Value": "'Country'"
-                              }
-                            }
-                          ],
-                          [
-                            {
-                              "Literal": {
-                                "Value": "'Corporation'"
                               }
                             }
                           ]

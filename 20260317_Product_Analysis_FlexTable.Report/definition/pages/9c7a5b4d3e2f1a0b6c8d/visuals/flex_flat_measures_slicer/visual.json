@@ -105,20 +105,6 @@
                                 "Value": "'''MOD Flex Flat Inputs''[Flat Input Sales Units]'"
                               }
                             }
-                          ],
-                          [
-                            {
-                              "Literal": {
-                                "Value": "'''MOD Flex Flat Inputs''[Flat Input Promo Spend]'"
-                              }
-                            }
-                          ],
-                          [
-                            {
-                              "Literal": {
-                                "Value": "'''MOD Flex Flat Inputs''[Flat Input Counting Units]'"
-                              }
-                            }
                           ]
                         ]
                       }
@@ -160,28 +146,6 @@
                                   }
                                 ]
                               }
-                            ],
-                            [
-                              {
-                                "0": [
-                                  {
-                                    "Literal": {
-                                      "Value": "'''MOD Flex Flat Inputs''[Flat Input Promo Spend]'"
-                                    }
-                                  }
-                                ]
-                              }
-                            ],
-                            [
-                              {
-                                "0": [
-                                  {
-                                    "Literal": {
-                                      "Value": "'''MOD Flex Flat Inputs''[Flat Input Counting Units]'"
-                                    }
-                                  }
-                                ]
-                              }
                             ]
                           ],
                           "columns": [
@@ -205,12 +169,6 @@
                           },
                           {
                             "0": "Sales Units"
-                          },
-                          {
-                            "0": "Promo Spend"
-                          },
-                          {
-                            "0": "Counting Units"
                           }
                         ]
                       }

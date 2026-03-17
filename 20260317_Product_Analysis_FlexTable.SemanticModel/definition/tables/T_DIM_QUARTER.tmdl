@@ -1,0 +1,109 @@
+table T_DIM_QUARTER
+	lineageTag: b9313e30-1b13-4472-9048-01e357585fea
+
+	column QuarterStartDay
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 3a4941e8-71dd-4a84-841f-dc33b37d322b
+		summarizeBy: none
+		sourceColumn: QuarterStartDay
+
+		variation Variation
+			isDefault
+			relationship: 45826e5a-3a73-4362-8b82-2347b0d8ee3a
+			defaultHierarchy: LocalDateTable_9fabd6cf-244d-43fb-b11a-2a11c732541e.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column QuarterKey
+		dataType: string
+		lineageTag: 8fb15ed8-32dc-45ad-b111-416c0e3fb8ee
+		summarizeBy: none
+		sourceColumn: QuarterKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column QuarterLabel
+		dataType: string
+		lineageTag: fc042434-871f-4d6d-8127-83417384c951
+		summarizeBy: none
+		sourceColumn: QuarterLabel
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: 64cdc2da-b445-45e3-a65b-02828050e743
+		summarizeBy: none
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = User
+
+	column QuarterNum
+		dataType: int64
+		formatString: 0
+		lineageTag: 4103d260-1e9c-4e71-924d-032fb9dbe02a
+		summarizeBy: sum
+		sourceColumn: QuarterNum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quarter_IsInSales
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: bd75d769-6925-4446-86aa-de83c16c6e7e
+		summarizeBy: none
+		sourceColumn: Quarter_IsInSales
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quarter_IsInPromo
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: a483199e-7267-4029-9734-4166e2e12644
+		summarizeBy: none
+		sourceColumn: Quarter_IsInPromo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quarter_IsInFinance
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: f7893728-c546-4161-988f-984aa73a2e58
+		summarizeBy: none
+		sourceColumn: Quarter_IsInFinance
+
+		annotation SummarizationSetBy = Automatic
+
+	partition T_DIM_QUARTER = m
+		mode: import
+		source =
+				let
+				    SalesQ = List.Distinct(List.Transform(T_FCT_SALES_A10P[QuarterStartDay], each Date.From(_))),
+				    PromoQ = List.Distinct(List.Transform(T_FCT_PROMO_A10P_CD[QuarterStartDay], each Date.From(_))),
+				    FinQ   = List.Distinct(List.Transform(T_FCT_FIN[QuarterStartDay], each Date.From(_))),
+				
+				    AllQ = List.Sort(List.Distinct(List.Combine({SalesQ, PromoQ, FinQ}))),
+				
+				    DimQ0 = Table.FromList(AllQ, Splitter.SplitByNothing(), {"QuarterStartDay"}),
+				    DimQ1 = Table.TransformColumnTypes(DimQ0, {{"QuarterStartDay", type date}}),
+				
+				    AddYear = Table.AddColumn(DimQ1, "Year", each Date.Year([QuarterStartDay]), Int64.Type),
+				    AddQNum = Table.AddColumn(AddYear, "QuarterNum", each Date.QuarterOfYear([QuarterStartDay]), Int64.Type),
+				    AddQuarterKey = Table.AddColumn(AddQNum, "QuarterKey", each Text.From([Year]) & "Q" & Text.From([QuarterNum]), type text),
+				    AddQuarterLabel = Table.AddColumn(AddQuarterKey, "QuarterLabel", each "Q" & Text.From([QuarterNum]) & " " & Text.From([Year]), type text),
+				
+				    IsInSales  = Table.AddColumn(AddQuarterLabel, "IsInSales", each List.Contains(SalesQ, [QuarterStartDay]), type logical),
+				    IsInPromo  = Table.AddColumn(IsInSales, "IsInPromo", each List.Contains(PromoQ, [QuarterStartDay]), type logical),
+				    IsInFinance = Table.AddColumn(IsInPromo, "IsInFinance", each List.Contains(FinQ, [QuarterStartDay]), type logical),
+				    #"Renamed Columns" = Table.RenameColumns(IsInFinance,{{"IsInFinance", "Quarter_IsInFinance"}, {"IsInSales", "Quarter_IsInSales"}, {"IsInPromo", "Quarter_IsInPromo"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Exception
+

@@ -1,0 +1,123 @@
+table T_FCT_FIN
+	lineageTag: b504a156-3341-4d9f-8835-e5bdf7c86e0c
+
+	column Country
+		dataType: string
+		lineageTag: 1b0050e9-ca98-47f7-863c-2cb00ab8fd8c
+		summarizeBy: none
+		sourceColumn: Country
+
+		annotation SummarizationSetBy = Automatic
+
+	column Molecule
+		dataType: string
+		lineageTag: 764cc73c-1300-4e20-b460-21809b8e62cc
+		summarizeBy: none
+		sourceColumn: Molecule
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Company Desc'
+		dataType: string
+		lineageTag: 2ebccedf-a1cb-4775-99f1-bd7d98d755d3
+		summarizeBy: none
+		sourceColumn: Company Desc
+
+		annotation SummarizationSetBy = Automatic
+
+	column QuarterStartDay
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 9c8cdc89-d732-45cc-b4d6-e02c9a1009ac
+		summarizeBy: none
+		sourceColumn: QuarterStartDay
+
+		variation Variation
+			isDefault
+			relationship: 3b90fd12-a781-4073-9da6-846b168468b5
+			defaultHierarchy: LocalDateTable_3d464629-53ac-4f97-bf53-0c13827d89b2.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column MonthStartDay
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: be99f3e2-2dfd-403a-a5fa-dd815eb1620c
+		summarizeBy: none
+		sourceColumn: MonthStartDay
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column ACT
+		dataType: double
+		lineageTag: 99718d21-074e-4f7e-836b-f0a1f52d55e7
+		summarizeBy: sum
+		sourceColumn: ACT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column BDG
+		dataType: double
+		lineageTag: edc7f2bd-2155-48d4-aa1d-6d1d22bf7a5a
+		summarizeBy: sum
+		sourceColumn: BDG
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column MoleculeNorm
+		dataType: string
+		lineageTag: 0057f319-2da3-410f-a280-7e6c9252c370
+		summarizeBy: none
+		sourceColumn: MoleculeNorm
+
+		annotation SummarizationSetBy = Automatic
+
+	column Corporation
+		dataType: string
+		lineageTag: 441af33e-9835-4cf3-a4d3-a99fae7731bf
+		summarizeBy: none
+		sourceColumn: Corporation
+
+		annotation SummarizationSetBy = Automatic
+
+	partition T_FCT_FIN = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\work\MEN_Marketing\PBI_ProductAnalysis_POC\data_source\PBI Cana Finance.xlsx"), null, true),
+				    Sheet1_Sheet = Source{[Item="Sheet1",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(Sheet1_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Country", type text}, {"Molecule Desc", type text}, {"Company Desc", type text}, {"Month Date", type datetime}, {"Month Desc", type date}, {"ACT Mth", type number}, {"BDG Mth", type number}}),
+				    #"Reordered Columns" = Table.ReorderColumns(#"Changed Type",{"Country", "Molecule Desc", "Company Desc", "Month Desc", "Month Date", "ACT Mth", "BDG Mth"}),
+				    #"Uppercased Text" = Table.TransformColumns(Table.TransformColumnTypes(#"Reordered Columns", {{"Month Desc", type text}}, "it-IT"),{{"Month Desc", Text.Upper, type text}, {"Company Desc", Text.Upper, type text}, {"Molecule Desc", Text.Upper, type text}, {"Country", Text.Upper, type text}}),
+				    #"Trimmed Text" = Table.TransformColumns(#"Uppercased Text",{{"Month Desc", Text.Trim, type text}, {"Company Desc", Text.Trim, type text}, {"Molecule Desc", Text.Trim, type text}, {"Country", Text.Trim, type text}}),
+				    #"Cleaned Text" = Table.TransformColumns(#"Trimmed Text",{{"Month Desc", Text.Clean, type text}, {"Company Desc", Text.Clean, type text}, {"Molecule Desc", Text.Clean, type text}, {"Country", Text.Clean, type text}}),
+				    #"Parsed Date" = Table.TransformColumns(#"Cleaned Text",{{"Month Desc", each Date.From(DateTimeZone.From(_)), type date}}),
+				    #"Extracted Date" = Table.TransformColumns(#"Parsed Date",{{"Month Date", DateTime.Date, type date}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Extracted Date",{{"Month Desc", "MonthStartDay"}}),
+				    #"Calculated Start of Quarter" = Table.TransformColumns(#"Renamed Columns",{{"Month Date", Date.StartOfQuarter, type date}}),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Calculated Start of Quarter",{{"Month Date", "QuarterStartDay"}, {"ACT Mth", "ACT"}, {"BDG Mth", "BDG"}}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Renamed Columns1",{{"ACT", type number}, {"BDG", type number}}),
+				    #"Duplicated Column" = Table.DuplicateColumn(#"Changed Type1", "Molecule Desc", "Molecule Desc - Copy"),
+				    #"Renamed Columns2" = Table.RenameColumns(#"Duplicated Column",{{"Molecule Desc - Copy", "MoleculeNorm"}}),
+				    #"Replaced Value" = Table.ReplaceValue(#"Renamed Columns2",", ","|",Replacer.ReplaceText,{"MoleculeNorm"}),
+				    #"Replaced Value1" = Table.ReplaceValue(#"Replaced Value","CANAGLIFOZIN","CANAGLIFLOZIN",Replacer.ReplaceText,{"MoleculeNorm"}),
+				    #"Reordered Columns1" = Table.ReorderColumns(#"Replaced Value1",{"Country", "Molecule Desc", "MoleculeNorm", "Company Desc", "MonthStartDay", "QuarterStartDay", "ACT", "BDG"}),
+				    #"Renamed Columns3" = Table.RenameColumns(#"Reordered Columns1",{{"Molecule Desc", "Molecule"}}),
+				    #"Added Custom" = Table.AddColumn(#"Renamed Columns3", "Corporation", each "MENARINI"),
+				    #"Reordered Columns2" = Table.ReorderColumns(#"Added Custom",{"Country", "Molecule", "MoleculeNorm", "Corporation", "Company Desc", "MonthStartDay", "QuarterStartDay", "ACT", "BDG"})
+				in
+				    #"Reordered Columns2"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

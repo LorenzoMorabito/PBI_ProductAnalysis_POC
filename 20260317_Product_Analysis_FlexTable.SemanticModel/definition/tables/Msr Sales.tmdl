@@ -1,0 +1,108 @@
+table 'Msr Sales'
+	lineageTag: 86dc3e4f-573f-4179-86b6-3d5ef6257caa
+
+	measure 'Sales Units' = SUM(T_FCT_SALES_A10P[Units])
+		lineageTag: c96ff448-3c7f-4dc3-a585-393c6ff17663
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales Values' = SUM(T_FCT_SALES_A10P[EUR MNF])
+		lineageTag: 58e2963d-ce4d-4220-8645-e5dd4ff37fa9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Counting Units' = SUM(T_FCT_SALES_A10P[Counting Units])
+		lineageTag: 308b8386-d5d0-481b-abb9-b3b9876519b0
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Market Units' =
+			
+			CALCULATE ( [Sales Units], REMOVEFILTERS ( T_DIM_PRODUCT[Product] ), REMOVEFILTERS ( T_DIM_CORPORATION[Corporation] ) )
+		lineageTag: 52b35aeb-0031-477e-bad4-1bac3e5cebf4
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Market Units (ATC4)' =
+			
+			CALCULATE ( [Sales Units], REMOVEFILTERS ( T_DIM_PRODUCT[Product] ), REMOVEFILTERS ( T_DIM_MOLECULE ) )
+		lineageTag: b73db755-d422-4dab-a2a5-658414623a38
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales Units MS%' =
+			
+			DIVIDE ( [Sales Units], [Market Units (ATC4)] )
+		lineageTag: eabcd80c-4eea-469d-81fa-f9f3a2d973bf
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales Units PY' =
+			
+			CALCULATE ( [Sales Units], SAMEPERIODLASTYEAR ( T_DIM_QUARTER[QuarterStartDay] ) )
+		lineageTag: 227e7617-fdf3-4c7c-afa6-bbbc99ae201f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales Values PY' =
+			
+			CALCULATE ( [Sales Values], SAMEPERIODLASTYEAR ( T_DIM_QUARTER[QuarterStartDay] ) )
+		lineageTag: ddf2c0cd-9141-44c8-9db8-0ab25ef5291a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales Values Δ vs PY' =
+			
+			[Sales Values] - [Sales Values PY]
+		lineageTag: fbe7ac53-bac3-4863-a6cc-96fb2a29daed
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales Values Δ% vs PY (QTR)' =
+			
+			DIVIDE ( [Sales Values] - [Sales Values PY], [Sales Values PY] )
+		lineageTag: b36fa5a7-da73-45a9-a4d3-09266e6bdc61
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Market Values' =
+			
+			CALCULATE ( [Sales Values], REMOVEFILTERS ( T_DIM_MOLECULE ), REMOVEFILTERS ( T_DIM_CORPORATION ) )
+		lineageTag: 51433e05-7541-43c2-95b3-8aa1d5216595
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Market Values (ATC4)' =
+			
+			CALCULATE (
+			    [Sales Values],
+			    REMOVEFILTERS ( T_DIM_PRODUCT ),
+			    REMOVEFILTERS ( T_DIM_MOLECULE ),
+			    REMOVEFILTERS ( T_DIM_CORPORATION ),
+			    KEEPFILTERS ( VALUES ( T_DIM_PRODUCT[ATC4] ) )
+			)
+		lineageTag: 8b407a22-7740-4b4f-8f41-34fb932ffaa7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales Values MS%' =
+			
+			DIVIDE ( [Sales Values], [Market Values (ATC4)] )
+		lineageTag: 0566aa9b-765c-496c-9440-b227d1459656
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Column
+		isHidden
+		formatString: 0
+		lineageTag: b03ffff2-cbd9-4fb1-a821-8042bb80ab37
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Msr Sales' = calculated
+		mode: import
+		source = Row("Column", BLANK())
+

@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
   "name": "flex_flat_table",
   "position": {
     "x": 24,
@@ -35,21 +35,6 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "T_DIM_CORPORATION"
-                    }
-                  },
-                  "Property": "Corporation"
-                }
-              },
-              "queryRef": "T_DIM_CORPORATION.Corporation",
-              "nativeQueryRef": "Corporation",
-              "displayName": "Corporation"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
                       "Entity": "T_DIM_PRODUCT"
                     }
                   },
@@ -59,51 +44,6 @@
               "queryRef": "T_DIM_PRODUCT.Product",
               "nativeQueryRef": "Product",
               "displayName": "Product"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "T_DIM_MOLECULE"
-                    }
-                  },
-                  "Property": "MoleculeNorm"
-                }
-              },
-              "queryRef": "T_DIM_MOLECULE.MoleculeNorm",
-              "nativeQueryRef": "Molecule",
-              "displayName": "Molecule"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "T_DIM_QUARTER"
-                    }
-                  },
-                  "Property": "QuarterKey"
-                }
-              },
-              "queryRef": "T_DIM_QUARTER.QuarterKey",
-              "nativeQueryRef": "Quarter",
-              "displayName": "Quarter"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "T_DIM_ACT4"
-                    }
-                  },
-                  "Property": "ATC4"
-                }
-              },
-              "queryRef": "T_DIM_ACT4.ATC4",
-              "nativeQueryRef": "ATC4",
-              "displayName": "ATC4"
             },
             {
               "field": {
@@ -134,36 +74,6 @@
               "queryRef": "MOD Flex Flat Inputs.Flat Input Sales Units",
               "nativeQueryRef": "Sales Units",
               "displayName": "Sales Units"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "MOD Flex Flat Inputs"
-                    }
-                  },
-                  "Property": "Flat Input Promo Spend"
-                }
-              },
-              "queryRef": "MOD Flex Flat Inputs.Flat Input Promo Spend",
-              "nativeQueryRef": "Promo Spend",
-              "displayName": "Promo Spend"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "MOD Flex Flat Inputs"
-                    }
-                  },
-                  "Property": "Flat Input Counting Units"
-                }
-              },
-              "queryRef": "MOD Flex Flat Inputs.Flat Input Counting Units",
-              "nativeQueryRef": "Counting Units",
-              "displayName": "Counting Units"
             }
           ],
           "fieldParameters": [
@@ -179,7 +89,7 @@
                 }
               },
               "index": 0,
-              "length": 6
+              "length": 2
             },
             {
               "parameterExpr": {
@@ -192,8 +102,8 @@
                   "Property": "Flat Measure"
                 }
               },
-              "index": 1,
-              "length": 5
+              "index": 2,
+              "length": 2
             }
           ]
         }

@@ -60,4 +60,3 @@ table 'MOD Flex Flat Inputs'
 	partition 'MOD Flex Flat Inputs' = calculated
 		mode: import
 		source = Row("Column", BLANK())
-
