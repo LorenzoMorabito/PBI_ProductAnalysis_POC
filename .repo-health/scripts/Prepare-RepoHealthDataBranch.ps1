@@ -42,7 +42,7 @@ $remoteBranchExists = @($remoteBranchProbe).Count -gt 0
 
 if ($remoteBranchExists) {
     Invoke-RepoHealthGit -RepoRoot $RepositoryRoot -Arguments @("fetch", $RemoteName, $dataBranchName) | Out-Null
-    Invoke-RepoHealthGit -RepoRoot $RepositoryRoot -Arguments @("worktree", "add", "--force", "-B", $dataBranchName, $WorktreePath, "$RemoteName/$dataBranchName") | Out-Null
+    Invoke-RepoHealthGit -RepoRoot $RepositoryRoot -Arguments @("worktree", "add", "--force", "--detach", $WorktreePath, "$RemoteName/$dataBranchName") | Out-Null
 }
 else {
     Invoke-RepoHealthGit -RepoRoot $RepositoryRoot -Arguments @("worktree", "add", "--force", "--detach", $WorktreePath, "HEAD") | Out-Null
