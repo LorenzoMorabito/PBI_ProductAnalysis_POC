@@ -18,5 +18,11 @@
     "Msr Sales",
     "Msr Promo",
     "Msr Fin"
+  ],
+  "relationshipRequirements": [
+    {
+      "relationshipName": "REL_MOLECULE_PRODUCT",
+      "crossFilteringBehavior": "bothDirections"
+    }
   ]
 }

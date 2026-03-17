@@ -51,6 +51,7 @@ relationship REL_PRODUCT_ATC4
 	toColumn: T_DIM_ACT4.ATC4
 
 relationship REL_MOLECULE_PRODUCT
+	crossFilteringBehavior: bothDirections
 	fromCardinality: one
 	fromColumn: T_DIM_MOLECULE.MoleculeNorm
 	toColumn: T_DIM_PRODUCT.MoleculeNorm

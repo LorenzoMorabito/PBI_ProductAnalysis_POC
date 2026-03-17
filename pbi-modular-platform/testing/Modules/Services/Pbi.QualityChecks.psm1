@@ -13,6 +13,7 @@ function Get-PbiQualityRuleCatalog {
         [PSCustomObject]@{ Scope = "Project"; RuleId = "architecture.core-contract.table-allowed"; Description = "The core baseline project only contains tables approved by the semantic core contract."; Severity = "Error" },
         [PSCustomObject]@{ Scope = "Project"; RuleId = "architecture.core-contract.table-required"; Description = "The core baseline project contains every required core table."; Severity = "Error" },
         [PSCustomObject]@{ Scope = "Project"; RuleId = "architecture.core-contract.no-installed-modules"; Description = "The core baseline project does not carry installed module metadata."; Severity = "Error" },
+        [PSCustomObject]@{ Scope = "Project"; RuleId = "architecture.relationship.crossfilter.required"; Description = "Declared relationship requirements from the architecture contract are respected."; Severity = "Error" },
         [PSCustomObject]@{ Scope = "Project"; RuleId = "semantic.measure-name.unique"; Description = "Measure names are unique across the whole semantic model."; Severity = "Error" },
         [PSCustomObject]@{ Scope = "Project"; RuleId = "semantic.local-path.forbidden"; Description = "Semantic model definitions do not contain hardcoded local absolute paths."; Severity = "Error" },
         [PSCustomObject]@{ Scope = "Project"; RuleId = "report.page-folder.exists"; Description = "Every page in pages.json has a folder and page.json."; Severity = "Error" },

@@ -14,12 +14,50 @@ function Invoke-PbiModuleArchitectureRules {
     return $results.ToArray()
 }
 
+function Get-PbiRelationshipDefinitionBlocks {
+    param([Parameter(Mandatory = $true)][string]$RelationshipsPath)
+
+    if (-not (Test-Path $RelationshipsPath)) {
+        return @()
+    }
+
+    $content = Get-Content -Path $RelationshipsPath -Raw
+    $matches = [regex]::Matches(
+        $content,
+        "(?ms)^relationship\s+(?<Name>[^\r\n]+)\r?\n(?<Body>.*?)(?=^relationship\s+|\z)"
+    )
+
+    $blocks = New-Object System.Collections.Generic.List[object]
+    foreach ($match in $matches) {
+        $blocks.Add([PSCustomObject]@{
+            Name = $match.Groups["Name"].Value.Trim().Trim("'")
+            Body = $match.Groups["Body"].Value
+        })
+    }
+
+    return $blocks.ToArray()
+}
+
 function Invoke-PbiProjectArchitectureRules {
     param([Parameter(Mandatory = $true)]$Project)
 
     $results = New-Object System.Collections.Generic.List[object]
     $contract = Get-PbiArchitectureContract
     $coreProjectIds = @($contract.coreProjectIds)
+    $relationshipsPath = Join-Path $Project.SemanticModelPath "definition/relationships.tmdl"
+    $relationshipBlocks = @(Get-PbiRelationshipDefinitionBlocks -RelationshipsPath $relationshipsPath)
+
+    foreach ($requirement in @($contract.relationshipRequirements)) {
+        $relationshipBlock = @($relationshipBlocks | Where-Object { $_.Name -eq $requirement.relationshipName } | Select-Object -First 1)
+        if (-not $relationshipBlock) {
+            continue
+        }
+
+        $expectedCrossFilter = [regex]::Escape($requirement.crossFilteringBehavior)
+        if ($relationshipBlock.Body -notmatch ("(?m)^\s*crossFilteringBehavior:\s*{0}\s*$" -f $expectedCrossFilter)) {
+            $results.Add((New-PbiQualityResult -Scope "Project" -Target $Project.ProjectId -RuleId "architecture.relationship.crossfilter.required" -Severity "Error" -Message ("Relationship '{0}' must declare crossFilteringBehavior '{1}'." -f $requirement.relationshipName, $requirement.crossFilteringBehavior) -Path $relationshipsPath))
+        }
+    }
 
     if ($coreProjectIds -notcontains $Project.ProjectId) {
         return $results.ToArray()
