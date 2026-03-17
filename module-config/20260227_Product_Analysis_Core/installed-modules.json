@@ -1,0 +1,28 @@
+{
+  "installedModules": [
+    {
+      "moduleId": "finance_compare_mvp",
+      "version": "0.1.0",
+      "source": "pbi-finance-domain/packages/finance_compare_mvp",
+      "mappings": {
+        "coreMeasures": {
+          "Fin ACT": "Fin ACT",
+          "Fin BDG": "Fin BDG",
+          "Fin ACT PY": "Fin ACT PY"
+        },
+        "coreColumns": {
+          "T_DIM_MONTH[MonthStartDay]": "T_DIM_MONTH[MonthStartDay]"
+        }
+      },
+      "installedObjects": {
+        "tables": [
+          "MOD Finance Compare Inputs",
+          "MOD Finance Compare Selector",
+          "MOD Finance Compare Metrics"
+        ],
+        "page": "8a4f2d4d3f11450ab001"
+      },
+      "installedAt": "2026-03-16T23:57:34"
+    }
+  ]
+}
