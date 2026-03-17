@@ -32,11 +32,6 @@ table T_FCT_FIN
 		summarizeBy: none
 		sourceColumn: QuarterStartDay
 
-		variation Variation
-			isDefault
-			relationship: 3b90fd12-a781-4073-9da6-846b168468b5
-			defaultHierarchy: LocalDateTable_3d464629-53ac-4f97-bf53-0c13827d89b2.'Date Hierarchy'
-
 		annotation SummarizationSetBy = Automatic
 
 		annotation UnderlyingDateTimeDataType = Date

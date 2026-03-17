@@ -131,11 +131,6 @@ table T_FCT_PROMO_A10P_CD
 		summarizeBy: none
 		sourceColumn: QuarterEndDay
 
-		variation Variation
-			isDefault
-			relationship: 9d0c5e83-0e14-4046-ac46-95b52eff5d4b
-			defaultHierarchy: LocalDateTable_c0d7c937-021d-4265-9d16-9ad02c4d485f.'Date Hierarchy'
-
 		annotation SummarizationSetBy = Automatic
 
 		annotation UnderlyingDateTimeDataType = Date

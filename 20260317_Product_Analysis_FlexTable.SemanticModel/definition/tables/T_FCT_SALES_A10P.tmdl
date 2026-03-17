@@ -131,11 +131,6 @@ table T_FCT_SALES_A10P
 		summarizeBy: none
 		sourceColumn: QuarterEndDay
 
-		variation Variation
-			isDefault
-			relationship: 7488aaf1-320b-4054-adaf-b3fda65ceab7
-			defaultHierarchy: LocalDateTable_153461ba-e91f-450c-9105-c2fe27de2f77.'Date Hierarchy'
-
 		annotation SummarizationSetBy = Automatic
 
 		annotation UnderlyingDateTimeDataType = Date

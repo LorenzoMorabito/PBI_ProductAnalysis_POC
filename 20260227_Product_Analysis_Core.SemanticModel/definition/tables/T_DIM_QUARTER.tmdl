@@ -8,11 +8,6 @@ table T_DIM_QUARTER
 		summarizeBy: none
 		sourceColumn: QuarterStartDay
 
-		variation Variation
-			isDefault
-			relationship: 45826e5a-3a73-4362-8b82-2347b0d8ee3a
-			defaultHierarchy: LocalDateTable_9fabd6cf-244d-43fb-b11a-2a11c732541e.'Date Hierarchy'
-
 		annotation SummarizationSetBy = Automatic
 
 		annotation UnderlyingDateTimeDataType = Date

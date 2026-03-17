@@ -1,18 +1,3 @@
-relationship 3b90fd12-a781-4073-9da6-846b168468b5
-	joinOnDateBehavior: datePartOnly
-	fromColumn: T_FCT_FIN.QuarterStartDay
-	toColumn: LocalDateTable_3d464629-53ac-4f97-bf53-0c13827d89b2.Date
-
-relationship 9d0c5e83-0e14-4046-ac46-95b52eff5d4b
-	joinOnDateBehavior: datePartOnly
-	fromColumn: T_FCT_PROMO_A10P_CD.QuarterEndDay
-	toColumn: LocalDateTable_c0d7c937-021d-4265-9d16-9ad02c4d485f.Date
-
-relationship 7488aaf1-320b-4054-adaf-b3fda65ceab7
-	joinOnDateBehavior: datePartOnly
-	fromColumn: T_FCT_SALES_A10P.QuarterEndDay
-	toColumn: LocalDateTable_153461ba-e91f-450c-9105-c2fe27de2f77.Date
-
 relationship AutoDetected_4a8356cb-787d-4792-bcac-973c62c1d044
 	fromColumn: T_FCT_FIN.Country
 	toColumn: T_DIM_COUNTRY.Country
@@ -32,21 +17,6 @@ relationship AutoDetected_9979feb5-688a-4f69-ad0e-c14864aec003
 relationship AutoDetected_99dd5bc7-5a68-41bd-a62f-77be39c89fd3
 	fromColumn: T_FCT_SALES_A10P.Product
 	toColumn: T_DIM_PRODUCT.Product
-
-relationship deb3433e-d107-478a-b281-5b2e068d5fcc
-	joinOnDateBehavior: datePartOnly
-	fromColumn: T_DIM_MONTH.MonthStartDay
-	toColumn: LocalDateTable_15c6dca1-2b3c-4e79-8f12-3d7a84872447.Date
-
-relationship f39cea6f-f1fd-4fac-b18d-dfb4165ae0b9
-	joinOnDateBehavior: datePartOnly
-	fromColumn: T_DIM_MONTH.QuarterStartDay
-	toColumn: LocalDateTable_116ad773-8b4e-431b-92b3-2b4099dae644.Date
-
-relationship 45826e5a-3a73-4362-8b82-2347b0d8ee3a
-	joinOnDateBehavior: datePartOnly
-	fromColumn: T_DIM_QUARTER.QuarterStartDay
-	toColumn: LocalDateTable_9fabd6cf-244d-43fb-b11a-2a11c732541e.Date
 
 relationship AutoDetected_a6f4d014-aa9f-4f31-86ad-5b6dbbaec6a0
 	fromColumn: T_DIM_MONTH.QuarterKey

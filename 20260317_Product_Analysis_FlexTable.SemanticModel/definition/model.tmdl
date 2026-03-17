@@ -13,26 +13,19 @@ queryGroup STG
 
 annotation __PBI_TimeIntelligenceEnabled = 1
 
-annotation PBI_QueryOrder = ["T_FCT_FIN","T_FCT_PROMO_A10P_CD","T_FCT_SALES_A10P","T_DIM_COUNTRY","T_DIM_MOLECULE","T_DIM_ACT4","T_DIM_PRODUCT","T_DIM_MONTH","T_DIM_QUARTER","T_DIM_CORPORATION","T_DIM_SPECIALTY","T_DIM_CHANNELS","MOD Flex Table Inputs","MOD Flex Table Measure Selector","MOD Flex Table Axis","MOD Flex Table Metrics","root_path"]
+annotation PBI_QueryOrder = ["T_FCT_FIN","T_FCT_PROMO_A10P_CD","T_FCT_SALES_A10P","T_DIM_COUNTRY","T_DIM_MOLECULE","T_DIM_ACT4","T_DIM_PRODUCT","T_DIM_MONTH","T_DIM_QUARTER","T_DIM_CORPORATION","T_DIM_SPECIALTY","T_DIM_CHANNELS","MOD Flex Table Inputs","MOD Flex Table Measure Selector","MOD Flex Table Axis","MOD Flex Table Metrics","MOD Flex Flat Inputs","MOD Flex Flat Dimensions","MOD Flex Flat Measures","root_path"]
 
 annotation PBI_ProTooling = ["DaxQueryView_Desktop","DevMode"]
 
 ref table T_FCT_FIN
-ref table DateTableTemplate_dffb2e50-5660-4540-87c5-de8c1dcf10c2
-ref table LocalDateTable_3d464629-53ac-4f97-bf53-0c13827d89b2
 ref table T_FCT_PROMO_A10P_CD
-ref table LocalDateTable_c0d7c937-021d-4265-9d16-9ad02c4d485f
 ref table T_FCT_SALES_A10P
-ref table LocalDateTable_153461ba-e91f-450c-9105-c2fe27de2f77
 ref table T_DIM_COUNTRY
 ref table T_DIM_MOLECULE
 ref table T_DIM_ACT4
 ref table T_DIM_PRODUCT
 ref table T_DIM_MONTH
-ref table LocalDateTable_15c6dca1-2b3c-4e79-8f12-3d7a84872447
-ref table LocalDateTable_116ad773-8b4e-431b-92b3-2b4099dae644
 ref table T_DIM_QUARTER
-ref table LocalDateTable_9fabd6cf-244d-43fb-b11a-2a11c732541e
 ref table T_DIM_CORPORATION
 ref table T_DIM_SPECIALTY
 ref table T_DIM_CHANNELS
@@ -43,6 +36,9 @@ ref table 'MOD Flex Table Inputs'
 ref table 'MOD Flex Table Measure Selector'
 ref table 'MOD Flex Table Axis'
 ref table 'MOD Flex Table Metrics'
+ref table 'MOD Flex Flat Inputs'
+ref table 'MOD Flex Flat Dimensions'
+ref table 'MOD Flex Flat Measures'
 ref cultureInfo en-US
 
 

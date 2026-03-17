@@ -11,8 +11,8 @@ Perimetro analizzato:
 
 Stato attuale del core:
 
-- `22` tabelle
-- `21` relazioni
+- `15` tabelle
+- `15` relazioni
 - `10` relazioni `AutoDetected`
 - `1` relazione bidirezionale
 
@@ -20,7 +20,7 @@ Verdetto:
 
 - il `Core` e ora pulito dal punto di vista dei moduli `MOD_*`
 - non risultano helper report-specifici residui
-- restano pero residui tecnici di Desktop legati ad `Auto Date/Time`
+- gli artefatti `Auto Date/Time` sono stati rimossi dal core
 - alcune relazioni vanno industrializzate, soprattutto quelle `AutoDetected`
 
 ## Classificazione oggetti
@@ -42,9 +42,6 @@ Verdetto:
 | `Msr Sales` | business core | `KEEP` | measure table core sales |
 | `Msr Promo` | business core | `KEEP` | measure table core promo |
 | `Msr Fin` | business core | `KEEP` | measure table core finance |
-| `DateTableTemplate_*` | residuo tecnico Desktop | `REMOVE_OR_ISOLATE` | artefatto `Auto Date/Time` |
-| `LocalDateTable_*` x6 | residuo tecnico Desktop | `REMOVE_OR_ISOLATE` | artefatti generati da Desktop |
-
 ## Oggetti non tabellari
 
 | Oggetto | Gruppo | Verdetto | Nota |
@@ -58,7 +55,7 @@ Verdetto:
 
 Le `10` relazioni `AutoDetected` non sono sbagliate per forza, ma non sono ancora abbastanza governate per un core industrializzato.
 
-Target C2:
+Target successivo:
 
 - renderle esplicite e intenzionali
 - verificare cardinalita e chiavi
@@ -89,17 +86,16 @@ Verdetto:
 - coerenti con il ruolo di core
 - non emergono dipendenze residue da moduli `TopN`, `Buckets` o `UX`
 
-## Conclusione C1
+## Conclusione aggiornata
 
 Classificazione approvabile per il prossimo sprint:
 
 - `business core`: facts, dims, measure tables core
 - `supporto tecnico riusabile`: `root_path`, culture
-- `residui tecnici Desktop`: `DateTableTemplate_*`, `LocalDateTable_*`
+- `residui tecnici Desktop`: rimossi dal core
 
-## Backlog C2 consigliato
+## Backlog successivo
 
-1. Disabilitare/assorbire `Auto Date/Time` nel core e sostituire i `LocalDateTable_*`
-2. Riesplicitare le relazioni `AutoDetected`
-3. Rivalutare la relazione bidirezionale `Molecule -> Product`
-4. Verificare se `T_DIM_SPECIALTY` e `T_DIM_CHANNELS` devono restare nel core oppure diventare domain-core promo
+1. Riesplicitare le relazioni `AutoDetected`
+2. Rivalutare la relazione bidirezionale `Molecule -> Product`
+3. Verificare se `T_DIM_SPECIALTY` e `T_DIM_CHANNELS` devono restare nel core oppure diventare domain-core promo
