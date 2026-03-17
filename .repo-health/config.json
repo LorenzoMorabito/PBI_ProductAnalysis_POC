@@ -1,0 +1,22 @@
+{
+  "max_blob_mb": 5,
+  "max_pack_mb": 100,
+  "max_growth_pct": 20,
+  "warn_current_file_mb": 1,
+  "top_n": 10,
+  "forbidden_extensions": [
+    ".pbix",
+    ".pbit",
+    ".xlsx",
+    ".csv"
+  ],
+  "excluded_paths": [
+    "data_source/",
+    "xml_oas/",
+    ".pbi/",
+    ".repo-health/outputs/"
+  ],
+  "history_csv_name": "metrics-history.csv",
+  "latest_metrics_name": "latest.json",
+  "git_sizer_output_name": "git-sizer.txt"
+}

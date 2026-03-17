@@ -5,3 +5,9 @@
 # Team policy is documented in docs/SETUP.md and docs/WORKFLOW.md.
 /data_source/
 /xml_oas/
+
+# Repo health generated outputs are runtime artifacts and should not be committed.
+/.repo-health/outputs/current/*
+!/.repo-health/outputs/current/.gitkeep
+/.repo-health/outputs/history/*
+!/.repo-health/outputs/history/.gitkeep

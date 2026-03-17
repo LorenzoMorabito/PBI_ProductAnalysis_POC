@@ -1,0 +1,78 @@
+name: Repo Health Scheduled Audit
+
+on:
+  schedule:
+    - cron: "0 2 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  repo-health-schedule:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Restore repo health history cache
+        uses: actions/cache/restore@v4
+        with:
+          path: .repo-health/outputs/history
+          key: repo-health-history-main-${{ github.run_id }}
+          restore-keys: |
+            repo-health-history-main-
+
+      - name: Install git-sizer when available
+        shell: pwsh
+        run: |
+          if (-not (Get-Command git-sizer -ErrorAction SilentlyContinue)) {
+            choco install git-sizer -y
+          }
+        continue-on-error: true
+
+      - name: Run repository health analyzer
+        shell: pwsh
+        run: |
+          ./.repo-health/analyzer.ps1 `
+            -Mode schedule `
+            -FailOnThresholdBreach `
+            -EnableGitSizer
+
+      - name: Append summary to workflow run
+        if: always()
+        shell: pwsh
+        run: |
+          Get-Content ./.repo-health/outputs/current/summary.md | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Encoding utf8 -Append
+
+      - name: Upload repo health artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: repo-health-scheduled-${{ github.run_id }}
+          path: .repo-health/outputs
+
+      - name: Save repo health history cache
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: .repo-health/outputs/history
+          key: repo-health-history-main-${{ github.run_id }}
+
+      - name: Open issue on scheduled failure
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const body = fs.readFileSync('.repo-health/outputs/current/summary.md', 'utf8');
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `Repository health alert - ${context.runNumber}`,
+              body
+            });

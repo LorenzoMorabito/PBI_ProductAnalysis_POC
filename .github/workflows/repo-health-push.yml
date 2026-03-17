@@ -1,0 +1,54 @@
+name: Repo Health Push Monitoring
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  repo-health-push:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Restore repo health history cache
+        uses: actions/cache/restore@v4
+        with:
+          path: .repo-health/outputs/history
+          key: repo-health-history-main-${{ github.run_id }}
+          restore-keys: |
+            repo-health-history-main-
+
+      - name: Run repository health analyzer
+        shell: pwsh
+        run: |
+          ./.repo-health/analyzer.ps1 `
+            -Mode push `
+            -FailOnThresholdBreach
+
+      - name: Append summary to workflow run
+        if: always()
+        shell: pwsh
+        run: |
+          Get-Content ./.repo-health/outputs/current/summary.md | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Encoding utf8 -Append
+
+      - name: Upload repo health artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: repo-health-push-${{ github.sha }}
+          path: .repo-health/outputs
+
+      - name: Save repo health history cache
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: .repo-health/outputs/history
+          key: repo-health-history-main-${{ github.run_id }}
