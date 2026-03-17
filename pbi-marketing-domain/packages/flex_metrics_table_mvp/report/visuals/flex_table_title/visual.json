@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": ""
+                    "value": "Flexible Core Metrics Table"
                   }
                 ]
               }
@@ -103,36 +103,10 @@
       "title": [
         {
           "properties": {
-            "text": {
-              "expr": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "MOD Flex Table Metrics"
-                    }
-                  },
-                  "Property": "Flex Table Title"
-                }
-              }
-            },
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "alignment": {
-              "expr": {
-                "Literal": {
-                  "Value": "'center'"
-                }
-              }
-            },
-            "titleWrap": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
+                  "Value": "false"
                 }
               }
             }

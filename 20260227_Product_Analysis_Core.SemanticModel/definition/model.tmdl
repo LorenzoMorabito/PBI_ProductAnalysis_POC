@@ -13,7 +13,7 @@ queryGroup STG
 
 annotation __PBI_TimeIntelligenceEnabled = 1
 
-annotation PBI_QueryOrder = ["T_FCT_FIN","T_FCT_PROMO_A10P_CD","T_FCT_SALES_A10P","T_DIM_COUNTRY","T_DIM_MOLECULE","T_DIM_ACT4","T_DIM_PRODUCT","T_DIM_MONTH","T_DIM_QUARTER","T_DIM_CORPORATION","T_DIM_SPECIALTY","T_DIM_CHANNELS","MOD Finance Compare Inputs","MOD Finance Compare Selector","MOD Finance Compare Metrics","MOD Flex Table Inputs","MOD Flex Table Measure Selector","MOD Flex Table Axis","MOD Flex Table Metrics"]
+annotation PBI_QueryOrder = ["T_FCT_FIN","T_FCT_PROMO_A10P_CD","T_FCT_SALES_A10P","T_DIM_COUNTRY","T_DIM_MOLECULE","T_DIM_ACT4","T_DIM_PRODUCT","T_DIM_MONTH","T_DIM_QUARTER","T_DIM_CORPORATION","T_DIM_SPECIALTY","T_DIM_CHANNELS","MOD Finance Compare Inputs","MOD Finance Compare Selector","MOD Finance Compare Metrics","MOD Flex Table Inputs","MOD Flex Table Measure Selector","MOD Flex Table Axis","MOD Flex Table Metrics","MOD Flex Flat Inputs","MOD Flex Flat Columns"]
 
 annotation PBI_ProTooling = ["DaxQueryView_Desktop","DevMode"]
 
@@ -42,11 +42,13 @@ ref table 'Msr Fin'
 ref table 'MOD Finance Compare Inputs'
 ref table 'MOD Finance Compare Selector'
 ref table 'MOD Finance Compare Metrics'
-
 ref table 'MOD Flex Table Inputs'
 ref table 'MOD Flex Table Measure Selector'
 ref table 'MOD Flex Table Axis'
 ref table 'MOD Flex Table Metrics'
+
+ref table 'MOD Flex Flat Inputs'
+ref table 'MOD Flex Flat Columns'
 ref cultureInfo en-US
 
 

@@ -6,62 +6,53 @@ table 'MOD Flex Table Metrics'
 			VAR SelectedMeasure = SELECTEDVALUE('MOD Flex Table Measure Selector'[MeasureKey])
 			VAR AxisKey = SELECTEDVALUE('MOD Flex Table Axis'[DimensionKey])
 			VAR AxisValue = SELECTEDVALUE('MOD Flex Table Axis'[AxisLabel])
+			VAR BaseMetric =
+			    SWITCH(
+			        SelectedMeasure,
+			        "sales_values", [Flex Input Sales Values],
+			        "sales_units", [Flex Input Sales Units],
+			        "counting_units", [Flex Input Counting Units],
+			        "promo_spend", [Flex Input Promo Spend],
+			        "promo_details", [Flex Input Promo Details],
+			        "promo_contacts", [Flex Input Promo Contacts],
+			        "promo_weighted_calls", [Flex Input Promo Weighted Calls],
+			        "fin_act", [Flex Input Fin ACT],
+			        "fin_bdg", [Flex Input Fin BDG],
+			        "fin_act_py", [Flex Input Fin ACT PY],
+			        BLANK()
+			    )
 			RETURN
 			SWITCH(
 			    AxisKey,
 			    "Molecule",
 			        CALCULATE(
-			            SWITCH(
-			                SelectedMeasure,
-			                "sales_values", [Flex Input Sales Values],
-			                "sales_units", [Flex Input Sales Units],
-			                "counting_units", [Flex Input Counting Units],
-			                "promo_spend", [Flex Input Promo Spend],
-			                "promo_details", [Flex Input Promo Details],
-			                "promo_contacts", [Flex Input Promo Contacts],
-			                "promo_weighted_calls", [Flex Input Promo Weighted Calls],
-			                "fin_act", [Flex Input Fin ACT],
-			                "fin_bdg", [Flex Input Fin BDG],
-			                "fin_act_py", [Flex Input Fin ACT PY],
-			                BLANK()
-			            ),
+			            BaseMetric,
 			            KEEPFILTERS(TREATAS({AxisValue}, T_DIM_MOLECULE[MoleculeNorm]))
 			        ),
 			    "Country",
 			        CALCULATE(
-			            SWITCH(
-			                SelectedMeasure,
-			                "sales_values", [Flex Input Sales Values],
-			                "sales_units", [Flex Input Sales Units],
-			                "counting_units", [Flex Input Counting Units],
-			                "promo_spend", [Flex Input Promo Spend],
-			                "promo_details", [Flex Input Promo Details],
-			                "promo_contacts", [Flex Input Promo Contacts],
-			                "promo_weighted_calls", [Flex Input Promo Weighted Calls],
-			                "fin_act", [Flex Input Fin ACT],
-			                "fin_bdg", [Flex Input Fin BDG],
-			                "fin_act_py", [Flex Input Fin ACT PY],
-			                BLANK()
-			            ),
+			            BaseMetric,
 			            KEEPFILTERS(TREATAS({AxisValue}, T_DIM_COUNTRY[Country]))
+			        ),
+			    "Corporation",
+			        CALCULATE(
+			            BaseMetric,
+			            KEEPFILTERS(TREATAS({AxisValue}, T_DIM_CORPORATION[Corporation]))
+			        ),
+			    "Product",
+			        CALCULATE(
+			            BaseMetric,
+			            KEEPFILTERS(TREATAS({AxisValue}, T_DIM_PRODUCT[Product]))
 			        ),
 			    "Quarter",
 			        CALCULATE(
-			            SWITCH(
-			                SelectedMeasure,
-			                "sales_values", [Flex Input Sales Values],
-			                "sales_units", [Flex Input Sales Units],
-			                "counting_units", [Flex Input Counting Units],
-			                "promo_spend", [Flex Input Promo Spend],
-			                "promo_details", [Flex Input Promo Details],
-			                "promo_contacts", [Flex Input Promo Contacts],
-			                "promo_weighted_calls", [Flex Input Promo Weighted Calls],
-			                "fin_act", [Flex Input Fin ACT],
-			                "fin_bdg", [Flex Input Fin BDG],
-			                "fin_act_py", [Flex Input Fin ACT PY],
-			                BLANK()
-			            ),
+			            BaseMetric,
 			            KEEPFILTERS(TREATAS({AxisValue}, T_DIM_QUARTER[QuarterKey]))
+			        ),
+			    "ATC4",
+			        CALCULATE(
+			            BaseMetric,
+			            KEEPFILTERS(TREATAS({AxisValue}, T_DIM_ACT4[ATC4]))
 			        ),
 			    BLANK()
 			)
@@ -95,7 +86,16 @@ table 'MOD Flex Table Metrics'
 
 	measure 'Flex Table Title' =
 			
-			"Flexible Core Metrics Table | " & SELECTEDVALUE('MOD Flex Table Axis'[DimensionLabel], "Molecule")
+			VAR SelectedDimensions =
+			    CONCATENATEX(
+			        VALUES('MOD Flex Table Axis'[DimensionLabel]),
+			        'MOD Flex Table Axis'[DimensionLabel],
+			        ", ",
+			        'MOD Flex Table Axis'[DimensionSort],
+			        ASC
+			    )
+			RETURN
+			"Flexible Core Metrics Table | " & COALESCE(SelectedDimensions, "Molecule")
 		lineageTag: f7b9e2a3-fc89-4533-ae54-ef56c48fc917
 
 	column Column
@@ -111,3 +111,4 @@ table 'MOD Flex Table Metrics'
 	partition 'MOD Flex Table Metrics' = calculated
 		mode: import
 		source = Row("Column", BLANK())
+

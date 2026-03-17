@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Select one row dimension and one or more core measures. The table columns follow the selected measures."
+                    "value": "Select one or more row dimensions and one or more core measures. The table groups rows by dimension and fills columns from the selected metrics."
                   }
                 ]
               }

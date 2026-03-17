@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
   "name": "flex_table_measure_slicer",
   "position": {
-    "x": 264,
+    "x": 364,
     "y": 108,
     "z": 101,
     "height": 108,
-    "width": 992,
+    "width": 892,
     "tabOrder": 3
   },
   "visual": {

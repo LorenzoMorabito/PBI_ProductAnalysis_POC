@@ -12,11 +12,14 @@ Contents:
   - flexible table visual
 
 Scope of the MVP:
-- shared dimensions only, to avoid semantically misleading combinations
-- current safe row dimensions:
+- multi-select row dimensions with a hierarchical row layout
+- current row dimensions:
   - `Molecule`
   - `Country`
+  - `Corporation`
+  - `Product`
   - `Quarter`
+  - `ATC4`
 - current measure set is intentionally numeric and absolute only
 
 Required core contract:
@@ -34,8 +37,11 @@ Required core contract:
 - columns:
   - `T_DIM_MOLECULE[MoleculeNorm]`
   - `T_DIM_COUNTRY[Country]`
+  - `T_DIM_CORPORATION[Corporation]`
+  - `T_DIM_PRODUCT[Product]`
   - `T_DIM_QUARTER[QuarterKey]`
+  - `T_DIM_ACT4[ATC4]`
 
 Notes:
-- this MVP avoids product-, corporation-, channel-, and specialty-level rows because those dimensions are not safe across all three domains in the current core model
+- this MVP now supports multi-select row dimensions by grouping the table as `Dimension -> Value`
 - the package source lives here; installed copies remain managed artifacts in consumer projects

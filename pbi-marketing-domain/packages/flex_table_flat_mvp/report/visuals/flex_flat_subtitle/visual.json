@@ -1,6 +1,6 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
-  "name": "flex_table_subtitle",
+  "name": "flex_flat_subtitle",
   "position": {
     "x": 404,
     "y": 20,
@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Select one or more row dimensions and one or more core measures. The table groups rows by dimension and fills columns from the selected metrics."
+                    "value": "Select any mix of dimensions and core measures. The standard table will render every selected item as a normal output column."
                   }
                 ]
               }

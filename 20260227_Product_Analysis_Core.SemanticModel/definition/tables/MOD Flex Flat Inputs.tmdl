@@ -1,0 +1,62 @@
+table 'MOD Flex Flat Inputs'
+	lineageTag: 5368ec49-437f-4302-a749-1e2c93323d3e
+
+	measure 'Flat Input Sales Values' = [Sales Values]
+		lineageTag: d00e8a38-7d69-46aa-8037-0f89da6f0629
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Flat Input Sales Units' = [Sales Units]
+		lineageTag: 78b1f31a-674f-4544-99f4-89d319bd2196
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Flat Input Counting Units' = [Counting Units]
+		lineageTag: 6b64bb16-d245-4700-a7c8-e64f92c4a6a5
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Flat Input Promo Spend' = [Promo Spend]
+		formatString: 0
+		lineageTag: 5ff165e9-b3ff-4d2f-b022-5b1f5a4a2324
+
+	measure 'Flat Input Promo Details' = [Promo Details]
+		formatString: 0
+		lineageTag: 0c18f4df-2715-4588-bfe8-d4e57d3a39a7
+
+	measure 'Flat Input Promo Contacts' = [Promo Contacts]
+		formatString: 0
+		lineageTag: 255be69b-6803-4970-a7c6-67f9f32fbf09
+
+	measure 'Flat Input Promo Weighted Calls' = [Promo Weighted Calls]
+		formatString: #,0
+		lineageTag: b7797299-3ec1-49ad-87af-6b7f7f21cc36
+
+	measure 'Flat Input Fin ACT' = [Fin ACT]
+		lineageTag: 9f0faf76-3550-4f71-a4d0-aabb526d5f12
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Flat Input Fin BDG' = [Fin BDG]
+		lineageTag: 3a27e62a-e930-44dd-b4b1-257623dd5058
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Flat Input Fin ACT PY' = [Fin ACT PY]
+		lineageTag: 00cb445d-64e2-4b0f-a3d3-bde8f63c5c47
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Column
+		isHidden
+		formatString: 0
+		lineageTag: ec96df5f-0a68-4918-b826-88b15a2ca8f4
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'MOD Flex Flat Inputs' = calculated
+		mode: import
+		source = Row("Column", BLANK())

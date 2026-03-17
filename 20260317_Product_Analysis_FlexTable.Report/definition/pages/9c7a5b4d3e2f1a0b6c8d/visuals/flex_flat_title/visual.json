@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
-  "name": "flex_table_subtitle",
+  "name": "flex_flat_title",
   "position": {
-    "x": 404,
+    "x": 24,
     "y": 20,
-    "z": 1,
+    "z": 0,
     "height": 62,
-    "width": 852,
-    "tabOrder": 1
+    "width": 360,
+    "tabOrder": 0
   },
   "visual": {
     "visualType": "textbox",
@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Select one or more row dimensions and one or more core measures. The table groups rows by dimension and fills columns from the selected metrics."
+                    "value": "FlexTableFlat"
                   }
                 ]
               }
@@ -36,6 +36,18 @@
               "expr": {
                 "Literal": {
                   "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": -0.1
+                    }
+                  }
                 }
               }
             },
@@ -56,6 +68,18 @@
               "expr": {
                 "Literal": {
                   "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": -0.1
+                    }
+                  }
                 }
               }
             },

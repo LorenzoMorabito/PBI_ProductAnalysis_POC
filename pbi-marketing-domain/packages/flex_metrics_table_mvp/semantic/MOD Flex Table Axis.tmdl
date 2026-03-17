@@ -59,12 +59,42 @@ table 'MOD Flex Table Axis'
 				    ),
 				    SELECTCOLUMNS(
 				        FILTER(
+				            VALUES(T_DIM_CORPORATION[Corporation]),
+				            NOT ISBLANK(T_DIM_CORPORATION[Corporation])
+				        ),
+				        "DimensionKey", "Corporation",
+				        "DimensionLabel", "Corporation",
+				        "DimensionSort", 3,
+				        "AxisLabel", T_DIM_CORPORATION[Corporation]
+				    ),
+				    SELECTCOLUMNS(
+				        FILTER(
+				            VALUES(T_DIM_PRODUCT[Product]),
+				            NOT ISBLANK(T_DIM_PRODUCT[Product])
+				        ),
+				        "DimensionKey", "Product",
+				        "DimensionLabel", "Product",
+				        "DimensionSort", 4,
+				        "AxisLabel", T_DIM_PRODUCT[Product]
+				    ),
+				    SELECTCOLUMNS(
+				        FILTER(
 				            VALUES(T_DIM_QUARTER[QuarterKey]),
 				            NOT ISBLANK(T_DIM_QUARTER[QuarterKey])
 				        ),
 				        "DimensionKey", "Quarter",
 				        "DimensionLabel", "Quarter",
-				        "DimensionSort", 3,
+				        "DimensionSort", 5,
 				        "AxisLabel", T_DIM_QUARTER[QuarterKey]
+				    ),
+				    SELECTCOLUMNS(
+				        FILTER(
+				            VALUES(T_DIM_ACT4[ATC4]),
+				            NOT ISBLANK(T_DIM_ACT4[ATC4])
+				        ),
+				        "DimensionKey", "ATC4",
+				        "DimensionLabel", "ATC4",
+				        "DimensionSort", 6,
+				        "AxisLabel", T_DIM_ACT4[ATC4]
 				    )
 				)

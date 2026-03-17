@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
   "name": "flex_table_dimension_slicer",
   "position": {
     "x": 24,
     "y": 108,
     "z": 100,
     "height": 68,
-    "width": 220,
+    "width": 320,
     "tabOrder": 2
   },
   "visual": {
@@ -54,7 +54,7 @@
             "strictSingleSelect": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "false"
                 }
               }
             }
@@ -69,7 +69,7 @@
                 "Version": 2,
                 "From": [
                   {
-                    "Name": "a",
+                    "Name": "m",
                     "Entity": "MOD Flex Table Axis",
                     "Type": 0
                   }
@@ -83,7 +83,7 @@
                             "Column": {
                               "Expression": {
                                 "SourceRef": {
-                                  "Source": "a"
+                                  "Source": "m"
                                 }
                               },
                               "Property": "DimensionLabel"
@@ -95,6 +95,20 @@
                             {
                               "Literal": {
                                 "Value": "'Molecule'"
+                              }
+                            }
+                          ],
+                          [
+                            {
+                              "Literal": {
+                                "Value": "'Country'"
+                              }
+                            }
+                          ],
+                          [
+                            {
+                              "Literal": {
+                                "Value": "'Corporation'"
                               }
                             }
                           ]
@@ -116,7 +130,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Rows'"
+                  "Value": "'Row Dimensions'"
                 }
               }
             },

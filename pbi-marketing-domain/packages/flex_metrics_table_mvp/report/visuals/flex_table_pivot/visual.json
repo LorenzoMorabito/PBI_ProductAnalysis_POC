@@ -23,6 +23,20 @@
                       "Entity": "MOD Flex Table Axis"
                     }
                   },
+                  "Property": "DimensionLabel"
+                }
+              },
+              "queryRef": "MOD Flex Table Axis.DimensionLabel",
+              "nativeQueryRef": "DimensionLabel"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "MOD Flex Table Axis"
+                    }
+                  },
                   "Property": "AxisLabel"
                 }
               },
@@ -177,7 +191,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Selected Metrics Table'"
+                  "Value": "'FlexTablePivot'"
                 }
               }
             },
