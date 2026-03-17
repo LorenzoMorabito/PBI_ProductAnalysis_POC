@@ -4,11 +4,13 @@ function Get-PbiQualityRuleCatalog {
         [PSCustomObject]@{ Scope = "Module"; RuleId = "module.semantic-table.exists"; Description = "Every declared semantic table file exists."; Severity = "Error" },
         [PSCustomObject]@{ Scope = "Module"; RuleId = "module.report-page.exists"; Description = "Declared report page assets exist."; Severity = "Error" },
         [PSCustomObject]@{ Scope = "Module"; RuleId = "semantic.measure-name.unique"; Description = "Measure names are unique within the module."; Severity = "Error" },
+        [PSCustomObject]@{ Scope = "Module"; RuleId = "semantic.local-path.forbidden"; Description = "Semantic assets do not contain hardcoded local absolute paths."; Severity = "Error" },
         [PSCustomObject]@{ Scope = "Module"; RuleId = "report.json.parse"; Description = "All report asset JSON files parse correctly."; Severity = "Error" },
         [PSCustomObject]@{ Scope = "Module"; RuleId = "report.entity.module-reference"; Description = "Module visuals do not reference undeclared MOD tables."; Severity = "Error" },
         [PSCustomObject]@{ Scope = "Module"; RuleId = "report.textbox.no-query"; Description = "Textbox visuals do not carry semantic queries."; Severity = "Error" },
         [PSCustomObject]@{ Scope = "Module"; RuleId = "report.field-parameter.requires-metadata"; Description = "Non-slicer visuals do not project field parameter tables directly without metadata."; Severity = "Error" },
         [PSCustomObject]@{ Scope = "Project"; RuleId = "semantic.measure-name.unique"; Description = "Measure names are unique across the whole semantic model."; Severity = "Error" },
+        [PSCustomObject]@{ Scope = "Project"; RuleId = "semantic.local-path.forbidden"; Description = "Semantic model definitions do not contain hardcoded local absolute paths."; Severity = "Error" },
         [PSCustomObject]@{ Scope = "Project"; RuleId = "report.page-folder.exists"; Description = "Every page in pages.json has a folder and page.json."; Severity = "Error" },
         [PSCustomObject]@{ Scope = "Project"; RuleId = "report.active-page.valid"; Description = "The active page is present in pageOrder."; Severity = "Error" },
         [PSCustomObject]@{ Scope = "Project"; RuleId = "report.entity.project-reference"; Description = "Visual entities resolve to tables present in the semantic model."; Severity = "Error" }

@@ -4,4 +4,3 @@ expression root_path = "__SET_LOCAL_DATA_SOURCE_PATH__\" meta [IsParameterQuery=
 	annotation PBI_NavigationStepName = Navigation
 
 	annotation PBI_ResultType = Text
-
