@@ -70,6 +70,15 @@ Regola di team:
 - in Git deve restare solo il placeholder neutro
 - i path locali reali non vanno committati
 
+Per configurare rapidamente una copia locale del progetto:
+
+```powershell
+./pbi-modular-platform/installer/Invoke-PbiModuleInstaller.ps1 `
+  -Command set-data-source-path `
+  -ProjectPath ./<progetto>.pbip `
+  -DataSourcePath 'C:\work\MEN_Marketing\PBI_ProductAnalysis_POC\data_source'
+```
+
 ## Moduli
 
 Per vedere i moduli disponibili:

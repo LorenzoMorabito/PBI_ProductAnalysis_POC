@@ -21,6 +21,7 @@ Current MVP:
   - `list-modules`
   - `validate-project`
   - `install-module`
+  - `set-data-source-path`
 - implemented domain resolver:
   - `finance`
   - `marketing`
@@ -55,6 +56,13 @@ Usage examples:
   -ModuleId finance_compare_mvp `
   -Domain finance `
   -ActivateInstalledPage
+```
+
+```powershell
+./pbi-modular-platform/installer/Invoke-PbiModuleInstaller.ps1 `
+  -Command set-data-source-path `
+  -ProjectPath ./20260227_Product_Analysis_Core.pbip `
+  -DataSourcePath 'C:\work\MEN_Marketing\PBI_ProductAnalysis_POC\data_source'
 ```
 
 Notes:

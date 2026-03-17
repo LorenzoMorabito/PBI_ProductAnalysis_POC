@@ -47,3 +47,4 @@ table 'MOD Flex Flat Dimensions'
 				    ("Quarter", NAMEOF('T_DIM_QUARTER'[QuarterKey]), 4),
 				    ("ATC4", NAMEOF('T_DIM_ACT4'[ATC4]), 5)
 				}
+

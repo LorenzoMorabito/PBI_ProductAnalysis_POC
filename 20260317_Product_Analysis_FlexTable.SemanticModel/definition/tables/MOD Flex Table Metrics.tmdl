@@ -111,3 +111,4 @@ table 'MOD Flex Table Metrics'
 	partition 'MOD Flex Table Metrics' = calculated
 		mode: import
 		source = Row("Column", BLANK())
+

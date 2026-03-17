@@ -51,3 +51,4 @@ table 'MOD Flex Flat Measures'
 				    ("Fin BDG", NAMEOF('MOD Flex Flat Inputs'[Flat Input Fin BDG]), 8),
 				    ("Fin ACT PY", NAMEOF('MOD Flex Flat Inputs'[Flat Input Fin ACT PY]), 9)
 				}
+

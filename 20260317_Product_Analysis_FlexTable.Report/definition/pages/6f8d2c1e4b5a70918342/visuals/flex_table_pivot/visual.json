@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
   "name": "flex_table_pivot",
   "position": {
     "x": 24,
@@ -13,38 +13,6 @@
     "visualType": "pivotTable",
     "query": {
       "queryState": {
-        "Rows": {
-          "projections": [
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "MOD Flex Table Axis"
-                    }
-                  },
-                  "Property": "DimensionLabel"
-                }
-              },
-              "queryRef": "MOD Flex Table Axis.DimensionLabel",
-              "nativeQueryRef": "DimensionLabel"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "MOD Flex Table Axis"
-                    }
-                  },
-                  "Property": "AxisLabel"
-                }
-              },
-              "queryRef": "MOD Flex Table Axis.AxisLabel",
-              "nativeQueryRef": "AxisLabel"
-            }
-          ]
-        },
         "Columns": {
           "projections": [
             {
@@ -59,7 +27,42 @@
                 }
               },
               "queryRef": "MOD Flex Table Measure Selector.DisplayLabel",
-              "nativeQueryRef": "DisplayLabel"
+              "nativeQueryRef": "DisplayLabel",
+              "active": true
+            }
+          ]
+        },
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "MOD Flex Table Axis"
+                    }
+                  },
+                  "Property": "DimensionLabel"
+                }
+              },
+              "queryRef": "MOD Flex Table Axis.DimensionLabel",
+              "nativeQueryRef": "DimensionLabel",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "MOD Flex Table Axis"
+                    }
+                  },
+                  "Property": "AxisLabel"
+                }
+              },
+              "queryRef": "MOD Flex Table Axis.AxisLabel",
+              "nativeQueryRef": "AxisLabel",
+              "active": false
             }
           ]
         },
@@ -95,26 +98,6 @@
               }
             },
             "columnSubtotals": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "grandTotal": [
-        {
-          "properties": {
-            "rowGrandTotal": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            },
-            "columnGrandTotal": {
               "expr": {
                 "Literal": {
                   "Value": "false"

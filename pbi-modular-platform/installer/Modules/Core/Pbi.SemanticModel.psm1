@@ -8,6 +8,62 @@ function Get-PbiTmdlIdentifier {
     return "'" + $Name.Replace("'", "''") + "'"
 }
 
+function Get-PbiExpressionsPath {
+    param([Parameter(Mandatory = $true)]$Project)
+
+    return (Join-Path $Project.SemanticModelPath "definition/expressions.tmdl")
+}
+
+function Get-PbiRootPathParameterValue {
+    param([Parameter(Mandatory = $true)]$Project)
+
+    $expressionsPath = Get-PbiExpressionsPath -Project $Project
+    $content = Get-Content -Path $expressionsPath -Raw
+    $match = [regex]::Match($content, 'expression\s+root_path\s*=\s*"(?<Value>[^"]*)"')
+
+    if (-not $match.Success) {
+        throw "root_path expression was not found in '$expressionsPath'."
+    }
+
+    return $match.Groups["Value"].Value
+}
+
+function Set-PbiRootPathParameterValue {
+    param(
+        [Parameter(Mandatory = $true)]$Project,
+        [Parameter(Mandatory = $true)][string]$DataSourcePath
+    )
+
+    if (-not [System.IO.Path]::IsPathRooted($DataSourcePath)) {
+        throw "DataSourcePath must be an absolute path."
+    }
+
+    if (-not (Test-Path $DataSourcePath -PathType Container)) {
+        throw "DataSourcePath '$DataSourcePath' does not exist or is not a directory."
+    }
+
+    $resolvedPath = (Resolve-Path $DataSourcePath).Path
+    if (-not $resolvedPath.EndsWith("\")) {
+        $resolvedPath += "\"
+    }
+
+    $expressionsPath = Get-PbiExpressionsPath -Project $Project
+    $content = Get-Content -Path $expressionsPath -Raw
+    $updatedContent = [regex]::Replace(
+        $content,
+        'expression\s+root_path\s*=\s*"(?<Value>[^"]*)"',
+        ('expression root_path = "' + $resolvedPath + '"'),
+        1
+    )
+
+    if ($updatedContent -eq $content) {
+        throw "Unable to update root_path in '$expressionsPath'."
+    }
+
+    Set-Content -Path $expressionsPath -Value $updatedContent -Encoding utf8
+    return $resolvedPath
+}
+
 function Get-PbiTableDefinitionDirectory {
     param([Parameter(Mandatory = $true)]$Project)
 
@@ -297,4 +353,4 @@ function Install-PbiSemanticAssets {
     Set-Content -Path $modelPath -Value $modelContent -Encoding utf8
 }
 
-Export-ModuleMember -Function Get-PbiTmdlIdentifier, Test-PbiMeasureExists, Test-PbiColumnExists, Test-PbiModuleRequirements, Test-PbiSemanticAssetsPresent, Install-PbiSemanticAssets, Test-PbiModuleMeasureConflicts
+Export-ModuleMember -Function Get-PbiTmdlIdentifier, Get-PbiExpressionsPath, Get-PbiRootPathParameterValue, Set-PbiRootPathParameterValue, Test-PbiMeasureExists, Test-PbiColumnExists, Test-PbiModuleRequirements, Test-PbiSemanticAssetsPresent, Install-PbiSemanticAssets, Test-PbiModuleMeasureConflicts

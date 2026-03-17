@@ -59,7 +59,18 @@ Regola:
 - ogni tester lavora su una propria copia
 - il `Core` ufficiale non va modificato durante l'UAT
 
-### 2. Aprire il progetto test
+### 2. Configurare il path dati locale
+
+Prima di aprire il progetto in Desktop, valorizzare `root_path` sulla copia UAT:
+
+```powershell
+./pbi-modular-platform/installer/Invoke-PbiModuleInstaller.ps1 `
+  -Command set-data-source-path `
+  -ProjectPath ./<progetto-test>.pbip `
+  -DataSourcePath 'C:\work\MEN_Marketing\PBI_ProductAnalysis_POC\data_source'
+```
+
+### 3. Aprire il progetto test
 
 Aprire il nuovo `.pbip` in Power BI Desktop e verificare:
 
@@ -68,7 +79,7 @@ Aprire il nuovo `.pbip` in Power BI Desktop e verificare:
 - il report contiene solo la baseline prevista
 - non ci sono errori visual
 
-### 3. Validare il progetto prima dell'installazione
+### 4. Validare il progetto prima dell'installazione
 
 ```powershell
 ./pbi-modular-platform/testing/Invoke-PbiQualityChecks.ps1 `
@@ -77,7 +88,7 @@ Aprire il nuovo `.pbip` in Power BI Desktop e verificare:
   -FailOnError
 ```
 
-### 4. Installare un solo modulo per volta
+### 5. Installare un solo modulo per volta
 
 Esempio `finance_compare_mvp`:
 
@@ -112,7 +123,7 @@ Esempio `flex_table_flat_mvp`:
   -ActivateInstalledPage
 ```
 
-### 5. Rieseguire i quality checks
+### 6. Rieseguire i quality checks
 
 ```powershell
 ./pbi-modular-platform/testing/Invoke-PbiQualityChecks.ps1 `
@@ -121,7 +132,7 @@ Esempio `flex_table_flat_mvp`:
   -FailOnError
 ```
 
-### 6. Aprire il progetto in Desktop e fare verifica funzionale
+### 7. Aprire il progetto in Desktop e fare verifica funzionale
 
 Per ogni modulo installato verificare:
 
@@ -131,7 +142,7 @@ Per ogni modulo installato verificare:
 - misure coerenti
 - nessuna rottura nelle pagine gia presenti
 
-### 7. Salvare il feedback
+### 8. Salvare il feedback
 
 Ogni tester compila il template in [UAT_FEEDBACK_TEMPLATE.md](UAT_FEEDBACK_TEMPLATE.md).
 

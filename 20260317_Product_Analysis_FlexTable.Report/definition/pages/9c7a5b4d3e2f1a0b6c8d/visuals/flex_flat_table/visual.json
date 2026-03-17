@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
   "name": "flex_flat_table",
   "position": {
     "x": 24,
@@ -68,6 +68,21 @@
                       "Entity": "MOD Flex Flat Inputs"
                     }
                   },
+                  "Property": "Flat Input Sales Values"
+                }
+              },
+              "queryRef": "MOD Flex Flat Inputs.Flat Input Sales Values",
+              "nativeQueryRef": "Sales Values",
+              "displayName": "Sales Values"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "MOD Flex Flat Inputs"
+                    }
+                  },
                   "Property": "Flat Input Sales Units"
                 }
               },
@@ -103,7 +118,7 @@
                 }
               },
               "index": 2,
-              "length": 2
+              "length": 3
             }
           ]
         }

@@ -3,6 +3,7 @@ table 'MOD Flex Table Measure Selector'
 
 	column MeasureKey
 		isHidden
+		lineageTag: aa1ee7e7-2d39-4ad9-8804-a0c17881fe6c
 		summarizeBy: none
 		isNameInferred
 		sourceColumn: [MeasureKey]
@@ -10,14 +11,16 @@ table 'MOD Flex Table Measure Selector'
 		annotation SummarizationSetBy = Automatic
 
 	column DisplayLabel
+		lineageTag: b772e459-ac9f-48d3-bdd6-bc16373b7ea5
 		summarizeBy: none
-		sortByColumn: MeasureSort
 		isNameInferred
 		sourceColumn: [DisplayLabel]
+		sortByColumn: MeasureSort
 
 		annotation SummarizationSetBy = Automatic
 
 	column Domain
+		lineageTag: aba00003-4c71-49e3-9386-dddecc009d89
 		summarizeBy: none
 		isNameInferred
 		sourceColumn: [Domain]
@@ -27,6 +30,7 @@ table 'MOD Flex Table Measure Selector'
 	column MeasureSort
 		isHidden
 		formatString: 0
+		lineageTag: 7bea4bd4-c877-49b8-8b05-6b6d1479d61b
 		summarizeBy: none
 		isNameInferred
 		sourceColumn: [MeasureSort]
@@ -35,7 +39,7 @@ table 'MOD Flex Table Measure Selector'
 
 	partition 'MOD Flex Table Measure Selector' = calculated
 		mode: import
-		source = ```
+		source =
 				DATATABLE(
 				    "MeasureKey", STRING,
 				    "DisplayLabel", STRING,
@@ -54,4 +58,4 @@ table 'MOD Flex Table Measure Selector'
 				        {"fin_act_py", "Fin ACT PY", "Finance", 10}
 				    }
 				)
-				```
+

@@ -1,7 +1,7 @@
 [CmdletBinding()]
 param(
     [Parameter(Mandatory = $true)]
-    [ValidateSet("list-modules", "validate-project", "install-module")]
+    [ValidateSet("list-modules", "validate-project", "install-module", "set-data-source-path")]
     [string]$Command,
 
     [string]$WorkspaceRoot,
@@ -9,6 +9,7 @@ param(
     [string]$Domain,
     [string]$ModuleId,
     [string]$MappingFile,
+    [string]$DataSourcePath,
     [switch]$ActivateInstalledPage,
     [switch]$Force
 )
@@ -87,5 +88,19 @@ switch ($Command) {
         }
 
         Write-Host ("  Metadata: {0}" -f $result.StateFilePath)
+    }
+    "set-data-source-path" {
+        if (-not $ProjectPath) {
+            throw "ProjectPath is required for set-data-source-path."
+        }
+
+        if (-not $DataSourcePath) {
+            throw "DataSourcePath is required for set-data-source-path."
+        }
+
+        $project = Resolve-PbiConsumerProject -ProjectPath $ProjectPath
+        $resolvedDataPath = Set-PbiRootPathParameterValue -Project $project -DataSourcePath $DataSourcePath
+        Write-PbiSuccess ("Configured root_path for project {0}" -f $project.ProjectId)
+        Write-Host ("  Data source path: {0}" -f $resolvedDataPath)
     }
 }

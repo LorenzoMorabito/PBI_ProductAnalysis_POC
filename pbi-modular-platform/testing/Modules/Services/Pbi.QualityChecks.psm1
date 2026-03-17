@@ -16,6 +16,8 @@ function Get-PbiQualityRuleCatalog {
         [PSCustomObject]@{ Scope = "Project"; RuleId = "architecture.relationship.crossfilter.required"; Description = "Declared relationship requirements from the architecture contract are respected."; Severity = "Error" },
         [PSCustomObject]@{ Scope = "Project"; RuleId = "semantic.measure-name.unique"; Description = "Measure names are unique across the whole semantic model."; Severity = "Error" },
         [PSCustomObject]@{ Scope = "Project"; RuleId = "semantic.local-path.forbidden"; Description = "Semantic model definitions do not contain hardcoded local absolute paths."; Severity = "Error" },
+        [PSCustomObject]@{ Scope = "Project"; RuleId = "semantic.root-path.placeholder.unresolved"; Description = "The project root_path parameter is still unresolved and must be configured locally before Desktop usage."; Severity = "Warning" },
+        [PSCustomObject]@{ Scope = "Project"; RuleId = "semantic.root-path.absolute.required"; Description = "The project root_path parameter resolves to an absolute path."; Severity = "Error" },
         [PSCustomObject]@{ Scope = "Project"; RuleId = "report.page-folder.exists"; Description = "Every page in pages.json has a folder and page.json."; Severity = "Error" },
         [PSCustomObject]@{ Scope = "Project"; RuleId = "report.active-page.valid"; Description = "The active page is present in pageOrder."; Severity = "Error" },
         [PSCustomObject]@{ Scope = "Project"; RuleId = "report.entity.project-reference"; Description = "Visual entities resolve to tables present in the semantic model."; Severity = "Error" }
