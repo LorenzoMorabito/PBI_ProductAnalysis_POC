@@ -1,0 +1,4 @@
+[INFO] Quality check summary: Errors=0 Warnings=0 Infos=0 Total=0
+[SUCCESS] No findings.
+
+[exit-code] 0

@@ -1,0 +1,11 @@
+ M powerbi-projects/20260317_Product_Analysis_FlexTable.Report/definition/pages/pages.json
+ M powerbi-projects/20260317_Product_Analysis_FlexTable.SemanticModel/definition/model.tmdl
+ M powerbi-projects/module-config/20260317_Product_Analysis_FlexTable/installed-modules.json
+?? powerbi-projects/20260317_Product_Analysis_FlexTable.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/
+?? "powerbi-projects/20260317_Product_Analysis_FlexTable.SemanticModel/definition/tables/MOD Flex Flat Dimensions.tmdl"
+?? "powerbi-projects/20260317_Product_Analysis_FlexTable.SemanticModel/definition/tables/MOD Flex Flat Inputs.tmdl"
+?? "powerbi-projects/20260317_Product_Analysis_FlexTable.SemanticModel/definition/tables/MOD Flex Flat Measures.tmdl"
+?? powerbi-projects/module-config/20260317_Product_Analysis_FlexTable/logs/
+?? powerbi-projects/module-config/20260317_Product_Analysis_FlexTable/snapshots/
+
+[exit-code] 0

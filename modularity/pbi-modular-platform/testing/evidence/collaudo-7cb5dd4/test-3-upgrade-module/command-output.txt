@@ -1,0 +1,11 @@
+[INFO] Created snapshot 20260318T193146100Z for module finance_compare_mvp
+[INFO] Applying module finance_compare_mvp 0.1.1 into project 20260317_UAT_001
+[SUCCESS] Module finance_compare_mvp upgrade completed for project 20260317_UAT_001
+[SUCCESS] Upgraded module finance_compare_mvp to 0.1.1 in project 20260317_UAT_001
+  Snapshot: 20260318T193146100Z
+  Diff JSON: C:\work\MEN_Marketing\PBI_ProductAnalysis_POC\.tmp-collaudo\upgrade-rollback-44d5799cb718482db6dfb90706a27d57\powerbi-projects\module-config\20260317_UAT_001\diffs\finance_compare_mvp\20260318T193145950Z\diff.json
+  Diff Markdown: C:\work\MEN_Marketing\PBI_ProductAnalysis_POC\.tmp-collaudo\upgrade-rollback-44d5799cb718482db6dfb90706a27d57\powerbi-projects\module-config\20260317_UAT_001\diffs\finance_compare_mvp\20260318T193145950Z\diff.md
+  Governance: WARN
+  Log: C:\work\MEN_Marketing\PBI_ProductAnalysis_POC\.tmp-collaudo\upgrade-rollback-44d5799cb718482db6dfb90706a27d57\powerbi-projects\module-config\20260317_UAT_001\logs\20260318T193145490Z-23a4414a.jsonl
+
+[exit-code] 0

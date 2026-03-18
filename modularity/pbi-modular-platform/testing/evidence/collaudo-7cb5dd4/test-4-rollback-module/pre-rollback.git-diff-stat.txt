@@ -1,0 +1,15 @@
+ .../pages/8a4f2d4d3f11450ab001/page.json           |  50 +--
+ .../visuals/fc_mvp_act/visual.json                 | 430 +++++++++---------
+ .../visuals/fc_mvp_delta/visual.json               | 430 +++++++++---------
+ .../visuals/fc_mvp_ref/visual.json                 | 430 +++++++++---------
+ .../visuals/fc_mvp_slicer/visual.json              | 480 ++++++++++-----------
+ .../visuals/fc_mvp_title/visual.json               | 394 ++++++++---------
+ .../definition/pages/pages.json                    |  16 +-
+ .../definition/model.tmdl                          |   8 +-
+ .../tables/MOD Finance Compare Inputs.tmdl         |  58 ++-
+ .../tables/MOD Finance Compare Metrics.tmdl        |  68 ++-
+ .../tables/MOD Finance Compare Selector.tmdl       |  91 ++--
+ .../20260317_UAT_001/installed-modules.json        | 411 +++++++++++++-----
+ 12 files changed, 1530 insertions(+), 1336 deletions(-)
+
+[exit-code] 0

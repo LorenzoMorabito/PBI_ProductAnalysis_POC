@@ -1,0 +1,5 @@
+[SUCCESS] Generated diff for module finance_compare_mvp in project 20260317_UAT_001
+  Diff JSON: C:\work\MEN_Marketing\PBI_ProductAnalysis_POC\.tmp-collaudo\diff-module-99ad900296b74a818d9010687894ad32\powerbi-projects\module-config\20260317_UAT_001\diffs\finance_compare_mvp\20260318T193139693Z\diff.json
+  Diff Markdown: C:\work\MEN_Marketing\PBI_ProductAnalysis_POC\.tmp-collaudo\diff-module-99ad900296b74a818d9010687894ad32\powerbi-projects\module-config\20260317_UAT_001\diffs\finance_compare_mvp\20260318T193139693Z\diff.md
+
+[exit-code] 0

@@ -75,7 +75,7 @@ function Write-PbiLog {
             $entry["data"] = $Data
         }
 
-        Add-Content -Path $context.logFilePath -Value (($entry | ConvertTo-Json -Depth 20 -Compress))
+        Add-PbiUtf8Line -Path $context.logFilePath -Content (($entry | ConvertTo-Json -Depth 20 -Compress))
     }
 }
 

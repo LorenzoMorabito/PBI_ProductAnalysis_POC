@@ -1,0 +1,6 @@
+ .../pages/8a4f2d4d3f11450ab001/page.json           |  50 +--
+ .../visuals/fc_mvp_title/visual.json               | 394 ++++++++++-----------
+ .../tables/MOD Finance Compare Selector.tmdl       |   4 +-
+ 3 files changed, 224 insertions(+), 224 deletions(-)
+
+[exit-code] 0

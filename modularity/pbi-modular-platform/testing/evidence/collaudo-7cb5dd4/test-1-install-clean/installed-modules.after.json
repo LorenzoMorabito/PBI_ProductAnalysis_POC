@@ -1,0 +1,223 @@
+{
+    "schemaVersion":  "2.0.0",
+    "generatedAt":  "2026-03-18T19:31:30Z",
+    "installedModules":  [
+                             {
+                                 "moduleId":  "flex_table_flat_mvp",
+                                 "version":  "0.2.0",
+                                 "domain":  "marketing",
+                                 "type":  "semantic",
+                                 "classification":  "semantic-light",
+                                 "semanticImpact":  "additive",
+                                 "source":  "modularity/pbi-marketing-domain/packages/flex_table_flat_mvp",
+                                 "mappings":  {
+                                                  "coreMeasures":  {
+                                                                       "Sales Values":  "Sales Values",
+                                                                       "Sales Units":  "Sales Units",
+                                                                       "Counting Units":  "Counting Units",
+                                                                       "Promo Spend":  "Promo Spend",
+                                                                       "Promo Details":  "Promo Details",
+                                                                       "Promo Contacts":  "Promo Contacts",
+                                                                       "Promo Weighted Calls":  "Promo Weighted Calls",
+                                                                       "Fin ACT":  "Fin ACT",
+                                                                       "Fin BDG":  "Fin BDG",
+                                                                       "Fin ACT PY":  "Fin ACT PY"
+                                                                   },
+                                                  "coreColumns":  {
+                                                                      "T_DIM_MOLECULE[MoleculeNorm]":  "T_DIM_MOLECULE[MoleculeNorm]",
+                                                                      "T_DIM_COUNTRY[Country]":  "T_DIM_COUNTRY[Country]",
+                                                                      "T_DIM_CORPORATION[Corporation]":  "T_DIM_CORPORATION[Corporation]",
+                                                                      "T_DIM_PRODUCT[Product]":  "T_DIM_PRODUCT[Product]",
+                                                                      "T_DIM_QUARTER[QuarterKey]":  "T_DIM_QUARTER[QuarterKey]",
+                                                                      "T_DIM_ACT4[ATC4]":  "T_DIM_ACT4[ATC4]"
+                                                                  }
+                                              },
+                                 "installedAt":  "2026-03-18T19:31:28Z",
+                                 "lastAction":  "install",
+                                 "installedObjects":  {
+                                                          "tables":  [
+                                                                         "MOD Flex Flat Inputs",
+                                                                         "MOD Flex Flat Dimensions",
+                                                                         "MOD Flex Flat Measures"
+                                                                     ],
+                                                          "page":  "9c7a5b4d3e2f1a0b6c8d"
+                                                      },
+                                 "filesTouched":  [
+                                                      "20260317_Product_Analysis_FlexTable.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/page.json",
+                                                      "20260317_Product_Analysis_FlexTable.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/visuals/flex_flat_columns_slicer/visual.json",
+                                                      "20260317_Product_Analysis_FlexTable.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/visuals/flex_flat_measures_slicer/visual.json",
+                                                      "20260317_Product_Analysis_FlexTable.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/visuals/flex_flat_subtitle/visual.json",
+                                                      "20260317_Product_Analysis_FlexTable.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/visuals/flex_flat_table/visual.json",
+                                                      "20260317_Product_Analysis_FlexTable.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/visuals/flex_flat_title/visual.json",
+                                                      "20260317_Product_Analysis_FlexTable.Report/definition/pages/pages.json",
+                                                      "20260317_Product_Analysis_FlexTable.SemanticModel/definition/model.tmdl",
+                                                      "20260317_Product_Analysis_FlexTable.SemanticModel/definition/tables/MOD Flex Flat Dimensions.tmdl",
+                                                      "20260317_Product_Analysis_FlexTable.SemanticModel/definition/tables/MOD Flex Flat Inputs.tmdl",
+                                                      "20260317_Product_Analysis_FlexTable.SemanticModel/definition/tables/MOD Flex Flat Measures.tmdl",
+                                                      "module-config/20260317_Product_Analysis_FlexTable/installed-modules.json"
+                                                  ],
+                                 "semanticObjectsAdded":  {
+                                                              "tables":  [
+                                                                             "MOD Flex Flat Inputs",
+                                                                             "MOD Flex Flat Dimensions",
+                                                                             "MOD Flex Flat Measures"
+                                                                         ],
+                                                              "measures":  [
+                                                                               "Flat Input Sales Values",
+                                                                               "Flat Input Sales Units",
+                                                                               "Flat Input Counting Units",
+                                                                               "Flat Input Promo Spend",
+                                                                               "Flat Input Promo Details",
+                                                                               "Flat Input Promo Contacts",
+                                                                               "Flat Input Promo Weighted Calls",
+                                                                               "Flat Input Fin ACT",
+                                                                               "Flat Input Fin BDG",
+                                                                               "Flat Input Fin ACT PY"
+                                                                           ]
+                                                          },
+                                 "reportObjectsAdded":  {
+                                                            "page":  "9c7a5b4d3e2f1a0b6c8d",
+                                                            "files":  [
+                                                                          "20260317_Product_Analysis_FlexTable.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/page.json",
+                                                                          "20260317_Product_Analysis_FlexTable.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/visuals/flex_flat_columns_slicer/visual.json",
+                                                                          "20260317_Product_Analysis_FlexTable.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/visuals/flex_flat_measures_slicer/visual.json",
+                                                                          "20260317_Product_Analysis_FlexTable.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/visuals/flex_flat_subtitle/visual.json",
+                                                                          "20260317_Product_Analysis_FlexTable.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/visuals/flex_flat_table/visual.json",
+                                                                          "20260317_Product_Analysis_FlexTable.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/visuals/flex_flat_title/visual.json"
+                                                                      ],
+                                                            "visualCount":  5
+                                                        },
+                                 "impactMetrics":  {
+                                                       "fileCount":  12,
+                                                       "sizeDeltaBytes":  41664,
+                                                       "semanticTableCount":  3,
+                                                       "semanticMeasureCount":  10,
+                                                       "reportFileCount":  6,
+                                                       "reportVisualCount":  5
+                                                   },
+                                 "history":  {
+                                                 "lastSnapshotId":  "20260318T193127817Z",
+                                                 "lastDiffJsonPath":  "",
+                                                 "lastDiffMarkdownPath":  "",
+                                                 "lastLogPath":  "module-config/20260317_Product_Analysis_FlexTable/logs/20260318T193127589Z-b7eeafed.jsonl",
+                                                 "lastRepoHealthMetricsPath":  "",
+                                                 "lastRepoHealthSummaryPath":  ""
+                                             },
+                                 "governance":  {
+                                                    "status":  "WARN",
+                                                    "reasons":  [
+                                                                    "repo-health hook failed: In C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\install-clean-d5694dbcb1f144668ed8e914e25bc782\\repository-health\\scripts\\RepoHealth.Common.ps1:235 car:48\r\n+     $looseObjectCount = [int]($parsed[\"count\"] ?? 0)\r\n+                                                ~~\nToken \u0027??\u0027 imprevisto nell\u0027espressione o nell\u0027istruzione.\r\n\r\nIn C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\install-clean-d5694dbcb1f144668ed8e914e25bc782\\repository-health\\scripts\\RepoHealth.Common.ps1:235 car:47\r\n+     $looseObjectCount = [int]($parsed[\"count\"] ?? 0)\r\n+                                               ~\n\u0027)\u0027 di chiusura mancante nell\u0027espressione.\r\n\r\nIn C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\install-clean-d5694dbcb1f144668ed8e914e25bc782\\repository-health\\scripts\\RepoHealth.Common.ps1:223 car:39\r\n+ function Get-RepoHealthGitCoreMetrics {\r\n+                                       ~\n\u0027}\u0027 di chiusura mancante nel blocco di istruzioni o nella definizione del tipo.\r\n\r\nIn C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\install-clean-d5694dbcb1f144668ed8e914e25bc782\\repository-health\\scripts\\RepoHealth.Common.ps1:235 car:52\r\n+     $looseObjectCount = [int]($parsed[\"count\"] ?? 0)\r\n+                                                    ~\nToken \u0027)\u0027 imprevisto nell\u0027espressione o nell\u0027istruzione.\r\n\r\nIn C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\install-clean-d5694dbcb1f144668ed8e914e25bc782\\repository-health\\scripts\\RepoHealth.Common.ps1:236 car:51\r\n+     $packedObjectCount = [int]($parsed[\"in-pack\"] ?? 0)\r\n+                                                   ~~\nToken \u0027??\u0027 imprevisto nell\u0027espressione o nell\u0027istruzione.\r\n\r\nIn C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\install-clean-d5694dbcb1f144668ed8e914e25bc782\\repository-health\\scripts\\RepoHealth.Common.ps1:236 car:50\r\n+     $packedObjectCount = [int]($parsed[\"in-pack\"] ?? 0)\r\n+                                                  ~\n\u0027)\u0027 di chiusura mancante nell\u0027espressione.\r\n\r\nIn C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\install-clean-d5694dbcb1f144668ed8e914e25bc782\\repository-health\\scripts\\RepoHealth.Common.ps1:236 car:55\r\n+     $packedObjectCount = [int]($parsed[\"in-pack\"] ?? 0)\r\n+                                                       ~\nToken \u0027)\u0027 imprevisto nell\u0027espressione o nell\u0027istruzione.\r\n\r\nIn C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\install-clean-d5694dbcb1f144668ed8e914e25bc782\\repository-health\\scripts\\RepoHealth.Common.ps1:242 car:52\r\n+         PackCount         = [int]($parsed[\"packs\"] ?? 0)\r\n+                                                    ~~\nToken \u0027??\u0027 imprevisto nell\u0027espressione o nell\u0027istruzione.\r\n\r\nIn C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\install-clean-d5694dbcb1f144668ed8e914e25bc782\\repository-health\\scripts\\RepoHealth.Common.ps1:242 car:51\r\n+         PackCount         = [int]($parsed[\"packs\"] ?? 0)\r\n+                                                   ~\n\u0027)\u0027 di chiusura mancante nell\u0027espressione.\r\n\r\nIn C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\install-clean-d5694dbcb1f144668ed8e914e25bc782\\repository-health\\scripts\\RepoHealth.Common.ps1:242 car:51\r\n+         PackCount         = [int]($parsed[\"packs\"] ?? 0)\r\n+                                                   ~\nValore letterale hash incompleto.\r\n\r\nNon sono stati segnalati tutti gli errori di analisi. Correggere gli errori segnalati e riprovare."
+                                                                ]
+                                                }
+                             },
+                             {
+                                 "moduleId":  "flex_metrics_table_mvp",
+                                 "version":  "0.2.1",
+                                 "domain":  "",
+                                 "type":  "semantic",
+                                 "classification":  "semantic-light",
+                                 "semanticImpact":  "additive",
+                                 "source":  "modularity/pbi-marketing-domain/packages/flex_metrics_table_mvp",
+                                 "mappings":  {
+                                                  "coreMeasures":  {
+                                                                       "Sales Values":  "Sales Values",
+                                                                       "Sales Units":  "Sales Units",
+                                                                       "Counting Units":  "Counting Units",
+                                                                       "Promo Spend":  "Promo Spend",
+                                                                       "Promo Details":  "Promo Details",
+                                                                       "Promo Contacts":  "Promo Contacts",
+                                                                       "Promo Weighted Calls":  "Promo Weighted Calls",
+                                                                       "Fin ACT":  "Fin ACT",
+                                                                       "Fin BDG":  "Fin BDG",
+                                                                       "Fin ACT PY":  "Fin ACT PY"
+                                                                   },
+                                                  "coreColumns":  {
+                                                                      "T_DIM_MOLECULE[MoleculeNorm]":  "T_DIM_MOLECULE[MoleculeNorm]",
+                                                                      "T_DIM_COUNTRY[Country]":  "T_DIM_COUNTRY[Country]",
+                                                                      "T_DIM_CORPORATION[Corporation]":  "T_DIM_CORPORATION[Corporation]",
+                                                                      "T_DIM_PRODUCT[Product]":  "T_DIM_PRODUCT[Product]",
+                                                                      "T_DIM_QUARTER[QuarterKey]":  "T_DIM_QUARTER[QuarterKey]",
+                                                                      "T_DIM_ACT4[ATC4]":  "T_DIM_ACT4[ATC4]"
+                                                                  }
+                                              },
+                                 "installedAt":  "2026-03-17T15:49:18",
+                                 "lastAction":  "legacy-install",
+                                 "installedObjects":  {
+                                                          "tables":  [
+                                                                         "MOD Flex Table Inputs",
+                                                                         "MOD Flex Table Measure Selector",
+                                                                         "MOD Flex Table Axis",
+                                                                         "MOD Flex Table Metrics"
+                                                                     ],
+                                                          "page":  "6f8d2c1e4b5a70918342"
+                                                      },
+                                 "filesTouched":  [
+                                                      "20260317_Product_Analysis_FlexTable.Report/definition/pages/6f8d2c1e4b5a70918342/page.json",
+                                                      "20260317_Product_Analysis_FlexTable.Report/definition/pages/6f8d2c1e4b5a70918342/visuals/flex_table_dimension_slicer/visual.json",
+                                                      "20260317_Product_Analysis_FlexTable.Report/definition/pages/6f8d2c1e4b5a70918342/visuals/flex_table_measure_slicer/visual.json",
+                                                      "20260317_Product_Analysis_FlexTable.Report/definition/pages/6f8d2c1e4b5a70918342/visuals/flex_table_pivot/visual.json",
+                                                      "20260317_Product_Analysis_FlexTable.Report/definition/pages/6f8d2c1e4b5a70918342/visuals/flex_table_subtitle/visual.json",
+                                                      "20260317_Product_Analysis_FlexTable.Report/definition/pages/6f8d2c1e4b5a70918342/visuals/flex_table_title/visual.json",
+                                                      "20260317_Product_Analysis_FlexTable.Report/definition/pages/pages.json",
+                                                      "20260317_Product_Analysis_FlexTable.SemanticModel/definition/model.tmdl",
+                                                      "20260317_Product_Analysis_FlexTable.SemanticModel/definition/tables/MOD Flex Table Axis.tmdl",
+                                                      "20260317_Product_Analysis_FlexTable.SemanticModel/definition/tables/MOD Flex Table Inputs.tmdl",
+                                                      "20260317_Product_Analysis_FlexTable.SemanticModel/definition/tables/MOD Flex Table Measure Selector.tmdl",
+                                                      "20260317_Product_Analysis_FlexTable.SemanticModel/definition/tables/MOD Flex Table Metrics.tmdl",
+                                                      "module-config/20260317_Product_Analysis_FlexTable/installed-modules.json"
+                                                  ],
+                                 "semanticObjectsAdded":  {
+                                                              "tables":  [
+                                                                             "MOD Flex Table Inputs",
+                                                                             "MOD Flex Table Measure Selector",
+                                                                             "MOD Flex Table Axis",
+                                                                             "MOD Flex Table Metrics"
+                                                                         ],
+                                                              "measures":  [
+                                                                               "Flex Input Counting Units",
+                                                                               "Flex Input Fin ACT",
+                                                                               "Flex Input Fin ACT PY",
+                                                                               "Flex Input Fin BDG",
+                                                                               "Flex Input Promo Contacts",
+                                                                               "Flex Input Promo Details",
+                                                                               "Flex Input Promo Spend",
+                                                                               "Flex Input Promo Weighted Calls",
+                                                                               "Flex Input Sales Units",
+                                                                               "Flex Input Sales Values",
+                                                                               "Flex Table Row Has Data",
+                                                                               "Flex Table Selected Value",
+                                                                               "Flex Table Title"
+                                                                           ]
+                                                          },
+                                 "reportObjectsAdded":  {
+                                                            "page":  "6f8d2c1e4b5a70918342",
+                                                            "files":  [
+                                                                          "20260317_Product_Analysis_FlexTable.Report/definition/pages/6f8d2c1e4b5a70918342/page.json",
+                                                                          "20260317_Product_Analysis_FlexTable.Report/definition/pages/6f8d2c1e4b5a70918342/visuals/flex_table_dimension_slicer/visual.json",
+                                                                          "20260317_Product_Analysis_FlexTable.Report/definition/pages/6f8d2c1e4b5a70918342/visuals/flex_table_measure_slicer/visual.json",
+                                                                          "20260317_Product_Analysis_FlexTable.Report/definition/pages/6f8d2c1e4b5a70918342/visuals/flex_table_pivot/visual.json",
+                                                                          "20260317_Product_Analysis_FlexTable.Report/definition/pages/6f8d2c1e4b5a70918342/visuals/flex_table_subtitle/visual.json",
+                                                                          "20260317_Product_Analysis_FlexTable.Report/definition/pages/6f8d2c1e4b5a70918342/visuals/flex_table_title/visual.json"
+                                                                      ],
+                                                            "visualCount":  5
+                                                        },
+                                 "impactMetrics":  {
+                                                       "fileCount":  13,
+                                                       "sizeDeltaBytes":  37169,
+                                                       "semanticTableCount":  4,
+                                                       "semanticMeasureCount":  13,
+                                                       "reportFileCount":  6,
+                                                       "reportVisualCount":  5
+                                                   },
+                                 "history":  {
+
+                                             },
+                                 "governance":  {
+                                                    "status":  "UNKNOWN",
+                                                    "reasons":  [
+
+                                                                ]
+                                                }
+                             }
+                         ]
+}

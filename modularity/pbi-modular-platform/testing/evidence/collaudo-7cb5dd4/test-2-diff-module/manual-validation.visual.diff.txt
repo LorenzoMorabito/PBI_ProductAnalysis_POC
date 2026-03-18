@@ -1,0 +1,406 @@
+warning: in the working copy of 'C:/work/MEN_Marketing/PBI_ProductAnalysis_POC/.tmp-collaudo/diff-module-99ad900296b74a818d9010687894ad32/modularity/pbi-finance-domain/packages/finance_compare_mvp/report/visuals/fc_mvp_title/visual.json', LF will be replaced by CRLF the next time Git touches it
+diff --git a/C:/work/MEN_Marketing/PBI_ProductAnalysis_POC/.tmp-collaudo/diff-module-99ad900296b74a818d9010687894ad32/modularity/pbi-finance-domain/packages/finance_compare_mvp/report/visuals/fc_mvp_title/visual.json b/C:/work/MEN_Marketing/PBI_ProductAnalysis_POC/.tmp-collaudo/diff-module-99ad900296b74a818d9010687894ad32/powerbi-projects/20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_title/visual.json
+index 7ddbc2e..3036708 100644
+--- a/C:/work/MEN_Marketing/PBI_ProductAnalysis_POC/.tmp-collaudo/diff-module-99ad900296b74a818d9010687894ad32/modularity/pbi-finance-domain/packages/finance_compare_mvp/report/visuals/fc_mvp_title/visual.json
++++ b/C:/work/MEN_Marketing/PBI_ProductAnalysis_POC/.tmp-collaudo/diff-module-99ad900296b74a818d9010687894ad32/powerbi-projects/20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_title/visual.json
+@@ -1,199 +1,199 @@
+ {
+-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+-  "name": "fc_mvp_title",
+-  "position": {
+-    "x": 24,
+-    "y": 20,
+-    "z": 0,
+-    "height": 70,
+-    "width": 320,
+-    "tabOrder": 0
+-  },
+-  "visual": {
+-    "visualType": "textbox",
+-    "objects": {
+-      "general": [
+-        {
+-          "properties": {
+-            "paragraphs": [
+-              {
+-                "textRuns": [
+-                  {
+-                    "value": ""
+-                  }
+-                ]
+-              }
+-            ]
+-          }
+-        }
+-      ]
+-    },
+-    "visualContainerObjects": {
+-      "lockAspect": [
+-        {
+-          "properties": {
+-            "show": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "true"
+-                }
+-              }
+-            }
+-          }
+-        }
+-      ],
+-      "background": [
+-        {
+-          "properties": {
+-            "show": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "true"
+-                }
+-              }
+-            },
+-            "color": {
+-              "solid": {
+-                "color": {
+-                  "expr": {
+-                    "ThemeDataColor": {
+-                      "ColorId": 0,
+-                      "Percent": -0.1
+-                    }
+-                  }
+-                }
+-              }
+-            },
+-            "transparency": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "0D"
+-                }
+-              }
+-            }
+-          }
+-        }
+-      ],
+-      "border": [
+-        {
+-          "properties": {
+-            "show": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "true"
+-                }
+-              }
+-            },
+-            "color": {
+-              "solid": {
+-                "color": {
+-                  "expr": {
+-                    "ThemeDataColor": {
+-                      "ColorId": 0,
+-                      "Percent": -0.1
+-                    }
+-                  }
+-                }
+-              }
+-            },
+-            "radius": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "5D"
+-                }
+-              }
+-            },
+-            "width": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "1D"
+-                }
+-              }
+-            }
+-          }
+-        }
+-      ],
+-      "padding": [
+-        {
+-          "properties": {
+-            "top": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "0D"
+-                }
+-              }
+-            },
+-            "bottom": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "3D"
+-                }
+-              }
+-            }
+-          }
+-        }
+-      ],
+-      "title": [
+-        {
+-          "properties": {
+-            "text": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "'Finance Compare MVP'"
+-                }
+-              }
+-            },
+-            "show": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "true"
+-                }
+-              }
+-            },
+-            "titleWrap": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "true"
+-                }
+-              }
+-            },
+-            "alignment": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "'center'"
+-                }
+-              }
+-            }
+-          }
+-        }
+-      ],
+-      "general": [
+-        {
+-          "properties": {
+-            "keepLayerOrder": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "true"
+-                }
+-              }
+-            }
+-          }
+-        }
+-      ],
+-      "visualHeader": [
+-        {
+-          "properties": {
+-            "show": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "false"
+-                }
+-              }
+-            }
+-          }
+-        }
+-      ]
+-    },
+-    "drillFilterOtherVisuals": true
+-  }
+-}
++    "$schema":  "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
++    "name":  "fc_mvp_title",
++    "position":  {
++                     "x":  24,
++                     "y":  20,
++                     "z":  0,
++                     "height":  70,
++                     "width":  320,
++                     "tabOrder":  0
++                 },
++    "visual":  {
++                   "visualType":  "textbox",
++                   "objects":  {
++                                   "general":  [
++                                                   {
++                                                       "properties":  {
++                                                                          "paragraphs":  [
++                                                                                             {
++                                                                                                 "textRuns":  [
++                                                                                                                  {
++                                                                                                                      "value":  ""
++                                                                                                                  }
++                                                                                                              ]
++                                                                                             }
++                                                                                         ]
++                                                                      }
++                                                   }
++                                               ]
++                               },
++                   "visualContainerObjects":  {
++                                                  "lockAspect":  [
++                                                                     {
++                                                                         "properties":  {
++                                                                                            "show":  {
++                                                                                                         "expr":  {
++                                                                                                                      "Literal":  {
++                                                                                                                                      "Value":  "true"
++                                                                                                                                  }
++                                                                                                                  }
++                                                                                                     }
++                                                                                        }
++                                                                     }
++                                                                 ],
++                                                  "background":  [
++                                                                     {
++                                                                         "properties":  {
++                                                                                            "show":  {
++                                                                                                         "expr":  {
++                                                                                                                      "Literal":  {
++                                                                                                                                      "Value":  "true"
++                                                                                                                                  }
++                                                                                                                  }
++                                                                                                     },
++                                                                                            "color":  {
++                                                                                                          "solid":  {
++                                                                                                                        "color":  {
++                                                                                                                                      "expr":  {
++                                                                                                                                                   "ThemeDataColor":  {
++                                                                                                                                                                          "ColorId":  0,
++                                                                                                                                                                          "Percent":  -0.1
++                                                                                                                                                                      }
++                                                                                                                                               }
++                                                                                                                                  }
++                                                                                                                    }
++                                                                                                      },
++                                                                                            "transparency":  {
++                                                                                                                 "expr":  {
++                                                                                                                              "Literal":  {
++                                                                                                                                              "Value":  "0D"
++                                                                                                                                          }
++                                                                                                                          }
++                                                                                                             }
++                                                                                        }
++                                                                     }
++                                                                 ],
++                                                  "border":  [
++                                                                 {
++                                                                     "properties":  {
++                                                                                        "show":  {
++                                                                                                     "expr":  {
++                                                                                                                  "Literal":  {
++                                                                                                                                  "Value":  "true"
++                                                                                                                              }
++                                                                                                              }
++                                                                                                 },
++                                                                                        "color":  {
++                                                                                                      "solid":  {
++                                                                                                                    "color":  {
++                                                                                                                                  "expr":  {
++                                                                                                                                               "ThemeDataColor":  {
++                                                                                                                                                                      "ColorId":  0,
++                                                                                                                                                                      "Percent":  -0.1
++                                                                                                                                                                  }
++                                                                                                                                           }
++                                                                                                                              }
++                                                                                                                }
++                                                                                                  },
++                                                                                        "radius":  {
++                                                                                                       "expr":  {
++                                                                                                                    "Literal":  {
++                                                                                                                                    "Value":  "5D"
++                                                                                                                                }
++                                                                                                                }
++                                                                                                   },
++                                                                                        "width":  {
++                                                                                                      "expr":  {
++                                                                                                                   "Literal":  {
++                                                                                                                                   "Value":  "1D"
++                                                                                                                               }
++                                                                                                               }
++                                                                                                  }
++                                                                                    }
++                                                                 }
++                                                             ],
++                                                  "padding":  [
++                                                                  {
++                                                                      "properties":  {
++                                                                                         "top":  {
++                                                                                                     "expr":  {
++                                                                                                                  "Literal":  {
++                                                                                                                                  "Value":  "0D"
++                                                                                                                              }
++                                                                                                              }
++                                                                                                 },
++                                                                                         "bottom":  {
++                                                                                                        "expr":  {
++                                                                                                                     "Literal":  {
++                                                                                                                                     "Value":  "3D"
++                                                                                                                                 }
++                                                                                                                 }
++                                                                                                    }
++                                                                                     }
++                                                                  }
++                                                              ],
++                                                  "title":  [
++                                                                {
++                                                                    "properties":  {
++                                                                                       "text":  {
++                                                                                                    "expr":  {
++                                                                                                                 "Literal":  {
++                                                                                                                                 "Value":  "\u0027Finance Compare MVP Drift\u0027"
++                                                                                                                             }
++                                                                                                             }
++                                                                                                },
++                                                                                       "show":  {
++                                                                                                    "expr":  {
++                                                                                                                 "Literal":  {
++                                                                                                                                 "Value":  "true"
++                                                                                                                             }
++                                                                                                             }
++                                                                                                },
++                                                                                       "titleWrap":  {
++                                                                                                         "expr":  {
++                                                                                                                      "Literal":  {
++                                                                                                                                      "Value":  "true"
++                                                                                                                                  }
++                                                                                                                  }
++                                                                                                     },
++                                                                                       "alignment":  {
++                                                                                                         "expr":  {
++                                                                                                                      "Literal":  {
++                                                                                                                                      "Value":  "\u0027center\u0027"
++                                                                                                                                  }
++                                                                                                                  }
++                                                                                                     }
++                                                                                   }
++                                                                }
++                                                            ],
++                                                  "general":  [
++                                                                  {
++                                                                      "properties":  {
++                                                                                         "keepLayerOrder":  {
++                                                                                                                "expr":  {
++                                                                                                                             "Literal":  {
++                                                                                                                                             "Value":  "true"
++                                                                                                                                         }
++                                                                                                                         }
++                                                                                                            }
++                                                                                     }
++                                                                  }
++                                                              ],
++                                                  "visualHeader":  [
++                                                                       {
++                                                                           "properties":  {
++                                                                                              "show":  {
++                                                                                                           "expr":  {
++                                                                                                                        "Literal":  {
++                                                                                                                                        "Value":  "false"
++                                                                                                                                    }
++                                                                                                                    }
++                                                                                                       }
++                                                                                          }
++                                                                       }
++                                                                   ]
++                                              },
++                   "drillFilterOtherVisuals":  true
++               }
++}
+\ No newline at end of file
+
+[exit-code] 1

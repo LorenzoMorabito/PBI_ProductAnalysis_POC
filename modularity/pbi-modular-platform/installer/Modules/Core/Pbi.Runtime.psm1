@@ -110,7 +110,68 @@ function Write-PbiJsonFile {
     )
 
     $json = ConvertTo-PbiJsonText -InputObject $InputObject
-    Set-Content -Path $Path -Value $json -Encoding utf8
+    Write-PbiUtf8File -Path $Path -Content $json
+}
+
+function Invoke-PbiFileWriteWithRetry {
+    param(
+        [Parameter(Mandatory = $true)][scriptblock]$Action,
+        [int]$MaxAttempts = 5,
+        [int]$InitialDelayMilliseconds = 80
+    )
+
+    for ($attempt = 1; $attempt -le $MaxAttempts; $attempt++) {
+        try {
+            & $Action
+            return
+        }
+        catch [System.IO.IOException] {
+            if ($attempt -eq $MaxAttempts) {
+                throw
+            }
+        }
+        catch [System.UnauthorizedAccessException] {
+            if ($attempt -eq $MaxAttempts) {
+                throw
+            }
+        }
+
+        Start-Sleep -Milliseconds ($InitialDelayMilliseconds * $attempt)
+    }
+}
+
+function Write-PbiUtf8File {
+    param(
+        [Parameter(Mandatory = $true)][string]$Path,
+        [AllowNull()][string]$Content
+    )
+
+    $parentPath = Split-Path $Path -Parent
+    if ($parentPath) {
+        Ensure-PbiDirectory -Path $parentPath
+    }
+
+    $encoding = New-Object System.Text.UTF8Encoding($false)
+    Invoke-PbiFileWriteWithRetry -Action {
+        [System.IO.File]::WriteAllText($Path, [string]$Content, $encoding)
+    }
+}
+
+function Add-PbiUtf8Line {
+    param(
+        [Parameter(Mandatory = $true)][string]$Path,
+        [AllowNull()][string]$Content
+    )
+
+    $parentPath = Split-Path $Path -Parent
+    if ($parentPath) {
+        Ensure-PbiDirectory -Path $parentPath
+    }
+
+    $encoding = New-Object System.Text.UTF8Encoding($false)
+    Invoke-PbiFileWriteWithRetry -Action {
+        [System.IO.File]::AppendAllText($Path, ([string]$Content + [Environment]::NewLine), $encoding)
+    }
 }
 
 function Ensure-PbiDirectory {
@@ -159,4 +220,4 @@ function Get-PbiPathSizeBytes {
     )
 }
 
-Export-ModuleMember -Function Get-PbiInstallerWorkspaceRoot, ConvertFrom-PbiJsonText, ConvertTo-PbiJsonText, Resolve-PbiPath, Get-PbiRelativePath, Read-PbiJsonFile, Write-PbiJsonFile, Ensure-PbiDirectory, Compare-PbiVersion, Get-PbiUtcTimestamp, Get-PbiTimestampKey, Get-PbiPathSizeBytes
+Export-ModuleMember -Function Get-PbiInstallerWorkspaceRoot, ConvertFrom-PbiJsonText, ConvertTo-PbiJsonText, Resolve-PbiPath, Get-PbiRelativePath, Read-PbiJsonFile, Write-PbiJsonFile, Write-PbiUtf8File, Add-PbiUtf8Line, Ensure-PbiDirectory, Compare-PbiVersion, Get-PbiUtcTimestamp, Get-PbiTimestampKey, Get-PbiPathSizeBytes

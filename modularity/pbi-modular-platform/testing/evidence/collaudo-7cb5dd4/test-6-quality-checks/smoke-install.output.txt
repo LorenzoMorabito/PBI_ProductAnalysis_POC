@@ -1,0 +1,10 @@
+[INFO] Applying module finance_compare_mvp 0.1.0 into project 20260317_UAT_001
+[INFO] Quality check summary: Errors=0 Warnings=0 Infos=1 Total=1
+
+Severity Scope        Target              RuleId                  Message                                              
+-------- -----        ------              ------                  -------                                              
+Info     SmokeInstall finance_compare_mvp smoke.install.completed Module installed into sandbox project '20260317_UA...
+
+
+
+[exit-code] 0

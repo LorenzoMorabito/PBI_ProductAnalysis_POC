@@ -1,0 +1,38 @@
+{
+    "financeModule":  {
+                          "counts":  {
+                                         "Errors":  0,
+                                         "Warnings":  0,
+                                         "Infos":  0,
+                                         "Total":  0
+                                     },
+                          "summary":  "Errors=0; Warnings=0; Infos=0; Total=0"
+                      },
+    "marketingModule":  {
+                            "counts":  {
+                                           "Errors":  0,
+                                           "Warnings":  0,
+                                           "Infos":  0,
+                                           "Total":  0
+                                       },
+                            "summary":  "Errors=0; Warnings=0; Infos=0; Total=0"
+                        },
+    "repo":  {
+                 "counts":  {
+                                "Errors":  0,
+                                "Warnings":  0,
+                                "Infos":  0,
+                                "Total":  0
+                            },
+                 "summary":  "Errors=0; Warnings=0; Infos=0; Total=0"
+             },
+    "smokeInstall":  {
+                         "counts":  {
+                                        "Errors":  0,
+                                        "Warnings":  0,
+                                        "Infos":  1,
+                                        "Total":  1
+                                    },
+                         "summary":  "Errors=0; Warnings=0; Infos=1; Total=1"
+                     }
+}

@@ -235,7 +235,7 @@ function Remove-PbiTablesFromModel {
         $content = [regex]::Replace($content, $refPattern, "")
     }
 
-    Set-Content -Path $modelPath -Value $content -Encoding utf8
+    Write-PbiUtf8File -Path $modelPath -Content $content
 }
 
 function Remove-PbiModulePageFromProject {
@@ -447,7 +447,7 @@ function Write-PbiModuleDiffArtifacts {
     $markdownPath = Join-Path $artifactRoot "diff.md"
 
     Write-PbiJsonFile -Path $jsonPath -InputObject $Diff
-    Set-Content -Path $markdownPath -Value (Get-PbiModuleDiffMarkdown -Diff $Diff) -Encoding utf8
+    Write-PbiUtf8File -Path $markdownPath -Content (Get-PbiModuleDiffMarkdown -Diff $Diff)
 
     return [PSCustomObject]@{
         rootPath             = $artifactRoot

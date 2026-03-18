@@ -1,0 +1,58 @@
+warning: in the working copy of 'C:/work/MEN_Marketing/PBI_ProductAnalysis_POC/.tmp-collaudo/diff-module-99ad900296b74a818d9010687894ad32/modularity/pbi-finance-domain/packages/finance_compare_mvp/semantic/MOD Finance Compare Selector.tmdl', LF will be replaced by CRLF the next time Git touches it
+diff --git a/C:/work/MEN_Marketing/PBI_ProductAnalysis_POC/.tmp-collaudo/diff-module-99ad900296b74a818d9010687894ad32/modularity/pbi-finance-domain/packages/finance_compare_mvp/semantic/MOD Finance Compare Selector.tmdl b/C:/work/MEN_Marketing/PBI_ProductAnalysis_POC/.tmp-collaudo/diff-module-99ad900296b74a818d9010687894ad32/powerbi-projects/20260317_UAT_001.SemanticModel/definition/tables/MOD Finance Compare Selector.tmdl
+index a52caca..8108fc6 100644
+--- a/C:/work/MEN_Marketing/PBI_ProductAnalysis_POC/.tmp-collaudo/diff-module-99ad900296b74a818d9010687894ad32/modularity/pbi-finance-domain/packages/finance_compare_mvp/semantic/MOD Finance Compare Selector.tmdl	
++++ b/C:/work/MEN_Marketing/PBI_ProductAnalysis_POC/.tmp-collaudo/diff-module-99ad900296b74a818d9010687894ad32/powerbi-projects/20260317_UAT_001.SemanticModel/definition/tables/MOD Finance Compare Selector.tmdl	
+@@ -1,4 +1,5 @@
+ table 'MOD Finance Compare Selector'
++	lineageTag: 59c0a145-385a-4804-b92f-7c6ef0272f73
+ 
+ 	measure 'Finance Compare (Selected)' =
+ 			
+@@ -7,14 +8,17 @@ table 'MOD Finance Compare Selector'
+ 			  "vs BDG", [Input Fin BDG],
+ 			  "vs PY",  [Input Fin ACT PY]
+ 			)
++		lineageTag: 352e890d-98f4-4ab4-a723-4b7f05fa8e69
+ 
+ 		annotation PBI_FormatHint = {"isGeneralNumber":true}
+ 
+ 	measure 'Finance Compare Label (Selected)' =
+ 			
+-			SELECTEDVALUE('MOD Finance Compare Selector'[Label], "BGT")
++			SELECTEDVALUE('MOD Finance Compare Selector'[Label], "BGT DRIFT")
++		lineageTag: e1d92d7f-52f1-4dcd-99bf-8e2fead6966c
+ 
+ 	column Compare
++		lineageTag: 21031c4b-c02e-44ae-9688-ccd7c2742cca
+ 		summarizeBy: none
+ 		isNameInferred
+ 		sourceColumn: [Compare]
+@@ -22,6 +26,7 @@ table 'MOD Finance Compare Selector'
+ 		annotation SummarizationSetBy = Automatic
+ 
+ 	column Label
++		lineageTag: 3106935f-3cc3-4458-bff9-c1be9e338bff
+ 		summarizeBy: none
+ 		isNameInferred
+ 		sourceColumn: [Label]
+@@ -30,14 +35,14 @@ table 'MOD Finance Compare Selector'
+ 
+ 	partition 'MOD Finance Compare Selector' = calculated
+ 		mode: import
+-		source = ```
++		source =
+ 				
+ 				DATATABLE(
+ 				    "Compare", STRING,
+ 				    "Label", STRING,
+ 				    {
+-				        {"vs BDG", "BGT"},
++				        {"vs BDG", "BGT DRIFT"},
+ 				        {"vs PY", "PY"}
+ 				    }
+ 				)
+-				```
++
+
+[exit-code] 1

@@ -1,0 +1,6 @@
+ .../definition/pages/pages.json                    |   5 +-
+ .../definition/model.tmdl                          |   5 +-
+ .../installed-modules.json                         | 110 ++++++++++++++++++++-
+ 3 files changed, 116 insertions(+), 4 deletions(-)
+
+[exit-code] 0

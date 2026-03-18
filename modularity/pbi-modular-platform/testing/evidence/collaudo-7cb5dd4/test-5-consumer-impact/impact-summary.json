@@ -1,0 +1,72 @@
+{
+    "install":  {
+                    "consumer":  "20260317_Product_Analysis_FlexTable.pbip",
+                    "module":  "flex_table_flat_mvp",
+                    "filesTouched":  [
+                                         "20260317_Product_Analysis_FlexTable.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/page.json",
+                                         "20260317_Product_Analysis_FlexTable.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/visuals/flex_flat_columns_slicer/visual.json",
+                                         "20260317_Product_Analysis_FlexTable.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/visuals/flex_flat_measures_slicer/visual.json",
+                                         "20260317_Product_Analysis_FlexTable.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/visuals/flex_flat_subtitle/visual.json",
+                                         "20260317_Product_Analysis_FlexTable.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/visuals/flex_flat_table/visual.json",
+                                         "20260317_Product_Analysis_FlexTable.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/visuals/flex_flat_title/visual.json",
+                                         "20260317_Product_Analysis_FlexTable.Report/definition/pages/pages.json",
+                                         "20260317_Product_Analysis_FlexTable.SemanticModel/definition/model.tmdl",
+                                         "20260317_Product_Analysis_FlexTable.SemanticModel/definition/tables/MOD Flex Flat Dimensions.tmdl",
+                                         "20260317_Product_Analysis_FlexTable.SemanticModel/definition/tables/MOD Flex Flat Inputs.tmdl",
+                                         "20260317_Product_Analysis_FlexTable.SemanticModel/definition/tables/MOD Flex Flat Measures.tmdl",
+                                         "module-config/20260317_Product_Analysis_FlexTable/installed-modules.json"
+                                     ],
+                    "impactMetrics":  {
+                                          "fileCount":  12,
+                                          "sizeDeltaBytes":  41664,
+                                          "semanticTableCount":  3,
+                                          "semanticMeasureCount":  10,
+                                          "reportFileCount":  6,
+                                          "reportVisualCount":  5
+                                      },
+                    "classification":  "medio",
+                    "centralFiles":  [
+                                         "20260317_Product_Analysis_FlexTable.Report/definition/pages/pages.json",
+                                         "20260317_Product_Analysis_FlexTable.SemanticModel/definition/model.tmdl"
+                                     ],
+                    "coreSemanticFiles":  [
+
+                                          ],
+                    "semanticCoreTouched":  false
+                },
+    "upgrade":  {
+                    "consumer":  "20260317_UAT_001.pbip",
+                    "module":  "finance_compare_mvp",
+                    "filesTouched":  [
+                                         "20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/page.json",
+                                         "20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_act/visual.json",
+                                         "20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_delta/visual.json",
+                                         "20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_ref/visual.json",
+                                         "20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_slicer/visual.json",
+                                         "20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_title/visual.json",
+                                         "20260317_UAT_001.Report/definition/pages/pages.json",
+                                         "20260317_UAT_001.SemanticModel/definition/model.tmdl",
+                                         "20260317_UAT_001.SemanticModel/definition/tables/MOD Finance Compare Inputs.tmdl",
+                                         "20260317_UAT_001.SemanticModel/definition/tables/MOD Finance Compare Metrics.tmdl",
+                                         "20260317_UAT_001.SemanticModel/definition/tables/MOD Finance Compare Selector.tmdl",
+                                         "module-config/20260317_UAT_001/installed-modules.json"
+                                     ],
+                    "impactMetrics":  {
+                                          "fileCount":  12,
+                                          "sizeDeltaBytes":  40919,
+                                          "semanticTableCount":  3,
+                                          "semanticMeasureCount":  8,
+                                          "reportFileCount":  6,
+                                          "reportVisualCount":  5
+                                      },
+                    "classification":  "medio",
+                    "centralFiles":  [
+                                         "20260317_UAT_001.Report/definition/pages/pages.json",
+                                         "20260317_UAT_001.SemanticModel/definition/model.tmdl"
+                                     ],
+                    "coreSemanticFiles":  [
+
+                                          ],
+                    "semanticCoreTouched":  false
+                }
+}

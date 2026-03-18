@@ -1,0 +1,115 @@
+{
+    "generatedAt":  "2026-03-18T19:31:39Z",
+    "moduleId":  "finance_compare_mvp",
+    "projectId":  "20260317_UAT_001",
+    "installedVersion":  "0.1.0",
+    "sourceVersion":  "0.1.0",
+    "fileChanges":  [
+                        {
+                            "relativePath":  "20260317_UAT_001.SemanticModel/definition/tables/MOD Finance Compare Inputs.tmdl",
+                            "status":  "changed",
+                            "sourcePath":  "C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\diff-module-99ad900296b74a818d9010687894ad32\\modularity\\pbi-finance-domain\\packages\\finance_compare_mvp\\semantic\\MOD Finance Compare Inputs.tmdl",
+                            "destinationPath":  "C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\diff-module-99ad900296b74a818d9010687894ad32\\powerbi-projects\\20260317_UAT_001.SemanticModel\\definition\\tables\\MOD Finance Compare Inputs.tmdl"
+                        },
+                        {
+                            "relativePath":  "20260317_UAT_001.SemanticModel/definition/tables/MOD Finance Compare Selector.tmdl",
+                            "status":  "changed",
+                            "sourcePath":  "C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\diff-module-99ad900296b74a818d9010687894ad32\\modularity\\pbi-finance-domain\\packages\\finance_compare_mvp\\semantic\\MOD Finance Compare Selector.tmdl",
+                            "destinationPath":  "C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\diff-module-99ad900296b74a818d9010687894ad32\\powerbi-projects\\20260317_UAT_001.SemanticModel\\definition\\tables\\MOD Finance Compare Selector.tmdl"
+                        },
+                        {
+                            "relativePath":  "20260317_UAT_001.SemanticModel/definition/tables/MOD Finance Compare Metrics.tmdl",
+                            "status":  "changed",
+                            "sourcePath":  "C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\diff-module-99ad900296b74a818d9010687894ad32\\modularity\\pbi-finance-domain\\packages\\finance_compare_mvp\\semantic\\MOD Finance Compare Metrics.tmdl",
+                            "destinationPath":  "C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\diff-module-99ad900296b74a818d9010687894ad32\\powerbi-projects\\20260317_UAT_001.SemanticModel\\definition\\tables\\MOD Finance Compare Metrics.tmdl"
+                        },
+                        {
+                            "relativePath":  "20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/page.json",
+                            "status":  "changed",
+                            "sourcePath":  "C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\diff-module-99ad900296b74a818d9010687894ad32\\modularity\\pbi-finance-domain\\packages\\finance_compare_mvp\\report\\page.json",
+                            "destinationPath":  "C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\diff-module-99ad900296b74a818d9010687894ad32\\powerbi-projects\\20260317_UAT_001.Report\\definition\\pages\\8a4f2d4d3f11450ab001\\page.json"
+                        },
+                        {
+                            "relativePath":  "20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_act/visual.json",
+                            "status":  "changed",
+                            "sourcePath":  "C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\diff-module-99ad900296b74a818d9010687894ad32\\modularity\\pbi-finance-domain\\packages\\finance_compare_mvp\\report\\visuals\\fc_mvp_act\\visual.json",
+                            "destinationPath":  "C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\diff-module-99ad900296b74a818d9010687894ad32\\powerbi-projects\\20260317_UAT_001.Report\\definition\\pages\\8a4f2d4d3f11450ab001\\visuals\\fc_mvp_act\\visual.json"
+                        },
+                        {
+                            "relativePath":  "20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_delta/visual.json",
+                            "status":  "changed",
+                            "sourcePath":  "C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\diff-module-99ad900296b74a818d9010687894ad32\\modularity\\pbi-finance-domain\\packages\\finance_compare_mvp\\report\\visuals\\fc_mvp_delta\\visual.json",
+                            "destinationPath":  "C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\diff-module-99ad900296b74a818d9010687894ad32\\powerbi-projects\\20260317_UAT_001.Report\\definition\\pages\\8a4f2d4d3f11450ab001\\visuals\\fc_mvp_delta\\visual.json"
+                        },
+                        {
+                            "relativePath":  "20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_ref/visual.json",
+                            "status":  "changed",
+                            "sourcePath":  "C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\diff-module-99ad900296b74a818d9010687894ad32\\modularity\\pbi-finance-domain\\packages\\finance_compare_mvp\\report\\visuals\\fc_mvp_ref\\visual.json",
+                            "destinationPath":  "C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\diff-module-99ad900296b74a818d9010687894ad32\\powerbi-projects\\20260317_UAT_001.Report\\definition\\pages\\8a4f2d4d3f11450ab001\\visuals\\fc_mvp_ref\\visual.json"
+                        },
+                        {
+                            "relativePath":  "20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_slicer/visual.json",
+                            "status":  "changed",
+                            "sourcePath":  "C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\diff-module-99ad900296b74a818d9010687894ad32\\modularity\\pbi-finance-domain\\packages\\finance_compare_mvp\\report\\visuals\\fc_mvp_slicer\\visual.json",
+                            "destinationPath":  "C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\diff-module-99ad900296b74a818d9010687894ad32\\powerbi-projects\\20260317_UAT_001.Report\\definition\\pages\\8a4f2d4d3f11450ab001\\visuals\\fc_mvp_slicer\\visual.json"
+                        },
+                        {
+                            "relativePath":  "20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_title/visual.json",
+                            "status":  "changed",
+                            "sourcePath":  "C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\diff-module-99ad900296b74a818d9010687894ad32\\modularity\\pbi-finance-domain\\packages\\finance_compare_mvp\\report\\visuals\\fc_mvp_title\\visual.json",
+                            "destinationPath":  "C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\diff-module-99ad900296b74a818d9010687894ad32\\powerbi-projects\\20260317_UAT_001.Report\\definition\\pages\\8a4f2d4d3f11450ab001\\visuals\\fc_mvp_title\\visual.json"
+                        }
+                    ],
+    "extraInstalledFiles":  [
+
+                            ],
+    "semanticObjects":  {
+                            "sourceTables":  [
+                                                 "MOD Finance Compare Inputs",
+                                                 "MOD Finance Compare Selector",
+                                                 "MOD Finance Compare Metrics"
+                                             ],
+                            "installedTables":  [
+                                                    "MOD Finance Compare Inputs",
+                                                    "MOD Finance Compare Selector",
+                                                    "MOD Finance Compare Metrics"
+                                                ],
+                            "addedTables":  [
+
+                                            ],
+                            "removedTables":  [
+
+                                              ],
+                            "sourceMeasures":  [
+                                                   "Input Fin ACT",
+                                                   "Input Fin BDG",
+                                                   "Input Fin ACT PY",
+                                                   "Finance Compare (Selected)",
+                                                   "Finance Compare Label (Selected)",
+                                                   "Selected Reference Value",
+                                                   "Fin ACT vs (Selected) abs",
+                                                   "Fin ACT vs (Selected) +/-%"
+                                               ],
+                            "installedMeasures":  [
+                                                      "Fin ACT vs (Selected) +/-%",
+                                                      "Fin ACT vs (Selected) abs",
+                                                      "Finance Compare (Selected)",
+                                                      "Finance Compare Label (Selected)",
+                                                      "Input Fin ACT",
+                                                      "Input Fin ACT PY",
+                                                      "Input Fin BDG",
+                                                      "Selected Reference Value"
+                                                  ],
+                            "addedMeasures":  [
+
+                                              ],
+                            "removedMeasures":  [
+
+                                                ]
+                        },
+    "sharedProjectFilesImpacted":  [
+                                       "20260317_UAT_001.Report/definition/pages/pages.json",
+                                       "20260317_UAT_001.SemanticModel/definition/model.tmdl",
+                                       "module-config/20260317_UAT_001/installed-modules.json"
+                                   ]
+}

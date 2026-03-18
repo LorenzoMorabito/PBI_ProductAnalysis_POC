@@ -60,7 +60,7 @@ function Set-PbiRootPathParameterValue {
         throw "Unable to update root_path in '$expressionsPath'."
     }
 
-    Set-Content -Path $expressionsPath -Value $updatedContent -Encoding utf8
+    Write-PbiUtf8File -Path $expressionsPath -Content $updatedContent
     return $resolvedPath
 }
 
@@ -418,7 +418,7 @@ function Install-PbiSemanticAssets {
     $modelContent = Get-Content $modelPath -Raw
     $modelContent = Update-PbiModelQueryOrder -ModelContent $modelContent -TableNames @($Manifest.provides.semanticTables)
     $modelContent = Update-PbiModelTableReferences -ModelContent $modelContent -TableNames @($Manifest.provides.semanticTables)
-    Set-Content -Path $modelPath -Value $modelContent -Encoding utf8
+    Write-PbiUtf8File -Path $modelPath -Content $modelContent
     $filesTouched.Add((Get-PbiRelativePath -BasePath $Project.ProjectRoot -Path $modelPath))
 
     return [PSCustomObject]@{

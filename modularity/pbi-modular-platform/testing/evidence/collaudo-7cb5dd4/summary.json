@@ -1,0 +1,140 @@
+{
+    "hypothesis":  "L\u0027architettura collaudata e\u0027 una modularizzazione per materializzazione controllata nel consumer; lo stato installato deve restare minimo, tracciato, coerente, reversibile e governato.",
+    "tests":  [
+                  {
+                      "id":  "test-1",
+                      "title":  "Installazione pulita modulo",
+                      "status":  "PASS WITH WARNING",
+                      "summary":  "Installazione completata per flex_table_flat_mvp su 20260317_Product_Analysis_FlexTable; metadata e footprint materializzati correttamente.",
+                      "consumer":  "20260317_Product_Analysis_FlexTable.pbip",
+                      "module":  "flex_table_flat_mvp",
+                      "versions":  "n/a -\u003e 0.2.0",
+                      "warnings":  [
+                                       "Governance WARN: il repo-health hook non e\u0027 compatibile con Windows PowerShell 5.1 e degrada l\u0027operazione.",
+                                       "L\u0027apertura in Power BI Desktop non e\u0027 verificabile da CLI nel perimetro di questo collaudo."
+                                   ],
+                      "evidence":  [
+                                       "test-1-install-clean\\command.txt",
+                                       "test-1-install-clean\\command-output.txt",
+                                       "test-1-install-clean\\install-log.jsonl",
+                                       "test-1-install-clean\\installed-modules.before.json",
+                                       "test-1-install-clean\\installed-modules.after.json",
+                                       "test-1-install-clean\\files-touched.txt",
+                                       "test-1-install-clean\\post-install.git-diff.txt",
+                                       "test-1-install-clean\\quality-check.output.txt"
+                                   ]
+                  },
+                  {
+                      "id":  "test-2",
+                      "title":  "Diff modulo",
+                      "status":  "PASS",
+                      "summary":  "Diff leggibile e coerente su finance_compare_mvp: rilevate tre derive controllate su semantic asset e report asset del consumer.",
+                      "consumer":  "20260317_UAT_001.pbip",
+                      "module":  "finance_compare_mvp",
+                      "versions":  "0.1.0 -\u003e 0.1.0 (drift controllato)",
+                      "warnings":  [
+
+                                   ],
+                      "evidence":  [
+                                       "test-2-diff-module\\command.txt",
+                                       "test-2-diff-module\\command-output.txt",
+                                       "test-2-diff-module\\diff.json",
+                                       "test-2-diff-module\\diff.md",
+                                       "test-2-diff-module\\files-involved.txt",
+                                       "test-2-diff-module\\manual-validation.md"
+                                   ]
+                  },
+                  {
+                      "id":  "test-3",
+                      "title":  "Upgrade modulo",
+                      "status":  "PASS WITH WARNING",
+                      "summary":  "Upgrade completato da finance_compare_mvp 0.1.0 a 0.1.1; consumer e metadata restano coerenti e il progetto supera i quality checks strutturali.",
+                      "consumer":  "20260317_UAT_001.pbip",
+                      "module":  "finance_compare_mvp",
+                      "versions":  "0.1.0 -\u003e 0.1.1",
+                      "warnings":  [
+                                       "Governance WARN: il repo-health hook non e\u0027 compatibile con Windows PowerShell 5.1 e degrada l\u0027operazione.",
+                                       "Il footprint registrato in metadata rappresenta il perimetro gestito del modulo, non il delta minimo puntuale del singolo upgrade.",
+                                       "L\u0027apertura in Power BI Desktop non e\u0027 verificabile da CLI nel perimetro di questo collaudo."
+                                   ],
+                      "evidence":  [
+                                       "test-3-upgrade-module\\command.txt",
+                                       "test-3-upgrade-module\\command-output.txt",
+                                       "test-3-upgrade-module\\upgrade-log.jsonl",
+                                       "test-3-upgrade-module\\installed-modules.before.json",
+                                       "test-3-upgrade-module\\installed-modules.after.json",
+                                       "test-3-upgrade-module\\files-touched.txt",
+                                       "test-3-upgrade-module\\post-upgrade.git-diff.txt",
+                                       "test-3-upgrade-module\\quality-check.output.txt"
+                                   ]
+                  },
+                  {
+                      "id":  "test-4",
+                      "title":  "Rollback modulo",
+                      "status":  "PASS WITH WARNING",
+                      "summary":  "Rollback eseguito con successo: i file gestiti ritornano al baseline pre-upgrade, mentre gli artifact di audit restano intenzionalmente in module-config.",
+                      "consumer":  "20260317_UAT_001.pbip",
+                      "module":  "finance_compare_mvp",
+                      "versions":  "0.1.1 -\u003e 0.1.0",
+                      "warnings":  [
+                                       "Il rollback ripristina i file gestiti del consumer; restano solo artifact di audit sotto module-config (log, diff, snapshot, repo-health)."
+                                   ],
+                      "evidence":  [
+                                       "test-4-rollback-module\\command.txt",
+                                       "test-4-rollback-module\\command-output.txt",
+                                       "test-4-rollback-module\\rollback-log.jsonl",
+                                       "test-4-rollback-module\\installed-modules.before-upgrade.json",
+                                       "test-4-rollback-module\\installed-modules.after-upgrade.json",
+                                       "test-4-rollback-module\\installed-modules.after-rollback.json",
+                                       "test-4-rollback-module\\baseline-vs-rollback-managed-diff.txt",
+                                       "test-4-rollback-module\\quality-check.output.txt"
+                                   ]
+                  },
+                  {
+                      "id":  "test-5",
+                      "title":  "Verifica impatto sul consumer",
+                      "status":  "PASS WITH WARNING",
+                      "summary":  "Il footprint dei moduli e\u0027 misurabile e spiegabile; nei casi collaudati non emergono tocchi a tabelle core non modulari.",
+                      "consumer":  "20260317_Product_Analysis_FlexTable.pbip / 20260317_UAT_001.pbip",
+                      "module":  "flex_table_flat_mvp / finance_compare_mvp",
+                      "versions":  "0.2.0 / 0.1.0-\u003e0.1.1",
+                      "warnings":  [
+                                       "Il modulo tocca file centrali di orchestrazione del progetto (model.tmdl e/o pages.json), quindi l\u0027impatto non e\u0027 minimo."
+                                   ],
+                      "evidence":  [
+                                       "test-5-consumer-impact\\impact-summary.json",
+                                       "test-5-consumer-impact\\impact-summary.md",
+                                       "test-1-install-clean\\files-touched.txt",
+                                       "test-3-upgrade-module\\files-touched.txt"
+                                   ]
+                  },
+                  {
+                      "id":  "test-6",
+                      "title":  "Quality checks platform",
+                      "status":  "PASS",
+                      "summary":  "Manifest, regole architetturali, controlli report e smoke-install risultano eseguibili e coerenti sul commit 7cb5dd4.",
+                      "consumer":  "repo-wide / 20260317_UAT_001.pbip smoke copy",
+                      "module":  "finance_compare_mvp / flex_table_flat_mvp",
+                      "versions":  "catalog current",
+                      "warnings":  [
+
+                                   ],
+                      "evidence":  [
+                                       "test-6-quality-checks\\list-rules.output.txt",
+                                       "test-6-quality-checks\\test-module.finance.output.txt",
+                                       "test-6-quality-checks\\test-module.marketing.output.txt",
+                                       "test-6-quality-checks\\test-repo.output.txt",
+                                       "test-6-quality-checks\\smoke-install.output.txt",
+                                       "test-6-quality-checks\\quality-summary.json"
+                                   ]
+                  }
+              ],
+    "metadata":  {
+                     "commit":  "7cb5dd4",
+                     "operator":  "ukg15381",
+                     "executedAtUtc":  "2026-03-18T19:30:37.2835207Z",
+                     "shell":  "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+                     "repoRoot":  "C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC",
+                     "outputRoot":  "C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\modularity\\pbi-modular-platform\\testing\\evidence\\collaudo-7cb5dd4"
+                 }
+}

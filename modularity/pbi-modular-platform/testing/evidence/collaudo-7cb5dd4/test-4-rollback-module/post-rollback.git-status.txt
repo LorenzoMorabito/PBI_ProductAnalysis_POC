@@ -1,0 +1,5 @@
+?? powerbi-projects/module-config/20260317_UAT_001/diffs/
+?? powerbi-projects/module-config/20260317_UAT_001/logs/
+?? powerbi-projects/module-config/20260317_UAT_001/snapshots/
+
+[exit-code] 0

@@ -1,0 +1,14 @@
+powerbi-projects/20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/page.json
+powerbi-projects/20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_act/visual.json
+powerbi-projects/20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_delta/visual.json
+powerbi-projects/20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_ref/visual.json
+powerbi-projects/20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_slicer/visual.json
+powerbi-projects/20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_title/visual.json
+powerbi-projects/20260317_UAT_001.Report/definition/pages/pages.json
+powerbi-projects/20260317_UAT_001.SemanticModel/definition/model.tmdl
+powerbi-projects/20260317_UAT_001.SemanticModel/definition/tables/MOD Finance Compare Inputs.tmdl
+powerbi-projects/20260317_UAT_001.SemanticModel/definition/tables/MOD Finance Compare Metrics.tmdl
+powerbi-projects/20260317_UAT_001.SemanticModel/definition/tables/MOD Finance Compare Selector.tmdl
+powerbi-projects/module-config/20260317_UAT_001/installed-modules.json
+
+[exit-code] 0

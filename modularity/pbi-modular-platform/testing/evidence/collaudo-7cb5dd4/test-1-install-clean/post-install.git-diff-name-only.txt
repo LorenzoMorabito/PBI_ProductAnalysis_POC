@@ -1,0 +1,5 @@
+powerbi-projects/20260317_Product_Analysis_FlexTable.Report/definition/pages/pages.json
+powerbi-projects/20260317_Product_Analysis_FlexTable.SemanticModel/definition/model.tmdl
+powerbi-projects/module-config/20260317_Product_Analysis_FlexTable/installed-modules.json
+
+[exit-code] 0

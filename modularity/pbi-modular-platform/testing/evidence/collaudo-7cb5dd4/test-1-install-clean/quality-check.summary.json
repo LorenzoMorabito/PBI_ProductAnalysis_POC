@@ -1,0 +1,23 @@
+{
+    "Project":  {
+                    "ProjectId":  "20260317_Product_Analysis_FlexTable",
+                    "ProjectRoot":  "C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\install-clean-d5694dbcb1f144668ed8e914e25bc782\\powerbi-projects",
+                    "PbipPath":  "C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\install-clean-d5694dbcb1f144668ed8e914e25bc782\\powerbi-projects\\20260317_Product_Analysis_FlexTable.pbip",
+                    "ReportPath":  "C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\install-clean-d5694dbcb1f144668ed8e914e25bc782\\powerbi-projects\\20260317_Product_Analysis_FlexTable.Report",
+                    "SemanticModelPath":  "C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\install-clean-d5694dbcb1f144668ed8e914e25bc782\\powerbi-projects\\20260317_Product_Analysis_FlexTable.SemanticModel",
+                    "ModuleConfigDir":  "C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\install-clean-d5694dbcb1f144668ed8e914e25bc782\\powerbi-projects\\module-config\\20260317_Product_Analysis_FlexTable",
+                    "StateFilePath":  "C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\install-clean-d5694dbcb1f144668ed8e914e25bc782\\powerbi-projects\\module-config\\20260317_Product_Analysis_FlexTable\\installed-modules.json",
+                    "LogsRoot":  "C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\install-clean-d5694dbcb1f144668ed8e914e25bc782\\powerbi-projects\\module-config\\20260317_Product_Analysis_FlexTable\\logs",
+                    "DiffRoot":  "C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\install-clean-d5694dbcb1f144668ed8e914e25bc782\\powerbi-projects\\module-config\\20260317_Product_Analysis_FlexTable\\diffs",
+                    "SnapshotsRoot":  "C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\install-clean-d5694dbcb1f144668ed8e914e25bc782\\powerbi-projects\\module-config\\20260317_Product_Analysis_FlexTable\\snapshots"
+                },
+    "Results":  [
+
+                ],
+    "Counts":  {
+                   "Errors":  0,
+                   "Warnings":  0,
+                   "Infos":  0,
+                   "Total":  0
+               }
+}

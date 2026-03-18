@@ -1,0 +1,23 @@
+{
+    "Project":  {
+                    "ProjectId":  "20260317_UAT_001",
+                    "ProjectRoot":  "C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\upgrade-rollback-44d5799cb718482db6dfb90706a27d57\\powerbi-projects",
+                    "PbipPath":  "C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\upgrade-rollback-44d5799cb718482db6dfb90706a27d57\\powerbi-projects\\20260317_UAT_001.pbip",
+                    "ReportPath":  "C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\upgrade-rollback-44d5799cb718482db6dfb90706a27d57\\powerbi-projects\\20260317_UAT_001.Report",
+                    "SemanticModelPath":  "C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\upgrade-rollback-44d5799cb718482db6dfb90706a27d57\\powerbi-projects\\20260317_UAT_001.SemanticModel",
+                    "ModuleConfigDir":  "C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\upgrade-rollback-44d5799cb718482db6dfb90706a27d57\\powerbi-projects\\module-config\\20260317_UAT_001",
+                    "StateFilePath":  "C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\upgrade-rollback-44d5799cb718482db6dfb90706a27d57\\powerbi-projects\\module-config\\20260317_UAT_001\\installed-modules.json",
+                    "LogsRoot":  "C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\upgrade-rollback-44d5799cb718482db6dfb90706a27d57\\powerbi-projects\\module-config\\20260317_UAT_001\\logs",
+                    "DiffRoot":  "C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\upgrade-rollback-44d5799cb718482db6dfb90706a27d57\\powerbi-projects\\module-config\\20260317_UAT_001\\diffs",
+                    "SnapshotsRoot":  "C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\upgrade-rollback-44d5799cb718482db6dfb90706a27d57\\powerbi-projects\\module-config\\20260317_UAT_001\\snapshots"
+                },
+    "Results":  [
+
+                ],
+    "Counts":  {
+                   "Errors":  0,
+                   "Warnings":  0,
+                   "Infos":  0,
+                   "Total":  0
+               }
+}

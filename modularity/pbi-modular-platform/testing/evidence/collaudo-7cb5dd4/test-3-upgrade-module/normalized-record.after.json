@@ -1,0 +1,94 @@
+{
+    "moduleId":  "finance_compare_mvp",
+    "version":  "0.1.1",
+    "domain":  "finance",
+    "type":  "semantic",
+    "classification":  "semantic-light",
+    "semanticImpact":  "additive",
+    "source":  "modularity/pbi-finance-domain/packages/finance_compare_mvp",
+    "mappings":  {
+                     "coreMeasures":  {
+                                          "Fin ACT":  "Fin ACT",
+                                          "Fin BDG":  "Fin BDG",
+                                          "Fin ACT PY":  "Fin ACT PY"
+                                      },
+                     "coreColumns":  {
+                                         "T_DIM_MONTH[MonthStartDay]":  "T_DIM_MONTH[MonthStartDay]"
+                                     }
+                 },
+    "installedAt":  "2026-03-18T19:31:47Z",
+    "lastAction":  "upgrade",
+    "installedObjects":  {
+                             "tables":  [
+                                            "MOD Finance Compare Inputs",
+                                            "MOD Finance Compare Selector",
+                                            "MOD Finance Compare Metrics"
+                                        ],
+                             "page":  "8a4f2d4d3f11450ab001"
+                         },
+    "filesTouched":  [
+                         "20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/page.json",
+                         "20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_act/visual.json",
+                         "20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_delta/visual.json",
+                         "20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_ref/visual.json",
+                         "20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_slicer/visual.json",
+                         "20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_title/visual.json",
+                         "20260317_UAT_001.Report/definition/pages/pages.json",
+                         "20260317_UAT_001.SemanticModel/definition/model.tmdl",
+                         "20260317_UAT_001.SemanticModel/definition/tables/MOD Finance Compare Inputs.tmdl",
+                         "20260317_UAT_001.SemanticModel/definition/tables/MOD Finance Compare Metrics.tmdl",
+                         "20260317_UAT_001.SemanticModel/definition/tables/MOD Finance Compare Selector.tmdl",
+                         "module-config/20260317_UAT_001/installed-modules.json"
+                     ],
+    "semanticObjectsAdded":  {
+                                 "tables":  [
+                                                "MOD Finance Compare Inputs",
+                                                "MOD Finance Compare Selector",
+                                                "MOD Finance Compare Metrics"
+                                            ],
+                                 "measures":  [
+                                                  "Input Fin ACT",
+                                                  "Input Fin BDG",
+                                                  "Input Fin ACT PY",
+                                                  "Finance Compare (Selected)",
+                                                  "Finance Compare Label (Selected)",
+                                                  "Selected Reference Value",
+                                                  "Fin ACT vs (Selected) abs",
+                                                  "Fin ACT vs (Selected) +/-%"
+                                              ]
+                             },
+    "reportObjectsAdded":  {
+                               "page":  "8a4f2d4d3f11450ab001",
+                               "files":  [
+                                             "20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/page.json",
+                                             "20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_act/visual.json",
+                                             "20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_delta/visual.json",
+                                             "20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_ref/visual.json",
+                                             "20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_slicer/visual.json",
+                                             "20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_title/visual.json"
+                                         ],
+                               "visualCount":  5
+                           },
+    "impactMetrics":  {
+                          "fileCount":  12,
+                          "sizeDeltaBytes":  40919,
+                          "semanticTableCount":  3,
+                          "semanticMeasureCount":  8,
+                          "reportFileCount":  6,
+                          "reportVisualCount":  5
+                      },
+    "history":  {
+                    "lastSnapshotId":  "20260318T193146100Z",
+                    "lastDiffJsonPath":  "module-config/20260317_UAT_001/diffs/finance_compare_mvp/20260318T193145950Z/diff.json",
+                    "lastDiffMarkdownPath":  "module-config/20260317_UAT_001/diffs/finance_compare_mvp/20260318T193145950Z/diff.md",
+                    "lastLogPath":  "module-config/20260317_UAT_001/logs/20260318T193145490Z-23a4414a.jsonl",
+                    "lastRepoHealthMetricsPath":  "",
+                    "lastRepoHealthSummaryPath":  ""
+                },
+    "governance":  {
+                       "status":  "WARN",
+                       "reasons":  [
+                                       "repo-health hook failed: In C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\upgrade-rollback-44d5799cb718482db6dfb90706a27d57\\repository-health\\scripts\\RepoHealth.Common.ps1:235 car:48\r\n+     $looseObjectCount = [int]($parsed[\"count\"] ?? 0)\r\n+                                                ~~\nToken \u0027??\u0027 imprevisto nell\u0027espressione o nell\u0027istruzione.\r\n\r\nIn C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\upgrade-rollback-44d5799cb718482db6dfb90706a27d57\\repository-health\\scripts\\RepoHealth.Common.ps1:235 car:47\r\n+     $looseObjectCount = [int]($parsed[\"count\"] ?? 0)\r\n+                                               ~\n\u0027)\u0027 di chiusura mancante nell\u0027espressione.\r\n\r\nIn C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\upgrade-rollback-44d5799cb718482db6dfb90706a27d57\\repository-health\\scripts\\RepoHealth.Common.ps1:223 car:39\r\n+ function Get-RepoHealthGitCoreMetrics {\r\n+                                       ~\n\u0027}\u0027 di chiusura mancante nel blocco di istruzioni o nella definizione del tipo.\r\n\r\nIn C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\upgrade-rollback-44d5799cb718482db6dfb90706a27d57\\repository-health\\scripts\\RepoHealth.Common.ps1:235 car:52\r\n+     $looseObjectCount = [int]($parsed[\"count\"] ?? 0)\r\n+                                                    ~\nToken \u0027)\u0027 imprevisto nell\u0027espressione o nell\u0027istruzione.\r\n\r\nIn C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\upgrade-rollback-44d5799cb718482db6dfb90706a27d57\\repository-health\\scripts\\RepoHealth.Common.ps1:236 car:51\r\n+     $packedObjectCount = [int]($parsed[\"in-pack\"] ?? 0)\r\n+                                                   ~~\nToken \u0027??\u0027 imprevisto nell\u0027espressione o nell\u0027istruzione.\r\n\r\nIn C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\upgrade-rollback-44d5799cb718482db6dfb90706a27d57\\repository-health\\scripts\\RepoHealth.Common.ps1:236 car:50\r\n+     $packedObjectCount = [int]($parsed[\"in-pack\"] ?? 0)\r\n+                                                  ~\n\u0027)\u0027 di chiusura mancante nell\u0027espressione.\r\n\r\nIn C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\upgrade-rollback-44d5799cb718482db6dfb90706a27d57\\repository-health\\scripts\\RepoHealth.Common.ps1:236 car:55\r\n+     $packedObjectCount = [int]($parsed[\"in-pack\"] ?? 0)\r\n+                                                       ~\nToken \u0027)\u0027 imprevisto nell\u0027espressione o nell\u0027istruzione.\r\n\r\nIn C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\upgrade-rollback-44d5799cb718482db6dfb90706a27d57\\repository-health\\scripts\\RepoHealth.Common.ps1:242 car:52\r\n+         PackCount         = [int]($parsed[\"packs\"] ?? 0)\r\n+                                                    ~~\nToken \u0027??\u0027 imprevisto nell\u0027espressione o nell\u0027istruzione.\r\n\r\nIn C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\upgrade-rollback-44d5799cb718482db6dfb90706a27d57\\repository-health\\scripts\\RepoHealth.Common.ps1:242 car:51\r\n+         PackCount         = [int]($parsed[\"packs\"] ?? 0)\r\n+                                                   ~\n\u0027)\u0027 di chiusura mancante nell\u0027espressione.\r\n\r\nIn C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\upgrade-rollback-44d5799cb718482db6dfb90706a27d57\\repository-health\\scripts\\RepoHealth.Common.ps1:242 car:51\r\n+         PackCount         = [int]($parsed[\"packs\"] ?? 0)\r\n+                                                   ~\nValore letterale hash incompleto.\r\n\r\nNon sono stati segnalati tutti gli errori di analisi. Correggere gli errori segnalati e riprovare."
+                                   ]
+                   }
+}

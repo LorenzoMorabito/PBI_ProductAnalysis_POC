@@ -1,0 +1,12 @@
+20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/page.json
+20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_act/visual.json
+20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_delta/visual.json
+20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_ref/visual.json
+20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_slicer/visual.json
+20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_title/visual.json
+20260317_UAT_001.Report/definition/pages/pages.json
+20260317_UAT_001.SemanticModel/definition/model.tmdl
+20260317_UAT_001.SemanticModel/definition/tables/MOD Finance Compare Inputs.tmdl
+20260317_UAT_001.SemanticModel/definition/tables/MOD Finance Compare Metrics.tmdl
+20260317_UAT_001.SemanticModel/definition/tables/MOD Finance Compare Selector.tmdl
+module-config/20260317_UAT_001/installed-modules.json

@@ -1,0 +1,10 @@
+[INFO] Created snapshot 20260318T193127817Z for module flex_table_flat_mvp
+[INFO] Applying module flex_table_flat_mvp 0.2.0 into project 20260317_Product_Analysis_FlexTable
+[SUCCESS] Module flex_table_flat_mvp install completed for project 20260317_Product_Analysis_FlexTable
+[SUCCESS] Installed module flex_table_flat_mvp 0.2.0 into project 20260317_Product_Analysis_FlexTable
+  Snapshot: 20260318T193127817Z
+  Governance: WARN
+  Metadata: C:\work\MEN_Marketing\PBI_ProductAnalysis_POC\.tmp-collaudo\install-clean-d5694dbcb1f144668ed8e914e25bc782\powerbi-projects\module-config\20260317_Product_Analysis_FlexTable\installed-modules.json
+  Log: C:\work\MEN_Marketing\PBI_ProductAnalysis_POC\.tmp-collaudo\install-clean-d5694dbcb1f144668ed8e914e25bc782\powerbi-projects\module-config\20260317_Product_Analysis_FlexTable\logs\20260318T193127589Z-b7eeafed.jsonl
+
+[exit-code] 0

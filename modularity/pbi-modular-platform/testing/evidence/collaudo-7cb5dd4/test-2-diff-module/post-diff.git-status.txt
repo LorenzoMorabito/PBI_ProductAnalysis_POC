@@ -1,0 +1,6 @@
+ M powerbi-projects/20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/page.json
+ M powerbi-projects/20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_title/visual.json
+ M "powerbi-projects/20260317_UAT_001.SemanticModel/definition/tables/MOD Finance Compare Selector.tmdl"
+?? powerbi-projects/module-config/20260317_UAT_001/diffs/
+
+[exit-code] 0

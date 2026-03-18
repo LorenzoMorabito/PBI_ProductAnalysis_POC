@@ -1,0 +1,2963 @@
+diff --git a/powerbi-projects/20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/page.json b/powerbi-projects/20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/page.json
+index 41b1e5c..c51f324 100644
+--- a/powerbi-projects/20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/page.json
++++ b/powerbi-projects/20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/page.json
+@@ -1,28 +1,28 @@
+ {
+-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.0.0/schema.json",
+-  "name": "8a4f2d4d3f11450ab001",
+-  "displayName": "Finance Compare MVP",
+-  "displayOption": "FitToWidth",
+-  "height": 720,
+-  "width": 1280,
+-  "objects": {
+-    "background": [
+-      {
+-        "properties": {
+-          "color": {
+-            "solid": {
+-              "color": {
+-                "expr": {
+-                  "ThemeDataColor": {
+-                    "ColorId": 0,
+-                    "Percent": -0.1
+-                  }
++    "$schema":  "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.0.0/schema.json",
++    "name":  "8a4f2d4d3f11450ab001",
++    "displayName":  "Finance Compare MVP v0.1.1",
++    "displayOption":  "FitToWidth",
++    "height":  720,
++    "width":  1280,
++    "objects":  {
++                    "background":  [
++                                       {
++                                           "properties":  {
++                                                              "color":  {
++                                                                            "solid":  {
++                                                                                          "color":  {
++                                                                                                        "expr":  {
++                                                                                                                     "ThemeDataColor":  {
++                                                                                                                                            "ColorId":  0,
++                                                                                                                                            "Percent":  -0.1
++                                                                                                                                        }
++                                                                                                                 }
++                                                                                                    }
++                                                                                      }
++                                                                        }
++                                                          }
++                                       }
++                                   ]
+                 }
+-              }
+-            }
+-          }
+-        }
+-      }
+-    ]
+-  }
+ }
+\ No newline at end of file
+diff --git a/powerbi-projects/20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_act/visual.json b/powerbi-projects/20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_act/visual.json
+index 7baa0a7..f1bbd60 100644
+--- a/powerbi-projects/20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_act/visual.json
++++ b/powerbi-projects/20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_act/visual.json
+@@ -1,215 +1,215 @@
+-{
+-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+-  "name": "fc_mvp_act",
+-  "position": {
+-    "x": 24,
+-    "y": 220,
+-    "z": 200,
+-    "height": 100,
+-    "width": 220,
+-    "tabOrder": 2
+-  },
+-  "visual": {
+-    "visualType": "kpi",
+-    "query": {
+-      "queryState": {
+-        "Goal": {
+-          "projections": [
+-            {
+-              "field": {
+-                "Measure": {
+-                  "Expression": {
+-                    "SourceRef": {
+-                      "Entity": "MOD Finance Compare Selector"
+-                    }
+-                  },
+-                  "Property": "Finance Compare (Selected)"
+-                }
+-              },
+-              "queryRef": "MOD Finance Compare Selector.Finance Compare (Selected)",
+-              "nativeQueryRef": "Finance Compare (Selected)"
+-            }
+-          ]
+-        },
+-        "Indicator": {
+-          "projections": [
+-            {
+-              "field": {
+-                "Measure": {
+-                  "Expression": {
+-                    "SourceRef": {
+-                      "Entity": "MOD Finance Compare Inputs"
+-                    }
+-                  },
+-                  "Property": "Input Fin ACT"
+-                }
+-              },
+-              "queryRef": "MOD Finance Compare Inputs.Input Fin ACT",
+-              "nativeQueryRef": "Input Fin ACT"
+-            }
+-          ]
+-        },
+-        "TrendLine": {
+-          "projections": [
+-            {
+-              "field": {
+-                "Column": {
+-                  "Expression": {
+-                    "SourceRef": {
+-                      "Entity": "T_DIM_MONTH"
+-                    }
+-                  },
+-                  "Property": "MonthStartDay"
+-                }
+-              },
+-              "queryRef": "T_DIM_MONTH.MonthStartDay",
+-              "nativeQueryRef": "MonthStartDay"
+-            }
+-          ]
+-        }
+-      }
+-    },
+-    "objects": {
+-      "trendline": [
+-        {
+-          "properties": {
+-            "show": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "false"
+-                }
+-              }
+-            }
+-          }
+-        }
+-      ],
+-      "indicator": [
+-        {
+-          "properties": {
+-            "showIcon": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "false"
+-                }
+-              }
+-            }
+-          }
+-        }
+-      ],
+-      "goals": [
+-        {
+-          "properties": {
+-            "showGoal": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "false"
+-                }
+-              }
+-            }
+-          }
+-        }
+-      ]
+-    },
+-    "visualContainerObjects": {
+-      "lockAspect": [
+-        {
+-          "properties": {
+-            "show": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "true"
+-                }
+-              }
+-            }
+-          }
+-        }
+-      ],
+-      "background": [
+-        {
+-          "properties": {
+-            "show": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "true"
+-                }
+-              }
+-            },
+-            "transparency": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "0D"
+-                }
+-              }
+-            }
+-          }
+-        }
+-      ],
+-      "border": [
+-        {
+-          "properties": {
+-            "show": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "true"
+-                }
+-              }
+-            },
+-            "color": {
+-              "solid": {
+-                "color": {
+-                  "expr": {
+-                    "ThemeDataColor": {
+-                      "ColorId": 0,
+-                      "Percent": 0
+-                    }
+-                  }
+-                }
+-              }
+-            },
+-            "radius": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "10D"
+-                }
+-              }
+-            },
+-            "width": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "1D"
+-                }
+-              }
+-            }
+-          }
+-        }
+-      ],
+-      "visualHeader": [
+-        {
+-          "properties": {
+-            "show": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "false"
+-                }
+-              }
+-            }
+-          }
+-        }
+-      ],
+-      "title": [
+-        {
+-          "properties": {
+-            "text": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "'ACT'"
+-                }
+-              }
+-            }
+-          }
+-        }
+-      ]
+-    },
+-    "drillFilterOtherVisuals": true
+-  }
+-}
+\ No newline at end of file
++{
++  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
++  "name": "fc_mvp_act",
++  "position": {
++    "x": 24,
++    "y": 220,
++    "z": 200,
++    "height": 100,
++    "width": 220,
++    "tabOrder": 2
++  },
++  "visual": {
++    "visualType": "kpi",
++    "query": {
++      "queryState": {
++        "Goal": {
++          "projections": [
++            {
++              "field": {
++                "Measure": {
++                  "Expression": {
++                    "SourceRef": {
++                      "Entity": "MOD Finance Compare Selector"
++                    }
++                  },
++                  "Property": "Finance Compare (Selected)"
++                }
++              },
++              "queryRef": "MOD Finance Compare Selector.Finance Compare (Selected)",
++              "nativeQueryRef": "Finance Compare (Selected)"
++            }
++          ]
++        },
++        "Indicator": {
++          "projections": [
++            {
++              "field": {
++                "Measure": {
++                  "Expression": {
++                    "SourceRef": {
++                      "Entity": "MOD Finance Compare Inputs"
++                    }
++                  },
++                  "Property": "Input Fin ACT"
++                }
++              },
++              "queryRef": "MOD Finance Compare Inputs.Input Fin ACT",
++              "nativeQueryRef": "Input Fin ACT"
++            }
++          ]
++        },
++        "TrendLine": {
++          "projections": [
++            {
++              "field": {
++                "Column": {
++                  "Expression": {
++                    "SourceRef": {
++                      "Entity": "T_DIM_MONTH"
++                    }
++                  },
++                  "Property": "MonthStartDay"
++                }
++              },
++              "queryRef": "T_DIM_MONTH.MonthStartDay",
++              "nativeQueryRef": "MonthStartDay"
++            }
++          ]
++        }
++      }
++    },
++    "objects": {
++      "trendline": [
++        {
++          "properties": {
++            "show": {
++              "expr": {
++                "Literal": {
++                  "Value": "false"
++                }
++              }
++            }
++          }
++        }
++      ],
++      "indicator": [
++        {
++          "properties": {
++            "showIcon": {
++              "expr": {
++                "Literal": {
++                  "Value": "false"
++                }
++              }
++            }
++          }
++        }
++      ],
++      "goals": [
++        {
++          "properties": {
++            "showGoal": {
++              "expr": {
++                "Literal": {
++                  "Value": "false"
++                }
++              }
++            }
++          }
++        }
++      ]
++    },
++    "visualContainerObjects": {
++      "lockAspect": [
++        {
++          "properties": {
++            "show": {
++              "expr": {
++                "Literal": {
++                  "Value": "true"
++                }
++              }
++            }
++          }
++        }
++      ],
++      "background": [
++        {
++          "properties": {
++            "show": {
++              "expr": {
++                "Literal": {
++                  "Value": "true"
++                }
++              }
++            },
++            "transparency": {
++              "expr": {
++                "Literal": {
++                  "Value": "0D"
++                }
++              }
++            }
++          }
++        }
++      ],
++      "border": [
++        {
++          "properties": {
++            "show": {
++              "expr": {
++                "Literal": {
++                  "Value": "true"
++                }
++              }
++            },
++            "color": {
++              "solid": {
++                "color": {
++                  "expr": {
++                    "ThemeDataColor": {
++                      "ColorId": 0,
++                      "Percent": 0
++                    }
++                  }
++                }
++              }
++            },
++            "radius": {
++              "expr": {
++                "Literal": {
++                  "Value": "10D"
++                }
++              }
++            },
++            "width": {
++              "expr": {
++                "Literal": {
++                  "Value": "1D"
++                }
++              }
++            }
++          }
++        }
++      ],
++      "visualHeader": [
++        {
++          "properties": {
++            "show": {
++              "expr": {
++                "Literal": {
++                  "Value": "false"
++                }
++              }
++            }
++          }
++        }
++      ],
++      "title": [
++        {
++          "properties": {
++            "text": {
++              "expr": {
++                "Literal": {
++                  "Value": "'ACT'"
++                }
++              }
++            }
++          }
++        }
++      ]
++    },
++    "drillFilterOtherVisuals": true
++  }
++}
+diff --git a/powerbi-projects/20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_delta/visual.json b/powerbi-projects/20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_delta/visual.json
+index 9c37a72..7104792 100644
+--- a/powerbi-projects/20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_delta/visual.json
++++ b/powerbi-projects/20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_delta/visual.json
+@@ -1,215 +1,215 @@
+-{
+-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+-  "name": "fc_mvp_delta",
+-  "position": {
+-    "x": 516,
+-    "y": 220,
+-    "z": 200,
+-    "height": 100,
+-    "width": 220,
+-    "tabOrder": 4
+-  },
+-  "visual": {
+-    "visualType": "kpi",
+-    "query": {
+-      "queryState": {
+-        "Goal": {
+-          "projections": [
+-            {
+-              "field": {
+-                "Measure": {
+-                  "Expression": {
+-                    "SourceRef": {
+-                      "Entity": "MOD Finance Compare Metrics"
+-                    }
+-                  },
+-                  "Property": "Selected Reference Value"
+-                }
+-              },
+-              "queryRef": "MOD Finance Compare Metrics.Selected Reference Value",
+-              "nativeQueryRef": "Selected Reference Value"
+-            }
+-          ]
+-        },
+-        "Indicator": {
+-          "projections": [
+-            {
+-              "field": {
+-                "Measure": {
+-                  "Expression": {
+-                    "SourceRef": {
+-                      "Entity": "MOD Finance Compare Metrics"
+-                    }
+-                  },
+-                  "Property": "Fin ACT vs (Selected) +/-%"
+-                }
+-              },
+-              "queryRef": "MOD Finance Compare Metrics.Fin ACT vs (Selected) +/-%",
+-              "nativeQueryRef": "Fin ACT vs (Selected) +/-%"
+-            }
+-          ]
+-        },
+-        "TrendLine": {
+-          "projections": [
+-            {
+-              "field": {
+-                "Column": {
+-                  "Expression": {
+-                    "SourceRef": {
+-                      "Entity": "T_DIM_MONTH"
+-                    }
+-                  },
+-                  "Property": "MonthStartDay"
+-                }
+-              },
+-              "queryRef": "T_DIM_MONTH.MonthStartDay",
+-              "nativeQueryRef": "MonthStartDay"
+-            }
+-          ]
+-        }
+-      }
+-    },
+-    "objects": {
+-      "trendline": [
+-        {
+-          "properties": {
+-            "show": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "false"
+-                }
+-              }
+-            }
+-          }
+-        }
+-      ],
+-      "indicator": [
+-        {
+-          "properties": {
+-            "showIcon": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "false"
+-                }
+-              }
+-            }
+-          }
+-        }
+-      ],
+-      "goals": [
+-        {
+-          "properties": {
+-            "showGoal": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "false"
+-                }
+-              }
+-            }
+-          }
+-        }
+-      ]
+-    },
+-    "visualContainerObjects": {
+-      "lockAspect": [
+-        {
+-          "properties": {
+-            "show": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "true"
+-                }
+-              }
+-            }
+-          }
+-        }
+-      ],
+-      "background": [
+-        {
+-          "properties": {
+-            "show": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "true"
+-                }
+-              }
+-            },
+-            "transparency": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "0D"
+-                }
+-              }
+-            }
+-          }
+-        }
+-      ],
+-      "border": [
+-        {
+-          "properties": {
+-            "show": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "true"
+-                }
+-              }
+-            },
+-            "color": {
+-              "solid": {
+-                "color": {
+-                  "expr": {
+-                    "ThemeDataColor": {
+-                      "ColorId": 0,
+-                      "Percent": 0
+-                    }
+-                  }
+-                }
+-              }
+-            },
+-            "radius": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "10D"
+-                }
+-              }
+-            },
+-            "width": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "1D"
+-                }
+-              }
+-            }
+-          }
+-        }
+-      ],
+-      "visualHeader": [
+-        {
+-          "properties": {
+-            "show": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "false"
+-                }
+-              }
+-            }
+-          }
+-        }
+-      ],
+-      "title": [
+-        {
+-          "properties": {
+-            "text": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "'Delta %'"
+-                }
+-              }
+-            }
+-          }
+-        }
+-      ]
+-    },
+-    "drillFilterOtherVisuals": true
+-  }
+-}
+\ No newline at end of file
++{
++  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
++  "name": "fc_mvp_delta",
++  "position": {
++    "x": 516,
++    "y": 220,
++    "z": 200,
++    "height": 100,
++    "width": 220,
++    "tabOrder": 4
++  },
++  "visual": {
++    "visualType": "kpi",
++    "query": {
++      "queryState": {
++        "Goal": {
++          "projections": [
++            {
++              "field": {
++                "Measure": {
++                  "Expression": {
++                    "SourceRef": {
++                      "Entity": "MOD Finance Compare Metrics"
++                    }
++                  },
++                  "Property": "Selected Reference Value"
++                }
++              },
++              "queryRef": "MOD Finance Compare Metrics.Selected Reference Value",
++              "nativeQueryRef": "Selected Reference Value"
++            }
++          ]
++        },
++        "Indicator": {
++          "projections": [
++            {
++              "field": {
++                "Measure": {
++                  "Expression": {
++                    "SourceRef": {
++                      "Entity": "MOD Finance Compare Metrics"
++                    }
++                  },
++                  "Property": "Fin ACT vs (Selected) +/-%"
++                }
++              },
++              "queryRef": "MOD Finance Compare Metrics.Fin ACT vs (Selected) +/-%",
++              "nativeQueryRef": "Fin ACT vs (Selected) +/-%"
++            }
++          ]
++        },
++        "TrendLine": {
++          "projections": [
++            {
++              "field": {
++                "Column": {
++                  "Expression": {
++                    "SourceRef": {
++                      "Entity": "T_DIM_MONTH"
++                    }
++                  },
++                  "Property": "MonthStartDay"
++                }
++              },
++              "queryRef": "T_DIM_MONTH.MonthStartDay",
++              "nativeQueryRef": "MonthStartDay"
++            }
++          ]
++        }
++      }
++    },
++    "objects": {
++      "trendline": [
++        {
++          "properties": {
++            "show": {
++              "expr": {
++                "Literal": {
++                  "Value": "false"
++                }
++              }
++            }
++          }
++        }
++      ],
++      "indicator": [
++        {
++          "properties": {
++            "showIcon": {
++              "expr": {
++                "Literal": {
++                  "Value": "false"
++                }
++              }
++            }
++          }
++        }
++      ],
++      "goals": [
++        {
++          "properties": {
++            "showGoal": {
++              "expr": {
++                "Literal": {
++                  "Value": "false"
++                }
++              }
++            }
++          }
++        }
++      ]
++    },
++    "visualContainerObjects": {
++      "lockAspect": [
++        {
++          "properties": {
++            "show": {
++              "expr": {
++                "Literal": {
++                  "Value": "true"
++                }
++              }
++            }
++          }
++        }
++      ],
++      "background": [
++        {
++          "properties": {
++            "show": {
++              "expr": {
++                "Literal": {
++                  "Value": "true"
++                }
++              }
++            },
++            "transparency": {
++              "expr": {
++                "Literal": {
++                  "Value": "0D"
++                }
++              }
++            }
++          }
++        }
++      ],
++      "border": [
++        {
++          "properties": {
++            "show": {
++              "expr": {
++                "Literal": {
++                  "Value": "true"
++                }
++              }
++            },
++            "color": {
++              "solid": {
++                "color": {
++                  "expr": {
++                    "ThemeDataColor": {
++                      "ColorId": 0,
++                      "Percent": 0
++                    }
++                  }
++                }
++              }
++            },
++            "radius": {
++              "expr": {
++                "Literal": {
++                  "Value": "10D"
++                }
++              }
++            },
++            "width": {
++              "expr": {
++                "Literal": {
++                  "Value": "1D"
++                }
++              }
++            }
++          }
++        }
++      ],
++      "visualHeader": [
++        {
++          "properties": {
++            "show": {
++              "expr": {
++                "Literal": {
++                  "Value": "false"
++                }
++              }
++            }
++          }
++        }
++      ],
++      "title": [
++        {
++          "properties": {
++            "text": {
++              "expr": {
++                "Literal": {
++                  "Value": "'Delta %'"
++                }
++              }
++            }
++          }
++        }
++      ]
++    },
++    "drillFilterOtherVisuals": true
++  }
++}
+diff --git a/powerbi-projects/20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_ref/visual.json b/powerbi-projects/20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_ref/visual.json
+index 27419ee..d616bef 100644
+--- a/powerbi-projects/20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_ref/visual.json
++++ b/powerbi-projects/20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_ref/visual.json
+@@ -1,215 +1,215 @@
+-{
+-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+-  "name": "fc_mvp_ref",
+-  "position": {
+-    "x": 270,
+-    "y": 220,
+-    "z": 200,
+-    "height": 100,
+-    "width": 220,
+-    "tabOrder": 3
+-  },
+-  "visual": {
+-    "visualType": "kpi",
+-    "query": {
+-      "queryState": {
+-        "Goal": {
+-          "projections": [
+-            {
+-              "field": {
+-                "Measure": {
+-                  "Expression": {
+-                    "SourceRef": {
+-                      "Entity": "MOD Finance Compare Inputs"
+-                    }
+-                  },
+-                  "Property": "Input Fin ACT"
+-                }
+-              },
+-              "queryRef": "MOD Finance Compare Inputs.Input Fin ACT",
+-              "nativeQueryRef": "Input Fin ACT"
+-            }
+-          ]
+-        },
+-        "Indicator": {
+-          "projections": [
+-            {
+-              "field": {
+-                "Measure": {
+-                  "Expression": {
+-                    "SourceRef": {
+-                      "Entity": "MOD Finance Compare Metrics"
+-                    }
+-                  },
+-                  "Property": "Selected Reference Value"
+-                }
+-              },
+-              "queryRef": "MOD Finance Compare Metrics.Selected Reference Value",
+-              "nativeQueryRef": "Selected Reference Value"
+-            }
+-          ]
+-        },
+-        "TrendLine": {
+-          "projections": [
+-            {
+-              "field": {
+-                "Column": {
+-                  "Expression": {
+-                    "SourceRef": {
+-                      "Entity": "T_DIM_MONTH"
+-                    }
+-                  },
+-                  "Property": "MonthStartDay"
+-                }
+-              },
+-              "queryRef": "T_DIM_MONTH.MonthStartDay",
+-              "nativeQueryRef": "MonthStartDay"
+-            }
+-          ]
+-        }
+-      }
+-    },
+-    "objects": {
+-      "trendline": [
+-        {
+-          "properties": {
+-            "show": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "false"
+-                }
+-              }
+-            }
+-          }
+-        }
+-      ],
+-      "indicator": [
+-        {
+-          "properties": {
+-            "showIcon": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "false"
+-                }
+-              }
+-            }
+-          }
+-        }
+-      ],
+-      "goals": [
+-        {
+-          "properties": {
+-            "showGoal": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "false"
+-                }
+-              }
+-            }
+-          }
+-        }
+-      ]
+-    },
+-    "visualContainerObjects": {
+-      "lockAspect": [
+-        {
+-          "properties": {
+-            "show": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "true"
+-                }
+-              }
+-            }
+-          }
+-        }
+-      ],
+-      "background": [
+-        {
+-          "properties": {
+-            "show": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "true"
+-                }
+-              }
+-            },
+-            "transparency": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "0D"
+-                }
+-              }
+-            }
+-          }
+-        }
+-      ],
+-      "border": [
+-        {
+-          "properties": {
+-            "show": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "true"
+-                }
+-              }
+-            },
+-            "color": {
+-              "solid": {
+-                "color": {
+-                  "expr": {
+-                    "ThemeDataColor": {
+-                      "ColorId": 0,
+-                      "Percent": 0
+-                    }
+-                  }
+-                }
+-              }
+-            },
+-            "radius": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "10D"
+-                }
+-              }
+-            },
+-            "width": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "1D"
+-                }
+-              }
+-            }
+-          }
+-        }
+-      ],
+-      "visualHeader": [
+-        {
+-          "properties": {
+-            "show": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "false"
+-                }
+-              }
+-            }
+-          }
+-        }
+-      ],
+-      "title": [
+-        {
+-          "properties": {
+-            "text": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "'Selected Ref'"
+-                }
+-              }
+-            }
+-          }
+-        }
+-      ]
+-    },
+-    "drillFilterOtherVisuals": true
+-  }
+-}
+\ No newline at end of file
++{
++  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
++  "name": "fc_mvp_ref",
++  "position": {
++    "x": 270,
++    "y": 220,
++    "z": 200,
++    "height": 100,
++    "width": 220,
++    "tabOrder": 3
++  },
++  "visual": {
++    "visualType": "kpi",
++    "query": {
++      "queryState": {
++        "Goal": {
++          "projections": [
++            {
++              "field": {
++                "Measure": {
++                  "Expression": {
++                    "SourceRef": {
++                      "Entity": "MOD Finance Compare Inputs"
++                    }
++                  },
++                  "Property": "Input Fin ACT"
++                }
++              },
++              "queryRef": "MOD Finance Compare Inputs.Input Fin ACT",
++              "nativeQueryRef": "Input Fin ACT"
++            }
++          ]
++        },
++        "Indicator": {
++          "projections": [
++            {
++              "field": {
++                "Measure": {
++                  "Expression": {
++                    "SourceRef": {
++                      "Entity": "MOD Finance Compare Metrics"
++                    }
++                  },
++                  "Property": "Selected Reference Value"
++                }
++              },
++              "queryRef": "MOD Finance Compare Metrics.Selected Reference Value",
++              "nativeQueryRef": "Selected Reference Value"
++            }
++          ]
++        },
++        "TrendLine": {
++          "projections": [
++            {
++              "field": {
++                "Column": {
++                  "Expression": {
++                    "SourceRef": {
++                      "Entity": "T_DIM_MONTH"
++                    }
++                  },
++                  "Property": "MonthStartDay"
++                }
++              },
++              "queryRef": "T_DIM_MONTH.MonthStartDay",
++              "nativeQueryRef": "MonthStartDay"
++            }
++          ]
++        }
++      }
++    },
++    "objects": {
++      "trendline": [
++        {
++          "properties": {
++            "show": {
++              "expr": {
++                "Literal": {
++                  "Value": "false"
++                }
++              }
++            }
++          }
++        }
++      ],
++      "indicator": [
++        {
++          "properties": {
++            "showIcon": {
++              "expr": {
++                "Literal": {
++                  "Value": "false"
++                }
++              }
++            }
++          }
++        }
++      ],
++      "goals": [
++        {
++          "properties": {
++            "showGoal": {
++              "expr": {
++                "Literal": {
++                  "Value": "false"
++                }
++              }
++            }
++          }
++        }
++      ]
++    },
++    "visualContainerObjects": {
++      "lockAspect": [
++        {
++          "properties": {
++            "show": {
++              "expr": {
++                "Literal": {
++                  "Value": "true"
++                }
++              }
++            }
++          }
++        }
++      ],
++      "background": [
++        {
++          "properties": {
++            "show": {
++              "expr": {
++                "Literal": {
++                  "Value": "true"
++                }
++              }
++            },
++            "transparency": {
++              "expr": {
++                "Literal": {
++                  "Value": "0D"
++                }
++              }
++            }
++          }
++        }
++      ],
++      "border": [
++        {
++          "properties": {
++            "show": {
++              "expr": {
++                "Literal": {
++                  "Value": "true"
++                }
++              }
++            },
++            "color": {
++              "solid": {
++                "color": {
++                  "expr": {
++                    "ThemeDataColor": {
++                      "ColorId": 0,
++                      "Percent": 0
++                    }
++                  }
++                }
++              }
++            },
++            "radius": {
++              "expr": {
++                "Literal": {
++                  "Value": "10D"
++                }
++              }
++            },
++            "width": {
++              "expr": {
++                "Literal": {
++                  "Value": "1D"
++                }
++              }
++            }
++          }
++        }
++      ],
++      "visualHeader": [
++        {
++          "properties": {
++            "show": {
++              "expr": {
++                "Literal": {
++                  "Value": "false"
++                }
++              }
++            }
++          }
++        }
++      ],
++      "title": [
++        {
++          "properties": {
++            "text": {
++              "expr": {
++                "Literal": {
++                  "Value": "'Selected Ref'"
++                }
++              }
++            }
++          }
++        }
++      ]
++    },
++    "drillFilterOtherVisuals": true
++  }
++}
+diff --git a/powerbi-projects/20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_slicer/visual.json b/powerbi-projects/20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_slicer/visual.json
+index ab26240..0081585 100644
+--- a/powerbi-projects/20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_slicer/visual.json
++++ b/powerbi-projects/20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_slicer/visual.json
+@@ -1,240 +1,240 @@
+-{
+-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+-  "name": "fc_mvp_slicer",
+-  "position": {
+-    "x": 24,
+-    "y": 120,
+-    "z": 100,
+-    "height": 60,
+-    "width": 150,
+-    "tabOrder": 1
+-  },
+-  "visual": {
+-    "visualType": "slicer",
+-    "query": {
+-      "queryState": {
+-        "Values": {
+-          "projections": [
+-            {
+-              "field": {
+-                "Column": {
+-                  "Expression": {
+-                    "SourceRef": {
+-                      "Entity": "MOD Finance Compare Selector"
+-                    }
+-                  },
+-                  "Property": "Compare"
+-                }
+-              },
+-              "queryRef": "MOD Finance Compare Selector.Compare",
+-              "nativeQueryRef": "Compare",
+-              "active": true
+-            }
+-          ]
+-        }
+-      }
+-    },
+-    "objects": {
+-      "data": [
+-        {
+-          "properties": {
+-            "mode": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "'Dropdown'"
+-                }
+-              }
+-            }
+-          }
+-        }
+-      ],
+-      "selection": [
+-        {
+-          "properties": {
+-            "strictSingleSelect": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "true"
+-                }
+-              }
+-            }
+-          }
+-        }
+-      ],
+-      "general": [
+-        {
+-          "properties": {
+-            "filter": {
+-              "filter": {
+-                "Version": 2,
+-                "From": [
+-                  {
+-                    "Name": "m",
+-                    "Entity": "MOD Finance Compare Selector",
+-                    "Type": 0
+-                  }
+-                ],
+-                "Where": [
+-                  {
+-                    "Condition": {
+-                      "In": {
+-                        "Expressions": [
+-                          {
+-                            "Column": {
+-                              "Expression": {
+-                                "SourceRef": {
+-                                  "Source": "m"
+-                                }
+-                              },
+-                              "Property": "Compare"
+-                            }
+-                          }
+-                        ],
+-                        "Values": [
+-                          [
+-                            {
+-                              "Literal": {
+-                                "Value": "'vs PY'"
+-                              }
+-                            }
+-                          ]
+-                        ]
+-                      }
+-                    }
+-                  }
+-                ]
+-              }
+-            }
+-          }
+-        }
+-      ]
+-    },
+-    "visualContainerObjects": {
+-      "lockAspect": [
+-        {
+-          "properties": {
+-            "show": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "true"
+-                }
+-              }
+-            }
+-          }
+-        }
+-      ],
+-      "title": [
+-        {
+-          "properties": {
+-            "text": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "'Compare Mode'"
+-                }
+-              }
+-            },
+-            "show": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "true"
+-                }
+-              }
+-            },
+-            "titleWrap": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "true"
+-                }
+-              }
+-            }
+-          }
+-        }
+-      ],
+-      "background": [
+-        {
+-          "properties": {
+-            "show": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "true"
+-                }
+-              }
+-            },
+-            "color": {
+-              "solid": {
+-                "color": {
+-                  "expr": {
+-                    "ThemeDataColor": {
+-                      "ColorId": 0,
+-                      "Percent": 0
+-                    }
+-                  }
+-                }
+-              }
+-            },
+-            "transparency": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "0D"
+-                }
+-              }
+-            }
+-          }
+-        }
+-      ],
+-      "padding": [
+-        {
+-          "properties": {
+-            "top": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "1D"
+-                }
+-              }
+-            }
+-          }
+-        }
+-      ],
+-      "border": [
+-        {
+-          "properties": {
+-            "show": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "true"
+-                }
+-              }
+-            },
+-            "color": {
+-              "solid": {
+-                "color": {
+-                  "expr": {
+-                    "ThemeDataColor": {
+-                      "ColorId": 0,
+-                      "Percent": 0
+-                    }
+-                  }
+-                }
+-              }
+-            },
+-            "radius": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "5D"
+-                }
+-              }
+-            },
+-            "width": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "1D"
+-                }
+-              }
+-            }
+-          }
+-        }
+-      ]
+-    },
+-    "drillFilterOtherVisuals": true
+-  }
+-}
+\ No newline at end of file
++{
++  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
++  "name": "fc_mvp_slicer",
++  "position": {
++    "x": 24,
++    "y": 120,
++    "z": 100,
++    "height": 60,
++    "width": 150,
++    "tabOrder": 1
++  },
++  "visual": {
++    "visualType": "slicer",
++    "query": {
++      "queryState": {
++        "Values": {
++          "projections": [
++            {
++              "field": {
++                "Column": {
++                  "Expression": {
++                    "SourceRef": {
++                      "Entity": "MOD Finance Compare Selector"
++                    }
++                  },
++                  "Property": "Compare"
++                }
++              },
++              "queryRef": "MOD Finance Compare Selector.Compare",
++              "nativeQueryRef": "Compare",
++              "active": true
++            }
++          ]
++        }
++      }
++    },
++    "objects": {
++      "data": [
++        {
++          "properties": {
++            "mode": {
++              "expr": {
++                "Literal": {
++                  "Value": "'Dropdown'"
++                }
++              }
++            }
++          }
++        }
++      ],
++      "selection": [
++        {
++          "properties": {
++            "strictSingleSelect": {
++              "expr": {
++                "Literal": {
++                  "Value": "true"
++                }
++              }
++            }
++          }
++        }
++      ],
++      "general": [
++        {
++          "properties": {
++            "filter": {
++              "filter": {
++                "Version": 2,
++                "From": [
++                  {
++                    "Name": "s",
++                    "Entity": "MOD Finance Compare Selector",
++                    "Type": 0
++                  }
++                ],
++                "Where": [
++                  {
++                    "Condition": {
++                      "In": {
++                        "Expressions": [
++                          {
++                            "Column": {
++                              "Expression": {
++                                "SourceRef": {
++                                  "Source": "s"
++                                }
++                              },
++                              "Property": "Compare"
++                            }
++                          }
++                        ],
++                        "Values": [
++                          [
++                            {
++                              "Literal": {
++                                "Value": "'vs BDG'"
++                              }
++                            }
++                          ]
++                        ]
++                      }
++                    }
++                  }
++                ]
++              }
++            }
++          }
++        }
++      ]
++    },
++    "visualContainerObjects": {
++      "lockAspect": [
++        {
++          "properties": {
++            "show": {
++              "expr": {
++                "Literal": {
++                  "Value": "true"
++                }
++              }
++            }
++          }
++        }
++      ],
++      "title": [
++        {
++          "properties": {
++            "text": {
++              "expr": {
++                "Literal": {
++                  "Value": "'Compare Mode'"
++                }
++              }
++            },
++            "show": {
++              "expr": {
++                "Literal": {
++                  "Value": "true"
++                }
++              }
++            },
++            "titleWrap": {
++              "expr": {
++                "Literal": {
++                  "Value": "true"
++                }
++              }
++            }
++          }
++        }
++      ],
++      "background": [
++        {
++          "properties": {
++            "show": {
++              "expr": {
++                "Literal": {
++                  "Value": "true"
++                }
++              }
++            },
++            "color": {
++              "solid": {
++                "color": {
++                  "expr": {
++                    "ThemeDataColor": {
++                      "ColorId": 0,
++                      "Percent": 0
++                    }
++                  }
++                }
++              }
++            },
++            "transparency": {
++              "expr": {
++                "Literal": {
++                  "Value": "0D"
++                }
++              }
++            }
++          }
++        }
++      ],
++      "padding": [
++        {
++          "properties": {
++            "top": {
++              "expr": {
++                "Literal": {
++                  "Value": "1D"
++                }
++              }
++            }
++          }
++        }
++      ],
++      "border": [
++        {
++          "properties": {
++            "show": {
++              "expr": {
++                "Literal": {
++                  "Value": "true"
++                }
++              }
++            },
++            "color": {
++              "solid": {
++                "color": {
++                  "expr": {
++                    "ThemeDataColor": {
++                      "ColorId": 0,
++                      "Percent": 0
++                    }
++                  }
++                }
++              }
++            },
++            "radius": {
++              "expr": {
++                "Literal": {
++                  "Value": "5D"
++                }
++              }
++            },
++            "width": {
++              "expr": {
++                "Literal": {
++                  "Value": "1D"
++                }
++              }
++            }
++          }
++        }
++      ]
++    },
++    "drillFilterOtherVisuals": true
++  }
++}
+diff --git a/powerbi-projects/20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_title/visual.json b/powerbi-projects/20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_title/visual.json
+index dd95034..31a5e62 100644
+--- a/powerbi-projects/20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_title/visual.json
++++ b/powerbi-projects/20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_title/visual.json
+@@ -1,199 +1,199 @@
+ {
+-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+-  "name": "fc_mvp_title",
+-  "position": {
+-    "x": 24,
+-    "y": 20,
+-    "z": 0,
+-    "height": 70,
+-    "width": 320,
+-    "tabOrder": 0
+-  },
+-  "visual": {
+-    "visualType": "textbox",
+-    "objects": {
+-      "general": [
+-        {
+-          "properties": {
+-            "paragraphs": [
+-              {
+-                "textRuns": [
+-                  {
+-                    "value": ""
+-                  }
+-                ]
+-              }
+-            ]
+-          }
+-        }
+-      ]
+-    },
+-    "visualContainerObjects": {
+-      "lockAspect": [
+-        {
+-          "properties": {
+-            "show": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "true"
+-                }
+-              }
+-            }
+-          }
+-        }
+-      ],
+-      "background": [
+-        {
+-          "properties": {
+-            "show": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "true"
+-                }
+-              }
+-            },
+-            "color": {
+-              "solid": {
+-                "color": {
+-                  "expr": {
+-                    "ThemeDataColor": {
+-                      "ColorId": 0,
+-                      "Percent": -0.1
+-                    }
+-                  }
+-                }
+-              }
+-            },
+-            "transparency": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "0D"
+-                }
+-              }
+-            }
+-          }
+-        }
+-      ],
+-      "border": [
+-        {
+-          "properties": {
+-            "show": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "true"
+-                }
+-              }
+-            },
+-            "color": {
+-              "solid": {
+-                "color": {
+-                  "expr": {
+-                    "ThemeDataColor": {
+-                      "ColorId": 0,
+-                      "Percent": -0.1
+-                    }
+-                  }
+-                }
+-              }
+-            },
+-            "radius": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "5D"
+-                }
+-              }
+-            },
+-            "width": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "1D"
+-                }
+-              }
+-            }
+-          }
+-        }
+-      ],
+-      "padding": [
+-        {
+-          "properties": {
+-            "top": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "0D"
+-                }
+-              }
+-            },
+-            "bottom": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "3D"
+-                }
+-              }
+-            }
+-          }
+-        }
+-      ],
+-      "title": [
+-        {
+-          "properties": {
+-            "text": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "'Finance Compare MVP'"
+-                }
+-              }
+-            },
+-            "show": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "true"
+-                }
+-              }
+-            },
+-            "titleWrap": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "true"
+-                }
+-              }
+-            },
+-            "alignment": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "'center'"
+-                }
+-              }
+-            }
+-          }
+-        }
+-      ],
+-      "general": [
+-        {
+-          "properties": {
+-            "keepLayerOrder": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "true"
+-                }
+-              }
+-            }
+-          }
+-        }
+-      ],
+-      "visualHeader": [
+-        {
+-          "properties": {
+-            "show": {
+-              "expr": {
+-                "Literal": {
+-                  "Value": "false"
+-                }
+-              }
+-            }
+-          }
+-        }
+-      ]
+-    },
+-    "drillFilterOtherVisuals": true
+-  }
++    "$schema":  "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
++    "name":  "fc_mvp_title",
++    "position":  {
++                     "x":  24,
++                     "y":  20,
++                     "z":  0,
++                     "height":  70,
++                     "width":  320,
++                     "tabOrder":  0
++                 },
++    "visual":  {
++                   "visualType":  "textbox",
++                   "objects":  {
++                                   "general":  [
++                                                   {
++                                                       "properties":  {
++                                                                          "paragraphs":  [
++                                                                                             {
++                                                                                                 "textRuns":  [
++                                                                                                                  {
++                                                                                                                      "value":  ""
++                                                                                                                  }
++                                                                                                              ]
++                                                                                             }
++                                                                                         ]
++                                                                      }
++                                                   }
++                                               ]
++                               },
++                   "visualContainerObjects":  {
++                                                  "lockAspect":  [
++                                                                     {
++                                                                         "properties":  {
++                                                                                            "show":  {
++                                                                                                         "expr":  {
++                                                                                                                      "Literal":  {
++                                                                                                                                      "Value":  "true"
++                                                                                                                                  }
++                                                                                                                  }
++                                                                                                     }
++                                                                                        }
++                                                                     }
++                                                                 ],
++                                                  "background":  [
++                                                                     {
++                                                                         "properties":  {
++                                                                                            "show":  {
++                                                                                                         "expr":  {
++                                                                                                                      "Literal":  {
++                                                                                                                                      "Value":  "true"
++                                                                                                                                  }
++                                                                                                                  }
++                                                                                                     },
++                                                                                            "color":  {
++                                                                                                          "solid":  {
++                                                                                                                        "color":  {
++                                                                                                                                      "expr":  {
++                                                                                                                                                   "ThemeDataColor":  {
++                                                                                                                                                                          "ColorId":  0,
++                                                                                                                                                                          "Percent":  -0.1
++                                                                                                                                                                      }
++                                                                                                                                               }
++                                                                                                                                  }
++                                                                                                                    }
++                                                                                                      },
++                                                                                            "transparency":  {
++                                                                                                                 "expr":  {
++                                                                                                                              "Literal":  {
++                                                                                                                                              "Value":  "0D"
++                                                                                                                                          }
++                                                                                                                          }
++                                                                                                             }
++                                                                                        }
++                                                                     }
++                                                                 ],
++                                                  "border":  [
++                                                                 {
++                                                                     "properties":  {
++                                                                                        "show":  {
++                                                                                                     "expr":  {
++                                                                                                                  "Literal":  {
++                                                                                                                                  "Value":  "true"
++                                                                                                                              }
++                                                                                                              }
++                                                                                                 },
++                                                                                        "color":  {
++                                                                                                      "solid":  {
++                                                                                                                    "color":  {
++                                                                                                                                  "expr":  {
++                                                                                                                                               "ThemeDataColor":  {
++                                                                                                                                                                      "ColorId":  0,
++                                                                                                                                                                      "Percent":  -0.1
++                                                                                                                                                                  }
++                                                                                                                                           }
++                                                                                                                              }
++                                                                                                                }
++                                                                                                  },
++                                                                                        "radius":  {
++                                                                                                       "expr":  {
++                                                                                                                    "Literal":  {
++                                                                                                                                    "Value":  "5D"
++                                                                                                                                }
++                                                                                                                }
++                                                                                                   },
++                                                                                        "width":  {
++                                                                                                      "expr":  {
++                                                                                                                   "Literal":  {
++                                                                                                                                   "Value":  "1D"
++                                                                                                                               }
++                                                                                                               }
++                                                                                                  }
++                                                                                    }
++                                                                 }
++                                                             ],
++                                                  "padding":  [
++                                                                  {
++                                                                      "properties":  {
++                                                                                         "top":  {
++                                                                                                     "expr":  {
++                                                                                                                  "Literal":  {
++                                                                                                                                  "Value":  "0D"
++                                                                                                                              }
++                                                                                                              }
++                                                                                                 },
++                                                                                         "bottom":  {
++                                                                                                        "expr":  {
++                                                                                                                     "Literal":  {
++                                                                                                                                     "Value":  "3D"
++                                                                                                                                 }
++                                                                                                                 }
++                                                                                                    }
++                                                                                     }
++                                                                  }
++                                                              ],
++                                                  "title":  [
++                                                                {
++                                                                    "properties":  {
++                                                                                       "text":  {
++                                                                                                    "expr":  {
++                                                                                                                 "Literal":  {
++                                                                                                                                 "Value":  "\u0027Finance Compare MVP v0.1.1\u0027"
++                                                                                                                             }
++                                                                                                             }
++                                                                                                },
++                                                                                       "show":  {
++                                                                                                    "expr":  {
++                                                                                                                 "Literal":  {
++                                                                                                                                 "Value":  "true"
++                                                                                                                             }
++                                                                                                             }
++                                                                                                },
++                                                                                       "titleWrap":  {
++                                                                                                         "expr":  {
++                                                                                                                      "Literal":  {
++                                                                                                                                      "Value":  "true"
++                                                                                                                                  }
++                                                                                                                  }
++                                                                                                     },
++                                                                                       "alignment":  {
++                                                                                                         "expr":  {
++                                                                                                                      "Literal":  {
++                                                                                                                                      "Value":  "\u0027center\u0027"
++                                                                                                                                  }
++                                                                                                                  }
++                                                                                                     }
++                                                                                   }
++                                                                }
++                                                            ],
++                                                  "general":  [
++                                                                  {
++                                                                      "properties":  {
++                                                                                         "keepLayerOrder":  {
++                                                                                                                "expr":  {
++                                                                                                                             "Literal":  {
++                                                                                                                                             "Value":  "true"
++                                                                                                                                         }
++                                                                                                                         }
++                                                                                                            }
++                                                                                     }
++                                                                  }
++                                                              ],
++                                                  "visualHeader":  [
++                                                                       {
++                                                                           "properties":  {
++                                                                                              "show":  {
++                                                                                                           "expr":  {
++                                                                                                                        "Literal":  {
++                                                                                                                                        "Value":  "false"
++                                                                                                                                    }
++                                                                                                                    }
++                                                                                                       }
++                                                                                          }
++                                                                       }
++                                                                   ]
++                                              },
++                   "drillFilterOtherVisuals":  true
++               }
+ }
+\ No newline at end of file
+diff --git a/powerbi-projects/20260317_UAT_001.Report/definition/pages/pages.json b/powerbi-projects/20260317_UAT_001.Report/definition/pages/pages.json
+index e844c1c..d3507d2 100644
+--- a/powerbi-projects/20260317_UAT_001.Report/definition/pages/pages.json
++++ b/powerbi-projects/20260317_UAT_001.Report/definition/pages/pages.json
+@@ -1,10 +1,10 @@
+ {
+-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/pagesMetadata/1.0.0/schema.json",
+-  "pageOrder": [
+-    "4f5e6d7c8b9a00112233",
+-    "8a4f2d4d3f11450ab001",
+-    "6f8d2c1e4b5a70918342",
+-    "9c7a5b4d3e2f1a0b6c8d"
+-  ],
+-  "activePageName": "9c7a5b4d3e2f1a0b6c8d"
++    "$schema":  "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/pagesMetadata/1.0.0/schema.json",
++    "pageOrder":  [
++                      "4f5e6d7c8b9a00112233",
++                      "6f8d2c1e4b5a70918342",
++                      "9c7a5b4d3e2f1a0b6c8d",
++                      "8a4f2d4d3f11450ab001"
++                  ],
++    "activePageName":  "9c7a5b4d3e2f1a0b6c8d"
+ }
+\ No newline at end of file
+diff --git a/powerbi-projects/20260317_UAT_001.SemanticModel/definition/model.tmdl b/powerbi-projects/20260317_UAT_001.SemanticModel/definition/model.tmdl
+index afa2b50..dcf5da1 100644
+--- a/powerbi-projects/20260317_UAT_001.SemanticModel/definition/model.tmdl
++++ b/powerbi-projects/20260317_UAT_001.SemanticModel/definition/model.tmdl
+@@ -13,7 +13,7 @@ queryGroup STG
+ 
+ annotation __PBI_TimeIntelligenceEnabled = 1
+ 
+-annotation PBI_QueryOrder = ["T_FCT_FIN","T_FCT_PROMO_A10P_CD","T_FCT_SALES_A10P","T_DIM_COUNTRY","T_DIM_MOLECULE","T_DIM_ACT4","T_DIM_PRODUCT","T_DIM_MONTH","T_DIM_QUARTER","T_DIM_CORPORATION","T_DIM_SPECIALTY","T_DIM_CHANNELS","root_path","MOD Finance Compare Inputs","MOD Finance Compare Selector","MOD Finance Compare Metrics","MOD Flex Table Inputs","MOD Flex Table Measure Selector","MOD Flex Table Axis","MOD Flex Table Metrics","MOD Flex Flat Inputs","MOD Flex Flat Dimensions","MOD Flex Flat Measures"]
++annotation PBI_QueryOrder = ["T_FCT_FIN","T_FCT_PROMO_A10P_CD","T_FCT_SALES_A10P","T_DIM_COUNTRY","T_DIM_MOLECULE","T_DIM_ACT4","T_DIM_PRODUCT","T_DIM_MONTH","T_DIM_QUARTER","T_DIM_CORPORATION","T_DIM_SPECIALTY","T_DIM_CHANNELS","root_path","MOD Flex Table Inputs","MOD Flex Table Measure Selector","MOD Flex Table Axis","MOD Flex Table Metrics","MOD Flex Flat Inputs","MOD Flex Flat Dimensions","MOD Flex Flat Measures","MOD Finance Compare Inputs","MOD Finance Compare Selector","MOD Finance Compare Metrics"]
+ 
+ annotation PBI_ProTooling = ["DaxQueryView_Desktop","DevMode"]
+ 
+@@ -32,9 +32,6 @@ ref table T_DIM_CHANNELS
+ ref table 'Msr Sales'
+ ref table 'Msr Promo'
+ ref table 'Msr Fin'
+-ref table 'MOD Finance Compare Inputs'
+-ref table 'MOD Finance Compare Selector'
+-ref table 'MOD Finance Compare Metrics'
+ ref table 'MOD Flex Table Inputs'
+ ref table 'MOD Flex Table Measure Selector'
+ ref table 'MOD Flex Table Axis'
+@@ -43,5 +40,8 @@ ref table 'MOD Flex Flat Inputs'
+ ref table 'MOD Flex Flat Dimensions'
+ ref table 'MOD Flex Flat Measures'
+ 
++ref table 'MOD Finance Compare Inputs'
++ref table 'MOD Finance Compare Selector'
++ref table 'MOD Finance Compare Metrics'
+ ref cultureInfo en-US
+ 
+diff --git a/powerbi-projects/20260317_UAT_001.SemanticModel/definition/tables/MOD Finance Compare Inputs.tmdl b/powerbi-projects/20260317_UAT_001.SemanticModel/definition/tables/MOD Finance Compare Inputs.tmdl
+index a8a9c3b..3cc5e22 100644
+--- a/powerbi-projects/20260317_UAT_001.SemanticModel/definition/tables/MOD Finance Compare Inputs.tmdl	
++++ b/powerbi-projects/20260317_UAT_001.SemanticModel/definition/tables/MOD Finance Compare Inputs.tmdl	
+@@ -1,32 +1,26 @@
+-table 'MOD Finance Compare Inputs'
+-	lineageTag: 5d7b918c-a344-4a56-8e17-a521a0f4e148
+-
+-	measure 'Input Fin ACT' = [Fin ACT]
+-		lineageTag: 9b8927e3-ffca-4b5f-b606-a3fbbf5aecc4
+-
+-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+-
+-	measure 'Input Fin BDG' = [Fin BDG]
+-		lineageTag: bf34deb6-9866-426a-910a-8b398798391f
+-
+-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+-
+-	measure 'Input Fin ACT PY' = [Fin ACT PY]
+-		lineageTag: 4f2af6a8-e779-4dc7-baa4-f43456e7cf52
+-
+-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+-
+-	column Column
+-		isHidden
+-		formatString: 0
+-		lineageTag: 6c719d99-fdec-4843-888d-3ce8aed39c37
+-		summarizeBy: sum
+-		isNameInferred
+-		sourceColumn: [Column]
+-
+-		annotation SummarizationSetBy = Automatic
+-
+-	partition 'MOD Finance Compare Inputs' = calculated
+-		mode: import
+-		source = Row("Column", BLANK())
+-
++table 'MOD Finance Compare Inputs'
++
++	measure 'Input Fin ACT' = [Fin ACT]
++
++		annotation PBI_FormatHint = {"isGeneralNumber":true}
++
++	measure 'Input Fin BDG' = [Fin BDG]
++
++		annotation PBI_FormatHint = {"isGeneralNumber":true}
++
++	measure 'Input Fin ACT PY' = [Fin ACT PY]
++
++		annotation PBI_FormatHint = {"isGeneralNumber":true}
++
++	column Column
++		isHidden
++		formatString: 0
++		summarizeBy: sum
++		isNameInferred
++		sourceColumn: [Column]
++
++		annotation SummarizationSetBy = Automatic
++
++	partition 'MOD Finance Compare Inputs' = calculated
++		mode: import
++		source = Row("Column", BLANK())
+diff --git a/powerbi-projects/20260317_UAT_001.SemanticModel/definition/tables/MOD Finance Compare Metrics.tmdl b/powerbi-projects/20260317_UAT_001.SemanticModel/definition/tables/MOD Finance Compare Metrics.tmdl
+index 349bc06..2f9ec42 100644
+--- a/powerbi-projects/20260317_UAT_001.SemanticModel/definition/tables/MOD Finance Compare Metrics.tmdl	
++++ b/powerbi-projects/20260317_UAT_001.SemanticModel/definition/tables/MOD Finance Compare Metrics.tmdl	
+@@ -1,37 +1,31 @@
+-table 'MOD Finance Compare Metrics'
+-	lineageTag: 427fbda2-de41-4402-8521-ed1c81fa840f
+-
+-	measure 'Selected Reference Value' = [Finance Compare (Selected)]
+-		lineageTag: e38421e0-390d-4639-8d3c-dabbc353f59f
+-
+-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+-
+-	measure 'Fin ACT vs (Selected) abs' =
+-			
+-			VAR comp = [Finance Compare (Selected)]
+-			RETURN IF( ISBLANK(comp), BLANK(), [Input Fin ACT] - comp )
+-		lineageTag: 2f77c01f-c36b-4a9b-a0bf-ec3ea89f1e62
+-
+-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+-
+-	measure 'Fin ACT vs (Selected) +/-%' =
+-			
+-			VAR comp = [Finance Compare (Selected)]
+-			RETURN IF( ISBLANK(comp), BLANK(), DIVIDE([Input Fin ACT] - comp, comp) )
+-		formatString: 0.0%;-0.0%;0.0%
+-		lineageTag: 55b10ee5-3892-4315-abf2-5e207447861b
+-
+-	column Column
+-		isHidden
+-		formatString: 0
+-		lineageTag: 3b824806-36b0-43b7-886f-427b33f67757
+-		summarizeBy: sum
+-		isNameInferred
+-		sourceColumn: [Column]
+-
+-		annotation SummarizationSetBy = Automatic
+-
+-	partition 'MOD Finance Compare Metrics' = calculated
+-		mode: import
+-		source = Row("Column", BLANK())
+-
++table 'MOD Finance Compare Metrics'
++
++	measure 'Selected Reference Value' = [Finance Compare (Selected)]
++
++		annotation PBI_FormatHint = {"isGeneralNumber":true}
++
++	measure 'Fin ACT vs (Selected) abs' =
++			
++			VAR comp = [Finance Compare (Selected)]
++			RETURN IF( ISBLANK(comp), BLANK(), [Input Fin ACT] - comp )
++
++		annotation PBI_FormatHint = {"isGeneralNumber":true}
++
++	measure 'Fin ACT vs (Selected) +/-%' =
++			
++			VAR comp = [Finance Compare (Selected)]
++			RETURN IF( ISBLANK(comp), BLANK(), DIVIDE([Input Fin ACT] - comp, comp) )
++		formatString: 0.0%;-0.0%;0.0%
++
++	column Column
++		isHidden
++		formatString: 0
++		summarizeBy: sum
++		isNameInferred
++		sourceColumn: [Column]
++
++		annotation SummarizationSetBy = Automatic
++
++	partition 'MOD Finance Compare Metrics' = calculated
++		mode: import
++		source = Row("Column", BLANK())
+diff --git a/powerbi-projects/20260317_UAT_001.SemanticModel/definition/tables/MOD Finance Compare Selector.tmdl b/powerbi-projects/20260317_UAT_001.SemanticModel/definition/tables/MOD Finance Compare Selector.tmdl
+index 5ab386d..47d8de5 100644
+--- a/powerbi-projects/20260317_UAT_001.SemanticModel/definition/tables/MOD Finance Compare Selector.tmdl	
++++ b/powerbi-projects/20260317_UAT_001.SemanticModel/definition/tables/MOD Finance Compare Selector.tmdl	
+@@ -1,48 +1,43 @@
+-table 'MOD Finance Compare Selector'
+-	lineageTag: 59c0a145-385a-4804-b92f-7c6ef0272f73
+-
+-	measure 'Finance Compare (Selected)' =
+-			
+-			SWITCH(
+-			  SELECTEDVALUE('MOD Finance Compare Selector'[Compare], "vs BDG"),
+-			  "vs BDG", [Input Fin BDG],
+-			  "vs PY",  [Input Fin ACT PY]
+-			)
+-		lineageTag: 352e890d-98f4-4ab4-a723-4b7f05fa8e69
+-
+-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+-
+-	measure 'Finance Compare Label (Selected)' =
+-			
+-			SELECTEDVALUE('MOD Finance Compare Selector'[Label], "BGT")
+-		lineageTag: e1d92d7f-52f1-4dcd-99bf-8e2fead6966c
+-
+-	column Compare
+-		lineageTag: 21031c4b-c02e-44ae-9688-ccd7c2742cca
+-		summarizeBy: none
+-		isNameInferred
+-		sourceColumn: [Compare]
+-
+-		annotation SummarizationSetBy = Automatic
+-
+-	column Label
+-		lineageTag: 3106935f-3cc3-4458-bff9-c1be9e338bff
+-		summarizeBy: none
+-		isNameInferred
+-		sourceColumn: [Label]
+-
+-		annotation SummarizationSetBy = Automatic
+-
+-	partition 'MOD Finance Compare Selector' = calculated
+-		mode: import
+-		source =
+-				
+-				DATATABLE(
+-				    "Compare", STRING,
+-				    "Label", STRING,
+-				    {
+-				        {"vs BDG", "BGT"},
+-				        {"vs PY", "PY"}
+-				    }
+-				)
+-
++table 'MOD Finance Compare Selector'
++
++	measure 'Finance Compare (Selected)' =
++			
++			SWITCH(
++			  SELECTEDVALUE('MOD Finance Compare Selector'[Compare], "vs BDG"),
++			  "vs BDG", [Input Fin BDG],
++			  "vs PY",  [Input Fin ACT PY]
++			)
++
++		annotation PBI_FormatHint = {"isGeneralNumber":true}
++
++	measure 'Finance Compare Label (Selected)' =
++			
++			SELECTEDVALUE('MOD Finance Compare Selector'[Label], "BGT 0.1.1")
++
++	column Compare
++		summarizeBy: none
++		isNameInferred
++		sourceColumn: [Compare]
++
++		annotation SummarizationSetBy = Automatic
++
++	column Label
++		summarizeBy: none
++		isNameInferred
++		sourceColumn: [Label]
++
++		annotation SummarizationSetBy = Automatic
++
++	partition 'MOD Finance Compare Selector' = calculated
++		mode: import
++		source = ```
++				
++				DATATABLE(
++				    "Compare", STRING,
++				    "Label", STRING,
++				    {
++				        {"vs BDG", "BGT 0.1.1"},
++				        {"vs PY", "PY"}
++				    }
++				)
++				```
+diff --git a/powerbi-projects/module-config/20260317_UAT_001/installed-modules.json b/powerbi-projects/module-config/20260317_UAT_001/installed-modules.json
+index c2aea24..410063a 100644
+--- a/powerbi-projects/module-config/20260317_UAT_001/installed-modules.json
++++ b/powerbi-projects/module-config/20260317_UAT_001/installed-modules.json
+@@ -1,101 +1,312 @@
+ {
+-  "installedModules": [
+-    {
+-      "moduleId": "finance_compare_mvp",
+-      "version": "0.1.0",
+-      "source": "modularity/pbi-finance-domain/packages/finance_compare_mvp",
+-      "mappings": {
+-        "coreMeasures": {
+-          "Fin ACT": "Fin ACT",
+-          "Fin BDG": "Fin BDG",
+-          "Fin ACT PY": "Fin ACT PY"
+-        },
+-        "coreColumns": {
+-          "T_DIM_MONTH[MonthStartDay]": "T_DIM_MONTH[MonthStartDay]"
+-        }
+-      },
+-      "installedObjects": {
+-        "tables": [
+-          "MOD Finance Compare Inputs",
+-          "MOD Finance Compare Selector",
+-          "MOD Finance Compare Metrics"
+-        ],
+-        "page": "8a4f2d4d3f11450ab001"
+-      },
+-      "installedAt": "2026-03-17T18:40:27"
+-    },
+-    {
+-      "moduleId": "flex_metrics_table_mvp",
+-      "version": "0.2.1",
+-      "source": "modularity/pbi-marketing-domain/packages/flex_metrics_table_mvp",
+-      "mappings": {
+-        "coreMeasures": {
+-          "Sales Values": "Sales Values",
+-          "Sales Units": "Sales Units",
+-          "Counting Units": "Counting Units",
+-          "Promo Spend": "Promo Spend",
+-          "Promo Details": "Promo Details",
+-          "Promo Contacts": "Promo Contacts",
+-          "Promo Weighted Calls": "Promo Weighted Calls",
+-          "Fin ACT": "Fin ACT",
+-          "Fin BDG": "Fin BDG",
+-          "Fin ACT PY": "Fin ACT PY"
+-        },
+-        "coreColumns": {
+-          "T_DIM_MOLECULE[MoleculeNorm]": "T_DIM_MOLECULE[MoleculeNorm]",
+-          "T_DIM_COUNTRY[Country]": "T_DIM_COUNTRY[Country]",
+-          "T_DIM_CORPORATION[Corporation]": "T_DIM_CORPORATION[Corporation]",
+-          "T_DIM_PRODUCT[Product]": "T_DIM_PRODUCT[Product]",
+-          "T_DIM_QUARTER[QuarterKey]": "T_DIM_QUARTER[QuarterKey]",
+-          "T_DIM_ACT4[ATC4]": "T_DIM_ACT4[ATC4]"
+-        }
+-      },
+-      "installedObjects": {
+-        "tables": [
+-          "MOD Flex Table Inputs",
+-          "MOD Flex Table Measure Selector",
+-          "MOD Flex Table Axis",
+-          "MOD Flex Table Metrics"
+-        ],
+-        "page": "6f8d2c1e4b5a70918342"
+-      },
+-      "installedAt": "2026-03-17T18:46:29"
+-    },
+-    {
+-      "moduleId": "flex_table_flat_mvp",
+-      "version": "0.2.0",
+-      "source": "modularity/pbi-marketing-domain/packages/flex_table_flat_mvp",
+-      "mappings": {
+-        "coreMeasures": {
+-          "Sales Values": "Sales Values",
+-          "Sales Units": "Sales Units",
+-          "Counting Units": "Counting Units",
+-          "Promo Spend": "Promo Spend",
+-          "Promo Details": "Promo Details",
+-          "Promo Contacts": "Promo Contacts",
+-          "Promo Weighted Calls": "Promo Weighted Calls",
+-          "Fin ACT": "Fin ACT",
+-          "Fin BDG": "Fin BDG",
+-          "Fin ACT PY": "Fin ACT PY"
+-        },
+-        "coreColumns": {
+-          "T_DIM_MOLECULE[MoleculeNorm]": "T_DIM_MOLECULE[MoleculeNorm]",
+-          "T_DIM_COUNTRY[Country]": "T_DIM_COUNTRY[Country]",
+-          "T_DIM_CORPORATION[Corporation]": "T_DIM_CORPORATION[Corporation]",
+-          "T_DIM_PRODUCT[Product]": "T_DIM_PRODUCT[Product]",
+-          "T_DIM_QUARTER[QuarterKey]": "T_DIM_QUARTER[QuarterKey]",
+-          "T_DIM_ACT4[ATC4]": "T_DIM_ACT4[ATC4]"
+-        }
+-      },
+-      "installedObjects": {
+-        "tables": [
+-          "MOD Flex Flat Inputs",
+-          "MOD Flex Flat Dimensions",
+-          "MOD Flex Flat Measures"
+-        ],
+-        "page": "9c7a5b4d3e2f1a0b6c8d"
+-      },
+-      "installedAt": "2026-03-17T18:46:48"
+-    }
+-  ]
+-}
++    "schemaVersion":  "2.0.0",
++    "generatedAt":  "2026-03-18T19:31:49Z",
++    "installedModules":  [
++                             {
++                                 "moduleId":  "finance_compare_mvp",
++                                 "version":  "0.1.1",
++                                 "domain":  "finance",
++                                 "type":  "semantic",
++                                 "classification":  "semantic-light",
++                                 "semanticImpact":  "additive",
++                                 "source":  "modularity/pbi-finance-domain/packages/finance_compare_mvp",
++                                 "mappings":  {
++                                                  "coreMeasures":  {
++                                                                       "Fin ACT":  "Fin ACT",
++                                                                       "Fin BDG":  "Fin BDG",
++                                                                       "Fin ACT PY":  "Fin ACT PY"
++                                                                   },
++                                                  "coreColumns":  {
++                                                                      "T_DIM_MONTH[MonthStartDay]":  "T_DIM_MONTH[MonthStartDay]"
++                                                                  }
++                                              },
++                                 "installedAt":  "2026-03-18T19:31:47Z",
++                                 "lastAction":  "upgrade",
++                                 "installedObjects":  {
++                                                          "tables":  [
++                                                                         "MOD Finance Compare Inputs",
++                                                                         "MOD Finance Compare Selector",
++                                                                         "MOD Finance Compare Metrics"
++                                                                     ],
++                                                          "page":  "8a4f2d4d3f11450ab001"
++                                                      },
++                                 "filesTouched":  [
++                                                      "20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/page.json",
++                                                      "20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_act/visual.json",
++                                                      "20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_delta/visual.json",
++                                                      "20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_ref/visual.json",
++                                                      "20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_slicer/visual.json",
++                                                      "20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_title/visual.json",
++                                                      "20260317_UAT_001.Report/definition/pages/pages.json",
++                                                      "20260317_UAT_001.SemanticModel/definition/model.tmdl",
++                                                      "20260317_UAT_001.SemanticModel/definition/tables/MOD Finance Compare Inputs.tmdl",
++                                                      "20260317_UAT_001.SemanticModel/definition/tables/MOD Finance Compare Metrics.tmdl",
++                                                      "20260317_UAT_001.SemanticModel/definition/tables/MOD Finance Compare Selector.tmdl",
++                                                      "module-config/20260317_UAT_001/installed-modules.json"
++                                                  ],
++                                 "semanticObjectsAdded":  {
++                                                              "tables":  [
++                                                                             "MOD Finance Compare Inputs",
++                                                                             "MOD Finance Compare Selector",
++                                                                             "MOD Finance Compare Metrics"
++                                                                         ],
++                                                              "measures":  [
++                                                                               "Input Fin ACT",
++                                                                               "Input Fin BDG",
++                                                                               "Input Fin ACT PY",
++                                                                               "Finance Compare (Selected)",
++                                                                               "Finance Compare Label (Selected)",
++                                                                               "Selected Reference Value",
++                                                                               "Fin ACT vs (Selected) abs",
++                                                                               "Fin ACT vs (Selected) +/-%"
++                                                                           ]
++                                                          },
++                                 "reportObjectsAdded":  {
++                                                            "page":  "8a4f2d4d3f11450ab001",
++                                                            "files":  [
++                                                                          "20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/page.json",
++                                                                          "20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_act/visual.json",
++                                                                          "20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_delta/visual.json",
++                                                                          "20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_ref/visual.json",
++                                                                          "20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_slicer/visual.json",
++                                                                          "20260317_UAT_001.Report/definition/pages/8a4f2d4d3f11450ab001/visuals/fc_mvp_title/visual.json"
++                                                                      ],
++                                                            "visualCount":  5
++                                                        },
++                                 "impactMetrics":  {
++                                                       "fileCount":  12,
++                                                       "sizeDeltaBytes":  40919,
++                                                       "semanticTableCount":  3,
++                                                       "semanticMeasureCount":  8,
++                                                       "reportFileCount":  6,
++                                                       "reportVisualCount":  5
++                                                   },
++                                 "history":  {
++                                                 "lastSnapshotId":  "20260318T193146100Z",
++                                                 "lastDiffJsonPath":  "module-config/20260317_UAT_001/diffs/finance_compare_mvp/20260318T193145950Z/diff.json",
++                                                 "lastDiffMarkdownPath":  "module-config/20260317_UAT_001/diffs/finance_compare_mvp/20260318T193145950Z/diff.md",
++                                                 "lastLogPath":  "module-config/20260317_UAT_001/logs/20260318T193145490Z-23a4414a.jsonl",
++                                                 "lastRepoHealthMetricsPath":  "",
++                                                 "lastRepoHealthSummaryPath":  ""
++                                             },
++                                 "governance":  {
++                                                    "status":  "WARN",
++                                                    "reasons":  [
++                                                                    "repo-health hook failed: In C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\upgrade-rollback-44d5799cb718482db6dfb90706a27d57\\repository-health\\scripts\\RepoHealth.Common.ps1:235 car:48\r\n+     $looseObjectCount = [int]($parsed[\"count\"] ?? 0)\r\n+                                                ~~\nToken \u0027??\u0027 imprevisto nell\u0027espressione o nell\u0027istruzione.\r\n\r\nIn C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\upgrade-rollback-44d5799cb718482db6dfb90706a27d57\\repository-health\\scripts\\RepoHealth.Common.ps1:235 car:47\r\n+     $looseObjectCount = [int]($parsed[\"count\"] ?? 0)\r\n+                                               ~\n\u0027)\u0027 di chiusura mancante nell\u0027espressione.\r\n\r\nIn C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\upgrade-rollback-44d5799cb718482db6dfb90706a27d57\\repository-health\\scripts\\RepoHealth.Common.ps1:223 car:39\r\n+ function Get-RepoHealthGitCoreMetrics {\r\n+                                       ~\n\u0027}\u0027 di chiusura mancante nel blocco di istruzioni o nella definizione del tipo.\r\n\r\nIn C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\upgrade-rollback-44d5799cb718482db6dfb90706a27d57\\repository-health\\scripts\\RepoHealth.Common.ps1:235 car:52\r\n+     $looseObjectCount = [int]($parsed[\"count\"] ?? 0)\r\n+                                                    ~\nToken \u0027)\u0027 imprevisto nell\u0027espressione o nell\u0027istruzione.\r\n\r\nIn C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\upgrade-rollback-44d5799cb718482db6dfb90706a27d57\\repository-health\\scripts\\RepoHealth.Common.ps1:236 car:51\r\n+     $packedObjectCount = [int]($parsed[\"in-pack\"] ?? 0)\r\n+                                                   ~~\nToken \u0027??\u0027 imprevisto nell\u0027espressione o nell\u0027istruzione.\r\n\r\nIn C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\upgrade-rollback-44d5799cb718482db6dfb90706a27d57\\repository-health\\scripts\\RepoHealth.Common.ps1:236 car:50\r\n+     $packedObjectCount = [int]($parsed[\"in-pack\"] ?? 0)\r\n+                                                  ~\n\u0027)\u0027 di chiusura mancante nell\u0027espressione.\r\n\r\nIn C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\upgrade-rollback-44d5799cb718482db6dfb90706a27d57\\repository-health\\scripts\\RepoHealth.Common.ps1:236 car:55\r\n+     $packedObjectCount = [int]($parsed[\"in-pack\"] ?? 0)\r\n+                                                       ~\nToken \u0027)\u0027 imprevisto nell\u0027espressione o nell\u0027istruzione.\r\n\r\nIn C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\upgrade-rollback-44d5799cb718482db6dfb90706a27d57\\repository-health\\scripts\\RepoHealth.Common.ps1:242 car:52\r\n+         PackCount         = [int]($parsed[\"packs\"] ?? 0)\r\n+                                                    ~~\nToken \u0027??\u0027 imprevisto nell\u0027espressione o nell\u0027istruzione.\r\n\r\nIn C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\upgrade-rollback-44d5799cb718482db6dfb90706a27d57\\repository-health\\scripts\\RepoHealth.Common.ps1:242 car:51\r\n+         PackCount         = [int]($parsed[\"packs\"] ?? 0)\r\n+                                                   ~\n\u0027)\u0027 di chiusura mancante nell\u0027espressione.\r\n\r\nIn C:\\work\\MEN_Marketing\\PBI_ProductAnalysis_POC\\.tmp-collaudo\\upgrade-rollback-44d5799cb718482db6dfb90706a27d57\\repository-health\\scripts\\RepoHealth.Common.ps1:242 car:51\r\n+         PackCount         = [int]($parsed[\"packs\"] ?? 0)\r\n+                                                   ~\nValore letterale hash incompleto.\r\n\r\nNon sono stati segnalati tutti gli errori di analisi. Correggere gli errori segnalati e riprovare."
++                                                                ]
++                                                }
++                             },
++                             {
++                                 "moduleId":  "flex_metrics_table_mvp",
++                                 "version":  "0.2.1",
++                                 "domain":  "",
++                                 "type":  "semantic",
++                                 "classification":  "semantic-light",
++                                 "semanticImpact":  "additive",
++                                 "source":  "modularity/pbi-marketing-domain/packages/flex_metrics_table_mvp",
++                                 "mappings":  {
++                                                  "coreMeasures":  {
++                                                                       "Sales Values":  "Sales Values",
++                                                                       "Sales Units":  "Sales Units",
++                                                                       "Counting Units":  "Counting Units",
++                                                                       "Promo Spend":  "Promo Spend",
++                                                                       "Promo Details":  "Promo Details",
++                                                                       "Promo Contacts":  "Promo Contacts",
++                                                                       "Promo Weighted Calls":  "Promo Weighted Calls",
++                                                                       "Fin ACT":  "Fin ACT",
++                                                                       "Fin BDG":  "Fin BDG",
++                                                                       "Fin ACT PY":  "Fin ACT PY"
++                                                                   },
++                                                  "coreColumns":  {
++                                                                      "T_DIM_MOLECULE[MoleculeNorm]":  "T_DIM_MOLECULE[MoleculeNorm]",
++                                                                      "T_DIM_COUNTRY[Country]":  "T_DIM_COUNTRY[Country]",
++                                                                      "T_DIM_CORPORATION[Corporation]":  "T_DIM_CORPORATION[Corporation]",
++                                                                      "T_DIM_PRODUCT[Product]":  "T_DIM_PRODUCT[Product]",
++                                                                      "T_DIM_QUARTER[QuarterKey]":  "T_DIM_QUARTER[QuarterKey]",
++                                                                      "T_DIM_ACT4[ATC4]":  "T_DIM_ACT4[ATC4]"
++                                                                  }
++                                              },
++                                 "installedAt":  "2026-03-17T18:46:29",
++                                 "lastAction":  "legacy-install",
++                                 "installedObjects":  {
++                                                          "tables":  [
++                                                                         "MOD Flex Table Inputs",
++                                                                         "MOD Flex Table Measure Selector",
++                                                                         "MOD Flex Table Axis",
++                                                                         "MOD Flex Table Metrics"
++                                                                     ],
++                                                          "page":  "6f8d2c1e4b5a70918342"
++                                                      },
++                                 "filesTouched":  [
++                                                      "20260317_UAT_001.Report/definition/pages/6f8d2c1e4b5a70918342/page.json",
++                                                      "20260317_UAT_001.Report/definition/pages/6f8d2c1e4b5a70918342/visuals/flex_table_dimension_slicer/visual.json",
++                                                      "20260317_UAT_001.Report/definition/pages/6f8d2c1e4b5a70918342/visuals/flex_table_measure_slicer/visual.json",
++                                                      "20260317_UAT_001.Report/definition/pages/6f8d2c1e4b5a70918342/visuals/flex_table_pivot/visual.json",
++                                                      "20260317_UAT_001.Report/definition/pages/6f8d2c1e4b5a70918342/visuals/flex_table_subtitle/visual.json",
++                                                      "20260317_UAT_001.Report/definition/pages/6f8d2c1e4b5a70918342/visuals/flex_table_title/visual.json",
++                                                      "20260317_UAT_001.Report/definition/pages/pages.json",
++                                                      "20260317_UAT_001.SemanticModel/definition/model.tmdl",
++                                                      "20260317_UAT_001.SemanticModel/definition/tables/MOD Flex Table Axis.tmdl",
++                                                      "20260317_UAT_001.SemanticModel/definition/tables/MOD Flex Table Inputs.tmdl",
++                                                      "20260317_UAT_001.SemanticModel/definition/tables/MOD Flex Table Measure Selector.tmdl",
++                                                      "20260317_UAT_001.SemanticModel/definition/tables/MOD Flex Table Metrics.tmdl",
++                                                      "module-config/20260317_UAT_001/installed-modules.json"
++                                                  ],
++                                 "semanticObjectsAdded":  {
++                                                              "tables":  [
++                                                                             "MOD Flex Table Inputs",
++                                                                             "MOD Flex Table Measure Selector",
++                                                                             "MOD Flex Table Axis",
++                                                                             "MOD Flex Table Metrics"
++                                                                         ],
++                                                              "measures":  [
++                                                                               "Flex Input Counting Units",
++                                                                               "Flex Input Fin ACT",
++                                                                               "Flex Input Fin ACT PY",
++                                                                               "Flex Input Fin BDG",
++                                                                               "Flex Input Promo Contacts",
++                                                                               "Flex Input Promo Details",
++                                                                               "Flex Input Promo Spend",
++                                                                               "Flex Input Promo Weighted Calls",
++                                                                               "Flex Input Sales Units",
++                                                                               "Flex Input Sales Values",
++                                                                               "Flex Table Row Has Data",
++                                                                               "Flex Table Selected Value",
++                                                                               "Flex Table Title"
++                                                                           ]
++                                                          },
++                                 "reportObjectsAdded":  {
++                                                            "page":  "6f8d2c1e4b5a70918342",
++                                                            "files":  [
++                                                                          "20260317_UAT_001.Report/definition/pages/6f8d2c1e4b5a70918342/page.json",
++                                                                          "20260317_UAT_001.Report/definition/pages/6f8d2c1e4b5a70918342/visuals/flex_table_dimension_slicer/visual.json",
++                                                                          "20260317_UAT_001.Report/definition/pages/6f8d2c1e4b5a70918342/visuals/flex_table_measure_slicer/visual.json",
++                                                                          "20260317_UAT_001.Report/definition/pages/6f8d2c1e4b5a70918342/visuals/flex_table_pivot/visual.json",
++                                                                          "20260317_UAT_001.Report/definition/pages/6f8d2c1e4b5a70918342/visuals/flex_table_subtitle/visual.json",
++                                                                          "20260317_UAT_001.Report/definition/pages/6f8d2c1e4b5a70918342/visuals/flex_table_title/visual.json"
++                                                                      ],
++                                                            "visualCount":  5
++                                                        },
++                                 "impactMetrics":  {
++                                                       "fileCount":  13,
++                                                       "sizeDeltaBytes":  38277,
++                                                       "semanticTableCount":  4,
++                                                       "semanticMeasureCount":  13,
++                                                       "reportFileCount":  6,
++                                                       "reportVisualCount":  5
++                                                   },
++                                 "history":  {
++
++                                             },
++                                 "governance":  {
++                                                    "status":  "UNKNOWN",
++                                                    "reasons":  [
++
++                                                                ]
++                                                }
++                             },
++                             {
++                                 "moduleId":  "flex_table_flat_mvp",
++                                 "version":  "0.2.0",
++                                 "domain":  "",
++                                 "type":  "semantic",
++                                 "classification":  "semantic-light",
++                                 "semanticImpact":  "additive",
++                                 "source":  "modularity/pbi-marketing-domain/packages/flex_table_flat_mvp",
++                                 "mappings":  {
++                                                  "coreMeasures":  {
++                                                                       "Sales Values":  "Sales Values",
++                                                                       "Sales Units":  "Sales Units",
++                                                                       "Counting Units":  "Counting Units",
++                                                                       "Promo Spend":  "Promo Spend",
++                                                                       "Promo Details":  "Promo Details",
++                                                                       "Promo Contacts":  "Promo Contacts",
++                                                                       "Promo Weighted Calls":  "Promo Weighted Calls",
++                                                                       "Fin ACT":  "Fin ACT",
++                                                                       "Fin BDG":  "Fin BDG",
++                                                                       "Fin ACT PY":  "Fin ACT PY"
++                                                                   },
++                                                  "coreColumns":  {
++                                                                      "T_DIM_MOLECULE[MoleculeNorm]":  "T_DIM_MOLECULE[MoleculeNorm]",
++                                                                      "T_DIM_COUNTRY[Country]":  "T_DIM_COUNTRY[Country]",
++                                                                      "T_DIM_CORPORATION[Corporation]":  "T_DIM_CORPORATION[Corporation]",
++                                                                      "T_DIM_PRODUCT[Product]":  "T_DIM_PRODUCT[Product]",
++                                                                      "T_DIM_QUARTER[QuarterKey]":  "T_DIM_QUARTER[QuarterKey]",
++                                                                      "T_DIM_ACT4[ATC4]":  "T_DIM_ACT4[ATC4]"
++                                                                  }
++                                              },
++                                 "installedAt":  "2026-03-17T18:46:48",
++                                 "lastAction":  "legacy-install",
++                                 "installedObjects":  {
++                                                          "tables":  [
++                                                                         "MOD Flex Flat Inputs",
++                                                                         "MOD Flex Flat Dimensions",
++                                                                         "MOD Flex Flat Measures"
++                                                                     ],
++                                                          "page":  "9c7a5b4d3e2f1a0b6c8d"
++                                                      },
++                                 "filesTouched":  [
++                                                      "20260317_UAT_001.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/page.json",
++                                                      "20260317_UAT_001.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/visuals/flex_flat_columns_slicer/visual.json",
++                                                      "20260317_UAT_001.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/visuals/flex_flat_measures_slicer/visual.json",
++                                                      "20260317_UAT_001.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/visuals/flex_flat_subtitle/visual.json",
++                                                      "20260317_UAT_001.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/visuals/flex_flat_table/visual.json",
++                                                      "20260317_UAT_001.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/visuals/flex_flat_title/visual.json",
++                                                      "20260317_UAT_001.Report/definition/pages/pages.json",
++                                                      "20260317_UAT_001.SemanticModel/definition/model.tmdl",
++                                                      "20260317_UAT_001.SemanticModel/definition/tables/MOD Flex Flat Dimensions.tmdl",
++                                                      "20260317_UAT_001.SemanticModel/definition/tables/MOD Flex Flat Inputs.tmdl",
++                                                      "20260317_UAT_001.SemanticModel/definition/tables/MOD Flex Flat Measures.tmdl",
++                                                      "module-config/20260317_UAT_001/installed-modules.json"
++                                                  ],
++                                 "semanticObjectsAdded":  {
++                                                              "tables":  [
++                                                                             "MOD Flex Flat Inputs",
++                                                                             "MOD Flex Flat Dimensions",
++                                                                             "MOD Flex Flat Measures"
++                                                                         ],
++                                                              "measures":  [
++                                                                               "Flat Input Counting Units",
++                                                                               "Flat Input Fin ACT",
++                                                                               "Flat Input Fin ACT PY",
++                                                                               "Flat Input Fin BDG",
++                                                                               "Flat Input Promo Contacts",
++                                                                               "Flat Input Promo Details",
++                                                                               "Flat Input Promo Spend",
++                                                                               "Flat Input Promo Weighted Calls",
++                                                                               "Flat Input Sales Units",
++                                                                               "Flat Input Sales Values"
++                                                                           ]
++                                                          },
++                                 "reportObjectsAdded":  {
++                                                            "page":  "9c7a5b4d3e2f1a0b6c8d",
++                                                            "files":  [
++                                                                          "20260317_UAT_001.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/page.json",
++                                                                          "20260317_UAT_001.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/visuals/flex_flat_columns_slicer/visual.json",
++                                                                          "20260317_UAT_001.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/visuals/flex_flat_measures_slicer/visual.json",
++                                                                          "20260317_UAT_001.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/visuals/flex_flat_subtitle/visual.json",
++                                                                          "20260317_UAT_001.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/visuals/flex_flat_table/visual.json",
++                                                                          "20260317_UAT_001.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/visuals/flex_flat_title/visual.json"
++                                                                      ],
++                                                            "visualCount":  5
++                                                        },
++                                 "impactMetrics":  {
++                                                       "fileCount":  12,
++                                                       "sizeDeltaBytes":  38140,
++                                                       "semanticTableCount":  3,
++                                                       "semanticMeasureCount":  10,
++                                                       "reportFileCount":  6,
++                                                       "reportVisualCount":  5
++                                                   },
++                                 "history":  {
++
++                                             },
++                                 "governance":  {
++                                                    "status":  "UNKNOWN",
++                                                    "reasons":  [
++
++                                                                ]
++                                                }
++                             }
++                         ]
++}
+\ No newline at end of file
+
+[exit-code] 0
