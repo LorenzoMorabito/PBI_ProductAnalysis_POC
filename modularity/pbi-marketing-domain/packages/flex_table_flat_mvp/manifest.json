@@ -2,6 +2,13 @@
   "moduleId": "flex_table_flat_mvp",
   "version": "0.2.0",
   "domain": "marketing",
+  "type": "semantic",
+  "classification": "semantic-light",
+  "dependencies": {
+    "modules": [],
+    "capabilities": []
+  },
+  "semanticImpact": "additive",
   "status": "prototype",
   "description": "Importable flat flex table with selectable dimension and measure columns rendered in a standard table visual.",
   "requires": {

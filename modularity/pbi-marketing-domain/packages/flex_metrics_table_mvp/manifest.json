@@ -2,6 +2,13 @@
   "moduleId": "flex_metrics_table_mvp",
   "version": "0.2.1",
   "domain": "marketing",
+  "type": "semantic",
+  "classification": "semantic-light",
+  "dependencies": {
+    "modules": [],
+    "capabilities": []
+  },
+  "semanticImpact": "additive",
   "status": "prototype",
   "description": "Importable pivot-style flexible core metrics table with multi-select row dimensions and multi-select metric columns across sales, promo, and finance.",
   "requires": {

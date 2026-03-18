@@ -1,0 +1,16 @@
+{
+  "repoHealth": {
+    "enabled": true,
+    "mode": "local"
+  },
+  "moduleImpactThresholds": {
+    "warnFilesTouched": 20,
+    "failFilesTouched": 50,
+    "warnSizeDeltaBytes": 262144,
+    "failSizeDeltaBytes": 1048576,
+    "warnSemanticObjectsAdded": 10,
+    "failSemanticObjectsAdded": 25,
+    "warnReportVisualCount": 8,
+    "failReportVisualCount": 20
+  }
+}

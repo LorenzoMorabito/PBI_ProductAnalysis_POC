@@ -26,11 +26,16 @@ Capabilita oggi operative della platform:
 - `list-modules`
 - `validate-project`
 - `install-module`
+- `upgrade-module`
+- `diff-module`
+- `rollback-module`
 - `set-data-source-path`
 - `test-module`
 - `test-project`
 - `test-repo`
 - `smoke-install`
+- `Invoke-PbiModularity.ps1` wrapper CLI
+- generator `new-module`
 
 ## Regola operativa
 

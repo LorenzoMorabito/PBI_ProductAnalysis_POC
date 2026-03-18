@@ -7,31 +7,32 @@
 - `list-modules`
 - `validate-project`
 - `install-module`
-- `set-data-source-path`
-
-Comando previsto ma non ancora implementato end-to-end:
-
 - `upgrade-module`
+- `diff-module`
+- `rollback-module`
+- `set-data-source-path`
 
 ## Workflow implementato
 
 1. Legge i cataloghi di dominio.
 2. Valida prerequisiti del modulo contro il consumer target.
 3. Risolve i mapping richiesti.
-4. Copia gli asset semantici nel semantic model consumer.
-5. Copia gli asset report nella pagina consumer.
-6. Persiste `installed-modules.json` per i consumer gestiti.
+4. Crea snapshot pre-write dei file impattati.
+5. Copia gli asset semantici nel semantic model consumer.
+6. Copia gli asset report nella pagina consumer.
+7. Persiste `installed-modules.json` per i consumer gestiti.
+8. Registra log strutturato, diff e metriche di governance.
 
 ## Architettura
 
 - `Modules/Common`
-  logging helpers
+  logging helpers console + JSON
 - `Modules/Core`
-  runtime utilities, catalog discovery, project resolution, semantic/report install
+  runtime utilities, schema validation, catalog discovery, project resolution, semantic/report install
 - `Modules/Domains`
   regole di mapping domain-specific
 - `Modules/Services`
-  orchestration layer per validation e installazione
+  orchestration layer per validation, lifecycle, governance e repo-health
 
 ## Esempi d'uso
 
@@ -57,6 +58,29 @@ Comando previsto ma non ancora implementato end-to-end:
 
 ```powershell
 ./modularity/pbi-modular-platform/installer/Invoke-PbiModuleInstaller.ps1 `
+  -Command upgrade-module `
+  -ProjectPath ./powerbi-projects/20260317_UAT_001.pbip `
+  -ModuleId finance_compare_mvp `
+  -Domain finance
+```
+
+```powershell
+./modularity/pbi-modular-platform/installer/Invoke-PbiModuleInstaller.ps1 `
+  -Command diff-module `
+  -ProjectPath ./powerbi-projects/20260317_UAT_001.pbip `
+  -ModuleId finance_compare_mvp `
+  -Domain finance
+```
+
+```powershell
+./modularity/pbi-modular-platform/installer/Invoke-PbiModuleInstaller.ps1 `
+  -Command rollback-module `
+  -ProjectPath ./powerbi-projects/20260317_UAT_001.pbip `
+  -ModuleId finance_compare_mvp
+```
+
+```powershell
+./modularity/pbi-modular-platform/installer/Invoke-PbiModuleInstaller.ps1 `
   -Command set-data-source-path `
   -ProjectPath ./powerbi-projects/20260227_Product_Analysis_Core.pbip `
   -DataSourcePath 'C:\work\MEN_Marketing\PBI_ProductAnalysis_POC\data_source'
@@ -65,5 +89,7 @@ Comando previsto ma non ancora implementato end-to-end:
 ## Note operative
 
 - i metadata installativi sono salvati sotto `powerbi-projects/module-config/<pbip-name>/installed-modules.json`
-- l'installer oggi lavora bene per installazioni nuove e setup locale del path dati
-- il lifecycle di upgrade esplicito resta il prossimo hardening
+- snapshot, diff e log sono salvati sotto `powerbi-projects/module-config/<pbip-name>/`
+- la governance usa `config/modularity-governance.json` e puo integrare `repository-health`
+- il gate `repository-health` valuta regressioni rispetto al baseline pre-operazione, non debito storico gia presente nel repo
+- i comandi funzionano sia con `pwsh` sia con `powershell`

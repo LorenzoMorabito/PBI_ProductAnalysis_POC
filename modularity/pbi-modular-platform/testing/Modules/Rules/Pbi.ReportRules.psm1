@@ -61,7 +61,7 @@ function Invoke-PbiModuleReportRules {
 
     foreach ($jsonFile in $reportJsonFiles) {
         try {
-            $null = Get-Content -Path $jsonFile.FullName -Raw | ConvertFrom-Json -Depth 100
+            $null = ConvertFrom-PbiJsonText -Text (Get-Content -Path $jsonFile.FullName -Raw)
         }
         catch {
             $results.Add((New-PbiQualityResult -Scope "Module" -Target $Module.ModuleId -RuleId "report.json.parse" -Severity "Error" -Message $_.Exception.Message -Path $jsonFile.FullName))
@@ -77,7 +77,7 @@ function Invoke-PbiModuleReportRules {
         }
 
         try {
-            $visualDefinition = $raw | ConvertFrom-Json -Depth 100
+            $visualDefinition = ConvertFrom-PbiJsonText -Text $raw
             foreach ($issue in (Get-PbiVisualParameterProjectionIssues -VisualDefinition $visualDefinition -FieldParameterTables $parameterTables -VisualPath $visualFile.FullName)) {
                 $results.Add($issue)
             }
@@ -126,7 +126,7 @@ function Invoke-PbiProjectReportRules {
 
     foreach ($jsonFile in $reportJsonFiles) {
         try {
-            $null = Get-Content -Path $jsonFile.FullName -Raw | ConvertFrom-Json -Depth 100
+            $null = ConvertFrom-PbiJsonText -Text (Get-Content -Path $jsonFile.FullName -Raw)
         }
         catch {
             $results.Add((New-PbiQualityResult -Scope "Project" -Target $Project.ProjectId -RuleId "report.json.parse" -Severity "Error" -Message $_.Exception.Message -Path $jsonFile.FullName))
@@ -142,7 +142,7 @@ function Invoke-PbiProjectReportRules {
         }
 
         try {
-            $visualDefinition = $raw | ConvertFrom-Json -Depth 100
+            $visualDefinition = ConvertFrom-PbiJsonText -Text $raw
             foreach ($issue in (Get-PbiVisualParameterProjectionIssues -VisualDefinition $visualDefinition -FieldParameterTables $parameterTables -VisualPath $visualFile.FullName)) {
                 $results.Add($issue)
             }

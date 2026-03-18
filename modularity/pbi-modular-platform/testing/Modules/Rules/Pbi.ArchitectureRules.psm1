@@ -4,11 +4,20 @@ function Invoke-PbiModuleArchitectureRules {
     $results = New-Object System.Collections.Generic.List[object]
     $contract = Get-PbiArchitectureContract
     $coreTableSet = @($contract.coreAllowedTables)
+    $semanticTables = @($Module.Manifest.provides.semanticTables)
 
-    foreach ($tableName in @($Module.Manifest.provides.semanticTables)) {
+    foreach ($tableName in $semanticTables) {
         if ($coreTableSet -contains $tableName) {
             $results.Add((New-PbiQualityResult -Scope "Module" -Target $Module.ModuleId -RuleId "architecture.module.core-table.forbidden" -Severity "Error" -Message ("Module declares semantic table '{0}', but that table belongs to the semantic core contract." -f $tableName) -Path (Join-Path $Module.PackageRoot "manifest.json")))
         }
+
+        if ($tableName -notlike "MOD *") {
+            $results.Add((New-PbiQualityResult -Scope "Module" -Target $Module.ModuleId -RuleId "architecture.module.semantic-namespace.required" -Severity "Error" -Message ("Semantic table '{0}' must stay in the MOD namespace." -f $tableName) -Path (Join-Path $Module.PackageRoot "manifest.json")))
+        }
+    }
+
+    if (($Module.Manifest.classification -eq "report-only") -and ($semanticTables.Count -gt 0)) {
+        $results.Add((New-PbiQualityResult -Scope "Module" -Target $Module.ModuleId -RuleId "architecture.module.semantic-namespace.required" -Severity "Error" -Message "report-only modules cannot declare semantic tables." -Path (Join-Path $Module.PackageRoot "manifest.json")))
     }
 
     return $results.ToArray()
@@ -78,6 +87,13 @@ function Invoke-PbiProjectArchitectureRules {
     }
 
     $state = Get-PbiInstalledModulesState -Project $Project
+    try {
+        Test-PbiInstalledModulesStateSchema -State $state -StatePath $Project.StateFilePath
+    }
+    catch {
+        $results.Add((New-PbiQualityResult -Scope "Project" -Target $Project.ProjectId -RuleId "project.installed-state.valid" -Severity "Error" -Message $_.Exception.Message -Path $Project.StateFilePath))
+    }
+
     if (@($state.installedModules).Count -gt 0) {
         $results.Add((New-PbiQualityResult -Scope "Project" -Target $Project.ProjectId -RuleId "architecture.core-contract.no-installed-modules" -Severity "Error" -Message "Core baseline project must not contain installed module metadata." -Path $Project.StateFilePath))
     }

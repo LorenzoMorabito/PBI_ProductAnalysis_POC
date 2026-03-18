@@ -19,11 +19,11 @@ function Invoke-PbiModuleManifestRules {
         Test-PbiModuleManifest -Manifest $Module.Manifest -ManifestPath $Module.ManifestPath
     }
     catch {
-        $results.Add((New-PbiQualityResult -Scope $scope -Target $target -RuleId "module.manifest.valid" -Severity "Error" -Message $_.Exception.Message -Path $Module.ManifestPath))
+        $results.Add((New-PbiQualityResult -Scope $scope -Target $target -RuleId "module.manifest.schema" -Severity "Error" -Message $_.Exception.Message -Path $Module.ManifestPath))
     }
 
     $semanticRoot = Join-Path $Module.PackageRoot "semantic"
-    if (-not (Test-Path $semanticRoot)) {
+    if (($Module.Manifest.type -eq "semantic") -and -not (Test-Path $semanticRoot)) {
         $results.Add((New-PbiQualityResult -Scope $scope -Target $target -RuleId "module.semantic-root.exists" -Severity "Error" -Message "semantic folder is missing." -Path $semanticRoot))
     }
 

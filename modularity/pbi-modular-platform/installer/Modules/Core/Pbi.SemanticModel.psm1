@@ -70,6 +70,15 @@ function Get-PbiTableDefinitionDirectory {
     return (Join-Path $Project.SemanticModelPath "definition/tables")
 }
 
+function Get-PbiTableDefinitionPath {
+    param(
+        [Parameter(Mandatory = $true)]$Project,
+        [Parameter(Mandatory = $true)][string]$TableName
+    )
+
+    return (Join-Path (Get-PbiTableDefinitionDirectory -Project $Project) ($TableName + ".tmdl"))
+}
+
 function Get-PbiModelPath {
     param([Parameter(Mandatory = $true)]$Project)
 
@@ -162,6 +171,13 @@ function Test-PbiModuleMeasureConflicts {
         [Parameter(Mandatory = $true)]$Manifest
     )
 
+    if (@($Manifest.provides.semanticTables).Count -eq 0) {
+        return [PSCustomObject]@{
+            HasConflicts = $false
+            Conflicts    = @()
+        }
+    }
+
     $existingMeasureNames = Get-PbiProjectMeasureNames -Project $Project -ExcludeTables @($Manifest.provides.semanticTables)
     $moduleMeasureNames = Get-PbiModuleMeasureNames -Module $Module -Manifest $Manifest
     $conflicts = @($moduleMeasureNames | Where-Object { $existingMeasureNames -contains $_ } | Sort-Object -Unique)
@@ -240,6 +256,10 @@ function Test-PbiSemanticAssetsPresent {
         [Parameter(Mandatory = $true)]$Manifest
     )
 
+    if (@($Manifest.provides.semanticTables).Count -eq 0) {
+        return $true
+    }
+
     $tableDirectory = Get-PbiTableDefinitionDirectory -Project $Project
 
     foreach ($tableName in @($Manifest.provides.semanticTables)) {
@@ -266,7 +286,7 @@ function Update-PbiModelQueryOrder {
         throw "PBI_QueryOrder annotation was not found in model.tmdl."
     }
 
-    $currentOrder = @($match.Groups[1].Value | ConvertFrom-Json)
+    $currentOrder = @(ConvertFrom-PbiJsonText -Text $match.Groups[1].Value)
 
     foreach ($tableName in $TableNames) {
         if ($currentOrder -notcontains $tableName) {
@@ -274,7 +294,7 @@ function Update-PbiModelQueryOrder {
         }
     }
 
-    $updatedOrderJson = $currentOrder | ConvertTo-Json -Compress
+    $updatedOrderJson = ConvertTo-PbiJsonText -InputObject $currentOrder -Compress
 
     return [regex]::Replace(
         $ModelContent,
@@ -315,6 +335,42 @@ function Update-PbiModelTableReferences {
     return ($ModelContent.TrimEnd() + "`r`n`r`n" + ($missingRefLines -join "`r`n") + "`r`n")
 }
 
+function Get-PbiModuleSemanticFileMappings {
+    param(
+        [Parameter(Mandatory = $true)]$Project,
+        [Parameter(Mandatory = $true)]$Module,
+        [Parameter(Mandatory = $true)]$Manifest
+    )
+
+    $sourceSemanticPath = Join-Path $Module.PackageRoot "semantic"
+    $mappings = New-Object System.Collections.Generic.List[object]
+
+    foreach ($tableName in @($Manifest.provides.semanticTables)) {
+        $sourcePath = Join-Path $sourceSemanticPath ($tableName + ".tmdl")
+        $destinationPath = Get-PbiTableDefinitionPath -Project $Project -TableName $tableName
+        $mappings.Add([PSCustomObject]@{
+            TableName        = $tableName
+            SourcePath       = $sourcePath
+            DestinationPath  = $destinationPath
+            RelativePath     = (Get-PbiRelativePath -BasePath $Project.ProjectRoot -Path $destinationPath)
+        })
+    }
+
+    return $mappings.ToArray()
+}
+
+function Get-PbiModuleSemanticObjectSummary {
+    param(
+        [Parameter(Mandatory = $true)]$Module,
+        [Parameter(Mandatory = $true)]$Manifest
+    )
+
+    return [ordered]@{
+        tables   = @($Manifest.provides.semanticTables)
+        measures = @(Get-PbiModuleMeasureNames -Module $Module -Manifest $Manifest)
+    }
+}
+
 function Install-PbiSemanticAssets {
     param(
         [Parameter(Mandatory = $true)]$Project,
@@ -323,10 +379,21 @@ function Install-PbiSemanticAssets {
         [switch]$Force
     )
 
+    if (@($Manifest.provides.semanticTables).Count -eq 0) {
+        return [PSCustomObject]@{
+            FilesTouched         = @()
+            SemanticObjectsAdded = [ordered]@{
+                tables   = @()
+                measures = @()
+            }
+        }
+    }
+
     $sourceSemanticPath = Join-Path $Module.PackageRoot "semantic"
     $tableDirectory = Get-PbiTableDefinitionDirectory -Project $Project
     Ensure-PbiDirectory -Path $tableDirectory
     $measureConflicts = Test-PbiModuleMeasureConflicts -Project $Project -Module $Module -Manifest $Manifest
+    $filesTouched = New-Object System.Collections.Generic.List[string]
 
     if ($measureConflicts.HasConflicts) {
         throw ("Module '{0}' defines measure names already present in project '{1}': {2}" -f
@@ -337,13 +404,14 @@ function Install-PbiSemanticAssets {
 
     foreach ($tableName in @($Manifest.provides.semanticTables)) {
         $sourcePath = Join-Path $sourceSemanticPath ($tableName + ".tmdl")
-        $destinationPath = Join-Path $tableDirectory ($tableName + ".tmdl")
+        $destinationPath = Get-PbiTableDefinitionPath -Project $Project -TableName $tableName
 
         if ((Test-Path $destinationPath) -and -not $Force) {
             throw "Semantic table '$tableName' already exists at '$destinationPath'. Use -Force to overwrite."
         }
 
         Copy-Item -Path $sourcePath -Destination $destinationPath -Force
+        $filesTouched.Add((Get-PbiRelativePath -BasePath $Project.ProjectRoot -Path $destinationPath))
     }
 
     $modelPath = Get-PbiModelPath -Project $Project
@@ -351,6 +419,12 @@ function Install-PbiSemanticAssets {
     $modelContent = Update-PbiModelQueryOrder -ModelContent $modelContent -TableNames @($Manifest.provides.semanticTables)
     $modelContent = Update-PbiModelTableReferences -ModelContent $modelContent -TableNames @($Manifest.provides.semanticTables)
     Set-Content -Path $modelPath -Value $modelContent -Encoding utf8
+    $filesTouched.Add((Get-PbiRelativePath -BasePath $Project.ProjectRoot -Path $modelPath))
+
+    return [PSCustomObject]@{
+        FilesTouched         = @($filesTouched | Sort-Object -Unique)
+        SemanticObjectsAdded = (Get-PbiModuleSemanticObjectSummary -Module $Module -Manifest $Manifest)
+    }
 }
 
-Export-ModuleMember -Function Get-PbiTmdlIdentifier, Get-PbiExpressionsPath, Get-PbiRootPathParameterValue, Set-PbiRootPathParameterValue, Test-PbiMeasureExists, Test-PbiColumnExists, Test-PbiModuleRequirements, Test-PbiSemanticAssetsPresent, Install-PbiSemanticAssets, Test-PbiModuleMeasureConflicts
+Export-ModuleMember -Function Get-PbiTmdlIdentifier, Get-PbiExpressionsPath, Get-PbiRootPathParameterValue, Set-PbiRootPathParameterValue, Get-PbiTableDefinitionPath, Get-PbiModelPath, Test-PbiMeasureExists, Test-PbiColumnExists, Test-PbiModuleRequirements, Test-PbiSemanticAssetsPresent, Get-PbiModuleSemanticFileMappings, Get-PbiModuleSemanticObjectSummary, Install-PbiSemanticAssets, Test-PbiModuleMeasureConflicts

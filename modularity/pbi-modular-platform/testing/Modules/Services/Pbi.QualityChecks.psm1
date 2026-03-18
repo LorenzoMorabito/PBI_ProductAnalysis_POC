@@ -1,9 +1,11 @@
 function Get-PbiQualityRuleCatalog {
     return @(
         [PSCustomObject]@{ Scope = "Module"; RuleId = "module.manifest.valid"; Description = "Required manifest properties are present."; Severity = "Error" },
+        [PSCustomObject]@{ Scope = "Module"; RuleId = "module.manifest.schema"; Description = "Manifest conforms to the governed schema and cross-field contract."; Severity = "Error" },
         [PSCustomObject]@{ Scope = "Module"; RuleId = "module.semantic-table.exists"; Description = "Every declared semantic table file exists."; Severity = "Error" },
         [PSCustomObject]@{ Scope = "Module"; RuleId = "module.report-page.exists"; Description = "Declared report page assets exist."; Severity = "Error" },
         [PSCustomObject]@{ Scope = "Module"; RuleId = "architecture.module.core-table.forbidden"; Description = "Modules do not declare semantic tables reserved for the semantic core contract."; Severity = "Error" },
+        [PSCustomObject]@{ Scope = "Module"; RuleId = "architecture.module.semantic-namespace.required"; Description = "Semantic modules must keep tables in the MOD namespace and match their classification contract."; Severity = "Error" },
         [PSCustomObject]@{ Scope = "Module"; RuleId = "semantic.measure-name.unique"; Description = "Measure names are unique within the module."; Severity = "Error" },
         [PSCustomObject]@{ Scope = "Module"; RuleId = "semantic.local-path.forbidden"; Description = "Semantic assets do not contain hardcoded local absolute paths."; Severity = "Error" },
         [PSCustomObject]@{ Scope = "Module"; RuleId = "report.json.parse"; Description = "All report asset JSON files parse correctly."; Severity = "Error" },
@@ -14,6 +16,7 @@ function Get-PbiQualityRuleCatalog {
         [PSCustomObject]@{ Scope = "Project"; RuleId = "architecture.core-contract.table-required"; Description = "The core baseline project contains every required core table."; Severity = "Error" },
         [PSCustomObject]@{ Scope = "Project"; RuleId = "architecture.core-contract.no-installed-modules"; Description = "The core baseline project does not carry installed module metadata."; Severity = "Error" },
         [PSCustomObject]@{ Scope = "Project"; RuleId = "architecture.relationship.crossfilter.required"; Description = "Declared relationship requirements from the architecture contract are respected."; Severity = "Error" },
+        [PSCustomObject]@{ Scope = "Project"; RuleId = "project.installed-state.valid"; Description = "Installed module state is schema-valid and internally consistent."; Severity = "Error" },
         [PSCustomObject]@{ Scope = "Project"; RuleId = "semantic.measure-name.unique"; Description = "Measure names are unique across the whole semantic model."; Severity = "Error" },
         [PSCustomObject]@{ Scope = "Project"; RuleId = "semantic.local-path.forbidden"; Description = "Semantic model definitions do not contain hardcoded local absolute paths."; Severity = "Error" },
         [PSCustomObject]@{ Scope = "Project"; RuleId = "semantic.root-path.placeholder.unresolved"; Description = "The project root_path parameter is still unresolved and must be configured locally before Desktop usage."; Severity = "Warning" },
@@ -24,71 +27,6 @@ function Get-PbiQualityRuleCatalog {
     )
 }
 
-function Remove-PbiTablesFromModel {
-    param(
-        [Parameter(Mandatory = $true)]$Project,
-        [Parameter(Mandatory = $true)][string[]]$TableNames
-    )
-
-    $modelPath = Get-PbiModelPathForProject -Project $Project
-    $content = Get-Content -Path $modelPath -Raw
-    $match = [regex]::Match($content, "annotation PBI_QueryOrder = (\[.*?\])", [System.Text.RegularExpressions.RegexOptions]::Singleline)
-
-    if ($match.Success) {
-        $currentOrder = @($match.Groups[1].Value | ConvertFrom-Json)
-        $updatedOrder = @($currentOrder | Where-Object { $TableNames -notcontains $_ })
-        $updatedOrderJson = $updatedOrder | ConvertTo-Json -Compress
-        $content = [regex]::Replace(
-            $content,
-            "annotation PBI_QueryOrder = (\[.*?\])",
-            ("annotation PBI_QueryOrder = " + $updatedOrderJson),
-            [System.Text.RegularExpressions.RegexOptions]::Singleline
-        )
-    }
-
-    foreach ($tableName in $TableNames) {
-        $identifier = Get-PbiTmdlIdentifier -Name $tableName
-        $refPattern = "(?m)^\s*ref table {0}\s*\r?\n?" -f [regex]::Escape($identifier)
-        $content = [regex]::Replace($content, $refPattern, "")
-    }
-
-    Set-Content -Path $modelPath -Value $content -Encoding utf8
-}
-
-function Remove-PbiModulePageFromProject {
-    param(
-        [Parameter(Mandatory = $true)]$Project,
-        [Parameter(Mandatory = $true)][string]$PageName
-    )
-
-    $pageRoot = Get-PbiPageDestinationRootForProject -Project $Project -PageName $PageName
-    if (Test-Path $pageRoot) {
-        Remove-Item -Path $pageRoot -Recurse -Force
-    }
-
-    $pagesMetadataPath = Get-PbiPagesMetadataPathForProject -Project $Project
-    $pagesMetadata = Read-PbiJsonFile -Path $pagesMetadataPath
-    $updatedPageOrder = @($pagesMetadata.pageOrder | Where-Object { $_ -ne $PageName })
-    $pagesMetadata.pageOrder = $updatedPageOrder
-
-    if ($pagesMetadata.activePageName -eq $PageName) {
-        $pagesMetadata.activePageName = if ($updatedPageOrder.Count -gt 0) { $updatedPageOrder[0] } else { $null }
-    }
-
-    Write-PbiJsonFile -Path $pagesMetadataPath -InputObject $pagesMetadata
-}
-
-function Remove-PbiModuleStateRecord {
-    param(
-        [Parameter(Mandatory = $true)]$Project,
-        [Parameter(Mandatory = $true)][string]$ModuleId
-    )
-
-    $state = Get-PbiInstalledModulesState -Project $Project
-    $state.installedModules = @($state.installedModules | Where-Object { $_.moduleId -ne $ModuleId })
-    Save-PbiInstalledModulesState -Project $Project -State $state
-}
-
 function Copy-PbiPathPreservingLayout {
     param(
         [Parameter(Mandatory = $true)][string]$SourceRoot,
@@ -96,7 +34,7 @@ function Copy-PbiPathPreservingLayout {
         [Parameter(Mandatory = $true)][string]$DestinationRoot
     )
 
-    $relativePath = [System.IO.Path]::GetRelativePath($SourceRoot, $SourcePath)
+    $relativePath = (Get-PbiRelativePath -BasePath $SourceRoot -Path $SourcePath).Replace("/", "\")
     $destinationPath = Join-Path $DestinationRoot $relativePath
     $destinationParent = Split-Path $destinationPath -Parent
     Ensure-PbiDirectory -Path $destinationParent
@@ -131,28 +69,6 @@ function New-PbiSmokeProjectCopy {
     }
 
     return (Resolve-PbiConsumerProject -ProjectPath $copiedPbipPath)
-}
-
-function Reset-PbiModuleInstallationInProject {
-    param(
-        [Parameter(Mandatory = $true)]$Project,
-        [Parameter(Mandatory = $true)]$Module
-    )
-
-    foreach ($tableName in @($Module.Manifest.provides.semanticTables)) {
-        $tablePath = Join-Path (Get-PbiTableDefinitionDirectoryForProject -Project $Project) ($tableName + ".tmdl")
-        if (Test-Path $tablePath) {
-            Remove-Item -Path $tablePath -Force
-        }
-    }
-
-    Remove-PbiTablesFromModel -Project $Project -TableNames @($Module.Manifest.provides.semanticTables)
-
-    if ($Module.Manifest.provides.reportPage) {
-        Remove-PbiModulePageFromProject -Project $Project -PageName $Module.Manifest.provides.reportPage.name
-    }
-
-    Remove-PbiModuleStateRecord -Project $Project -ModuleId $Module.ModuleId
 }
 
 function Invoke-PbiModuleQualityChecks {
@@ -260,12 +176,14 @@ function Invoke-PbiSmokeInstallCheck {
     $tempProject = New-PbiSmokeProjectCopy -Project $sourceProject -TempRoot $TempRoot
 
     try {
-        Reset-PbiModuleInstallationInProject -Project $tempProject -Module $module
+        $tempState = Get-PbiInstalledModulesState -Project $tempProject
+        $tempRecord = Get-PbiInstalledModuleRecord -State $tempState -ModuleId $module.ModuleId
+        Reset-PbiModuleInstallationInProject -Project $tempProject -ModuleId $module.ModuleId -StateRecord $tempRecord -Module $module
         $installResult = Install-PbiModulePackage -WorkspaceRoot $resolvedWorkspaceRoot -ProjectPath $tempProject.PbipPath -Domain $module.Domain -ModuleId $module.ModuleId -ActivateInstalledPage
         $projectCheck = Invoke-PbiProjectQualityChecks -ProjectPath $tempProject.PbipPath
         $results = New-Object System.Collections.Generic.List[object]
 
-        $results.Add((New-PbiQualityResult -Scope "SmokeInstall" -Target $module.ModuleId -RuleId "smoke.install.completed" -Severity "Info" -Message ("Module installed into sandbox project '{0}'." -f $installResult.ProjectId) -Path $tempProject.PbipPath))
+        $results.Add((New-PbiQualityResult -Scope "SmokeInstall" -Target $module.ModuleId -RuleId "smoke.install.completed" -Severity "Info" -Message ("Module installed into sandbox project '{0}'." -f $installResult.Project.ProjectId) -Path $tempProject.PbipPath))
         foreach ($result in $projectCheck.Results) {
             $results.Add($result)
         }

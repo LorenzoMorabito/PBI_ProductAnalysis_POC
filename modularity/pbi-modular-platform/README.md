@@ -18,6 +18,10 @@ Platform tecnica condivisa per package Power BI modulari.
   quality framework e smoke checks
 - `schemas/`
   contratti JSON di manifest e metadata installativi
+- `config/`
+  soglie governance e integrazione repo-health
+- `scaffolding/`
+  generator per nuovi moduli
 - `docs/`
   note di lifecycle
 
@@ -28,18 +32,26 @@ Capabilita implementate:
 - `list-modules`
 - `validate-project`
 - `install-module`
+- `upgrade-module`
+- `diff-module`
+- `rollback-module`
 - `set-data-source-path`
 - `list-rules`
 - `test-module`
 - `test-project`
 - `test-repo`
 - `smoke-install`
+- `Invoke-PbiModularity.ps1`
+- `new-module`
 
-Capabilita non ancora completate:
+Governance implementata:
 
-- `upgrade-module` end-to-end
-- rollback esplicito dei moduli
-- diff guidato tra versione installata e sorgente
+- contract manifest governato con `type`, `classification`, `dependencies`, `semanticImpact`
+- stato installato versionato con footprint, semantic objects e metriche impatto
+- snapshot pre-write e rollback esplicito per modulo
+- hook post-install verso `repository-health`
+- gate `repository-health` basato su regressione rispetto al baseline pre-operazione
+- warning/fail su moduli pesanti tramite config dedicata
 
 ## Posizionamento nella repo
 

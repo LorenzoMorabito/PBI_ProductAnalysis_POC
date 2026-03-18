@@ -1,7 +1,7 @@
 [CmdletBinding()]
 param(
     [Parameter(Mandatory = $true)]
-    [ValidateSet("list-modules", "validate-project", "install-module", "set-data-source-path")]
+    [ValidateSet("list-modules", "validate-project", "install-module", "upgrade-module", "diff-module", "rollback-module", "set-data-source-path")]
     [string]$Command,
 
     [string]$WorkspaceRoot,
@@ -10,20 +10,25 @@ param(
     [string]$ModuleId,
     [string]$MappingFile,
     [string]$DataSourcePath,
+    [string]$SnapshotId,
     [switch]$ActivateInstalledPage,
-    [switch]$Force
+    [switch]$Force,
+    [switch]$FailOnGovernanceBreach
 )
 
 $modulePaths = @(
-    "Modules/Common/Pbi.Logging.psm1",
     "Modules/Core/Pbi.Runtime.psm1",
+    "Modules/Common/Pbi.Logging.psm1",
+    "Modules/Core/Pbi.Schema.psm1",
     "Modules/Core/Pbi.Catalog.psm1",
     "Modules/Core/Pbi.Project.psm1",
     "Modules/Core/Pbi.SemanticModel.psm1",
     "Modules/Core/Pbi.Report.psm1",
     "Modules/Domains/Finance/Pbi.Finance.psm1",
     "Modules/Domains/Marketing/Pbi.Marketing.psm1",
-    "Modules/Services/Pbi.ModuleInstaller.psm1"
+    "Modules/Services/Pbi.ModuleInstaller.psm1",
+    "Modules/Services/Pbi.Governance.psm1",
+    "Modules/Services/Pbi.ModuleLifecycle.psm1"
 )
 
 foreach ($relativeModulePath in $modulePaths) {
@@ -41,7 +46,7 @@ switch ($Command) {
         }
 
         $modules |
-            Select-Object Domain, ModuleId, DisplayName, Version, Status, PackageRoot |
+            Select-Object Domain, ModuleId, DisplayName, Version, Type, Classification, SemanticImpact, Status, PackageRoot |
             Format-Table -AutoSize
     }
 
@@ -71,23 +76,94 @@ switch ($Command) {
             throw "ModuleId is required for install-module."
         }
 
-        $result = Install-PbiModulePackage `
+        $result = Invoke-PbiModuleInstallOperation `
             -WorkspaceRoot $WorkspaceRoot `
             -ProjectPath $ProjectPath `
             -Domain $Domain `
             -ModuleId $ModuleId `
             -MappingFile $MappingFile `
             -ActivateInstalledPage:$ActivateInstalledPage `
-            -Force:$Force
+            -Force:$Force `
+            -FailOnGovernanceBreach:$FailOnGovernanceBreach
 
-        Write-PbiSuccess ("Installed module {0} {1} into project {2}" -f $result.ModuleId, $result.Version, $result.ProjectId)
-        Write-Host ("  Semantic tables: {0}" -f (($result.SemanticTables | Sort-Object) -join ", "))
-
-        if ($result.ReportPageName) {
-            Write-Host ("  Report page: {0}" -f $result.ReportPageName)
+        if ($result.NoOp) {
+            Write-PbiInfo ("Module {0} already aligned in project {1}" -f $result.Module.ModuleId, $result.Project.ProjectId)
+        }
+        else {
+            Write-PbiSuccess ("Installed module {0} {1} into project {2}" -f $result.Module.ModuleId, $result.Module.Version, $result.Project.ProjectId)
+            Write-Host ("  Snapshot: {0}" -f $result.SnapshotId)
+            Write-Host ("  Governance: {0}" -f $result.Governance.status)
+            Write-Host ("  Metadata: {0}" -f $result.Project.StateFilePath)
+            Write-Host ("  Log: {0}" -f $result.LogPath)
+        }
+    }
+    "upgrade-module" {
+        if (-not $ProjectPath) {
+            throw "ProjectPath is required for upgrade-module."
         }
 
-        Write-Host ("  Metadata: {0}" -f $result.StateFilePath)
+        if (-not $ModuleId) {
+            throw "ModuleId is required for upgrade-module."
+        }
+
+        $result = Upgrade-PbiModulePackage `
+            -WorkspaceRoot $WorkspaceRoot `
+            -ProjectPath $ProjectPath `
+            -Domain $Domain `
+            -ModuleId $ModuleId `
+            -MappingFile $MappingFile `
+            -ActivateInstalledPage:$ActivateInstalledPage `
+            -Force:$Force `
+            -FailOnGovernanceBreach:$FailOnGovernanceBreach
+
+        if ($result.NoOp) {
+            Write-PbiInfo ("Module {0} already on latest version in project {1}" -f $result.Module.ModuleId, $result.Project.ProjectId)
+        }
+        else {
+            Write-PbiSuccess ("Upgraded module {0} to {1} in project {2}" -f $result.Module.ModuleId, $result.Module.Version, $result.Project.ProjectId)
+            Write-Host ("  Snapshot: {0}" -f $result.SnapshotId)
+            Write-Host ("  Diff JSON: {0}" -f $result.DiffJsonPath)
+            Write-Host ("  Diff Markdown: {0}" -f $result.DiffMarkdownPath)
+            Write-Host ("  Governance: {0}" -f $result.Governance.status)
+            Write-Host ("  Log: {0}" -f $result.LogPath)
+        }
+    }
+    "diff-module" {
+        if (-not $ProjectPath) {
+            throw "ProjectPath is required for diff-module."
+        }
+
+        if (-not $ModuleId) {
+            throw "ModuleId is required for diff-module."
+        }
+
+        $result = New-PbiModuleDiffReport `
+            -WorkspaceRoot $WorkspaceRoot `
+            -ProjectPath $ProjectPath `
+            -Domain $Domain `
+            -ModuleId $ModuleId
+
+        Write-PbiSuccess ("Generated diff for module {0} in project {1}" -f $result.Module.ModuleId, $result.Project.ProjectId)
+        Write-Host ("  Diff JSON: {0}" -f $result.DiffJsonPath)
+        Write-Host ("  Diff Markdown: {0}" -f $result.DiffMarkdownPath)
+    }
+    "rollback-module" {
+        if (-not $ProjectPath) {
+            throw "ProjectPath is required for rollback-module."
+        }
+
+        if (-not $ModuleId) {
+            throw "ModuleId is required for rollback-module."
+        }
+
+        $result = Rollback-PbiModulePackage `
+            -ProjectPath $ProjectPath `
+            -ModuleId $ModuleId `
+            -SnapshotId $SnapshotId
+
+        Write-PbiSuccess ("Rolled back module {0} in project {1}" -f $result.ModuleId, $result.Project.ProjectId)
+        Write-Host ("  Snapshot: {0}" -f $result.SnapshotId)
+        Write-Host ("  Log: {0}" -f $result.LogPath)
     }
     "set-data-source-path" {
         if (-not $ProjectPath) {

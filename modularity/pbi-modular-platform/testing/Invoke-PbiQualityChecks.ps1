@@ -18,15 +18,18 @@ Import-Module $runtimeModulePath -Force -DisableNameChecking
 $workspaceRoot = Get-PbiInstallerWorkspaceRoot -WorkspaceRoot $WorkspaceRoot -ScriptRoot $platformRoot
 
 $installerModulePaths = @(
-    (Join-Path $platformRoot "installer/Modules/Common/Pbi.Logging.psm1"),
     $runtimeModulePath,
+    (Join-Path $platformRoot "installer/Modules/Common/Pbi.Logging.psm1"),
+    (Join-Path $platformRoot "installer/Modules/Core/Pbi.Schema.psm1"),
     (Join-Path $platformRoot "installer/Modules/Core/Pbi.Catalog.psm1"),
     (Join-Path $platformRoot "installer/Modules/Core/Pbi.Project.psm1"),
     (Join-Path $platformRoot "installer/Modules/Core/Pbi.SemanticModel.psm1"),
     (Join-Path $platformRoot "installer/Modules/Core/Pbi.Report.psm1"),
     (Join-Path $platformRoot "installer/Modules/Domains/Finance/Pbi.Finance.psm1"),
     (Join-Path $platformRoot "installer/Modules/Domains/Marketing/Pbi.Marketing.psm1"),
-    (Join-Path $platformRoot "installer/Modules/Services/Pbi.ModuleInstaller.psm1")
+    (Join-Path $platformRoot "installer/Modules/Services/Pbi.ModuleInstaller.psm1"),
+    (Join-Path $platformRoot "installer/Modules/Services/Pbi.Governance.psm1"),
+    (Join-Path $platformRoot "installer/Modules/Services/Pbi.ModuleLifecycle.psm1")
 )
 
 $testingModulePaths = @(

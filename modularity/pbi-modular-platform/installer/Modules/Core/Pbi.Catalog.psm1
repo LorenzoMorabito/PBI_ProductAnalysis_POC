@@ -4,13 +4,7 @@ function Test-PbiModuleManifest {
         [Parameter(Mandatory = $true)][string]$ManifestPath
     )
 
-    $requiredProperties = @("moduleId", "version", "domain", "description", "requires", "provides")
-
-    foreach ($propertyName in $requiredProperties) {
-        if (-not $Manifest.PSObject.Properties.Name.Contains($propertyName)) {
-            throw "Manifest $ManifestPath is missing required property '$propertyName'."
-        }
-    }
+    Test-PbiModuleManifestSchema -Manifest $Manifest -ManifestPath $ManifestPath
 }
 
 function Get-PbiModuleList {
@@ -55,11 +49,14 @@ function Get-PbiModuleList {
             $moduleRecord = [PSCustomObject]@{
                 Domain                = $catalog.domain
                 DomainRoot            = $domainRoot.FullName
-                DomainRepoName        = ([System.IO.Path]::GetRelativePath($resolvedWorkspaceRoot, $domainRoot.FullName)).Replace("\", "/")
+                DomainRepoName        = (Get-PbiRelativePath -BasePath $resolvedWorkspaceRoot -Path $domainRoot.FullName)
                 CatalogPath           = $catalogPath
                 ModuleId              = $manifest.moduleId
                 DisplayName           = $package.displayName
                 Version               = $manifest.version
+                Type                  = $manifest.type
+                Classification        = $manifest.classification
+                SemanticImpact        = $manifest.semanticImpact
                 Status                = $manifest.status
                 PackageRoot           = $packageRoot
                 PackageRelativePath   = $package.path

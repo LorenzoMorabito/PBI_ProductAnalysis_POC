@@ -1,12 +1,22 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://example.local/pbi-modular-platform/schemas/installed-modules.schema.json",
+  "$id": "https://example.local/pbi-modular-platform/schemas/installed-modules.schema.v2.0.0.json",
   "title": "Installed Power BI Modules",
   "type": "object",
   "required": [
+    "schemaVersion",
+    "generatedAt",
     "installedModules"
   ],
   "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "2.0.0"
+    },
+    "generatedAt": {
+      "type": "string",
+      "minLength": 1
+    },
     "installedModules": {
       "type": "array",
       "items": {
@@ -15,13 +25,34 @@
           "moduleId",
           "version",
           "source",
-          "mappings"
+          "mappings",
+          "installedAt",
+          "lastAction",
+          "filesTouched",
+          "semanticObjectsAdded",
+          "reportObjectsAdded",
+          "installedObjects",
+          "impactMetrics"
         ],
         "properties": {
           "moduleId": {
-            "type": "string"
+            "type": "string",
+            "pattern": "^[a-z0-9_]+$"
           },
           "version": {
+            "type": "string",
+            "pattern": "^\\d+\\.\\d+\\.\\d+$"
+          },
+          "domain": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "classification": {
+            "type": "string"
+          },
+          "semanticImpact": {
             "type": "string"
           },
           "source": {
@@ -30,11 +61,158 @@
           "mappings": {
             "type": "object"
           },
+          "installedAt": {
+            "type": "string",
+            "minLength": 1
+          },
+          "lastAction": {
+            "type": "string",
+            "minLength": 1
+          },
+          "filesTouched": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1
+          },
+          "semanticObjectsAdded": {
+            "type": "object",
+            "required": [
+              "tables",
+              "measures"
+            ],
+            "properties": {
+              "tables": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "measures": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "additionalProperties": false
+          },
+          "reportObjectsAdded": {
+            "type": "object",
+            "required": [
+              "page",
+              "files",
+              "visualCount"
+            ],
+            "properties": {
+              "page": {
+                "type": "string"
+              },
+              "files": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "visualCount": {
+                "type": "integer"
+              }
+            },
+            "additionalProperties": false
+          },
           "installedObjects": {
-            "type": "object"
+            "type": "object",
+            "required": [
+              "tables",
+              "page"
+            ],
+            "properties": {
+              "tables": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "page": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          },
+          "impactMetrics": {
+            "type": "object",
+            "required": [
+              "fileCount",
+              "sizeDeltaBytes",
+              "semanticTableCount",
+              "semanticMeasureCount",
+              "reportFileCount",
+              "reportVisualCount"
+            ],
+            "properties": {
+              "fileCount": {
+                "type": "integer"
+              },
+              "sizeDeltaBytes": {
+                "type": "integer"
+              },
+              "semanticTableCount": {
+                "type": "integer"
+              },
+              "semanticMeasureCount": {
+                "type": "integer"
+              },
+              "reportFileCount": {
+                "type": "integer"
+              },
+              "reportVisualCount": {
+                "type": "integer"
+              }
+            },
+            "additionalProperties": false
+          },
+          "history": {
+            "type": "object",
+            "properties": {
+              "lastSnapshotId": {
+                "type": "string"
+              },
+              "lastDiffJsonPath": {
+                "type": "string"
+              },
+              "lastDiffMarkdownPath": {
+                "type": "string"
+              },
+              "lastLogPath": {
+                "type": "string"
+              },
+              "lastRepoHealthMetricsPath": {
+                "type": "string"
+              },
+              "lastRepoHealthSummaryPath": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          },
+          "governance": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "type": "string"
+              },
+              "reasons": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "additionalProperties": false
           }
         },
-        "additionalProperties": true
+        "additionalProperties": false
       }
     }
   },

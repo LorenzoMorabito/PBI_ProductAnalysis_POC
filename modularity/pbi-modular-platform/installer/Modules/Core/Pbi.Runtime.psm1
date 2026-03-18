@@ -42,6 +42,29 @@ function Get-PbiInstallerWorkspaceRoot {
     throw "Unable to resolve the workspace root automatically. Specify -WorkspaceRoot explicitly."
 }
 
+function ConvertFrom-PbiJsonText {
+    param([Parameter(Mandatory = $true)][string]$Text)
+
+    if ($PSVersionTable.PSVersion.Major -ge 6) {
+        return ($Text | ConvertFrom-Json -Depth 100)
+    }
+
+    return ($Text | ConvertFrom-Json)
+}
+
+function ConvertTo-PbiJsonText {
+    param(
+        [Parameter(Mandatory = $true)]$InputObject,
+        [switch]$Compress
+    )
+
+    if ($Compress) {
+        return ($InputObject | ConvertTo-Json -Depth 100 -Compress)
+    }
+
+    return ($InputObject | ConvertTo-Json -Depth 100)
+}
+
 function Resolve-PbiPath {
     param(
         [Parameter(Mandatory = $true)][string]$BasePath,
@@ -52,6 +75,24 @@ function Resolve-PbiPath {
     return [System.IO.Path]::GetFullPath($joinedPath)
 }
 
+function Get-PbiRelativePath {
+    param(
+        [Parameter(Mandatory = $true)][string]$BasePath,
+        [Parameter(Mandatory = $true)][string]$Path
+    )
+
+    $resolvedBasePath = (Resolve-Path $BasePath).Path
+    $resolvedPath = [System.IO.Path]::GetFullPath($Path)
+    $basePathForUri = $resolvedBasePath
+    if (-not $basePathForUri.EndsWith("\")) {
+        $basePathForUri += "\"
+    }
+
+    $baseUri = New-Object System.Uri($basePathForUri)
+    $pathUri = New-Object System.Uri($resolvedPath)
+    return ([System.Uri]::UnescapeDataString($baseUri.MakeRelativeUri($pathUri).ToString())).Replace("\", "/")
+}
+
 function Read-PbiJsonFile {
     param([Parameter(Mandatory = $true)][string]$Path)
 
@@ -59,7 +100,7 @@ function Read-PbiJsonFile {
         throw "JSON file not found: $Path"
     }
 
-    return (Get-Content $Path -Raw | ConvertFrom-Json -Depth 100)
+    return (ConvertFrom-PbiJsonText -Text (Get-Content $Path -Raw))
 }
 
 function Write-PbiJsonFile {
@@ -68,7 +109,7 @@ function Write-PbiJsonFile {
         [Parameter(Mandatory = $true)]$InputObject
     )
 
-    $json = $InputObject | ConvertTo-Json -Depth 100
+    $json = ConvertTo-PbiJsonText -InputObject $InputObject
     Set-Content -Path $Path -Value $json -Encoding utf8
 }
 
@@ -80,4 +121,42 @@ function Ensure-PbiDirectory {
     }
 }
 
-Export-ModuleMember -Function Get-PbiInstallerWorkspaceRoot, Resolve-PbiPath, Read-PbiJsonFile, Write-PbiJsonFile, Ensure-PbiDirectory
+function Compare-PbiVersion {
+    param(
+        [Parameter(Mandatory = $true)][string]$LeftVersion,
+        [Parameter(Mandatory = $true)][string]$RightVersion
+    )
+
+    $left = [System.Version]::Parse($LeftVersion)
+    $right = [System.Version]::Parse($RightVersion)
+    return $left.CompareTo($right)
+}
+
+function Get-PbiUtcTimestamp {
+    return (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")
+}
+
+function Get-PbiTimestampKey {
+    return (Get-Date).ToUniversalTime().ToString("yyyyMMddTHHmmssfffZ")
+}
+
+function Get-PbiPathSizeBytes {
+    param([Parameter(Mandatory = $true)][string]$Path)
+
+    if (-not (Test-Path $Path)) {
+        return 0L
+    }
+
+    $item = Get-Item $Path
+    if (-not $item.PSIsContainer) {
+        return [int64]$item.Length
+    }
+
+    return [int64](
+        Get-ChildItem -Path $item.FullName -Recurse -File -ErrorAction SilentlyContinue |
+            Measure-Object -Property Length -Sum |
+            Select-Object -ExpandProperty Sum
+    )
+}
+
+Export-ModuleMember -Function Get-PbiInstallerWorkspaceRoot, ConvertFrom-PbiJsonText, ConvertTo-PbiJsonText, Resolve-PbiPath, Get-PbiRelativePath, Read-PbiJsonFile, Write-PbiJsonFile, Ensure-PbiDirectory, Compare-PbiVersion, Get-PbiUtcTimestamp, Get-PbiTimestampKey, Get-PbiPathSizeBytes

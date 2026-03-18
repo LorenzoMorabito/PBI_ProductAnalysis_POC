@@ -1,25 +1,97 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://example.local/pbi-modular-platform/schemas/module-manifest.schema.json",
+  "$id": "https://example.local/pbi-modular-platform/schemas/module-manifest.schema.v2.0.0.json",
   "title": "Power BI Module Manifest",
   "type": "object",
   "required": [
     "moduleId",
     "version",
     "domain",
+    "type",
+    "classification",
+    "dependencies",
+    "semanticImpact",
     "description",
     "requires",
     "provides"
   ],
   "properties": {
     "moduleId": {
-      "type": "string"
+      "type": "string",
+      "pattern": "^[a-z0-9_]+$"
     },
     "version": {
-      "type": "string"
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
     },
     "domain": {
-      "type": "string"
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "report-only",
+        "semantic"
+      ]
+    },
+    "classification": {
+      "type": "string",
+      "enum": [
+        "report-only",
+        "semantic-light",
+        "semantic-heavy"
+      ]
+    },
+    "dependencies": {
+      "type": "object",
+      "required": [
+        "modules",
+        "capabilities"
+      ],
+      "properties": {
+        "modules": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "moduleId"
+            ],
+            "properties": {
+              "moduleId": {
+                "type": "string",
+                "pattern": "^[a-z0-9_]+$"
+              },
+              "domain": {
+                "type": "string",
+                "pattern": "^[a-z0-9-]+$"
+              },
+              "versionRange": {
+                "type": "string"
+              },
+              "optional": {
+                "type": "boolean"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "capabilities": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "semanticImpact": {
+      "type": "string",
+      "enum": [
+        "none",
+        "additive",
+        "invasive"
+      ]
     },
     "status": {
       "type": "string",
@@ -31,7 +103,8 @@
       ]
     },
     "description": {
-      "type": "string"
+      "type": "string",
+      "minLength": 1
     },
     "requires": {
       "type": "object",
@@ -53,7 +126,7 @@
         "coreMeasures",
         "coreColumns"
       ],
-      "additionalProperties": true
+      "additionalProperties": false
     },
     "provides": {
       "type": "object",
@@ -62,29 +135,33 @@
           "type": "array",
           "items": {
             "type": "string"
-          }
+          },
+          "minItems": 0
         },
         "reportPage": {
           "type": "object",
           "properties": {
             "name": {
-              "type": "string"
+              "type": "string",
+              "minLength": 1
             },
             "displayName": {
-              "type": "string"
+              "type": "string",
+              "minLength": 1
             }
           },
           "required": [
             "name",
             "displayName"
-          ]
+          ],
+          "additionalProperties": false
         }
       },
       "required": [
         "semanticTables"
       ],
-      "additionalProperties": true
+      "additionalProperties": false
     }
   },
-  "additionalProperties": true
+  "additionalProperties": false
 }
