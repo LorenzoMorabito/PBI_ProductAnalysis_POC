@@ -2,37 +2,27 @@
 
 ## Scopo
 
-Questo runbook serve per usare rapidamente il framework `repository-health` in tre casi:
-
-- check veloce locale
-- audit completo locale
-- lettura del risultato e triage
+Questo runbook serve per usare rapidamente il framework `repository-health` in locale e capire come leggere i risultati.
 
 ## 1. Check veloce locale
-
-Usalo prima di un commit importante o dopo un refactor della repo.
 
 ```powershell
 ./repository-health/analyzer.ps1 -Mode local
 ```
 
-Cosa fa:
+Usalo:
 
-- legge le metriche Git principali
-- controlla file vietati
-- controlla blob storici grandi
-- produce output locali
+- prima di un push importante
+- dopo un refactor della repo
+- quando vuoi aggiornare la dashboard locale
 
 Output principali:
 
-- [metrics.json](C:/work/MEN_Marketing/PBI_ProductAnalysis_POC/repository-health/outputs/current/metrics.json)
-- [summary.md](C:/work/MEN_Marketing/PBI_ProductAnalysis_POC/repository-health/outputs/current/summary.md)
-- [dashboard.html](C:/work/MEN_Marketing/PBI_ProductAnalysis_POC/repository-health/outputs/current/dashboard.html)
-- [top-files-history.csv](C:/work/MEN_Marketing/PBI_ProductAnalysis_POC/repository-health/outputs/history/top-files-history.csv)
+- `repository-health/outputs/current/metrics.json`
+- `repository-health/outputs/current/summary.md`
+- `repository-health/outputs/current/dashboard.html`
 
 ## 2. Check locale bloccante
-
-Usalo se vuoi simulare il comportamento del gate CI.
 
 ```powershell
 ./repository-health/analyzer.ps1 `
@@ -47,18 +37,17 @@ Comportamento:
 
 ## 3. Audit completo locale
 
-Usalo per una scansione piu profonda, simile al workflow schedulato.
-
 ```powershell
 ./repository-health/analyzer.ps1 `
   -Mode schedule `
   -EnableGitSizer
 ```
 
-Note:
+Usalo per:
 
-- se `git-sizer` non e disponibile, il framework continua comunque
-- il comando produce anche i dati storici runtime locali
+- scansione più profonda
+- verifica del path schedulato
+- aggiornamento della dashboard locale con metriche complete
 
 ## 4. Come leggere il risultato
 
@@ -71,11 +60,11 @@ Note:
 ### Stato `WARN`
 
 - repo utilizzabile
-- c'e un punto di attenzione da monitorare
+- esiste almeno un punto di attenzione
 
-Esempi tipici:
+Esempi:
 
-- file corrente piu grande oltre la soglia warning
+- file corrente più grande oltre la soglia warning
 - crescita anomala rispetto allo snapshot precedente
 - `size-pack` sopra threshold di attenzione
 
@@ -85,32 +74,27 @@ Esempi tipici:
 - blob storico oltre soglia critica
 - violazione bloccante della policy
 
-In caso di `FAIL`, il change non va considerato pronto per merge senza fix o decisione esplicita.
+In caso di `FAIL`, il change non è pronto per merge senza fix o decisione esplicita.
 
 ## 5. Triage rapido
 
-### Caso A: warning sul file corrente piu grande
+### Caso A: warning sul file corrente più grande
 
-Controlla il summary:
+Controlla:
 
-- apri [summary.md](C:/work/MEN_Marketing/PBI_ProductAnalysis_POC/repository-health/outputs/current/summary.md)
+- `repository-health/outputs/current/summary.md`
+- `repository-health/outputs/current/dashboard.html`
+- `repository-health/outputs/history/top-files-history.csv`
 
 Domande da fare:
 
-- il file e testuale e atteso?
-- e parte del semantic model o e un artefatto evitabile?
-- puo essere spezzato o alleggerito?
-- sta crescendo rispetto al baseline precedente o e solo strutturalmente grande?
-
-Per capirlo rapidamente:
-
-- leggi la sezione `Current Top File Growth vs Previous Baseline` in [summary.md](C:/work/MEN_Marketing/PBI_ProductAnalysis_POC/repository-health/outputs/current/summary.md)
-- apri [dashboard.html](C:/work/MEN_Marketing/PBI_ProductAnalysis_POC/repository-health/outputs/current/dashboard.html)
-- controlla [top-files-history.csv](C:/work/MEN_Marketing/PBI_ProductAnalysis_POC/repository-health/outputs/history/top-files-history.csv)
+- il file è atteso?
+- è un file testuale del semantic model/report o un artefatto evitabile?
+- sta crescendo davvero nel tempo o è solo strutturalmente grande?
 
 ### Caso B: file vietati
 
-Controlla se nel working tree sono entrati file come:
+Controlla se sono entrati file come:
 
 - `.pbix`
 - `.pbit`
@@ -121,35 +105,38 @@ Azione:
 
 - rimuoverli dal versioning
 - spostarli in un path locale escluso
-- oppure aggiornare la policy solo se la scelta e intenzionale e approvata
+- oppure aggiornare la policy solo se la scelta è intenzionale e approvata
 
 ### Caso C: blob storico grande
 
-Il problema e nella storia Git, non solo nello stato corrente.
+Il problema è nella history Git, non solo nello stato corrente.
 
 Azione:
 
 - identificare il blob
-- valutare se e tollerabile
-- se non lo e, pianificare una bonifica della history separata dal normale sviluppo
+- valutare se è tollerabile
+- se non lo è, pianificare una bonifica history separata dal normale sviluppo
 
-## 6. Dove guardare i file
-
-Output correnti:
-
-- [metrics.json](C:/work/MEN_Marketing/PBI_ProductAnalysis_POC/repository-health/outputs/current/metrics.json)
-- [summary.md](C:/work/MEN_Marketing/PBI_ProductAnalysis_POC/repository-health/outputs/current/summary.md)
-- [dashboard.html](C:/work/MEN_Marketing/PBI_ProductAnalysis_POC/repository-health/outputs/current/dashboard.html)
+## 6. Storico e dashboard
 
 Storico runtime locale:
 
-- [outputs/history](C:/work/MEN_Marketing/PBI_ProductAnalysis_POC/repository-health/outputs/history)
-- include anche `top-files-history.csv` per il tracking dei file piu grandi nel tempo
+- `repository-health/outputs/history/`
 
 Storico persistente autorevole:
 
 - branch `repo-health-data`
-- path target: `repository-health/history/...`
+- path target `repository-health/history/...`
+
+Dashboard:
+
+- `repository-health/outputs/current/dashboard.html`
+
+Importante:
+
+- la dashboard locale non si aggiorna da sola dopo un `commit`
+- si aggiorna quando lanci `analyzer.ps1`
+- lo storico ufficiale viene aggiornato automaticamente dai workflow dopo `push` su `main` o run schedulati
 
 ## 7. Uso in CI
 
@@ -157,7 +144,7 @@ Storico persistente autorevole:
 
 Workflow:
 
-- [.github/workflows/repo-health-pr.yml](C:/work/MEN_Marketing/PBI_ProductAnalysis_POC/.github/workflows/repo-health-pr.yml)
+- `.github/workflows/repo-health-pr.yml`
 
 Comportamento:
 
@@ -169,18 +156,18 @@ Comportamento:
 
 Workflow:
 
-- [.github/workflows/repo-health-push.yml](C:/work/MEN_Marketing/PBI_ProductAnalysis_POC/.github/workflows/repo-health-push.yml)
+- `.github/workflows/repo-health-push.yml`
 
 Comportamento:
 
-- esegue analisi
+- esegue l’analisi
 - aggiorna il branch `repo-health-data`
 
 ### Audit schedulato
 
 Workflow:
 
-- [.github/workflows/repo-health-schedule.yml](C:/work/MEN_Marketing/PBI_ProductAnalysis_POC/.github/workflows/repo-health-schedule.yml)
+- `.github/workflows/repo-health-schedule.yml`
 
 Comportamento:
 
@@ -212,7 +199,7 @@ Audit completo:
 
 Per il lavoro quotidiano:
 
-1. lancia `-Mode local`
-2. se esce `WARN`, leggi `summary.md`
-3. se esce `FAIL`, non procedere al merge senza fix
-4. lascia ai workflow GitHub la persistenza storica su `repo-health-data`
+1. lancia `-Mode local` quando vuoi aggiornare la vista locale
+2. leggi `summary.md` se lo stato è `WARN`
+3. non procedere al merge se lo stato è `FAIL`
+4. lascia ai workflow GitHub la persistenza storica ufficiale

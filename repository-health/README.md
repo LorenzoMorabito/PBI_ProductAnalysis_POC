@@ -1,16 +1,24 @@
-# Repo Health Framework
+# Repository Health Framework
 
-Framework automatico di monitoraggio della salute Git della repository, progettato per repository Power BI in formato `PBIP`.
+Framework PowerShell + GitHub Actions per monitorare la salute Git di una repository, con focus su repository Power BI `PBIP` ma riusabile anche in altri contesti testuali versionati.
 
-## Obiettivi coperti
+## Obiettivi
 
-- prevenzione del repository bloat
-- monitoraggio della crescita Git nel tempo
-- identificazione di file vietati e pattern critici
-- evidenza quantitativa dell'impatto del versioning testuale
-- base tecnica per standard aziendale `Power BI + Git`
+- prevenire il repository bloat
+- tracciare la crescita Git nel tempo
+- rilevare file vietati e pattern rischiosi
+- storicizzare metriche auditabili e diffabili
+- fornire insight locali e in CI senza introdurre dipendenze pesanti
 
-## Uso locale
+## Quick start locale
+
+Check veloce:
+
+```powershell
+./repository-health/analyzer.ps1 -Mode local
+```
+
+Check bloccante:
 
 ```powershell
 ./repository-health/analyzer.ps1 `
@@ -18,69 +26,95 @@ Framework automatico di monitoraggio della salute Git della repository, progetta
   -FailOnThresholdBreach
 ```
 
-Runbook operativo rapido:
+Audit completo:
 
-- [RUNBOOK.md](C:/work/MEN_Marketing/PBI_ProductAnalysis_POC/repository-health/RUNBOOK.md)
+```powershell
+./repository-health/analyzer.ps1 `
+  -Mode schedule `
+  -EnableGitSizer
+```
 
-Visualizzazione statica corrente:
+Guida operativa:
 
-- `repository-health/outputs/current/dashboard.html`
-
-## Configurazione
-
-Parametri principali in `config.json`:
-
-- `data_branch_name`: branch autorevole per la telemetria storica
-- `history_root_relative_path`: radice dati persistenti nel branch storico
-- `max_blob_mb`, `max_pack_mb`, `max_growth_pct`: threshold di controllo
-- `forbidden_extensions`: estensioni bloccanti
-- `excluded_paths`: path esclusi dalla working tree scan
-- `allowed_tracked_excluded_paths`: eccezioni esplicite ai placeholder versionati
+- [RUNBOOK.md](./RUNBOOK.md)
 
 ## Output
 
-Generati in `repository-health/outputs/`:
+Output runtime locali:
 
-- `current/metrics.json`
-- `current/summary.md`
-- `current/dashboard.html`
-- `history/latest.json`
-- `history/metrics-history.csv`
-- `history/top-files-history.csv`
-- `current/git-sizer.txt` se abilitato e disponibile
+- `outputs/current/metrics.json`
+- `outputs/current/summary.md`
+- `outputs/current/dashboard.html`
+- `outputs/current/git-sizer.txt` quando abilitato e disponibile
 
-## File-level growth tracking
+Storico runtime locale:
 
-Il framework ora registra anche i `top N` file correnti per ogni run e li confronta con il baseline precedente.
+- `outputs/history/latest.json`
+- `outputs/history/metrics-history.csv`
+- `outputs/history/top-files-history.csv`
+- `outputs/history/runs/*.json`
+- `outputs/history/runs/*.md`
 
-Cosa ottieni:
+Nota:
 
-- trend storico leggero dei file piu grandi
-- insight su file nuovi entrati nel `top N`
-- delta dimensionale rispetto al baseline precedente
-- correlazione pratica con il commit baseline e il commit corrente
+- `dashboard.html` è un artefatto derivato locale/CI
+- la source of truth storica è nei file `JSON/CSV/MD/TXT`
 
-La scelta resta intenzionalmente leggera:
+## Cosa monitora
 
-- non viene storicizzato l'inventario completo del repo
-- viene persistito solo `top-files-history.csv`
-- questo permette di vedere la crescita dei file piu rilevanti senza introdurre bloat nel framework stesso
-- `dashboard.html` resta un artefatto derivato locale/CI e puo sempre essere rigenerato dai dati storici
+- `size-pack`
+- oggetti Git totali
+- numero pack
+- dimensione `.git`
+- file tracciati
+- numero commit
+- largest blob storico
+- blob sopra `1 MB` e `5 MB`
+- largest current file
+- file vietati nel working tree
+- crescita dei `top N` file rispetto al baseline precedente
+
+## Configurazione
+
+Configurazione in:
+
+- [config.json](./config.json)
+
+Parametri principali:
+
+- `data_branch_name`
+- `history_root_relative_path`
+- `max_blob_mb`
+- `max_pack_mb`
+- `max_growth_pct`
+- `warn_current_file_mb`
+- `top_n`
+- `forbidden_extensions`
+- `excluded_paths`
+- `allowed_tracked_excluded_paths`
 
 ## Workflow GitHub Actions
 
-- `.github/workflows/repo-health-pr.yml`: validazione PR con gate bloccante e commento automatico
-- `.github/workflows/repo-health-push.yml`: monitoraggio su push verso `main`
-- `.github/workflows/repo-health-schedule.yml`: audit pianificato con integrazione `git-sizer` opzionale
+Workflow pronti:
 
-## Level 2 Persistence
+- [repo-health-pr.yml](../.github/workflows/repo-health-pr.yml)
+- [repo-health-push.yml](../.github/workflows/repo-health-push.yml)
+- [repo-health-schedule.yml](../.github/workflows/repo-health-schedule.yml)
 
-Il framework ora usa un modello a due branch:
+Comportamento:
 
-- `main`: codice, configurazione, workflow
-- `repo-health-data`: storico persistente, auditabile e diffabile
+- `pull_request`: valida, commenta, non persiste storico
+- `push` su `main`: aggiorna lo storico sul branch dati
+- `schedule` / `workflow_dispatch`: aggiorna lo storico e prova `git-sizer`
 
-Nel branch `repo-health-data` la struttura target è:
+## Level 2 persistence
+
+Il framework usa due branch:
+
+- branch applicativo, per esempio `main`
+- branch dati, per esempio `repo-health-data`
+
+Nel branch dati la struttura target è:
 
 ```text
 repository-health/
@@ -95,27 +129,44 @@ repository-health/
       2026-03-18T10-00-00Z.txt
 ```
 
-### Comportamento per workflow
+## File-level growth tracking
 
-- `pull_request`: legge il baseline storico ma non scrive
-- `push` su `main`: aggiorna lo storico sul branch dati
-- `schedule` / `workflow_dispatch`: aggiorna lo storico e salva anche `git-sizer` quando disponibile
+Il framework registra i `top N` file per ogni run e li confronta con il baseline precedente.
 
-### Script operativi
+Cosa ottieni:
 
-- `scripts/Prepare-RepoHealthDataBranch.ps1`: prepara o bootstrap la worktree del branch dati
-- `scripts/Publish-RepoHealthDataBranch.ps1`: committa e pusha la telemetria nel branch dati
+- trend storico leggero dei file più grandi
+- insight su file nuovi entrati nel `top N`
+- delta dimensionale rispetto al baseline precedente
+- correlazione pratica tra commit baseline e commit corrente
 
-## Bootstrap
+Il design resta volutamente leggero:
 
-Il primo deploy supporta automaticamente il caso in cui `repo-health-data` non esista ancora:
+- non storicizza l’inventario completo del repo
+- persiste solo i file più rilevanti
+- evita che il framework introduca bloat nel repository che monitora
 
-1. il workflow prepara una worktree temporanea
-2. crea un branch orfano `repo-health-data`
-3. inizializza `repository-health/history`
-4. persiste `latest.json`, `metrics-history.csv` e il primo snapshot `runs/*`
+## Distribuzione su altri repo
 
-L’analyzer non fallisce se lo storico non esiste ancora.
+Il framework è distributibile, ma oggi il modo corretto è:
+
+- usare l’installer in `distribution/`
+- generare config e workflow dal template
+- adattare `config.json` al repository target
+
+Materiale di distribuzione:
+
+- `distribution/Install-RepoHealthFramework.ps1`
+- `distribution/templates/`
+
+## Assunzioni correnti
+
+- Git installato
+- PowerShell disponibile
+- GitHub Actions come CI target
+- runner Windows per i workflow pronti
+
+Su altri sistemi CI o runner Linux il framework resta riusabile, ma i workflow vanno adattati.
 
 ## Policy
 
@@ -129,67 +180,22 @@ L’analyzer non fallisce se lo storico non esiste ancora.
 
 - `size-pack` oltre soglia
 - crescita anomala rispetto al baseline precedente
-- file corrente più grande oltre soglia warning
-
-## Esempio summary
-
-```text
-Repository Health Check
-  Status: OK
-  Branch: main
-  Size pack: 0.34 MB
-  Largest blob: 1.63 MB
-  Blob > 1 MB: 2
-  Forbidden files: 0
-```
-
-## Esempio JSON
-
-```json
-{
-  "repository": "LorenzoMorabito/PBI_ProductAnalysis_POC",
-  "git_core": {
-    "size_pack_mb": 0.34,
-    "object_count": 1064,
-    "packed_object_count": 1064,
-    "pack_count": 2
-  },
-  "history": {
-    "max_blob_mb": 1.63,
-    "blob_over_1mb": 2,
-    "blob_over_5mb": 0
-  },
-  "policy": {
-    "status": "OK"
-  }
-}
-```
+- largest current file oltre soglia warning
 
 ## Troubleshooting
 
-### Loop automatici
+Loop automatici:
 
-I workflow non si autoinnescano perché:
-
-- il trigger di `push` ascolta solo `main`
-- i job hanno un guardrail esplicito contro `refs/heads/repo-health-data`
+- il trigger `push` ascolta solo il branch applicativo
+- i job escludono esplicitamente il branch dati
 - nessun workflow scrive mai su `main`
 
-### Permessi
-
-- `repo-health-pr.yml`: `contents: read`, `pull-requests: write`
-- `repo-health-push.yml`: `contents: write`
-- `repo-health-schedule.yml`: `contents: write`, `issues: write`
-
-### Failure di persistenza
-
-Se il push verso `repo-health-data` fallisce:
+Failure di persistenza:
 
 - il summary runtime resta disponibile
 - l’artifact resta disponibile
-- il warning viene scritto nel `GITHUB_STEP_SUMMARY`
-- la failure di persistenza non maschera l’esito dell’analisi
+- la failure di persistenza non maschera il risultato dell’analisi
 
-### Upgrade da storico legacy
+Migrazione schema storico:
 
-Se esiste un `metrics-history.csv` con schema precedente, il framework lo ruota automaticamente in un file `*.legacy-<timestamp>.csv` e crea un nuovo CSV Level 2.
+- se un CSV storico ha schema legacy, il framework lo ruota automaticamente in `*.legacy-<timestamp>.csv`
