@@ -1,0 +1,156 @@
+{
+  "timestamp": "2026-03-18T01:11:03Z",
+  "repository": "LorenzoMorabito/PBI_ProductAnalysis_POC",
+  "mode": "push",
+  "branch": "main",
+  "commit": "cfcfec9de82cd5a77dee5c276461ba1ae35202c5",
+  "git_core": {
+    "size_pack_mb": 0.39,
+    "object_count": 1183,
+    "packed_object_count": 1183,
+    "pack_count": 1,
+    "loose_object_count": 0
+  },
+  "repo": {
+    "git_size_mb": 0.5,
+    "tracked_file_count": 437,
+    "working_file_count": 435,
+    "commit_count": 51,
+    "largest_current_file_mb": 1.69,
+    "top_current_files": [
+      {
+        "path": "powerbi-projects/20260227_Product_Analysis.SemanticModel/definition/cultures/en-US.tmdl",
+        "size_mb": 1.69,
+        "size_b": 1768811
+      },
+      {
+        "path": "powerbi-projects/20260227_Product_Analysis.Report/definition/bookmarks/5aa23e81c55041a60a51.bookmark.json",
+        "size_mb": 0.14,
+        "size_b": 150082
+      },
+      {
+        "path": "powerbi-projects/20260227_Product_Analysis.Report/definition/bookmarks/a7add2c54cbd59546893.bookmark.json",
+        "size_mb": 0.14,
+        "size_b": 150082
+      },
+      {
+        "path": "powerbi-projects/20260227_Product_Analysis.Report/definition/pages/7d897b7585bab650ac06/page.json",
+        "size_mb": 0.09,
+        "size_b": 96991
+      },
+      {
+        "path": "powerbi-projects/20260227_Product_Analysis.Report/definition/pages/7d897b7585bab650ac06/visuals/1b2de7b160d981e28559/visual.json",
+        "size_mb": 0.03,
+        "size_b": 29125
+      },
+      {
+        "path": "powerbi-projects/20260227_Product_Analysis.Report/definition/pages/7d897b7585bab650ac06/visuals/3962734608c944476ac9/visual.json",
+        "size_mb": 0.03,
+        "size_b": 26358
+      },
+      {
+        "path": "repository-health/scripts/RepoHealth.Common.ps1",
+        "size_mb": 0.02,
+        "size_b": 26004
+      },
+      {
+        "path": "powerbi-projects/20260227_Product_Analysis.SemanticModel/diagramLayout.json",
+        "size_mb": 0.02,
+        "size_b": 20413
+      },
+      {
+        "path": "powerbi-projects/20260317_UAT_001.Report/StaticResources/SharedResources/BaseThemes/CY26SU02.json",
+        "size_mb": 0.02,
+        "size_b": 19330
+      },
+      {
+        "path": "powerbi-projects/20260227_Product_Analysis_Core.Report/StaticResources/SharedResources/BaseThemes/CY26SU02.json",
+        "size_mb": 0.02,
+        "size_b": 19330
+      }
+    ],
+    "forbidden_files": [],
+    "tracked_excluded_files": []
+  },
+  "history": {
+    "max_blob_mb": 1.63,
+    "max_blob_path": "powerbi-projects/20260227_Product_Analysis.SemanticModel/definition/cultures/en-US.tmdl",
+    "blob_over_1mb": 2,
+    "blob_over_5mb": 0,
+    "blob_over_max": 0,
+    "largest_blobs": [
+      {
+        "sha": "d360e6f4855e9e5a466a5a67ae66a8dfa2eda284",
+        "path": "powerbi-projects/20260227_Product_Analysis.SemanticModel/definition/cultures/en-US.tmdl",
+        "size_b": 1705422,
+        "size_mb": 1.63
+      },
+      {
+        "sha": "98ee15d6f8f312859854310761265e465fcfad94",
+        "path": "20260227_Product_Analysis.SemanticModel/definition/cultures/en-US.tmdl",
+        "size_b": 1621229,
+        "size_mb": 1.55
+      },
+      {
+        "sha": "f96c1683fc8588b7f98f6cc076aa88fd12b0a003",
+        "path": "20260227_Product_Analysis.Report/definition/bookmarks/a7add2c54cbd59546893.bookmark.json",
+        "size_b": 145870,
+        "size_mb": 0.14
+      },
+      {
+        "sha": "a0cd41e535778b8ead9d1239e1bed0c2bcfec994",
+        "path": "20260227_Product_Analysis.Report/definition/bookmarks/5aa23e81c55041a60a51.bookmark.json",
+        "size_b": 145870,
+        "size_mb": 0.14
+      },
+      {
+        "sha": "734dcf5d7c6152a88ea5c92d66b04975277ee153",
+        "path": "powerbi-projects/20260227_Product_Analysis.Report/definition/bookmarks/a7add2c54cbd59546893.bookmark.json",
+        "size_b": 145712,
+        "size_mb": 0.14
+      },
+      {
+        "sha": "1c9e1fe78e5b1e6833626bcd6ba6363df9df0a2f",
+        "path": "powerbi-projects/20260227_Product_Analysis.Report/definition/bookmarks/5aa23e81c55041a60a51.bookmark.json",
+        "size_b": 145712,
+        "size_mb": 0.14
+      },
+      {
+        "sha": "9cd07df1505e3cb76127116501feab3d906b430f",
+        "path": "20260227_Product_Analysis.Report/definition/pages/7d897b7585bab650ac06/page.json",
+        "size_b": 95298,
+        "size_mb": 0.09
+      },
+      {
+        "sha": "74bf3838fd007348d07e1bd28dffa636394afe3f",
+        "path": "powerbi-projects/20260227_Product_Analysis.Report/definition/pages/7d897b7585bab650ac06/page.json",
+        "size_b": 93052,
+        "size_mb": 0.09
+      },
+      {
+        "sha": "edc69d870c44e23a2fb12e5e76785d154b1926c3",
+        "path": "20260227_Product_Analysis.Report/definition/pages/7d897b7585bab650ac06/page.json",
+        "size_b": 90578,
+        "size_mb": 0.09
+      },
+      {
+        "sha": "e607cf72981132736474dc854f8e76c01b9c0d35",
+        "path": "powerbi-projects/20260227_Product_Analysis.Report/definition/pages/7d897b7585bab650ac06/visuals/1b2de7b160d981e28559/visual.json",
+        "size_b": 28016,
+        "size_mb": 0.03
+      }
+    ]
+  },
+  "growth": {
+    "hasBaseline": false,
+    "size_pack_growth_pct": null,
+    "git_size_growth_pct": null
+  },
+  "policy": {
+    "status": "WARN",
+    "fail_reasons": [],
+    "warning_reasons": [
+      "Largest current file is 1.69 MB, above warning threshold 1 MB."
+    ]
+  }
+}
