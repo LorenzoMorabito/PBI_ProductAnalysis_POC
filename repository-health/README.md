@@ -18,6 +18,10 @@ Framework automatico di monitoraggio della salute Git della repository, progetta
   -FailOnThresholdBreach
 ```
 
+Runbook operativo rapido:
+
+- [RUNBOOK.md](C:/work/MEN_Marketing/PBI_ProductAnalysis_POC/repository-health/RUNBOOK.md)
+
 ## Configurazione
 
 Parametri principali in `config.json`:
