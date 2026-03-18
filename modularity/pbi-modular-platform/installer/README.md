@@ -39,32 +39,32 @@ Architecture:
 Usage examples:
 
 ```powershell
-./pbi-modular-platform/installer/Invoke-PbiModuleInstaller.ps1 `
+./modularity/pbi-modular-platform/installer/Invoke-PbiModuleInstaller.ps1 `
   -Command list-modules
 ```
 
 ```powershell
-./pbi-modular-platform/installer/Invoke-PbiModuleInstaller.ps1 `
+./modularity/pbi-modular-platform/installer/Invoke-PbiModuleInstaller.ps1 `
   -Command validate-project `
-  -ProjectPath ./20260227_Product_Analysis_Core.pbip
+  -ProjectPath ./powerbi-projects/20260227_Product_Analysis_Core.pbip
 ```
 
 ```powershell
-./pbi-modular-platform/installer/Invoke-PbiModuleInstaller.ps1 `
+./modularity/pbi-modular-platform/installer/Invoke-PbiModuleInstaller.ps1 `
   -Command install-module `
-  -ProjectPath ./20260227_Product_Analysis_Core.pbip `
+  -ProjectPath ./powerbi-projects/20260227_Product_Analysis_Core.pbip `
   -ModuleId finance_compare_mvp `
   -Domain finance `
   -ActivateInstalledPage
 ```
 
 ```powershell
-./pbi-modular-platform/installer/Invoke-PbiModuleInstaller.ps1 `
+./modularity/pbi-modular-platform/installer/Invoke-PbiModuleInstaller.ps1 `
   -Command set-data-source-path `
-  -ProjectPath ./20260227_Product_Analysis_Core.pbip `
+  -ProjectPath ./powerbi-projects/20260227_Product_Analysis_Core.pbip `
   -DataSourcePath 'C:\work\MEN_Marketing\PBI_ProductAnalysis_POC\data_source'
 ```
 
 Notes:
-- installed-module metadata is stored per PBIP project under `module-config/<pbip-name>/installed-modules.json`
+- installed-module metadata is stored per PBIP project under `powerbi-projects/module-config/<pbip-name>/installed-modules.json`
 - the current installer validates requirements and records mappings, but it does not yet rewrite TMDL based on custom aliases

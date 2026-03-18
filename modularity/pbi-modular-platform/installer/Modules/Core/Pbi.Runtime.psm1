@@ -11,13 +11,22 @@ function Get-PbiInstallerWorkspaceRoot {
     $currentPath = (Resolve-Path $ScriptRoot).Path
 
     while ($currentPath) {
-        if ((Split-Path $currentPath -Leaf) -eq "pbi-modular-platform") {
-            return (Split-Path $currentPath -Parent)
-        }
+        $directoryNames = @(
+            Get-ChildItem -Path $currentPath -Directory -ErrorAction SilentlyContinue |
+                Select-Object -ExpandProperty Name
+        )
+        $newLayoutDetected = (
+            ($directoryNames -contains "modularity") -and
+            ($directoryNames -contains "powerbi-projects") -and
+            ($directoryNames -contains "repository-health")
+        )
+        $legacyDomainDirectories = @(Get-ChildItem -Path $currentPath -Directory -Filter "pbi-*-domain" -ErrorAction SilentlyContinue)
+        $legacyLayoutDetected = (
+            ($legacyDomainDirectories.Count -gt 0 -or ($directoryNames -contains "pbi-modular-platform")) -and
+            (@(Get-ChildItem -Path $currentPath -File -Filter "*.pbip" -ErrorAction SilentlyContinue).Count -gt 0)
+        )
 
-        $domainDirectories = @(Get-ChildItem -Path $currentPath -Directory -Filter "pbi-*-domain" -ErrorAction SilentlyContinue)
-
-        if ($domainDirectories.Count -gt 0) {
+        if ($newLayoutDetected -or $legacyLayoutDetected) {
             return $currentPath
         }
 

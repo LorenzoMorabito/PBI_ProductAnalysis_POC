@@ -21,10 +21,23 @@ function Get-PbiModuleList {
     )
 
     $resolvedWorkspaceRoot = Get-PbiInstallerWorkspaceRoot -WorkspaceRoot $WorkspaceRoot -ScriptRoot $PSScriptRoot
-    $domainRoots = Get-ChildItem -Path $resolvedWorkspaceRoot -Directory -Filter "pbi-*-domain"
+    $domainRoots = New-Object System.Collections.Generic.List[object]
+    $candidateRoots = @($resolvedWorkspaceRoot)
+    $modularityRoot = Join-Path $resolvedWorkspaceRoot "modularity"
+
+    if (Test-Path $modularityRoot) {
+        $candidateRoots += $modularityRoot
+    }
+
+    foreach ($candidateRoot in @($candidateRoots | Select-Object -Unique)) {
+        foreach ($domainRoot in @(Get-ChildItem -Path $candidateRoot -Directory -Filter "pbi-*-domain" -ErrorAction SilentlyContinue)) {
+            $domainRoots.Add($domainRoot)
+        }
+    }
+
     $modules = @()
 
-    foreach ($domainRoot in $domainRoots) {
+    foreach ($domainRoot in @($domainRoots | Sort-Object FullName -Unique)) {
         $catalogPath = Join-Path $domainRoot.FullName "catalog/modules.json"
 
         if (-not (Test-Path $catalogPath)) {
@@ -42,7 +55,7 @@ function Get-PbiModuleList {
             $moduleRecord = [PSCustomObject]@{
                 Domain                = $catalog.domain
                 DomainRoot            = $domainRoot.FullName
-                DomainRepoName        = $domainRoot.Name
+                DomainRepoName        = ([System.IO.Path]::GetRelativePath($resolvedWorkspaceRoot, $domainRoot.FullName)).Replace("\", "/")
                 CatalogPath           = $catalogPath
                 ModuleId              = $manifest.moduleId
                 DisplayName           = $package.displayName

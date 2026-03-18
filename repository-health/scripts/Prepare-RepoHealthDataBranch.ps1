@@ -24,6 +24,7 @@ if (-not $ConfigPath) {
 $config = Get-RepoHealthConfig -Path $ConfigPath
 $dataBranchName = [string]$config.data_branch_name
 $historyRootRelativePath = [string]$config.history_root_relative_path
+$dataProjectRelativeRoot = Split-Path $historyRootRelativePath -Parent
 
 if (Test-Path $WorktreePath) {
     try {
@@ -55,10 +56,15 @@ else {
 }
 
 $historyRootPath = Join-Path $WorktreePath $historyRootRelativePath
+$legacyDataRootPath = Join-Path $WorktreePath ".repo-health"
+if ($dataProjectRelativeRoot -and ($dataProjectRelativeRoot -ne ".repo-health") -and (Test-Path $legacyDataRootPath)) {
+    Remove-Item -Path $legacyDataRootPath -Recurse -Force
+}
+
 $historyPaths = Get-RepoHealthHistoryPaths -HistoryRootPath $historyRootPath -Config $config -RunTimestampKey "bootstrap"
 Ensure-RepoHealthHistoryStructure -HistoryPaths $historyPaths
 
-$branchReadmePath = Join-Path $WorktreePath ".repo-health/README.md"
+$branchReadmePath = Join-Path $WorktreePath ($dataProjectRelativeRoot + "/README.md")
 $branchReadme = @"
 # Repo Health Data Branch
 

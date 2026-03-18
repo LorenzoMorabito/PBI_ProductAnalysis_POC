@@ -4,8 +4,8 @@ Data audit: `2026-03-17`
 
 Perimetro analizzato:
 
-- [20260227_Product_Analysis_Core.pbip](../20260227_Product_Analysis_Core.pbip)
-- [20260227_Product_Analysis_Core.SemanticModel](../20260227_Product_Analysis_Core.SemanticModel)
+- [20260227_Product_Analysis_Core.pbip](../powerbi-projects/20260227_Product_Analysis_Core.pbip)
+- [20260227_Product_Analysis_Core.SemanticModel](../powerbi-projects/20260227_Product_Analysis_Core.SemanticModel)
 
 ## Sintesi
 
@@ -14,7 +14,7 @@ Stato attuale del core:
 - `15` tabelle
 - `15` relazioni
 - `0` relazioni `AutoDetected`
-- `0` relazioni bidirezionali
+- `1` relazione `OneToOne` con `BothDirections`, conforme ai vincoli Power BI Desktop
 
 Verdetto:
 
@@ -60,12 +60,12 @@ Le relazioni residue del core hanno ora naming esplicito, per esempio:
 - `REL_MONTH_QUARTER`
 - `REL_MOLECULE_PRODUCT`
 
-La relazione tra [T_DIM_MOLECULE](../20260227_Product_Analysis_Core.SemanticModel/definition/tables/T_DIM_MOLECULE.tmdl) e [T_DIM_PRODUCT](../20260227_Product_Analysis_Core.SemanticModel/definition/tables/T_DIM_PRODUCT.tmdl) e stata riportata a filtro monodirezionale.
+La relazione tra [T_DIM_MOLECULE](../powerbi-projects/20260227_Product_Analysis_Core.SemanticModel/definition/tables/T_DIM_MOLECULE.tmdl) e [T_DIM_PRODUCT](../powerbi-projects/20260227_Product_Analysis_Core.SemanticModel/definition/tables/T_DIM_PRODUCT.tmdl) resta `OneToOne` con `BothDirections`, per compatibilita con Power BI Desktop.
 
 Verdetto:
 
-- miglioramento architetturale approvato
-- minore rischio di ambiguita di filtro
+- relazione resa esplicita e compatibile con il motore Desktop
+- comportamento coerente con il vincolo `OneToOne`
 - resta comunque da verificare nel tempo se `T_DIM_MOLECULE` debba restare snowflake su `T_DIM_PRODUCT` oppure diventare una dimensione ancora piu esplicita
 
 ## Misure core

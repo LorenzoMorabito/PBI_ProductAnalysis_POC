@@ -1,45 +1,33 @@
 {
   "installedModules": [
     {
-      "moduleId": "flex_table_flat_mvp",
-      "version": "0.2.0",
-      "source": "pbi-marketing-domain/packages/flex_table_flat_mvp",
+      "moduleId": "finance_compare_mvp",
+      "version": "0.1.0",
+      "source": "modularity/pbi-finance-domain/packages/finance_compare_mvp",
       "mappings": {
         "coreMeasures": {
-          "Sales Values": "Sales Values",
-          "Sales Units": "Sales Units",
-          "Counting Units": "Counting Units",
-          "Promo Spend": "Promo Spend",
-          "Promo Details": "Promo Details",
-          "Promo Contacts": "Promo Contacts",
-          "Promo Weighted Calls": "Promo Weighted Calls",
           "Fin ACT": "Fin ACT",
           "Fin BDG": "Fin BDG",
           "Fin ACT PY": "Fin ACT PY"
         },
         "coreColumns": {
-          "T_DIM_MOLECULE[MoleculeNorm]": "T_DIM_MOLECULE[MoleculeNorm]",
-          "T_DIM_COUNTRY[Country]": "T_DIM_COUNTRY[Country]",
-          "T_DIM_CORPORATION[Corporation]": "T_DIM_CORPORATION[Corporation]",
-          "T_DIM_PRODUCT[Product]": "T_DIM_PRODUCT[Product]",
-          "T_DIM_QUARTER[QuarterKey]": "T_DIM_QUARTER[QuarterKey]",
-          "T_DIM_ACT4[ATC4]": "T_DIM_ACT4[ATC4]"
+          "T_DIM_MONTH[MonthStartDay]": "T_DIM_MONTH[MonthStartDay]"
         }
       },
       "installedObjects": {
         "tables": [
-          "MOD Flex Flat Inputs",
-          "MOD Flex Flat Dimensions",
-          "MOD Flex Flat Measures"
+          "MOD Finance Compare Inputs",
+          "MOD Finance Compare Selector",
+          "MOD Finance Compare Metrics"
         ],
-        "page": "9c7a5b4d3e2f1a0b6c8d"
+        "page": "8a4f2d4d3f11450ab001"
       },
-      "installedAt": "2026-03-17T10:18:50"
+      "installedAt": "2026-03-17T18:40:27"
     },
     {
       "moduleId": "flex_metrics_table_mvp",
       "version": "0.2.1",
-      "source": "pbi-marketing-domain/packages/flex_metrics_table_mvp",
+      "source": "modularity/pbi-marketing-domain/packages/flex_metrics_table_mvp",
       "mappings": {
         "coreMeasures": {
           "Sales Values": "Sales Values",
@@ -71,7 +59,43 @@
         ],
         "page": "6f8d2c1e4b5a70918342"
       },
-      "installedAt": "2026-03-17T15:49:18"
+      "installedAt": "2026-03-17T18:46:29"
+    },
+    {
+      "moduleId": "flex_table_flat_mvp",
+      "version": "0.2.0",
+      "source": "modularity/pbi-marketing-domain/packages/flex_table_flat_mvp",
+      "mappings": {
+        "coreMeasures": {
+          "Sales Values": "Sales Values",
+          "Sales Units": "Sales Units",
+          "Counting Units": "Counting Units",
+          "Promo Spend": "Promo Spend",
+          "Promo Details": "Promo Details",
+          "Promo Contacts": "Promo Contacts",
+          "Promo Weighted Calls": "Promo Weighted Calls",
+          "Fin ACT": "Fin ACT",
+          "Fin BDG": "Fin BDG",
+          "Fin ACT PY": "Fin ACT PY"
+        },
+        "coreColumns": {
+          "T_DIM_MOLECULE[MoleculeNorm]": "T_DIM_MOLECULE[MoleculeNorm]",
+          "T_DIM_COUNTRY[Country]": "T_DIM_COUNTRY[Country]",
+          "T_DIM_CORPORATION[Corporation]": "T_DIM_CORPORATION[Corporation]",
+          "T_DIM_PRODUCT[Product]": "T_DIM_PRODUCT[Product]",
+          "T_DIM_QUARTER[QuarterKey]": "T_DIM_QUARTER[QuarterKey]",
+          "T_DIM_ACT4[ATC4]": "T_DIM_ACT4[ATC4]"
+        }
+      },
+      "installedObjects": {
+        "tables": [
+          "MOD Flex Flat Inputs",
+          "MOD Flex Flat Dimensions",
+          "MOD Flex Flat Measures"
+        ],
+        "page": "9c7a5b4d3e2f1a0b6c8d"
+      },
+      "installedAt": "2026-03-17T18:46:48"
     }
   ]
 }

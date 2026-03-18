@@ -15,7 +15,7 @@ Il pilot UAT attuale e volutamente controllato.
 
 Progetti di partenza consentiti:
 
-- [20260227_Product_Analysis_Core.pbip](../20260227_Product_Analysis_Core.pbip)
+- [20260227_Product_Analysis_Core.pbip](../powerbi-projects/20260227_Product_Analysis_Core.pbip)
 
 Moduli consentiti:
 
@@ -64,9 +64,9 @@ Regola:
 Prima di aprire il progetto in Desktop, valorizzare `root_path` sulla copia UAT:
 
 ```powershell
-./pbi-modular-platform/installer/Invoke-PbiModuleInstaller.ps1 `
+./modularity/pbi-modular-platform/installer/Invoke-PbiModuleInstaller.ps1 `
   -Command set-data-source-path `
-  -ProjectPath ./<progetto-test>.pbip `
+  -ProjectPath ./powerbi-projects/<progetto-test>.pbip `
   -DataSourcePath 'C:\work\MEN_Marketing\PBI_ProductAnalysis_POC\data_source'
 ```
 
@@ -82,9 +82,9 @@ Aprire il nuovo `.pbip` in Power BI Desktop e verificare:
 ### 4. Validare il progetto prima dell'installazione
 
 ```powershell
-./pbi-modular-platform/testing/Invoke-PbiQualityChecks.ps1 `
+./modularity/pbi-modular-platform/testing/Invoke-PbiQualityChecks.ps1 `
   -Command test-project `
-  -ProjectPath ./<progetto-test>.pbip `
+  -ProjectPath ./powerbi-projects/<progetto-test>.pbip `
   -FailOnError
 ```
 
@@ -93,9 +93,9 @@ Aprire il nuovo `.pbip` in Power BI Desktop e verificare:
 Esempio `finance_compare_mvp`:
 
 ```powershell
-./pbi-modular-platform/installer/Invoke-PbiModuleInstaller.ps1 `
+./modularity/pbi-modular-platform/installer/Invoke-PbiModuleInstaller.ps1 `
   -Command install-module `
-  -ProjectPath ./<progetto-test>.pbip `
+  -ProjectPath ./powerbi-projects/<progetto-test>.pbip `
   -Domain finance `
   -ModuleId finance_compare_mvp `
   -ActivateInstalledPage
@@ -104,9 +104,9 @@ Esempio `finance_compare_mvp`:
 Esempio `flex_metrics_table_mvp`:
 
 ```powershell
-./pbi-modular-platform/installer/Invoke-PbiModuleInstaller.ps1 `
+./modularity/pbi-modular-platform/installer/Invoke-PbiModuleInstaller.ps1 `
   -Command install-module `
-  -ProjectPath ./<progetto-test>.pbip `
+  -ProjectPath ./powerbi-projects/<progetto-test>.pbip `
   -Domain marketing `
   -ModuleId flex_metrics_table_mvp `
   -ActivateInstalledPage
@@ -115,9 +115,9 @@ Esempio `flex_metrics_table_mvp`:
 Esempio `flex_table_flat_mvp`:
 
 ```powershell
-./pbi-modular-platform/installer/Invoke-PbiModuleInstaller.ps1 `
+./modularity/pbi-modular-platform/installer/Invoke-PbiModuleInstaller.ps1 `
   -Command install-module `
-  -ProjectPath ./<progetto-test>.pbip `
+  -ProjectPath ./powerbi-projects/<progetto-test>.pbip `
   -Domain marketing `
   -ModuleId flex_table_flat_mvp `
   -ActivateInstalledPage
@@ -126,9 +126,9 @@ Esempio `flex_table_flat_mvp`:
 ### 6. Rieseguire i quality checks
 
 ```powershell
-./pbi-modular-platform/testing/Invoke-PbiQualityChecks.ps1 `
+./modularity/pbi-modular-platform/testing/Invoke-PbiQualityChecks.ps1 `
   -Command test-project `
-  -ProjectPath ./<progetto-test>.pbip `
+  -ProjectPath ./powerbi-projects/<progetto-test>.pbip `
   -FailOnError
 ```
 

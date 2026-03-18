@@ -7,7 +7,7 @@
 /xml_oas/
 
 # Repo health generated outputs are runtime artifacts and should not be committed.
-/.repo-health/outputs/current/*
-!/.repo-health/outputs/current/.gitkeep
-/.repo-health/outputs/history/*
-!/.repo-health/outputs/history/.gitkeep
+/repository-health/outputs/current/*
+!/repository-health/outputs/current/.gitkeep
+/repository-health/outputs/history/*
+!/repository-health/outputs/history/.gitkeep

@@ -1,6 +1,6 @@
 {
   "data_branch_name": "repo-health-data",
-  "history_root_relative_path": ".repo-health/history",
+  "history_root_relative_path": "repository-health/history",
   "runs_directory_name": "runs",
   "git_sizer_directory_name": "git-sizer",
   "max_blob_mb": 5,
@@ -18,11 +18,11 @@
     "data_source/",
     "xml_oas/",
     ".pbi/",
-    ".repo-health/outputs/"
+    "repository-health/outputs/"
   ],
   "allowed_tracked_excluded_paths": [
-    ".repo-health/outputs/current/.gitkeep",
-    ".repo-health/outputs/history/.gitkeep"
+    "repository-health/outputs/current/.gitkeep",
+    "repository-health/outputs/history/.gitkeep"
   ],
   "history_csv_name": "metrics-history.csv",
   "latest_metrics_name": "latest.json",

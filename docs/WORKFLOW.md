@@ -39,7 +39,7 @@ Ogni change PBIP deve rispettare questi check minimi:
 ### Quality checks
 
 ```powershell
-./pbi-modular-platform/testing/Invoke-PbiQualityChecks.ps1 `
+./modularity/pbi-modular-platform/testing/Invoke-PbiQualityChecks.ps1 `
   -Command test-repo `
   -FailOnError
 ```
@@ -62,5 +62,5 @@ Aprire almeno il progetto toccato dal change e verificare:
 
 - il `Core` deve restare baseline pulita
 - un consumer con moduli installati non deve puntare al semantic model core condiviso
-- i package source si modificano nei folder domain
-- gli asset installati si tracciano nel consumer tramite `module-config`
+- i package source si modificano nei folder `modularity/*-domain`
+- gli asset installati si tracciano nel consumer tramite `powerbi-projects/module-config`

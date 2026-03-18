@@ -2,33 +2,34 @@
 
 ## Interpretazione ufficiale della repo
 
-Questa repo e oggi una `transition workspace repo`.
-Non e ancora il risultato finale dello split architetturale.
+Questa repo e oggi una `transition workspace repo`, ma con una separazione fisica esplicita in tre aree:
 
-Contiene insieme:
+- `powerbi-projects`
+- `modularity`
+- `repository-health`
 
-- progetti PBIP attivi usati dal team
-- semantic core
-- consumer derivati
-- package source di dominio
-- platform tecnica comune
+Non e ancora il risultato finale dello split in repository distinte, ma e il layout operativo ufficiale corrente.
 
 ## Asset autorevoli
 
 ### Consumer attivi
 
-- [20260227_Product_Analysis.pbip](../20260227_Product_Analysis.pbip)
-- [20260227_Product_Analysis_Core.pbip](../20260227_Product_Analysis_Core.pbip)
-- [20260317_Product_Analysis_FlexTable.pbip](../20260317_Product_Analysis_FlexTable.pbip)
+- [20260227_Product_Analysis.pbip](../powerbi-projects/20260227_Product_Analysis.pbip)
+- [20260227_Product_Analysis_Core.pbip](../powerbi-projects/20260227_Product_Analysis_Core.pbip)
+- [20260317_Product_Analysis_FlexTable.pbip](../powerbi-projects/20260317_Product_Analysis_FlexTable.pbip)
 
 ### Package source
 
-- [pbi-finance-domain](../pbi-finance-domain)
-- [pbi-marketing-domain](../pbi-marketing-domain)
+- [modularity/pbi-finance-domain](../modularity/pbi-finance-domain)
+- [modularity/pbi-marketing-domain](../modularity/pbi-marketing-domain)
 
 ### Platform tecnica
 
-- [pbi-modular-platform](../pbi-modular-platform)
+- [modularity/pbi-modular-platform](../modularity/pbi-modular-platform)
+
+### Repository health
+
+- [repository-health](../repository-health)
 
 ## Regole architetturali
 
@@ -36,13 +37,16 @@ Contiene insieme:
 - il `Core` e la baseline pulita riusabile
 - i consumer derivati con moduli installati devono avere un semantic model dedicato
 - i package source non si sviluppano dentro i semantic model consumer
-- lo split fisico in repo distinte e obiettivo futuro, non precondizione per lavorare bene adesso
+- il monitoring della repo resta isolato dal codice applicativo ma vive nello stesso workspace
+- lo split fisico in repo distinte resta obiettivo futuro, non precondizione per lavorare bene adesso
 
-## Cartelle transitorie
+## Aree ufficiali della repo
 
-- `pbi-finance-domain`
-- `pbi-marketing-domain`
-- `pbi-modular-platform`
+- `powerbi-projects`
+- `modularity/pbi-finance-domain`
+- `modularity/pbi-marketing-domain`
+- `modularity/pbi-modular-platform`
+- `repository-health`
 - [REPO_TOPOLOGY.md](../REPO_TOPOLOGY.md)
 
-Questi elementi rappresentano lo scaffolding di migrazione e vanno mantenuti coerenti con gli asset attivi, ma non implicano ancora uno split definitivo.
+Questi elementi rappresentano il layout ufficiale corrente e vanno mantenuti coerenti con gli asset attivi.

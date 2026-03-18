@@ -1,53 +1,58 @@
 # Target Repo Structure
 
-Data decisione: `2026-03-17`
+Data decisione: `2026-03-18`
 
 ## Principio
 
-La repo attuale non va ancora spezzata fisicamente in modo aggressivo, per non rompere i workflow PBIP attivi.
+La repo e stata separata fisicamente in tre aree principali senza spezzare ancora il workspace in repository distinte.
 
-La struttura target va perseguita in due tempi:
+La strategia resta in due tempi:
 
-- `Fase 1`: chiarezza concettuale dentro la repo attuale
-- `Fase 2`: split fisico in repo distinte quando installer, package lifecycle e consumer contract saranno stabili
+- `Fase 1`: separazione fisica locale e chiarezza di dominio dentro la repo attuale
+- `Fase 2`: split in repo distinte quando installer, package lifecycle e consumer contract saranno stabili
 
-## Struttura target concettuale
+## Struttura operativa attuale
 
-### 1. Consumer projects
+### 1. Power BI projects
 
 Asset PBIP usati dal team:
 
-- `20260227_Product_Analysis.*`
-- `20260227_Product_Analysis_Core.*`
-- `20260317_Product_Analysis_FlexTable.*`
+- `powerbi-projects/20260227_Product_Analysis.*`
+- `powerbi-projects/20260227_Product_Analysis_Core.*`
+- `powerbi-projects/20260317_Product_Analysis_FlexTable.*`
+- `powerbi-projects/20260317_UAT_001.*`
+- `powerbi-projects/module-config/*`
 
 Ruoli:
 
 - `Product_Analysis`: consumer storico completo
 - `Product_Analysis_Core`: baseline pulita
 - `Product_Analysis_FlexTable`: consumer derivato con semantic model dedicato
+- `UAT_001`: consumer di test per validare il flusso modulare
 
-### 2. Domain package sources
+### 2. Modularity
 
-- `pbi-finance-domain`
-- `pbi-marketing-domain`
-
-Ruolo:
-
-- ospitare solo i package source e, in futuro, i consumer di dominio gia stabilizzati
-
-### 3. Shared platform
-
-- `pbi-modular-platform`
+- `modularity/pbi-finance-domain`
+- `modularity/pbi-marketing-domain`
+- `modularity/pbi-modular-platform`
 
 Ruolo:
 
-- installer
-- quality checks
-- schemi metadata
-- lifecycle docs
+- ospitare i package source di dominio
+- ospitare installer, quality checks, schemi metadata e lifecycle docs
+- tenere separato l'authoring modulare dai consumer PBIP
 
-## Gerarchia finale raccomandata
+### 3. Repository health
+
+- `repository-health`
+
+Ruolo:
+
+- monitoraggio della salute Git della repository
+- configurazione threshold e persistenza storica
+- supporto ai workflow GitHub Actions dedicati
+
+## Split finale raccomandato
 
 ### Repo 1: consumer workspace
 
@@ -86,33 +91,30 @@ Contiene:
 - package marketing
 - eventuali marketing consumer futuri
 
-## Struttura operativa raccomandata nella repo attuale
-
-Finche non si fa lo split fisico, la regola da seguire e:
-
-- i PBIP attivi restano in root
-- `pbi-finance-domain`, `pbi-marketing-domain`, `pbi-modular-platform` restano cartelle transitorie ma autorevoli per il loro perimetro
-- gli asset installati restano nel consumer project che li usa
-
-Questa e la struttura da leggere come ufficiale:
+## Struttura ufficiale corrente
 
 ```text
 /
-  20260227_Product_Analysis*
-  20260227_Product_Analysis_Core*
-  20260317_Product_Analysis_FlexTable*
-  module-config/
-  pbi-finance-domain/
-  pbi-marketing-domain/
-  pbi-modular-platform/
+  powerbi-projects/
+    20260227_Product_Analysis*
+    20260227_Product_Analysis_Core*
+    20260317_Product_Analysis_FlexTable*
+    20260317_UAT_001*
+    module-config/
+  modularity/
+    pbi-finance-domain/
+    pbi-marketing-domain/
+    pbi-modular-platform/
+  repository-health/
+  .github/
   docs/
 ```
 
 ## Cosa non fare ora
 
-- non spostare i PBIP attivi sotto nuove sottocartelle senza una fase di migrazione esplicita
 - non creare una repo per ogni singolo package
 - non introdurre riferimenti live tra repo che propagano modifiche in automatico ai consumer
+- non spostare arbitrariamente i consumer fuori da `powerbi-projects` senza un passo di migrazione esplicito
 
 ## Trigger per lo split fisico
 
@@ -126,12 +128,4 @@ Lo split in repo distinte va eseguito solo quando sono vere tutte queste condizi
 
 ## Verdetto
 
-Il refactor della root e giusto, ma la forma corretta adesso e:
-
-- `contract first`
-- `migration later`
-
-Quindi:
-
-- subito: chiarezza documentale e architetturale
-- dopo: spostamento fisico controllato
+La separazione in tre aree e corretta e rappresenta il layout ufficiale corrente.

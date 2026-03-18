@@ -34,12 +34,12 @@ Current rules focus on the failures we have already seen in real work:
 Usage examples:
 
 ```powershell
-./pbi-modular-platform/testing/Invoke-PbiQualityChecks.ps1 `
+./modularity/pbi-modular-platform/testing/Invoke-PbiQualityChecks.ps1 `
   -Command list-rules
 ```
 
 ```powershell
-./pbi-modular-platform/testing/Invoke-PbiQualityChecks.ps1 `
+./modularity/pbi-modular-platform/testing/Invoke-PbiQualityChecks.ps1 `
   -Command test-module `
   -Domain marketing `
   -ModuleId flex_table_flat_mvp `
@@ -47,23 +47,23 @@ Usage examples:
 ```
 
 ```powershell
-./pbi-modular-platform/testing/Invoke-PbiQualityChecks.ps1 `
+./modularity/pbi-modular-platform/testing/Invoke-PbiQualityChecks.ps1 `
   -Command test-project `
-  -ProjectPath ./20260317_Product_Analysis_FlexTable.pbip `
+  -ProjectPath ./powerbi-projects/20260317_Product_Analysis_FlexTable.pbip `
   -FailOnError
 ```
 
 ```powershell
-./pbi-modular-platform/testing/Invoke-PbiQualityChecks.ps1 `
+./modularity/pbi-modular-platform/testing/Invoke-PbiQualityChecks.ps1 `
   -Command smoke-install `
-  -ProjectPath ./20260227_Product_Analysis_Core.pbip `
+  -ProjectPath ./powerbi-projects/20260227_Product_Analysis_Core.pbip `
   -Domain finance `
   -ModuleId finance_compare_mvp `
   -FailOnError
 ```
 
 ```powershell
-./pbi-modular-platform/testing/Invoke-PbiQualityChecks.ps1 `
+./modularity/pbi-modular-platform/testing/Invoke-PbiQualityChecks.ps1 `
   -Command test-repo `
   -FailOnError
 ```

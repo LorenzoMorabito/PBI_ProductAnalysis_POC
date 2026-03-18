@@ -1,28 +1,28 @@
 # Repository Topology
 
-This repo now contains the first scaffolding for a future split into separate repositories.
+This repo is now organized into three main working areas that reflect the three active domains.
 
-Target topology:
-- `pbi-modular-platform`
-  Common installer, schemas, lifecycle docs, and validation rules.
-- `pbi-finance-domain`
-  Finance package sources and future finance projects.
-- `pbi-marketing-domain`
-  Future home for marketing core models and marketing consumer projects.
+Current top-level topology:
+- `powerbi-projects`
+  Active PBIP consumer projects, semantic models, and `module-config`.
+- `modularity`
+  Shared installer, schemas, lifecycle docs, validation rules, and domain package sources.
+- `repository-health`
+  Git repository health monitoring framework and persistent telemetry configuration.
 
 Current migration status:
-- The source package `finance_compare_mvp` has been moved to `pbi-finance-domain/packages/finance_compare_mvp`.
-- The installed assets remain inside the active consumer project:
-  - `20260227_Product_Analysis_Core.SemanticModel`
-  - `20260227_Product_Analysis_Core.Report`
-- The original and core PBIP projects stay at repo root for now to avoid breaking the current workflow.
+- The source package `finance_compare_mvp` lives in `modularity/pbi-finance-domain/packages/finance_compare_mvp`.
+- Installed assets remain inside the active consumer project:
+  - `powerbi-projects/20260227_Product_Analysis_Core.SemanticModel`
+  - `powerbi-projects/20260227_Product_Analysis_Core.Report`
+- The original, core, derived, and UAT PBIP projects now live together under `powerbi-projects`.
 
 Working rule:
-- `package source` lives in the domain repo.
-- `installed package assets` stay in the consumer project repo.
+- `package source` lives in the domain area.
+- `installed package assets` stay in the consumer project area.
 - Upgrades must be explicit and versioned.
 
 Next migration steps:
-- build the shared installer in `pbi-modular-platform`
-- add installed-module metadata to consumer projects
-- move the marketing project into `pbi-marketing-domain/projects/product-analysis-poc` only when the team is ready
+- keep the shared installer authoritative in `modularity/pbi-modular-platform`
+- keep domain package authoring under `modularity/*-domain`
+- split to independent repositories only when branch, release, and upgrade contracts are stable

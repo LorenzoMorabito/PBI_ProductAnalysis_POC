@@ -21,12 +21,13 @@ if (-not $ConfigPath) {
 
 $config = Get-RepoHealthConfig -Path $ConfigPath
 $dataBranchName = [string]$config.data_branch_name
+$dataProjectRelativeRoot = Split-Path ([string]$config.history_root_relative_path) -Parent
 
 if (-not (Test-Path $WorktreePath)) {
     throw "Repo health data worktree not found: $WorktreePath"
 }
 
-Invoke-RepoHealthGit -RepoRoot $WorktreePath -Arguments @("add", ".repo-health") | Out-Null
+Invoke-RepoHealthGit -RepoRoot $WorktreePath -Arguments @("add", $dataProjectRelativeRoot) | Out-Null
 $pendingChanges = @(Invoke-RepoHealthGit -RepoRoot $WorktreePath -Arguments @("status", "--short"))
 
 if (@($pendingChanges).Count -eq 0) {

@@ -13,7 +13,7 @@ Framework automatico di monitoraggio della salute Git della repository, progetta
 ## Uso locale
 
 ```powershell
-./.repo-health/analyzer.ps1 `
+./repository-health/analyzer.ps1 `
   -Mode local `
   -FailOnThresholdBreach
 ```
@@ -31,7 +31,7 @@ Parametri principali in `config.json`:
 
 ## Output
 
-Generati in `.repo-health/outputs/`:
+Generati in `repository-health/outputs/`:
 
 - `current/metrics.json`
 - `current/summary.md`
@@ -55,7 +55,7 @@ Il framework ora usa un modello a due branch:
 Nel branch `repo-health-data` la struttura target è:
 
 ```text
-.repo-health/
+repository-health/
   history/
     latest.json
     metrics-history.csv
@@ -83,7 +83,7 @@ Il primo deploy supporta automaticamente il caso in cui `repo-health-data` non e
 
 1. il workflow prepara una worktree temporanea
 2. crea un branch orfano `repo-health-data`
-3. inizializza `.repo-health/history`
+3. inizializza `repository-health/history`
 4. persiste `latest.json`, `metrics-history.csv` e il primo snapshot `runs/*`
 
 L’analyzer non fallisce se lo storico non esiste ancora.

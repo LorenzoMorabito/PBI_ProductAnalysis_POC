@@ -166,7 +166,10 @@ function Get-PbiManifestReferencedCoreTableNames {
 function Get-PbiPbipFilesFromWorkspace {
     param([Parameter(Mandatory = $true)][string]$WorkspaceRoot)
 
-    return @(Get-ChildItem -Path $WorkspaceRoot -Filter "*.pbip" -File)
+    $projectsRoot = Join-Path $WorkspaceRoot "powerbi-projects"
+    $searchRoot = if (Test-Path $projectsRoot) { $projectsRoot } else { $WorkspaceRoot }
+
+    return @(Get-ChildItem -Path $searchRoot -Recurse -Filter "*.pbip" -File)
 }
 
 Export-ModuleMember -Function Get-PbiTableDefinitionDirectoryForProject, Get-PbiModelPathForProject, Get-PbiPagesMetadataPathForProject, Get-PbiPageDestinationRootForProject, Get-PbiMeasureNamesFromTmdlText, Get-PbiTmdlTableNameFromFile, Get-PbiTmdlTableNamesFromDirectory, Get-PbiMeasureOccurrencesFromDirectory, Get-PbiFieldParameterTableNamesFromDirectory, Get-PbiReportJsonFilesFromRoot, Get-PbiVisualJsonFilesFromRoot, Get-PbiEntityNamesFromJsonText, Get-PbiManifestReferencedCoreTableNames, Get-PbiPbipFilesFromWorkspace
