@@ -22,6 +22,10 @@ Runbook operativo rapido:
 
 - [RUNBOOK.md](C:/work/MEN_Marketing/PBI_ProductAnalysis_POC/repository-health/RUNBOOK.md)
 
+Visualizzazione statica corrente:
+
+- `repository-health/outputs/current/dashboard.html`
+
 ## Configurazione
 
 Parametri principali in `config.json`:
@@ -39,6 +43,7 @@ Generati in `repository-health/outputs/`:
 
 - `current/metrics.json`
 - `current/summary.md`
+- `current/dashboard.html`
 - `history/latest.json`
 - `history/metrics-history.csv`
 - `current/git-sizer.txt` se abilitato e disponibile

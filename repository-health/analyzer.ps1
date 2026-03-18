@@ -36,6 +36,7 @@ Ensure-RepoHealthDirectory -Path $currentOutputDir
 
 $metricsJsonPath = Join-Path $currentOutputDir "metrics.json"
 $summaryPath = Join-Path $currentOutputDir "summary.md"
+$dashboardPath = Join-Path $currentOutputDir "dashboard.html"
 $gitSizerOutputPath = Join-Path $currentOutputDir $config.git_sizer_output_name
 
 if (-not $HistoryRootPath) {
@@ -116,6 +117,11 @@ if ($writeHistoryResolved) {
     Update-RepoHealthHistoryStore -Metrics $metrics -HistoryPaths $historyPaths -SummaryMarkdown $summaryMarkdown -GitSizerRuntimePath $gitSizerHistorySourcePath
 }
 
+& (Join-Path $scriptRoot "scripts/Build-RepoHealthDashboard.ps1") `
+    -MetricsPath $metricsJsonPath `
+    -HistoryCsvPath $historyPaths.history_csv_path `
+    -OutputPath $dashboardPath
+
 Write-Host "Repository Health Check"
 Write-Host ("  Status: {0}" -f $metrics.policy.status)
 Write-Host ("  Repository: {0}" -f $metrics.repository)
@@ -151,6 +157,7 @@ if (@($metrics.policy.warning_reasons).Count -gt 0) {
 Write-Host ""
 Write-Host ("JSON output: {0}" -f $metricsJsonPath)
 Write-Host ("Summary: {0}" -f $summaryPath)
+Write-Host ("Dashboard: {0}" -f $dashboardPath)
 if ($writeHistoryResolved) {
     Write-Host ("History CSV: {0}" -f $historyPaths.history_csv_path)
     Write-Host ("Latest snapshot: {0}" -f $historyPaths.latest_metrics_path)
@@ -161,6 +168,7 @@ if ($env:GITHUB_OUTPUT) {
     Add-Content -Path $env:GITHUB_OUTPUT -Value ("status={0}" -f $metrics.policy.status)
     Add-Content -Path $env:GITHUB_OUTPUT -Value ("metrics_json={0}" -f $metricsJsonPath)
     Add-Content -Path $env:GITHUB_OUTPUT -Value ("summary_path={0}" -f $summaryPath)
+    Add-Content -Path $env:GITHUB_OUTPUT -Value ("dashboard_path={0}" -f $dashboardPath)
     Add-Content -Path $env:GITHUB_OUTPUT -Value ("history_written={0}" -f $writeHistoryResolved.ToString().ToLowerInvariant())
     Add-Content -Path $env:GITHUB_OUTPUT -Value ("history_root={0}" -f $HistoryRootPath)
 }

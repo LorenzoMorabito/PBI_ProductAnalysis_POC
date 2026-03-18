@@ -27,6 +27,7 @@ Output principali:
 
 - [metrics.json](C:/work/MEN_Marketing/PBI_ProductAnalysis_POC/repository-health/outputs/current/metrics.json)
 - [summary.md](C:/work/MEN_Marketing/PBI_ProductAnalysis_POC/repository-health/outputs/current/summary.md)
+- [dashboard.html](C:/work/MEN_Marketing/PBI_ProductAnalysis_POC/repository-health/outputs/current/dashboard.html)
 
 ## 2. Check locale bloccante
 
@@ -130,6 +131,7 @@ Output correnti:
 
 - [metrics.json](C:/work/MEN_Marketing/PBI_ProductAnalysis_POC/repository-health/outputs/current/metrics.json)
 - [summary.md](C:/work/MEN_Marketing/PBI_ProductAnalysis_POC/repository-health/outputs/current/summary.md)
+- [dashboard.html](C:/work/MEN_Marketing/PBI_ProductAnalysis_POC/repository-health/outputs/current/dashboard.html)
 
 Storico runtime locale:
 
