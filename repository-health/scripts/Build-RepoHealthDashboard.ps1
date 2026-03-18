@@ -2,6 +2,7 @@
 param(
     [Parameter(Mandatory = $true)][string]$MetricsPath,
     [string]$HistoryCsvPath,
+    [string]$TopFilesHistoryCsvPath,
     [Parameter(Mandatory = $true)][string]$OutputPath,
     [int]$RecentRuns = 12
 )
@@ -199,6 +200,96 @@ function Convert-RepoHealthHistoryRowsToHtml {
     return ($htmlRows -join [Environment]::NewLine)
 }
 
+function Convert-RepoHealthFileGrowthRowsToHtml {
+    param([object[]]$Rows)
+
+    if (-not $Rows -or $Rows.Count -eq 0) {
+        return '<tr><td colspan="6">No file growth baseline available yet.</td></tr>'
+    }
+
+    $htmlRows = foreach ($row in $Rows | Select-Object -First 8) {
+        $path = [System.Net.WebUtility]::HtmlEncode([string]$row.path)
+        $changeType = [System.Net.WebUtility]::HtmlEncode([string]$row.change_type)
+        $currentSize = ("{0} MB" -f ([string]$row.current_size_mb)).Replace(".", ",")
+        $previousSize = if ($null -ne $row.previous_size_mb -and -not [string]::IsNullOrWhiteSpace([string]$row.previous_size_mb)) {
+            ("{0} MB" -f ([string]$row.previous_size_mb)).Replace(".", ",")
+        }
+        else {
+            "-"
+        }
+        $deltaText = if ($null -ne $row.delta_mb -and -not [string]::IsNullOrWhiteSpace([string]$row.delta_mb)) {
+            $delta = [double]$row.delta_mb
+            $prefix = if ($delta -gt 0) { "+" } elseif ($delta -lt 0) { "" } else { "" }
+            "{0}{1} MB" -f $prefix, ([string]$row.delta_mb).Replace(".", ",")
+        }
+        else {
+            "new in top N"
+        }
+        $deltaPctText = if ($null -ne $row.delta_pct -and -not [string]::IsNullOrWhiteSpace([string]$row.delta_pct)) {
+            $deltaPct = [double]$row.delta_pct
+            $prefix = if ($deltaPct -gt 0) { "+" } elseif ($deltaPct -lt 0) { "" } else { "" }
+            "{0}{1}%" -f $prefix, ([string]$row.delta_pct).Replace(".", ",")
+        }
+        else {
+            "-"
+        }
+        "<tr><td class=`"path-cell`">$path</td><td>$changeType</td><td>$currentSize</td><td>$previousSize</td><td>$deltaText</td><td>$deltaPctText</td></tr>"
+    }
+
+    return ($htmlRows -join [Environment]::NewLine)
+}
+
+function Get-RepoHealthObservedFileTrends {
+    param([object[]]$Rows)
+
+    if (-not $Rows -or $Rows.Count -eq 0) {
+        return @()
+    }
+
+    $trends = foreach ($group in ($Rows | Group-Object path)) {
+        $ordered = @($group.Group | Sort-Object timestamp)
+        $first = $ordered[0]
+        $last = $ordered[$ordered.Count - 1]
+        $firstSizeMb = Convert-RepoHealthValueToDouble $first.size_mb
+        $lastSizeMb = Convert-RepoHealthValueToDouble $last.size_mb
+        [PSCustomObject]@{
+            path          = [string]$group.Name
+            first_size_mb = [Math]::Round($firstSizeMb, 2)
+            latest_size_mb = [Math]::Round($lastSizeMb, 2)
+            delta_mb      = [Math]::Round(($lastSizeMb - $firstSizeMb), 2)
+            observations  = @($ordered).Count
+            first_seen    = [string]$first.timestamp
+            latest_seen   = [string]$last.timestamp
+        }
+    }
+
+    return @(
+        $trends |
+            Sort-Object @{ Expression = { [Math]::Abs([double]$_.delta_mb) } } -Descending |
+            Select-Object -First 8
+    )
+}
+
+function Convert-RepoHealthObservedTrendsToHtml {
+    param([object[]]$Rows)
+
+    if (-not $Rows -or $Rows.Count -eq 0) {
+        return '<tr><td colspan="5">No observed per-file trend data yet.</td></tr>'
+    }
+
+    $htmlRows = foreach ($row in $Rows) {
+        $path = [System.Net.WebUtility]::HtmlEncode([string]$row.path)
+        $firstSize = ("{0} MB" -f ([string]$row.first_size_mb)).Replace(".", ",")
+        $latestSize = ("{0} MB" -f ([string]$row.latest_size_mb)).Replace(".", ",")
+        $delta = [double]$row.delta_mb
+        $deltaPrefix = if ($delta -gt 0) { "+" } elseif ($delta -lt 0) { "" } else { "" }
+        $deltaText = "{0}{1} MB" -f $deltaPrefix, ([string]$row.delta_mb).Replace(".", ",")
+        "<tr><td class=`"path-cell`">$path</td><td>$firstSize</td><td>$latestSize</td><td>$deltaText</td><td>$($row.observations)</td></tr>"
+    }
+
+    return ($htmlRows -join [Environment]::NewLine)
+}
+
 if (-not (Test-Path $MetricsPath)) {
     throw "Metrics file not found: $MetricsPath"
 }
@@ -208,16 +299,22 @@ $historyRows = @()
 if ($HistoryCsvPath -and (Test-Path $HistoryCsvPath)) {
     $historyRows = @(Import-Csv -Path $HistoryCsvPath | Sort-Object timestamp)
 }
+$topFilesHistoryRows = @()
+if ($TopFilesHistoryCsvPath -and (Test-Path $TopFilesHistoryCsvPath)) {
+    $topFilesHistoryRows = @(Import-Csv -Path $TopFilesHistoryCsvPath | Sort-Object timestamp, rank)
+}
 
 $recentHistory = @($historyRows | Select-Object -Last $RecentRuns)
 $statusClass = Get-RepoHealthStatusClass -Status ([string]$metrics.policy.status)
 $warningReasons = @($metrics.policy.warning_reasons)
 $failReasons = @($metrics.policy.fail_reasons)
 $topCurrentFiles = @($metrics.repo.top_current_files)
+$fileGrowthChanges = @($metrics.file_growth.changes)
 $largestBlobs = @($metrics.history.largest_blobs)
 $statusTimeline = Get-RepoHealthStatusTimeline -Rows $recentHistory
 $largestCurrentFilePath = if ($topCurrentFiles.Count -gt 0) { [string]$topCurrentFiles[0].path } else { "(none)" }
 $largestBlobPath = if (-not [string]::IsNullOrWhiteSpace([string]$metrics.history.max_blob_path)) { [string]$metrics.history.max_blob_path } else { "(none)" }
+$observedFileTrends = @(Get-RepoHealthObservedFileTrends -Rows $topFilesHistoryRows)
 
 $sizePackTrend = @($recentHistory | ForEach-Object { Convert-RepoHealthValueToDouble $_.size_pack_mb })
 $gitSizeTrend = @($recentHistory | ForEach-Object { Convert-RepoHealthValueToDouble $_.git_size_mb })
@@ -239,12 +336,45 @@ else {
     $insightItems.Add("No previous baseline available yet.")
 }
 
+if ($metrics.file_growth.hasBaseline) {
+    $largestMovement = @(
+        $fileGrowthChanges |
+            Sort-Object @{ Expression = { if ($null -ne $_.delta_mb -and -not [string]::IsNullOrWhiteSpace([string]$_.delta_mb)) { [Math]::Abs([double]$_.delta_mb) } else { [double]$_.current_size_mb } } } -Descending |
+            Select-Object -First 1
+    )
+    if ($largestMovement.Count -gt 0) {
+        $largestMovementItem = $largestMovement[0]
+        $deltaText = if ($null -ne $largestMovementItem.delta_mb -and -not [string]::IsNullOrWhiteSpace([string]$largestMovementItem.delta_mb)) {
+            $delta = [double]$largestMovementItem.delta_mb
+            $prefix = if ($delta -gt 0) { "+" } elseif ($delta -lt 0) { "" } else { "" }
+            "{0}{1} MB" -f $prefix, ([string]$largestMovementItem.delta_mb).Replace(".", ",")
+        }
+        else {
+            "new in top N"
+        }
+
+        $baselineCommit = Get-RepoHealthShortCommit -Commit ([string]$metrics.file_growth.baseline_commit)
+        $insightItems.Add(("Largest file movement vs baseline {0}: {1} ({2})." -f $baselineCommit, [string]$largestMovementItem.path, $deltaText))
+    }
+}
+
 $warningListHtml = Convert-RepoHealthListToHtml -Items $warningReasons -EmptyMessage "No warning reasons."
 $failListHtml = Convert-RepoHealthListToHtml -Items $failReasons -EmptyMessage "No blocking findings."
 $insightListHtml = Convert-RepoHealthListToHtml -Items $insightItems -EmptyMessage "No insights available."
 $topCurrentRowsHtml = Convert-RepoHealthTopFilesToRows -Rows $topCurrentFiles
+$fileGrowthRowsHtml = Convert-RepoHealthFileGrowthRowsToHtml -Rows @(
+    $fileGrowthChanges |
+        Sort-Object @{ Expression = { if ($null -ne $_.delta_mb -and -not [string]::IsNullOrWhiteSpace([string]$_.delta_mb)) { [Math]::Abs([double]$_.delta_mb) } else { [double]$_.current_size_mb } } } -Descending
+)
+$observedTrendsRowsHtml = Convert-RepoHealthObservedTrendsToHtml -Rows $observedFileTrends
 $largestBlobRowsHtml = Convert-RepoHealthTopFilesToRows -Rows $largestBlobs
 $historyRowsHtml = Convert-RepoHealthHistoryRowsToHtml -Rows (@($recentHistory | Sort-Object timestamp -Descending))
+$fileGrowthSubtitle = if ($metrics.file_growth.hasBaseline) {
+    "Compared with baseline commit {0} at {1}." -f ([System.Net.WebUtility]::HtmlEncode((Get-RepoHealthShortCommit -Commit ([string]$metrics.file_growth.baseline_commit)))), ([System.Net.WebUtility]::HtmlEncode([string]$metrics.file_growth.baseline_timestamp))
+}
+else {
+    "No baseline available yet. Run the analyzer again after a future change to start tracking deltas."
+}
 
 $metricCards = @(
     (New-RepoHealthMetricCardHtml -Title "Size Pack" -Value ("{0} MB" -f ([string]$metrics.git_core.size_pack_mb).Replace(".", ",")) -Caption "Git pack size" -TrendValues $sizePackTrend -StrokeColor "#116466" -FillColor "#6cc3bf"),
@@ -461,6 +591,32 @@ $html = @"
           </thead>
           <tbody>
             $largestBlobRowsHtml
+          </tbody>
+        </table>
+      </section>
+    </section>
+    <section class="grid two-col" style="margin-top:20px;">
+      <section class="panel">
+        <h2>Current File Growth vs Previous Baseline</h2>
+        <p class="panel-subtitle">$fileGrowthSubtitle</p>
+        <table>
+          <thead>
+            <tr><th>Path</th><th>Change</th><th>Current</th><th>Previous</th><th>Delta</th><th>Delta %</th></tr>
+          </thead>
+          <tbody>
+            $fileGrowthRowsHtml
+          </tbody>
+        </table>
+      </section>
+      <section class="panel">
+        <h2>Observed File Trends</h2>
+        <p class="panel-subtitle">Aggregate view of the top-file history captured over multiple runs.</p>
+        <table>
+          <thead>
+            <tr><th>Path</th><th>First</th><th>Latest</th><th>Delta</th><th>Obs.</th></tr>
+          </thead>
+          <tbody>
+            $observedTrendsRowsHtml
           </tbody>
         </table>
       </section>

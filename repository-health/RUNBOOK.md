@@ -28,6 +28,7 @@ Output principali:
 - [metrics.json](C:/work/MEN_Marketing/PBI_ProductAnalysis_POC/repository-health/outputs/current/metrics.json)
 - [summary.md](C:/work/MEN_Marketing/PBI_ProductAnalysis_POC/repository-health/outputs/current/summary.md)
 - [dashboard.html](C:/work/MEN_Marketing/PBI_ProductAnalysis_POC/repository-health/outputs/current/dashboard.html)
+- [top-files-history.csv](C:/work/MEN_Marketing/PBI_ProductAnalysis_POC/repository-health/outputs/history/top-files-history.csv)
 
 ## 2. Check locale bloccante
 
@@ -99,6 +100,13 @@ Domande da fare:
 - il file e testuale e atteso?
 - e parte del semantic model o e un artefatto evitabile?
 - puo essere spezzato o alleggerito?
+- sta crescendo rispetto al baseline precedente o e solo strutturalmente grande?
+
+Per capirlo rapidamente:
+
+- leggi la sezione `Current Top File Growth vs Previous Baseline` in [summary.md](C:/work/MEN_Marketing/PBI_ProductAnalysis_POC/repository-health/outputs/current/summary.md)
+- apri [dashboard.html](C:/work/MEN_Marketing/PBI_ProductAnalysis_POC/repository-health/outputs/current/dashboard.html)
+- controlla [top-files-history.csv](C:/work/MEN_Marketing/PBI_ProductAnalysis_POC/repository-health/outputs/history/top-files-history.csv)
 
 ### Caso B: file vietati
 
@@ -136,6 +144,7 @@ Output correnti:
 Storico runtime locale:
 
 - [outputs/history](C:/work/MEN_Marketing/PBI_ProductAnalysis_POC/repository-health/outputs/history)
+- include anche `top-files-history.csv` per il tracking dei file piu grandi nel tempo
 
 Storico persistente autorevole:
 

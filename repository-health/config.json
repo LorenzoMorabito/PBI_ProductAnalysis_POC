@@ -25,6 +25,7 @@
     "repository-health/outputs/history/.gitkeep"
   ],
   "history_csv_name": "metrics-history.csv",
+  "top_files_history_csv_name": "top-files-history.csv",
   "latest_metrics_name": "latest.json",
   "git_sizer_output_name": "git-sizer.txt"
 }

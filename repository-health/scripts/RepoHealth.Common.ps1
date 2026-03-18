@@ -408,6 +408,7 @@ function Get-RepoHealthHistoryPaths {
         history_root_path      = $HistoryRootPath
         latest_metrics_path    = Join-Path $HistoryRootPath $Config.latest_metrics_name
         history_csv_path       = Join-Path $HistoryRootPath $Config.history_csv_name
+        top_files_history_csv_path = Join-Path $HistoryRootPath $Config.top_files_history_csv_name
         runs_directory_path    = $runsDirectoryPath
         git_sizer_directory_path = $gitSizerDirectoryPath
         run_json_path          = Join-Path $runsDirectoryPath ($RunTimestampKey + ".json")
@@ -457,6 +458,121 @@ function Get-RepoHealthGrowthMetrics {
         hasBaseline          = $true
         size_pack_growth_pct = Get-RepoHealthGrowthPct -Current $CurrentMetrics.git_core.size_pack_mb -Previous $PreviousMetrics.git_core.size_pack_mb
         git_size_growth_pct  = Get-RepoHealthGrowthPct -Current $CurrentMetrics.repo.git_size_mb -Previous $PreviousMetrics.repo.git_size_mb
+    }
+}
+
+function Get-RepoHealthFileGrowthInsights {
+    param(
+        [Parameter(Mandatory = $true)]$CurrentMetrics,
+        $PreviousMetrics
+    )
+
+    if (
+        -not $PreviousMetrics -or
+        -not $PreviousMetrics.repo -or
+        -not $PreviousMetrics.repo.top_current_files
+    ) {
+        return [PSCustomObject]@{
+            hasBaseline          = $false
+            baseline_commit      = $null
+            baseline_timestamp   = $null
+            new_entries_count    = 0
+            grown_entries_count  = 0
+            shrunk_entries_count = 0
+            unchanged_count      = 0
+            changes              = @()
+        }
+    }
+
+    $previousByPath = @{}
+    $previousRank = 1
+    foreach ($item in @($PreviousMetrics.repo.top_current_files)) {
+        if (-not [string]::IsNullOrWhiteSpace([string]$item.path)) {
+            $previousByPath[[string]$item.path] = [PSCustomObject]@{
+                rank    = $previousRank
+                size_mb = [double]$item.size_mb
+                size_b  = if ($null -ne $item.size_b) { [int64]$item.size_b } else { 0 }
+            }
+        }
+        $previousRank++
+    }
+
+    $changes = New-Object System.Collections.Generic.List[object]
+    $newEntriesCount = 0
+    $grownEntriesCount = 0
+    $shrunkEntriesCount = 0
+    $unchangedCount = 0
+    $currentRank = 1
+
+    foreach ($item in @($CurrentMetrics.repo.top_current_files)) {
+        $path = [string]$item.path
+        $currentSizeMb = [double]$item.size_mb
+        $previousItem = $null
+        if ($previousByPath.ContainsKey($path)) {
+            $previousItem = $previousByPath[$path]
+        }
+
+        $previousSizeMb = if ($previousItem) { [double]$previousItem.size_mb } else { $null }
+        $deltaMb = if ($null -ne $previousSizeMb) { [Math]::Round(($currentSizeMb - $previousSizeMb), 2) } else { $null }
+        $deltaPct = if ($null -ne $previousSizeMb -and $previousSizeMb -gt 0) { [Math]::Round((($currentSizeMb - $previousSizeMb) / $previousSizeMb) * 100, 2) } else { $null }
+
+        if ($null -eq $previousItem) {
+            $changeType = "NEW"
+            $newEntriesCount++
+        }
+        elseif ($currentSizeMb -gt $previousSizeMb) {
+            $changeType = "UP"
+            $grownEntriesCount++
+        }
+        elseif ($currentSizeMb -lt $previousSizeMb) {
+            $changeType = "DOWN"
+            $shrunkEntriesCount++
+        }
+        else {
+            $changeType = "UNCHANGED"
+            $unchangedCount++
+        }
+
+        $changes.Add([PSCustomObject]@{
+            path              = $path
+            rank              = $currentRank
+            previous_rank     = if ($previousItem) { $previousItem.rank } else { $null }
+            current_size_mb   = $currentSizeMb
+            previous_size_mb  = $previousSizeMb
+            delta_mb          = $deltaMb
+            delta_pct         = $deltaPct
+            change_type       = $changeType
+        })
+
+        $currentRank++
+    }
+
+    $baselineCommit = if ($PreviousMetrics.commit) { [string]$PreviousMetrics.commit } else { $null }
+    if ($PreviousMetrics.timestamp) {
+        if ($PreviousMetrics.timestamp -is [datetimeoffset]) {
+            $baselineTimestamp = $PreviousMetrics.timestamp.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")
+        }
+        elseif ($PreviousMetrics.timestamp -is [datetime]) {
+            $baselineTimestamp = ([datetimeoffset]$PreviousMetrics.timestamp).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")
+        }
+        else {
+            $baselineTimestamp = [string]$PreviousMetrics.timestamp
+        }
+    }
+    else {
+        $baselineTimestamp = $null
+    }
+    $changesArray = $changes.ToArray()
+
+    return [PSCustomObject]@{
+        hasBaseline          = $true
+        baseline_commit      = $baselineCommit
+        baseline_timestamp   = $baselineTimestamp
+        new_entries_count    = $newEntriesCount
+        grown_entries_count  = $grownEntriesCount
+        shrunk_entries_count = $shrunkEntriesCount
+        unchanged_count      = $unchangedCount
+        changes              = $changesArray
     }
 }
 
@@ -540,6 +656,29 @@ function Get-RepoHealthHistoryRow {
     }
 }
 
+function Get-RepoHealthTopFilesHistoryRows {
+    param([Parameter(Mandatory = $true)]$Metrics)
+
+    $rank = 1
+    $rows = foreach ($item in @($Metrics.repo.top_current_files)) {
+        [PSCustomObject]@{
+            timestamp   = $Metrics.timestamp
+            repository  = $Metrics.repository
+            branch      = $Metrics.branch
+            commit_sha  = $Metrics.commit
+            mode        = $Metrics.mode
+            status      = $Metrics.policy.status
+            rank        = $rank
+            path        = [string]$item.path
+            size_mb     = Convert-RepoHealthNumberToInvariantString -Value $item.size_mb
+            size_b      = [string]$item.size_b
+        }
+        $rank++
+    }
+
+    return @($rows)
+}
+
 function Test-RepoHealthCsvSchemaMatches {
     param(
         [Parameter(Mandatory = $true)][string]$CsvPath,
@@ -597,6 +736,22 @@ function Update-RepoHealthHistoryStore {
         $row | Export-Csv -Path $HistoryPaths.history_csv_path -NoTypeInformation
     }
 
+    $topFilesRows = @(Get-RepoHealthTopFilesHistoryRows -Metrics $Metrics)
+    if ($topFilesRows.Count -gt 0) {
+        $topFilesSchemaProbe = $topFilesRows[0]
+        if (-not (Test-RepoHealthCsvSchemaMatches -CsvPath $HistoryPaths.top_files_history_csv_path -ExpectedRow $topFilesSchemaProbe)) {
+            $legacyTopFilesPath = "{0}.legacy-{1}.csv" -f $HistoryPaths.top_files_history_csv_path, ([DateTime]::UtcNow.ToString("yyyyMMddHHmmss"))
+            Move-Item -Path $HistoryPaths.top_files_history_csv_path -Destination $legacyTopFilesPath -Force
+        }
+
+        if (Test-Path $HistoryPaths.top_files_history_csv_path) {
+            $topFilesRows | Export-Csv -Path $HistoryPaths.top_files_history_csv_path -NoTypeInformation -Append
+        }
+        else {
+            $topFilesRows | Export-Csv -Path $HistoryPaths.top_files_history_csv_path -NoTypeInformation
+        }
+    }
+
     Write-RepoHealthJsonFile -Path $HistoryPaths.latest_metrics_path -InputObject $Metrics
     Write-RepoHealthJsonFile -Path $HistoryPaths.run_json_path -InputObject $Metrics
     Write-RepoHealthSummaryFile -Path $HistoryPaths.run_summary_path -Content $SummaryMarkdown
@@ -645,6 +800,44 @@ function Get-RepoHealthSummaryMarkdown {
         $lines.Add("| --- | --- |")
         $lines.Add("| size-pack | $($Metrics.growth.size_pack_growth_pct)% |")
         $lines.Add("| .git size | $($Metrics.growth.git_size_growth_pct)% |")
+        $lines.Add("")
+    }
+
+    if ($Metrics.file_growth.hasBaseline) {
+        $baselineCommit = if ($Metrics.file_growth.baseline_commit) {
+            $baselineCommitText = [string]$Metrics.file_growth.baseline_commit
+            if ($baselineCommitText.Length -gt 7) { $baselineCommitText.Substring(0, 7) } else { $baselineCommitText }
+        }
+        else {
+            "-"
+        }
+
+        $lines.Add("### Current Top File Growth vs Previous Baseline")
+        $lines.Add("")
+        $lines.Add(("Baseline: `{0}` at {1}" -f $baselineCommit, $Metrics.file_growth.baseline_timestamp))
+        $lines.Add("")
+        $lines.Add("| Path | Change | Current | Previous | Delta |")
+        $lines.Add("| --- | --- | --- | --- | --- |")
+
+        $changedRows = @(
+            @($Metrics.file_growth.changes) |
+                Sort-Object @{ Expression = { if ($null -ne $_.delta_mb) { [Math]::Abs([double]$_.delta_mb) } else { [double]$_.current_size_mb } } } -Descending |
+                Select-Object -First 5
+        )
+
+        foreach ($change in $changedRows) {
+            $currentSize = ("{0} MB" -f ([string]$change.current_size_mb).Replace(".", ","))
+            $previousSize = if ($null -ne $change.previous_size_mb) { ("{0} MB" -f ([string]$change.previous_size_mb).Replace(".", ",")) } else { "-" }
+            $deltaText = if ($null -ne $change.delta_mb) {
+                $deltaPrefix = if ([double]$change.delta_mb -gt 0) { "+" } elseif ([double]$change.delta_mb -lt 0) { "" } else { "" }
+                "{0}{1} MB" -f $deltaPrefix, ([string]$change.delta_mb).Replace(".", ",")
+            }
+            else {
+                "new in top N"
+            }
+            $lines.Add(("| `{0}` | {1} | {2} | {3} | {4} |" -f $change.path, $change.change_type, $currentSize, $previousSize, $deltaText))
+        }
+
         $lines.Add("")
     }
 

@@ -93,6 +93,7 @@ $metrics = [ordered]@{
 }
 
 $metrics["growth"] = Get-RepoHealthGrowthMetrics -CurrentMetrics $metrics -PreviousMetrics $previousMetrics
+$metrics["file_growth"] = Get-RepoHealthFileGrowthInsights -CurrentMetrics $metrics -PreviousMetrics $previousMetrics
 $metrics["policy"] = Get-RepoHealthPolicy -Metrics $metrics -Config $config
 
 if ($EnableGitSizer) {
@@ -120,6 +121,7 @@ if ($writeHistoryResolved) {
 & (Join-Path $scriptRoot "scripts/Build-RepoHealthDashboard.ps1") `
     -MetricsPath $metricsJsonPath `
     -HistoryCsvPath $historyPaths.history_csv_path `
+    -TopFilesHistoryCsvPath $historyPaths.top_files_history_csv_path `
     -OutputPath $dashboardPath
 
 Write-Host "Repository Health Check"
@@ -160,6 +162,7 @@ Write-Host ("Summary: {0}" -f $summaryPath)
 Write-Host ("Dashboard: {0}" -f $dashboardPath)
 if ($writeHistoryResolved) {
     Write-Host ("History CSV: {0}" -f $historyPaths.history_csv_path)
+    Write-Host ("Top files history CSV: {0}" -f $historyPaths.top_files_history_csv_path)
     Write-Host ("Latest snapshot: {0}" -f $historyPaths.latest_metrics_path)
     Write-Host ("Run snapshot: {0}" -f $historyPaths.run_json_path)
 }

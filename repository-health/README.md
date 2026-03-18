@@ -46,7 +46,26 @@ Generati in `repository-health/outputs/`:
 - `current/dashboard.html`
 - `history/latest.json`
 - `history/metrics-history.csv`
+- `history/top-files-history.csv`
 - `current/git-sizer.txt` se abilitato e disponibile
+
+## File-level growth tracking
+
+Il framework ora registra anche i `top N` file correnti per ogni run e li confronta con il baseline precedente.
+
+Cosa ottieni:
+
+- trend storico leggero dei file piu grandi
+- insight su file nuovi entrati nel `top N`
+- delta dimensionale rispetto al baseline precedente
+- correlazione pratica con il commit baseline e il commit corrente
+
+La scelta resta intenzionalmente leggera:
+
+- non viene storicizzato l'inventario completo del repo
+- viene persistito solo `top-files-history.csv`
+- questo permette di vedere la crescita dei file piu rilevanti senza introdurre bloat nel framework stesso
+- `dashboard.html` resta un artefatto derivato locale/CI e puo sempre essere rigenerato dai dati storici
 
 ## Workflow GitHub Actions
 
@@ -68,6 +87,7 @@ repository-health/
   history/
     latest.json
     metrics-history.csv
+    top-files-history.csv
     runs/
       2026-03-18T10-00-00Z.json
       2026-03-18T10-00-00Z.md
