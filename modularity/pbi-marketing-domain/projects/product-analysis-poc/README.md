@@ -1,18 +1,25 @@
 # Product Analysis POC
 
-Target folder for the future marketing-domain migration of the current Product Analysis project.
+Placeholder per un'eventuale futura migrazione del dominio `Product Analysis` dentro la sola area marketing.
 
-Not moved yet on purpose.
+## Stato attuale
 
-Current active assets live in `powerbi-projects/`:
+Non spostato intenzionalmente.
+
+Gli asset attivi restano in `powerbi-projects/`:
+
 - `powerbi-projects/20260227_Product_Analysis.pbip`
 - `powerbi-projects/20260227_Product_Analysis.Report`
 - `powerbi-projects/20260227_Product_Analysis.SemanticModel`
 - `powerbi-projects/20260227_Product_Analysis_Core.pbip`
 - `powerbi-projects/20260227_Product_Analysis_Core.Report`
 - `powerbi-projects/20260227_Product_Analysis_Core.SemanticModel`
+- `powerbi-projects/20260317_Product_Analysis_FlexTable.pbip`
+- `powerbi-projects/20260317_Product_Analysis_FlexTable.Report`
+- `powerbi-projects/20260317_Product_Analysis_FlexTable.SemanticModel`
 
-Reason:
-- the team is actively using the current `powerbi-projects` layout
-- the consumer project already contains installed module artifacts
-- moving the active PBIP now would create unnecessary disruption
+## Motivo
+
+- il team lavora oggi sul layout `powerbi-projects`
+- esistono gia consumer derivati e metadata modulo tracciati in quella area
+- spostare ora i `PBIP` attivi introdurrebbe rumore senza beneficio operativo immediato

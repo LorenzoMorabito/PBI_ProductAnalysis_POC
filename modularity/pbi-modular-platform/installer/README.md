@@ -1,42 +1,39 @@
 # Installer
 
-Planned common commands:
+`installer/Invoke-PbiModuleInstaller.ps1` e l'entry point PowerShell per l'installazione dei package nei consumer `PBIP`.
+
+## Comandi supportati
+
 - `list-modules`
-- `install-module`
-- `upgrade-module`
 - `validate-project`
+- `install-module`
+- `set-data-source-path`
 
-Expected workflow:
-1. Read the package catalog from a domain repo.
-2. Validate required core measures and columns.
-3. Auto-map known canonical inputs.
-4. Ask only for missing mappings.
-5. Copy semantic assets into the consumer semantic model.
-6. Copy page/report assets into the consumer report.
-7. Persist installed-module metadata for future upgrades.
+Comando previsto ma non ancora implementato end-to-end:
 
-Current MVP:
-- PowerShell CLI entry point: `installer/Invoke-PbiModuleInstaller.ps1`
-- implemented commands:
-  - `list-modules`
-  - `validate-project`
-  - `install-module`
-  - `set-data-source-path`
-- implemented domain resolver:
-  - `finance`
-  - `marketing`
+- `upgrade-module`
 
-Architecture:
+## Workflow implementato
+
+1. Legge i cataloghi di dominio.
+2. Valida prerequisiti del modulo contro il consumer target.
+3. Risolve i mapping richiesti.
+4. Copia gli asset semantici nel semantic model consumer.
+5. Copia gli asset report nella pagina consumer.
+6. Persiste `installed-modules.json` per i consumer gestiti.
+
+## Architettura
+
 - `Modules/Common`
   logging helpers
 - `Modules/Core`
-  runtime utilities, catalog, project resolution, semantic model install, report install
+  runtime utilities, catalog discovery, project resolution, semantic/report install
 - `Modules/Domains`
-  domain-specific mapping rules
+  regole di mapping domain-specific
 - `Modules/Services`
-  orchestration layer for validation and installation
+  orchestration layer per validation e installazione
 
-Usage examples:
+## Esempi d'uso
 
 ```powershell
 ./modularity/pbi-modular-platform/installer/Invoke-PbiModuleInstaller.ps1 `
@@ -65,6 +62,8 @@ Usage examples:
   -DataSourcePath 'C:\work\MEN_Marketing\PBI_ProductAnalysis_POC\data_source'
 ```
 
-Notes:
-- installed-module metadata is stored per PBIP project under `powerbi-projects/module-config/<pbip-name>/installed-modules.json`
-- the current installer validates requirements and records mappings, but it does not yet rewrite TMDL based on custom aliases
+## Note operative
+
+- i metadata installativi sono salvati sotto `powerbi-projects/module-config/<pbip-name>/installed-modules.json`
+- l'installer oggi lavora bene per installazioni nuove e setup locale del path dati
+- il lifecycle di upgrade esplicito resta il prossimo hardening

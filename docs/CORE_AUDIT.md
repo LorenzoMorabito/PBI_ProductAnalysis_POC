@@ -1,6 +1,6 @@
 # Semantic Core Audit
 
-Data audit: `2026-03-17`
+Data audit: `2026-03-18`
 
 Perimetro analizzato:
 
@@ -22,6 +22,7 @@ Verdetto:
 - non risultano helper report-specifici residui
 - gli artefatti `Auto Date/Time` sono stati rimossi dal core
 - le relazioni del core sono ora esplicite e con naming intenzionale
+- il progetto [20260227_Product_Analysis_Core.pbip](../powerbi-projects/20260227_Product_Analysis_Core.pbip) passa i quality checks correnti
 
 ## Classificazione oggetti
 

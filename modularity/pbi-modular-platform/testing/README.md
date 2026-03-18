@@ -1,37 +1,40 @@
 # Quality Checks
 
-`testing/Invoke-PbiQualityChecks.ps1` is the first quality gate for modular Power BI assets.
+`testing/Invoke-PbiQualityChecks.ps1` e il primo quality gate per asset Power BI modulari e consumer `PBIP`.
 
-Implemented commands:
+## Comandi implementati
+
 - `list-rules`
 - `test-module`
 - `test-project`
 - `test-repo`
 - `smoke-install`
 
-Architecture:
+## Architettura
+
 - `Modules/Common`
-  result objects and summary helpers
+  result objects e summary helpers
 - `Modules/Core`
-  discovery helpers for TMDL, report assets and PBIP projects
+  discovery helpers per `TMDL`, `PBIR`, `PBIP` e contract architetturali
 - `Modules/Rules`
-  static quality rules split by manifest, semantic model and report assets
+  regole statiche su manifest, semantic model, report e architettura
 - `Modules/Services`
-  orchestration for module checks, project checks and sandbox smoke install
+  orchestration per module checks, project checks e sandbox smoke install
 
-Current rules focus on the failures we have already seen in real work:
+## Regole coperte oggi
+
 - duplicate measure names
-- missing semantic or report assets declared by a module
-- modules that attempt to declare tables reserved for the semantic core
-- core baseline projects that drift away from the approved semantic core contract
-- invalid JSON in report assets
-- textbox visuals that incorrectly carry semantic queries
-- stale module report references to removed `MOD_*` tables
-- direct field-parameter projections without `fieldParameters` metadata
-- report visuals referencing entities not present in the semantic model
-- broken `pages.json` / `page.json` consistency
+- missing semantic o report asset dichiarati da un modulo
+- moduli che dichiarano tabelle riservate al semantic core
+- core baseline che deviano dal contract approvato
+- JSON report invalidi
+- textbox con semantic query non valida
+- report che referenziano entita non presenti nel semantic model
+- field parameter wiring incompleto
+- incoerenze `pages.json` / `page.json`
+- path locali assoluti non consentiti nei semantic model
 
-Usage examples:
+## Esempi d'uso
 
 ```powershell
 ./modularity/pbi-modular-platform/testing/Invoke-PbiQualityChecks.ps1 `
@@ -68,6 +71,8 @@ Usage examples:
   -FailOnError
 ```
 
-Notes:
-- `smoke-install` clones the target project into a temp sandbox, removes any existing installation of the selected module, reinstalls it with the installer service, and runs project checks on the sandbox result.
-- this is a static/sandbox framework; it does not automate a full Power BI Desktop open/render cycle
+## Note operative
+
+- `smoke-install` clona il target in un sandbox temporaneo, reinstalla il modulo e valida il risultato
+- il framework e statico/sandbox: non automatizza un ciclo completo di apertura/render di Power BI Desktop
+- oggi i 4 progetti `PBIP` versionati passano `test-project`

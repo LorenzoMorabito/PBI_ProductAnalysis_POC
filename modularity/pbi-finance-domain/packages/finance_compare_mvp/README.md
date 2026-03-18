@@ -1,6 +1,8 @@
 # Finance Compare MVP
 
-First importable finance package prototype.
+Versione corrente: `0.1.0`
+
+Primo package finance importabile del workspace.
 
 Contents:
 - a semantic adapter layer with wrappers around finance core measures
@@ -22,3 +24,6 @@ Packaging strategy:
 Repository role:
 - this folder is the package source of truth for the finance domain
 - installed copies inside consumer projects are managed artifacts and remain versioned with the consumer repo
+
+Current validated consumers:
+- `powerbi-projects/20260317_UAT_001.pbip`

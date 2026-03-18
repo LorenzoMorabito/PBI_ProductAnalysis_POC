@@ -1,14 +1,22 @@
 # PBI Finance Domain
 
-Finance domain scaffold for future standalone repository.
+Area di dominio per i package finance.
 
-Contents:
-- `packages/`
-  Source packages owned by the finance domain.
+## Contenuti
+
 - `catalog/`
-  Registry of available finance packages.
+  registro dei package finance disponibili
+- `packages/`
+  source of truth dei package finance
 - `projects/`
-  Future home for finance-specific core models and consumer projects.
+  spazio riservato a futuri consumer o core finance
 
-Current status:
-- `finance_compare_mvp` is the first finance package source.
+## Stato attuale
+
+Package attivo:
+
+- `finance_compare_mvp` `0.1.0`
+
+Non esistono ancora progetti finance dedicati spostati dentro questa area.
+
+I consumer attivi che possono installare package finance vivono oggi in `powerbi-projects`.

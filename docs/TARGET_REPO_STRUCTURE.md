@@ -15,7 +15,7 @@ La strategia resta in due tempi:
 
 ### 1. Power BI projects
 
-Asset PBIP usati dal team:
+Asset `PBIP` usati dal team:
 
 - `powerbi-projects/20260227_Product_Analysis.*`
 - `powerbi-projects/20260227_Product_Analysis_Core.*`
@@ -45,12 +45,14 @@ Ruolo:
 ### 3. Repository health
 
 - `repository-health`
+- branch dati `repo-health-data`
 
 Ruolo:
 
 - monitoraggio della salute Git della repository
 - configurazione threshold e persistenza storica
 - supporto ai workflow GitHub Actions dedicati
+- storage storico diffabile su branch separato
 
 ## Split finale raccomandato
 
@@ -91,6 +93,14 @@ Contiene:
 - package marketing
 - eventuali marketing consumer futuri
 
+### Repo 5: repository health
+
+Contiene:
+
+- framework repo-health
+- workflow CI dedicati
+- eventuale telemetria storica o configurazione del branch dati
+
 ## Struttura ufficiale corrente
 
 ```text
@@ -129,3 +139,5 @@ Lo split in repo distinte va eseguito solo quando sono vere tutte queste condizi
 ## Verdetto
 
 La separazione in tre aree e corretta e rappresenta il layout ufficiale corrente.
+
+Lo stato operativo aggiornato del workspace e documentato in [Project Status](PROJECT_STATUS.md).

@@ -1,5 +1,7 @@
 # FlexTableFlat MVP
 
+Versione corrente: `0.2.0`
+
 Flat-table companion module for the existing pivot-style flex table.
 
 Contents:
@@ -53,3 +55,7 @@ Notes:
 - the interaction pattern uses two multi-select slicers:
   - one for descriptive dimension columns
   - one for numeric measure columns
+
+Current validated consumers:
+- `powerbi-projects/20260317_Product_Analysis_FlexTable.pbip`
+- `powerbi-projects/20260317_UAT_001.pbip`

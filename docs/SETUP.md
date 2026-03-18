@@ -4,7 +4,7 @@
 
 - Power BI Desktop con supporto `PBIP`, `TMDL` ed `Enhanced report format`
 - Git
-- PowerShell 7 o Windows PowerShell
+- PowerShell 7 oppure Windows PowerShell
 
 ## Clonazione repository
 
@@ -12,6 +12,16 @@
 git clone <repo-url>
 cd PBI_ProductAnalysis_POC
 ```
+
+## Layout della repository
+
+Dopo la clonazione la struttura operativa e:
+
+- `powerbi-projects`
+- `modularity`
+- `repository-health`
+
+I progetti `PBIP` da aprire in Power BI Desktop vivono sempre sotto `powerbi-projects`.
 
 ## Dati locali
 
@@ -21,14 +31,14 @@ La repo non versiona:
 - `data_source/`
 - `xml_oas/`
 
-Quindi, per aprire correttamente i progetti che dipendono da file locali, ogni sviluppatore deve valorizzare la cartella locale `data_source` sul proprio ambiente.
+Per aprire correttamente i progetti che dipendono da file locali serve quindi una cartella dati locale valida.
 
 ## Progetti disponibili
 
 ### Progetto originale
 
 - file: [20260227_Product_Analysis.pbip](../powerbi-projects/20260227_Product_Analysis.pbip)
-- uso: manutenzione del consumer report storico completo
+- uso: manutenzione del consumer storico completo
 
 ### Semantic core pulito
 
@@ -38,16 +48,24 @@ Quindi, per aprire correttamente i progetti che dipendono da file locali, ogni s
 ### Consumer derivato FlexTable
 
 - file: [20260317_Product_Analysis_FlexTable.pbip](../powerbi-projects/20260317_Product_Analysis_FlexTable.pbip)
-- uso: test di moduli installati e consumer derivato con semantic model dedicato
+- uso: esempio di consumer derivato con semantic model dedicato e moduli installati
 
-## Parametrizzazione sorgenti locale
+### Progetto UAT
 
-Tutti i semantic model del repository adottano ora la stessa convenzione:
+- file: [20260317_UAT_001.pbip](../powerbi-projects/20260317_UAT_001.pbip)
+- uso: riferimento del primo giro UAT completato
 
-- parametro M `root_path`
-- valore standard attualmente versionato: `C:\work\MEN_Marketing\PBI_ProductAnalysis_POC\data_source\`
+## Parametrizzazione sorgenti locali
 
-Se lavori su un ambiente diverso, prima di usare o refreshare i progetti aggiorna il parametro con il tuo path locale dati.
+Tutti i semantic model versionati usano il parametro M `root_path`.
+
+Valore versionato oggi:
+
+```text
+C:\work\MEN_Marketing\PBI_ProductAnalysis_POC\data_source\
+```
+
+Se lavori su un ambiente diverso, prima di usare o refreshare i progetti aggiorna `root_path` sulla tua copia locale.
 
 File interessati:
 
@@ -59,13 +77,13 @@ Esempio di override locale:
 D:\MyLocalData\ProductAnalysis\data_source\
 ```
 
-Regola di team:
+Regole di team:
 
-- il path versionato va trattato come default operativo del workspace corrente
-- se viene usato un path diverso, l'override va fatto sulla copia locale di lavoro
+- il path versionato e il default operativo del workspace corrente
+- se serve un path diverso, l'override va fatto sulla copia locale di lavoro
 - evitare di introdurre nuovi path ambientali senza accordo esplicito
 
-Per configurare rapidamente una copia locale del progetto:
+Per aggiornare rapidamente un progetto locale:
 
 ```powershell
 ./modularity/pbi-modular-platform/installer/Invoke-PbiModuleInstaller.ps1 `
@@ -83,7 +101,16 @@ Per vedere i moduli disponibili:
   -Command list-modules
 ```
 
-Per testare la qualita del repo o di un progetto:
+Per testare un progetto:
+
+```powershell
+./modularity/pbi-modular-platform/testing/Invoke-PbiQualityChecks.ps1 `
+  -Command test-project `
+  -ProjectPath ./powerbi-projects/20260227_Product_Analysis_Core.pbip `
+  -FailOnError
+```
+
+Per testare l'intera repository:
 
 ```powershell
 ./modularity/pbi-modular-platform/testing/Invoke-PbiQualityChecks.ps1 `

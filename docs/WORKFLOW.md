@@ -1,5 +1,19 @@
 # Workflow
 
+## Domini del workspace
+
+Il workspace e organizzato in tre aree:
+
+- `powerbi-projects`
+- `modularity`
+- `repository-health`
+
+Regola di base:
+
+- il lavoro sui consumer `PBIP` avviene sotto `powerbi-projects`
+- il lavoro sui package source e sulla platform avviene sotto `modularity`
+- il monitoring Git vive in `repository-health`
+
 ## Regole Git minime
 
 - ogni lavoro va fatto su branch dedicato
@@ -50,6 +64,15 @@ Ogni change PBIP deve rispettare questi check minimi:
 git status --short
 ```
 
+### Repo health
+
+Quando il change tocca il framework di monitoring o la struttura del repo, eseguire anche:
+
+```powershell
+./repository-health/analyzer.ps1 `
+  -Mode local
+```
+
 ### Apertura manuale Power BI Desktop
 
 Aprire almeno il progetto toccato dal change e verificare:
@@ -64,3 +87,4 @@ Aprire almeno il progetto toccato dal change e verificare:
 - un consumer con moduli installati non deve puntare al semantic model core condiviso
 - i package source si modificano nei folder `modularity/*-domain`
 - gli asset installati si tracciano nel consumer tramite `powerbi-projects/module-config`
+- i progetti UAT o sandbox vanno creati come copie locali dei progetti sotto `powerbi-projects`

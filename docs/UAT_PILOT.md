@@ -13,7 +13,7 @@ Validare con utenti business e sviluppatori Power BI non-core che il flusso segu
 
 Il pilot UAT attuale e volutamente controllato.
 
-Progetti di partenza consentiti:
+Progetto di partenza consigliato:
 
 - [20260227_Product_Analysis_Core.pbip](../powerbi-projects/20260227_Product_Analysis_Core.pbip)
 
@@ -28,6 +28,13 @@ Asset di riferimento:
 - [README.md](../README.md)
 - [SETUP.md](SETUP.md)
 - [WORKFLOW.md](WORKFLOW.md)
+- [Project Status](PROJECT_STATUS.md)
+
+Stato attuale del pilot:
+
+- un primo giro completo e gia stato eseguito sul progetto [20260317_UAT_001.pbip](../powerbi-projects/20260317_UAT_001.pbip)
+- installazione e quality check dei 3 moduli consentiti sono passati
+- il documento resta il runbook per i prossimi tester
 
 ## Profilo utenti
 

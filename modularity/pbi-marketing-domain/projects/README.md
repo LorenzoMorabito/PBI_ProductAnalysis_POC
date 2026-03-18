@@ -1,14 +1,16 @@
 # Marketing Projects
 
-This folder is the future target for marketing consumer projects.
+Questa cartella rappresenta il target futuro per eventuali consumer o core marketing dedicati.
 
-Planned first migration target:
-- `product-analysis-poc`
+## Stato attuale
 
-Current active paths live in `powerbi-projects/`:
-- `powerbi-projects/20260227_Product_Analysis.pbip`
-- `powerbi-projects/20260227_Product_Analysis.Report`
-- `powerbi-projects/20260227_Product_Analysis.SemanticModel`
-- `powerbi-projects/20260227_Product_Analysis_Core.pbip`
-- `powerbi-projects/20260227_Product_Analysis_Core.Report`
-- `powerbi-projects/20260227_Product_Analysis_Core.SemanticModel`
+Nessun progetto attivo e stato migrato qui.
+
+I progetti attivi `Product Analysis` vivono oggi sotto `powerbi-projects/`:
+
+- `powerbi-projects/20260227_Product_Analysis.*`
+- `powerbi-projects/20260227_Product_Analysis_Core.*`
+- `powerbi-projects/20260317_Product_Analysis_FlexTable.*`
+- `powerbi-projects/20260317_UAT_001.*`
+
+La cartella resta quindi un placeholder architetturale e non una source area operativa.

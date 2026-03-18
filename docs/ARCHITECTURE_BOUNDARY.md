@@ -74,6 +74,13 @@ Verdetto:
 | `flex_metrics_table_mvp` | implementato | marketing | semantic pack + page pack |
 | `flex_table_flat_mvp` | implementato | marketing | semantic pack + page pack |
 
+### Consumer derivati gia allineati al contract
+
+| Consumer | Ruolo | Note |
+| --- | --- | --- |
+| `20260317_Product_Analysis_FlexTable` | derived consumer | semantic model dedicato con moduli marketing installati |
+| `20260317_UAT_001` | UAT derived consumer | installa moduli finance e marketing sopra una copia del core |
+
 ### Da esternalizzare dal modello originale
 
 | Area | Oggetti principali | Verdetto |
