@@ -1,0 +1,79 @@
+table Product
+	lineageTag: 196e070c-c8dc-4864-8840-abfa962ce72e
+
+	column 'Product Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 60c74a16-eb5b-4154-9e7b-4090b689ce13
+		summarizeBy: none
+		sourceColumn: product_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column Product
+		dataType: string
+		lineageTag: 302318c8-be22-4488-b5c1-bb7301b4065c
+		summarizeBy: none
+		sourceColumn: molecule_desc_raw
+
+		annotation SummarizationSetBy = Automatic
+
+	column Company
+		dataType: string
+		lineageTag: 50c73c99-0b8e-4955-9b87-168939db606b
+		summarizeBy: none
+		sourceColumn: company_desc
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Corporation Group'
+		dataType: string
+		lineageTag: 48b628bb-3c6d-4e48-b1ef-950eada7e131
+		summarizeBy: none
+		sourceColumn: corporation_group
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Molecule Count'
+		dataType: int64
+		formatString: 0
+		lineageTag: 6803cb7d-1be1-425d-820d-b35a3fbeddbb
+		summarizeBy: none
+		sourceColumn: molecule_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Is Combo Molecule'
+		dataType: string
+		lineageTag: 37eac608-d29e-45de-87ef-42bd6ffaf725
+		summarizeBy: none
+		sourceColumn: is_combo_molecule
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Product = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(root_path & "dim_product.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(
+				        #"Promoted Headers",
+				        {
+				            {"product_key", Int64.Type},
+				            {"molecule_desc_raw", type text},
+				            {"company_desc", type text},
+				            {"corporation_group", type text},
+				            {"molecule_count", Int64.Type},
+				            {"is_combo_molecule", type text}
+				        }
+				    ),
+				    #"Buffered Rows" = Table.Buffer(#"Changed Type")
+				in
+				    #"Buffered Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

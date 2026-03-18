@@ -1,0 +1,7 @@
+expression root_path = "C:\work\MEN_Marketing\PBI_ProductAnalysis_POC\data_source\PBI Cana Finance\star_schema_finance_int\" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: b16e12c8-6ed5-4562-9ab7-24d06eb8cb85
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+

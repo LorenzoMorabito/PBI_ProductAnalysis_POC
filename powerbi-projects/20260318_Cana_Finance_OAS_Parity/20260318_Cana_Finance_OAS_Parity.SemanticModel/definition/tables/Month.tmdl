@@ -1,0 +1,115 @@
+table Month
+	lineageTag: c4f0626f-968b-47a9-bc88-0053443830f5
+
+	column 'Month Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 9bd78326-d8f2-4b91-bdb1-1e6237bc3eec
+		summarizeBy: none
+		sourceColumn: month_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Date'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: b7684e72-e73f-41ee-8728-511bdaecf0ff
+		summarizeBy: none
+		sourceColumn: month_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Month
+		dataType: string
+		lineageTag: a55c0c4c-176e-440b-b438-7a0c90b3370a
+		summarizeBy: none
+		sourceColumn: month_label
+		sortByColumn: 'Month Sort'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: ed5fbedf-335f-4920-9681-e9a421808605
+		summarizeBy: none
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Number'
+		dataType: int64
+		formatString: 0
+		lineageTag: f505cfcc-be79-4ad5-bf5d-34d0ac2d4744
+		summarizeBy: none
+		sourceColumn: month_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Year Month'
+		dataType: string
+		lineageTag: 3e680f01-89b9-4027-a42e-1a50b0553e5d
+		summarizeBy: none
+		sourceColumn: year_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Sort'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 6bd8689e-a47d-4700-be76-de6053ed4433
+		summarizeBy: none
+		sourceColumn: month_sort_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Quarter Number'
+		dataType: int64
+		formatString: 0
+		lineageTag: 7b691469-51e0-4769-84d1-87def61b3944
+		summarizeBy: none
+		sourceColumn: quarter_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Year Quarter'
+		dataType: string
+		lineageTag: a1a83d90-d4f0-4db6-b767-8a69ceac3a58
+		summarizeBy: none
+		sourceColumn: year_quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Month = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(root_path & "dim_month.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(
+				        #"Promoted Headers",
+				        {
+				            {"month_key", Int64.Type},
+				            {"month_date", type date},
+				            {"month_label", type text},
+				            {"year", Int64.Type},
+				            {"month_number", Int64.Type},
+				            {"year_month", type text},
+				            {"month_sort_key", Int64.Type},
+				            {"quarter_number", Int64.Type},
+				            {"year_quarter", type text}
+				        },
+				        "it-IT"
+				    ),
+				    #"Buffered Rows" = Table.Buffer(#"Changed Type")
+				in
+				    #"Buffered Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

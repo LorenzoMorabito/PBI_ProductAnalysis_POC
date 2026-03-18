@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "20260318_Cana_Finance_OAS_Parity"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "bb53019f-08c8-4fb4-bd88-09d4ec4510ff"
+  }
+}

@@ -1,0 +1,22 @@
+relationship REL_FIN_COUNTRY
+	fromColumn: F_Finance.'Country Key'
+	toColumn: Country.'Country Key'
+
+relationship REL_FIN_MONTH
+	fromColumn: F_Finance.'Month Key'
+	toColumn: Month.'Month Key'
+
+relationship REL_FIN_PRODUCT
+	fromColumn: F_Finance.'Product Key'
+	toColumn: Product.'Product Key'
+
+relationship REL_BRIDGE_PRODUCT
+	crossFilteringBehavior: bothDirections
+	fromColumn: B_ProductMolecule.'Product Key'
+	toColumn: Product.'Product Key'
+
+relationship REL_BRIDGE_MOLECULE
+	crossFilteringBehavior: bothDirections
+	fromColumn: B_ProductMolecule.'Molecule Key'
+	toColumn: Molecule.'Molecule Key'
+
