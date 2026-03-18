@@ -107,6 +107,28 @@ Comportamento:
 - `push` su `main`: aggiorna lo storico sul branch dati
 - `schedule` / `workflow_dispatch`: aggiorna lo storico e prova `git-sizer`
 
+## Self-tests del framework
+
+Il framework include anche una batteria minima di self-tests sul prodotto stesso.
+
+Runner locale:
+
+```powershell
+./repository-health/tests/Invoke-RepoHealthSelfTests.ps1
+```
+
+Cosa copre:
+
+- installer e rendering dei template
+- analyzer in `local`
+- crescita file su run successivi
+- bootstrap e publish del branch `repo-health-data`
+- comportamento bloccante sui file vietati
+
+Workflow CI dedicato:
+
+- [repo-health-self-tests.yml](../.github/workflows/repo-health-self-tests.yml)
+
 ## Level 2 persistence
 
 Il framework usa due branch:

@@ -39,3 +39,13 @@ L’installer:
 ## Nota
 
 Il framework resta pienamente funzionante anche nella repository sorgente che lo distribuisce. Non serve reinstallarlo qui: questa repo continua a usarlo come source-of-truth e come install source per altri team.
+
+## Validazione del distribution kit
+
+Il framework sorgente include self-tests che verificano anche il kit di distribuzione:
+
+```powershell
+./repository-health/tests/Invoke-RepoHealthSelfTests.ps1
+```
+
+Questo smoke test installa il framework in un repo Git temporaneo e verifica che il tool installato sia realmente eseguibile.
