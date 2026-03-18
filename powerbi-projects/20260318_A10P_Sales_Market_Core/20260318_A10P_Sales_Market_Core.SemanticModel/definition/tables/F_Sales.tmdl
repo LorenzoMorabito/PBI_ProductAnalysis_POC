@@ -1,0 +1,122 @@
+table F_Sales
+	isHidden
+	lineageTag: 75df88fd-679d-47d0-b52c-198b693add33
+
+	column 'Fact Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 467294ec-1e5c-4f12-9261-4e09a4de7ce9
+		summarizeBy: none
+		sourceColumn: fact_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Country Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: c98119f7-af2d-453f-876c-27a516989022
+		summarizeBy: none
+		sourceColumn: country_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sector Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: f138b1d4-5f3c-441c-951c-441b4daf238d
+		summarizeBy: none
+		sourceColumn: sector_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Quarter Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 59f74683-34fc-4c1e-a5c5-bdf105a90f3d
+		summarizeBy: none
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Diagnosis Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 5cf49fe1-fa01-4a53-bdc9-b410f655adf4
+		summarizeBy: none
+		sourceColumn: diagnosis_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 5bfdb7e7-8301-4d35-8f65-ae770e44948f
+		summarizeBy: none
+		sourceColumn: product_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column Units
+		dataType: int64
+		isHidden
+		formatString: #,0;-#,0;0
+		lineageTag: 74bd5518-4e2e-4f3c-989c-806bab08e780
+		summarizeBy: sum
+		sourceColumn: units
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Counting Units'
+		dataType: int64
+		isHidden
+		formatString: #,0;-#,0;0
+		lineageTag: 4256eb2a-33e1-4055-873a-b7625e05ca15
+		summarizeBy: sum
+		sourceColumn: counting_units
+
+		annotation SummarizationSetBy = Automatic
+
+	column Values
+		dataType: double
+		isHidden
+		formatString: #,0.0;-#,0.0;0.0
+		lineageTag: ba75d6dd-6359-456c-b27f-7de919951a1e
+		summarizeBy: sum
+		sourceColumn: eur_mnf
+
+		annotation SummarizationSetBy = Automatic
+
+	partition F_Sales = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(root_path & "fact_market_performance_quarterly.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(
+				        #"Promoted Headers",
+				        {
+				            {"fact_key", Int64.Type},
+				            {"country_key", Int64.Type},
+				            {"sector_key", Int64.Type},
+				            {"date_key", Int64.Type},
+				            {"diagnosis_key", Int64.Type},
+				            {"product_key", Int64.Type},
+				            {"units", Int64.Type},
+				            {"counting_units", Int64.Type},
+				            {"eur_mnf", type number}
+				        }
+				    ),
+				    #"Buffered Rows" = Table.Buffer(#"Changed Type")
+				in
+				    #"Buffered Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

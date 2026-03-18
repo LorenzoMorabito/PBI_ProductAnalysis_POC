@@ -1,0 +1,7 @@
+expression root_path = "C:\work\MEN_Marketing\PBI_ProductAnalysis_POC\data_source\PBI A10P C07A IT SP GR\star_schema_sales\" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: df4489f8-6d65-40d6-9b60-08dc18b76b07
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+

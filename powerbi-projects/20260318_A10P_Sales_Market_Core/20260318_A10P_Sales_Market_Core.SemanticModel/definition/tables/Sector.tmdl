@@ -1,0 +1,42 @@
+table Sector
+	lineageTag: 129758c3-8657-452c-9e62-5d5ce888655a
+
+	column 'Sector Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: cdf9f51f-05ad-45cc-bfd3-6994bac1b251
+		summarizeBy: none
+		sourceColumn: sector_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sector
+		dataType: string
+		lineageTag: e9ea37b8-9941-45df-92bd-1a3f5fcd363c
+		summarizeBy: none
+		sourceColumn: sector_name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Sector = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(root_path & "dim_sector.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(
+				        #"Promoted Headers",
+				        {
+				            {"sector_key", Int64.Type},
+				            {"sector_name", type text}
+				        }
+				    ),
+				    #"Buffered Rows" = Table.Buffer(#"Changed Type")
+				in
+				    #"Buffered Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

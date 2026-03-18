@@ -1,0 +1,105 @@
+table Diagnosis
+	lineageTag: 944b3161-339c-4e29-8314-5f18d48814ce
+
+	column 'Diagnosis Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 656d12c5-d313-4b8c-a277-a9c9939c9229
+		summarizeBy: none
+		sourceColumn: diagnosis_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Disease Area'
+		dataType: string
+		lineageTag: 83ea625a-f28c-4ef0-b9ba-c6277109446f
+		summarizeBy: none
+		sourceColumn: disease_area
+
+		annotation SummarizationSetBy = Automatic
+
+	column Disease
+		dataType: string
+		lineageTag: e48c5a18-dc47-49ce-9247-9f3ab3fb6a7e
+		summarizeBy: none
+		sourceColumn: disease_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'DIAG 3'
+		dataType: string
+		lineageTag: d7cd9b21-5eb5-49f7-b0b1-272aed60c9ce
+		summarizeBy: none
+		sourceColumn: diag3_raw
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'DIAG 3 Code'
+		dataType: string
+		lineageTag: 3111c4e8-e7df-4932-a5c1-62316980fe2f
+		summarizeBy: none
+		sourceColumn: diag3_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'DIAG 3 Description'
+		dataType: string
+		lineageTag: 3c43f57a-2e6d-4d51-84db-1b13ac862296
+		summarizeBy: none
+		sourceColumn: diag3_description
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'DIAG 4'
+		dataType: string
+		lineageTag: 0eb15e89-08c4-4e7a-be2a-3722e4fc9c71
+		summarizeBy: none
+		sourceColumn: diag4_raw
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'DIAG 4 Code'
+		dataType: string
+		lineageTag: 5b63e6bc-cb86-4b69-b9ee-40560eca6cff
+		summarizeBy: none
+		sourceColumn: diag4_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'DIAG 4 Description'
+		dataType: string
+		lineageTag: 8d0a4c0c-5de4-4349-954e-ac8a94aec0cf
+		summarizeBy: none
+		sourceColumn: diag4_description
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Diagnosis = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(root_path & "dim_diagnosis.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(
+				        #"Promoted Headers",
+				        {
+				            {"diagnosis_key", Int64.Type},
+				            {"disease_area", type text},
+				            {"disease_name", type text},
+				            {"diag3_raw", type text},
+				            {"diag3_code", type text},
+				            {"diag3_description", type text},
+				            {"diag4_raw", type text},
+				            {"diag4_code", type text},
+				            {"diag4_description", type text}
+				        }
+				    ),
+				    #"Buffered Rows" = Table.Buffer(#"Changed Type")
+				in
+				    #"Buffered Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
