@@ -1,0 +1,107 @@
+{
+  "schemaVersion": "2.0.0",
+  "generatedAt": "2026-03-19T11:16:05Z",
+  "installedModules": [
+    {
+      "moduleId": "flex_table_flat_mvp",
+      "version": "0.4.0",
+      "domain": "marketing",
+      "type": "semantic",
+      "classification": "semantic-light",
+      "semanticImpact": "additive",
+      "source": "modularity/pbi-marketing-domain/packages/flex_table_flat_mvp",
+      "mappings": {
+        "coreMeasures": {
+          "MOD_BIND_MEASURE_1": "Contact Number",
+          "MOD_BIND_MEASURE_2": "Contact Number with intention to increase Rx"
+        },
+        "coreColumns": {
+          "MOD_BIND_DIMENSION_1[Value]": "Country[Country]",
+          "MOD_BIND_DIMENSION_2[Value]": "Product[Corporation]",
+          "MOD_BIND_DIMENSION_3[Value]": "Channel[Channel]"
+        }
+      },
+      "installedAt": "2026-03-19T11:15:53Z",
+      "lastAction": "install",
+      "installedObjects": {
+        "tables": [
+          "MOD Flex Flat Inputs",
+          "MOD Flex Flat Dimensions",
+          "MOD Flex Flat Measures"
+        ],
+        "page": "9c7a5b4d3e2f1a0b6c8d"
+      },
+      "bindingMode": "binding-profile",
+      "bindingProfileId": "promo-test-flat-v1",
+      "bindingProfileHash": "54637d2c7d6f7babb1933df8f3e4e49c0f9878284ea930ed8757fff269b994b8",
+      "resolvedBindings": {
+        "coreMeasures": {
+          "MOD_BIND_MEASURE_1": "Contact Number",
+          "MOD_BIND_MEASURE_2": "Contact Number with intention to increase Rx"
+        },
+        "coreColumns": {
+          "MOD_BIND_DIMENSION_1[Value]": "Country[Country]",
+          "MOD_BIND_DIMENSION_2[Value]": "Product[Corporation]",
+          "MOD_BIND_DIMENSION_3[Value]": "Channel[Channel]"
+        }
+      },
+      "filesTouched": [
+        "20260319_A10P_Promotional_Core.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/page.json",
+        "20260319_A10P_Promotional_Core.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/visuals/flex_flat_columns_slicer/visual.json",
+        "20260319_A10P_Promotional_Core.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/visuals/flex_flat_measures_slicer/visual.json",
+        "20260319_A10P_Promotional_Core.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/visuals/flex_flat_subtitle/visual.json",
+        "20260319_A10P_Promotional_Core.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/visuals/flex_flat_table/visual.json",
+        "20260319_A10P_Promotional_Core.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/visuals/flex_flat_title/visual.json",
+        "20260319_A10P_Promotional_Core.Report/definition/pages/pages.json",
+        "20260319_A10P_Promotional_Core.SemanticModel/definition/model.tmdl",
+        "20260319_A10P_Promotional_Core.SemanticModel/definition/tables/MOD Flex Flat Dimensions.tmdl",
+        "20260319_A10P_Promotional_Core.SemanticModel/definition/tables/MOD Flex Flat Inputs.tmdl",
+        "20260319_A10P_Promotional_Core.SemanticModel/definition/tables/MOD Flex Flat Measures.tmdl",
+        "module-config/20260319_A10P_Promotional_Core/installed-modules.json"
+      ],
+      "semanticObjectsAdded": {
+        "tables": [
+          "MOD Flex Flat Inputs",
+          "MOD Flex Flat Dimensions",
+          "MOD Flex Flat Measures"
+        ],
+        "measures": [
+          "Flat Input Metric 1",
+          "Flat Input Metric 2"
+        ]
+      },
+      "reportObjectsAdded": {
+        "page": "9c7a5b4d3e2f1a0b6c8d",
+        "files": [
+          "20260319_A10P_Promotional_Core.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/page.json",
+          "20260319_A10P_Promotional_Core.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/visuals/flex_flat_columns_slicer/visual.json",
+          "20260319_A10P_Promotional_Core.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/visuals/flex_flat_measures_slicer/visual.json",
+          "20260319_A10P_Promotional_Core.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/visuals/flex_flat_subtitle/visual.json",
+          "20260319_A10P_Promotional_Core.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/visuals/flex_flat_table/visual.json",
+          "20260319_A10P_Promotional_Core.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/visuals/flex_flat_title/visual.json"
+        ],
+        "visualCount": 5
+      },
+      "impactMetrics": {
+        "fileCount": 12,
+        "sizeDeltaBytes": -311,
+        "semanticTableCount": 3,
+        "semanticMeasureCount": 2,
+        "reportFileCount": 6,
+        "reportVisualCount": 5
+      },
+      "history": {
+        "lastSnapshotId": "20260319T111552475Z",
+        "lastDiffJsonPath": "",
+        "lastDiffMarkdownPath": "",
+        "lastLogPath": "module-config/20260319_A10P_Promotional_Core/logs/20260319T111539834Z-ab4d1e0c.jsonl",
+        "lastRepoHealthMetricsPath": "module-config/20260319_A10P_Promotional_Core/repo-health/20260319T111552475Z/current/metrics.json",
+        "lastRepoHealthSummaryPath": "module-config/20260319_A10P_Promotional_Core/repo-health/20260319T111552475Z/current/summary.md"
+      },
+      "governance": {
+        "status": "PASS",
+        "reasons": []
+      }
+    }
+  ]
+}

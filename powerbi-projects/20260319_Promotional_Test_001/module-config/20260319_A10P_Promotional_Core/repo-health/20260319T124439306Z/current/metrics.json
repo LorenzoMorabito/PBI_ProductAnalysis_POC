@@ -1,0 +1,251 @@
+{
+  "timestamp": "2026-03-19T12:44:48Z",
+  "repository": "PBI_ProductAnalysis_POC",
+  "mode": "local",
+  "branch": "main",
+  "commit": "c08d2c91a9ee006c71c023775b3a1608875711e7",
+  "git_core": {
+    "size_pack_mb": 0.34,
+    "object_count": 1698,
+    "packed_object_count": 1064,
+    "pack_count": 2,
+    "loose_object_count": 634
+  },
+  "repo": {
+    "git_size_mb": 4.34,
+    "tracked_file_count": 687,
+    "working_file_count": 690,
+    "commit_count": 52,
+    "largest_current_file_mb": 1.69,
+    "top_current_files": [
+      {
+        "path": "powerbi-projects/20260227_Product_Analysis_POC/20260227_Product_Analysis.SemanticModel/definition/cultures/en-US.tmdl",
+        "size_mb": 1.69,
+        "size_b": 1768811
+      },
+      {
+        "path": "powerbi-projects/20260227_Product_Analysis_POC/20260227_Product_Analysis.Report/definition/bookmarks/a7add2c54cbd59546893.bookmark.json",
+        "size_mb": 0.14,
+        "size_b": 150082
+      },
+      {
+        "path": "powerbi-projects/20260227_Product_Analysis_POC/20260227_Product_Analysis.Report/definition/bookmarks/5aa23e81c55041a60a51.bookmark.json",
+        "size_mb": 0.14,
+        "size_b": 150082
+      },
+      {
+        "path": "databricks-catalog-assessment/outputs/dev_iqvia_catalog_trusted_starschema_01_20260319_120323/table_details/trusted_starschema_01/f_channel_dynamic_data.json",
+        "size_mb": 0.12,
+        "size_b": 124748
+      },
+      {
+        "path": "databricks-catalog-assessment/outputs/dev_iqvia_catalog_trusted_starschema_01_20260319_120432/table_details/trusted_starschema_01/f_channel_dynamic_data.json",
+        "size_mb": 0.12,
+        "size_b": 124748
+      },
+      {
+        "path": "modularity/pbi-modular-platform/testing/evidence/collaudo-7cb5dd4/test-3-upgrade-module/post-upgrade.git-diff.txt",
+        "size_mb": 0.12,
+        "size_b": 122218
+      },
+      {
+        "path": "modularity/pbi-modular-platform/testing/evidence/collaudo-7cb5dd4/test-4-rollback-module/pre-rollback.git-diff.txt",
+        "size_mb": 0.12,
+        "size_b": 122218
+      },
+      {
+        "path": "powerbi-projects/20260227_Product_Analysis_POC/20260227_Product_Analysis.Report/definition/pages/7d897b7585bab650ac06/page.json",
+        "size_mb": 0.09,
+        "size_b": 96991
+      },
+      {
+        "path": "modularity/pbi-modular-platform/installer/Modules/Core/Pbi.Binding.psm1",
+        "size_mb": 0.07,
+        "size_b": 73142
+      },
+      {
+        "path": "modularity/pbi-modular-platform/testing/Run-ModularityLifecycleCollaudo.ps1",
+        "size_mb": 0.05,
+        "size_b": 54030
+      }
+    ],
+    "forbidden_files": [
+      {
+        "path": "databricks-catalog-assessment/outputs/dev_iqvia_catalog_trusted_starschema_01_20260319_120323/columns.csv",
+        "size_mb": 0.03,
+        "extension": ".csv"
+      },
+      {
+        "path": "databricks-catalog-assessment/outputs/dev_iqvia_catalog_trusted_starschema_01_20260319_120432/columns.csv",
+        "size_mb": 0.03,
+        "extension": ".csv"
+      },
+      {
+        "path": "databricks-catalog-assessment/outputs/dev_iqvia_catalog_trusted_starschema_01_20260319_120323/constraints.csv",
+        "size_mb": 0.01,
+        "extension": ".csv"
+      },
+      {
+        "path": "databricks-catalog-assessment/outputs/dev_iqvia_catalog_trusted_starschema_01_20260319_120432/constraints.csv",
+        "size_mb": 0.01,
+        "extension": ".csv"
+      },
+      {
+        "path": "databricks-catalog-assessment/outputs/dev_iqvia_catalog_trusted_starschema_01_20260319_120323/tables.csv",
+        "size_mb": 0.01,
+        "extension": ".csv"
+      },
+      {
+        "path": "databricks-catalog-assessment/outputs/dev_iqvia_catalog_trusted_starschema_01_20260319_120432/tables.csv",
+        "size_mb": 0.01,
+        "extension": ".csv"
+      },
+      {
+        "path": "databricks-catalog-assessment/outputs/dev_iqvia_catalog_trusted_starschema_01_20260319_120323/table_stats.csv",
+        "size_mb": 0.01,
+        "extension": ".csv"
+      },
+      {
+        "path": "databricks-catalog-assessment/outputs/dev_iqvia_catalog_trusted_starschema_01_20260319_120432/table_stats.csv",
+        "size_mb": 0.01,
+        "extension": ".csv"
+      },
+      {
+        "path": "databricks-catalog-assessment/outputs/mgcp_dev_marketing_20260319_112109/tables.csv",
+        "size_mb": 0.01,
+        "extension": ".csv"
+      },
+      {
+        "path": "databricks-catalog-assessment/outputs/mgcp_dev_marketing_20260319_112109/schemas.csv",
+        "size_mb": 0.0,
+        "extension": ".csv"
+      },
+      {
+        "path": "databricks-catalog-assessment/outputs/dev_iqvia_catalog_trusted_starschema_01_20260319_120323/schemas.csv",
+        "size_mb": 0.0,
+        "extension": ".csv"
+      },
+      {
+        "path": "databricks-catalog-assessment/outputs/dev_iqvia_catalog_trusted_starschema_01_20260319_120432/schemas.csv",
+        "size_mb": 0.0,
+        "extension": ".csv"
+      }
+    ],
+    "tracked_excluded_files": [
+      "data_source/Integrated Product Analysis Core/integration_source_report.md",
+      "data_source/Integrated Product Analysis Core/semantic_source/bridge_portfolio_molecule.csv",
+      "data_source/Integrated Product Analysis Core/semantic_source/dim_channel.csv",
+      "data_source/Integrated Product Analysis Core/semantic_source/dim_country.csv",
+      "data_source/Integrated Product Analysis Core/semantic_source/dim_diagnosis.csv",
+      "data_source/Integrated Product Analysis Core/semantic_source/dim_feedback.csv",
+      "data_source/Integrated Product Analysis Core/semantic_source/dim_finance_product.csv",
+      "data_source/Integrated Product Analysis Core/semantic_source/dim_molecule.csv",
+      "data_source/Integrated Product Analysis Core/semantic_source/dim_month.csv",
+      "data_source/Integrated Product Analysis Core/semantic_source/dim_portfolio.csv",
+      "data_source/Integrated Product Analysis Core/semantic_source/dim_promo_product.csv",
+      "data_source/Integrated Product Analysis Core/semantic_source/dim_quarter.csv",
+      "data_source/Integrated Product Analysis Core/semantic_source/dim_sales_product.csv",
+      "data_source/Integrated Product Analysis Core/semantic_source/dim_sector.csv",
+      "data_source/Integrated Product Analysis Core/semantic_source/dim_specialty.csv",
+      "data_source/Integrated Product Analysis Core/semantic_source/fact_finance.csv",
+      "data_source/Integrated Product Analysis Core/semantic_source/fact_promo.csv",
+      "data_source/Integrated Product Analysis Core/semantic_source/fact_sales.csv",
+      "data_source/scripts/build_integrated_core_legacy_sources.py"
+    ]
+  },
+  "history": {
+    "max_blob_mb": 8.51,
+    "max_blob_path": "data_source/Integrated Product Analysis Core/semantic_source/fact_sales.csv",
+    "blob_over_1mb": 4,
+    "blob_over_5mb": 1,
+    "blob_over_max": 1,
+    "largest_blobs": [
+      {
+        "sha": "4fedc7e684c0a8120904b8bd04a5a0df85eb2f71",
+        "path": "data_source/Integrated Product Analysis Core/semantic_source/fact_sales.csv",
+        "size_b": 8926900,
+        "size_mb": 8.51
+      },
+      {
+        "sha": "d360e6f4855e9e5a466a5a67ae66a8dfa2eda284",
+        "path": "powerbi-projects/20260227_Product_Analysis_POC/20260227_Product_Analysis.SemanticModel/definition/cultures/en-US.tmdl",
+        "size_b": 1705422,
+        "size_mb": 1.63
+      },
+      {
+        "sha": "98ee15d6f8f312859854310761265e465fcfad94",
+        "path": "20260227_Product_Analysis.SemanticModel/definition/cultures/en-US.tmdl",
+        "size_b": 1621229,
+        "size_mb": 1.55
+      },
+      {
+        "sha": "8a1d50c04278cfb6528865e1554f53c1f8230051",
+        "path": "data_source/Integrated Product Analysis Core/semantic_source/fact_promo.csv",
+        "size_b": 1159370,
+        "size_mb": 1.11
+      },
+      {
+        "sha": "e1e5706c2bfe93c25e01882b576259e8b1980529",
+        "path": "data_source/Integrated Product Analysis Core/semantic_source/dim_sales_product.csv",
+        "size_b": 155503,
+        "size_mb": 0.15
+      },
+      {
+        "sha": "a0cd41e535778b8ead9d1239e1bed0c2bcfec994",
+        "path": "20260227_Product_Analysis.Report/definition/bookmarks/5aa23e81c55041a60a51.bookmark.json",
+        "size_b": 145870,
+        "size_mb": 0.14
+      },
+      {
+        "sha": "f96c1683fc8588b7f98f6cc076aa88fd12b0a003",
+        "path": "20260227_Product_Analysis.Report/definition/bookmarks/a7add2c54cbd59546893.bookmark.json",
+        "size_b": 145870,
+        "size_mb": 0.14
+      },
+      {
+        "sha": "734dcf5d7c6152a88ea5c92d66b04975277ee153",
+        "path": "powerbi-projects/20260227_Product_Analysis_POC/20260227_Product_Analysis.Report/definition/bookmarks/a7add2c54cbd59546893.bookmark.json",
+        "size_b": 145712,
+        "size_mb": 0.14
+      },
+      {
+        "sha": "1c9e1fe78e5b1e6833626bcd6ba6363df9df0a2f",
+        "path": "powerbi-projects/20260227_Product_Analysis_POC/20260227_Product_Analysis.Report/definition/bookmarks/5aa23e81c55041a60a51.bookmark.json",
+        "size_b": 145712,
+        "size_mb": 0.14
+      },
+      {
+        "sha": "44d6b49af709b7544dbf30c83dcff34f0ba7b040",
+        "path": "modularity/pbi-modular-platform/testing/evidence/collaudo-7cb5dd4/test-3-upgrade-module/post-upgrade.git-diff.txt",
+        "size_b": 119256,
+        "size_mb": 0.11
+      }
+    ]
+  },
+  "growth": {
+    "hasBaseline": false,
+    "size_pack_growth_pct": null,
+    "git_size_growth_pct": null
+  },
+  "file_growth": {
+    "hasBaseline": false,
+    "baseline_commit": null,
+    "baseline_timestamp": null,
+    "new_entries_count": 0,
+    "grown_entries_count": 0,
+    "shrunk_entries_count": 0,
+    "unchanged_count": 0,
+    "changes": []
+  },
+  "policy": {
+    "status": "FAIL",
+    "fail_reasons": [
+      "Forbidden extensions detected in working tree: databricks-catalog-assessment/outputs/dev_iqvia_catalog_trusted_starschema_01_20260319_120323/columns.csv, databricks-catalog-assessment/outputs/dev_iqvia_catalog_trusted_starschema_01_20260319_120432/columns.csv, databricks-catalog-assessment/outputs/dev_iqvia_catalog_trusted_starschema_01_20260319_120323/constraints.csv, databricks-catalog-assessment/outputs/dev_iqvia_catalog_trusted_starschema_01_20260319_120432/constraints.csv, databricks-catalog-assessment/outputs/dev_iqvia_catalog_trusted_starschema_01_20260319_120323/tables.csv, databricks-catalog-assessment/outputs/dev_iqvia_catalog_trusted_starschema_01_20260319_120432/tables.csv, databricks-catalog-assessment/outputs/dev_iqvia_catalog_trusted_starschema_01_20260319_120323/table_stats.csv, databricks-catalog-assessment/outputs/dev_iqvia_catalog_trusted_starschema_01_20260319_120432/table_stats.csv, databricks-catalog-assessment/outputs/mgcp_dev_marketing_20260319_112109/tables.csv, databricks-catalog-assessment/outputs/mgcp_dev_marketing_20260319_112109/schemas.csv, databricks-catalog-assessment/outputs/dev_iqvia_catalog_trusted_starschema_01_20260319_120323/schemas.csv, databricks-catalog-assessment/outputs/dev_iqvia_catalog_trusted_starschema_01_20260319_120432/schemas.csv",
+      "Tracked files found in excluded paths: data_source/Integrated Product Analysis Core/integration_source_report.md, data_source/Integrated Product Analysis Core/semantic_source/bridge_portfolio_molecule.csv, data_source/Integrated Product Analysis Core/semantic_source/dim_channel.csv, data_source/Integrated Product Analysis Core/semantic_source/dim_country.csv, data_source/Integrated Product Analysis Core/semantic_source/dim_diagnosis.csv, data_source/Integrated Product Analysis Core/semantic_source/dim_feedback.csv, data_source/Integrated Product Analysis Core/semantic_source/dim_finance_product.csv, data_source/Integrated Product Analysis Core/semantic_source/dim_molecule.csv, data_source/Integrated Product Analysis Core/semantic_source/dim_month.csv, data_source/Integrated Product Analysis Core/semantic_source/dim_portfolio.csv, data_source/Integrated Product Analysis Core/semantic_source/dim_promo_product.csv, data_source/Integrated Product Analysis Core/semantic_source/dim_quarter.csv, data_source/Integrated Product Analysis Core/semantic_source/dim_sales_product.csv, data_source/Integrated Product Analysis Core/semantic_source/dim_sector.csv, data_source/Integrated Product Analysis Core/semantic_source/dim_specialty.csv, data_source/Integrated Product Analysis Core/semantic_source/fact_finance.csv, data_source/Integrated Product Analysis Core/semantic_source/fact_promo.csv, data_source/Integrated Product Analysis Core/semantic_source/fact_sales.csv, data_source/scripts/build_integrated_core_legacy_sources.py",
+      "Largest blob 8,51 MB exceeds threshold 5 MB."
+    ],
+    "warning_reasons": [
+      "Largest current file is 1,69 MB, above warning threshold 1 MB."
+    ]
+  }
+}

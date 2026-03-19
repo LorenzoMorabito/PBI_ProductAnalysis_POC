@@ -1,0 +1,41 @@
+table 'MOD Flex Flat Dimensions'
+	lineageTag: 2ee02b71-11c5-4354-9275-dc2b55684132
+
+	column 'Flat Dimension'
+		lineageTag: 03a014a3-4434-4048-8b38-c498d210b70a
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Flat Dimension Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Flat Dimension Fields'
+
+	column 'Flat Dimension Fields'
+		isHidden
+		lineageTag: a5e3ef79-106f-4c02-b054-8e134f044032
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Flat Dimension Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+	column 'Flat Dimension Order'
+		isHidden
+		formatString: 0
+		lineageTag: d73a690a-455f-4cea-acae-cd4123a1e8e3
+		summarizeBy: none
+		sourceColumn: [Value3]
+
+	partition 'MOD Flex Flat Dimensions' = calculated
+		mode: import
+		source =
+				{
+				("Country", NAMEOF(Country[Country]), 0),
+				("Corporation", NAMEOF(Product[Corporation]), 1),
+				("Channel", NAMEOF(Channel[Channel]), 2)
+				}
+

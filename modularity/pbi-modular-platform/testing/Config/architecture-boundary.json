@@ -17,7 +17,11 @@
     "T_DIM_CHANNELS",
     "Msr Sales",
     "Msr Promo",
-    "Msr Fin"
+    "Msr Fin",
+    "Msr Time",
+    "Sales",
+    "Promo",
+    "Finance"
   ],
   "relationshipRequirements": [
     {

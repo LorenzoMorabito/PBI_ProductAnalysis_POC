@@ -1,0 +1,34 @@
+relationship REL_BRIDGE_PRODUCT
+	crossFilteringBehavior: bothDirections
+	fromColumn: B_ProductMolecule.'Product Key'
+	toColumn: Product.'Product Key'
+
+relationship REL_BRIDGE_MOLECULE
+	crossFilteringBehavior: bothDirections
+	fromColumn: B_ProductMolecule.'Molecule Key'
+	toColumn: Molecule.'Molecule Key'
+
+relationship REL_PROMO_COUNTRY
+	fromColumn: F_Promo.'Country Key'
+	toColumn: Country.'Country Key'
+
+relationship REL_PROMO_QUARTER
+	fromColumn: F_Promo.'Quarter Key'
+	toColumn: Quarter.'Quarter Key'
+
+relationship REL_PROMO_PRODUCT
+	fromColumn: F_Promo.'Product Key'
+	toColumn: Product.'Product Key'
+
+relationship REL_PROMO_SPECIALTY
+	fromColumn: F_Promo.'Specialty Key'
+	toColumn: Specialty.'Specialty Key'
+
+relationship REL_PROMO_CHANNEL
+	fromColumn: F_Promo.'Channel Key'
+	toColumn: Channel.'Channel Key'
+
+relationship REL_PROMO_FEEDBACK
+	fromColumn: F_Promo.'Feedback Key'
+	toColumn: Feedback.'Feedback Key'
+

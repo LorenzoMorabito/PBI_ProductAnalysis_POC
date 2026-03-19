@@ -23,7 +23,7 @@ Platform tecnica condivisa per package Power BI modulari.
 - `scaffolding/`
   generator per nuovi moduli
 - `docs/`
-  note di lifecycle
+  note di lifecycle e design architetturali
 
 ## Stato attuale
 
@@ -35,6 +35,8 @@ Capabilita implementate:
 - `upgrade-module`
 - `diff-module`
 - `rollback-module`
+- `suggest-bindings`
+- `list-binding-profiles`
 - `set-data-source-path`
 - `list-rules`
 - `test-module`
@@ -52,6 +54,19 @@ Governance implementata:
 - hook post-install verso `repository-health`
 - gate `repository-health` basato su regressione rispetto al baseline pre-operazione
 - warning/fail su moduli pesanti tramite config dedicata
+
+Guided binding implementato:
+
+- `bindingContract` opzionale nel manifest per moduli cross-domain
+- discovery dei candidati da semantic model target
+- suggestioni automatiche per measure e column bindings
+- profili di binding salvati nel consumer sotto `module-config/.../mapping-profiles`
+- supporto CLI a `-Interactive`, `-AcceptSuggested`, `-BindingProfileId`, `-SaveBindingProfileAs`
+
+Design evolutivi documentati:
+
+- [docs/lifecycle.md](./docs/lifecycle.md)
+- [docs/interactive-binding-design.md](./docs/interactive-binding-design.md)
 
 ## Posizionamento nella repo
 

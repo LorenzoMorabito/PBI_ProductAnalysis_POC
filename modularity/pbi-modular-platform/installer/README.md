@@ -10,18 +10,21 @@
 - `upgrade-module`
 - `diff-module`
 - `rollback-module`
+- `suggest-bindings`
+- `list-binding-profiles`
 - `set-data-source-path`
 
 ## Workflow implementato
 
 1. Legge i cataloghi di dominio.
 2. Valida prerequisiti del modulo contro il consumer target.
-3. Risolve i mapping richiesti.
+3. Risolve i mapping richiesti o i binding profile guidati.
 4. Crea snapshot pre-write dei file impattati.
-5. Copia gli asset semantici nel semantic model consumer.
-6. Copia gli asset report nella pagina consumer.
-7. Persiste `installed-modules.json` per i consumer gestiti.
-8. Registra log strutturato, diff e metriche di governance.
+5. Renderizza gli asset del modulo con i binding risolti.
+6. Copia gli asset semantici nel semantic model consumer.
+7. Copia gli asset report nella pagina consumer.
+8. Persiste `installed-modules.json` e gli eventuali binding profile per i consumer gestiti.
+9. Registra log strutturato, diff e metriche di governance.
 
 ## Architettura
 
@@ -58,6 +61,23 @@
 
 ```powershell
 ./modularity/pbi-modular-platform/installer/Invoke-PbiModuleInstaller.ps1 `
+  -Command suggest-bindings `
+  -ProjectPath ./powerbi-projects/20260318_Cana_Finance_OAS_Parity/20260318_Cana_Finance_OAS_Parity.pbip `
+  -ModuleId finance_compare_mvp `
+  -Domain finance `
+  -AcceptSuggested `
+  -SaveBindingProfileAs cana-finance-default
+```
+
+```powershell
+./modularity/pbi-modular-platform/installer/Invoke-PbiModuleInstaller.ps1 `
+  -Command list-binding-profiles `
+  -ProjectPath ./powerbi-projects/20260318_Cana_Finance_OAS_Parity/20260318_Cana_Finance_OAS_Parity.pbip `
+  -ModuleId finance_compare_mvp
+```
+
+```powershell
+./modularity/pbi-modular-platform/installer/Invoke-PbiModuleInstaller.ps1 `
   -Command upgrade-module `
   -ProjectPath ./powerbi-projects/20260317_UAT_001.pbip `
   -ModuleId finance_compare_mvp `
@@ -90,6 +110,7 @@
 
 - i metadata installativi sono salvati sotto `powerbi-projects/module-config/<pbip-name>/installed-modules.json`
 - snapshot, diff e log sono salvati sotto `powerbi-projects/module-config/<pbip-name>/`
+- i binding profile sono salvati sotto `powerbi-projects/module-config/<pbip-name>/mapping-profiles/<moduleId>/`
 - la governance usa `config/modularity-governance.json` e puo integrare `repository-health`
 - il gate `repository-health` valuta regressioni rispetto al baseline pre-operazione, non debito storico gia presente nel repo
 - i comandi funzionano sia con `pwsh` sia con `powershell`

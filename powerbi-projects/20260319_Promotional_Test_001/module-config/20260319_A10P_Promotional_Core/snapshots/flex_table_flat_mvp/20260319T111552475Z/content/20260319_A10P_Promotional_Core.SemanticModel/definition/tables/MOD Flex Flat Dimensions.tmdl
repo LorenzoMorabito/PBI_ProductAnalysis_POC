@@ -1,0 +1,36 @@
+table 'MOD Flex Flat Dimensions'
+
+    column 'Flat Dimension'
+        summarizeBy: none
+        sourceColumn: [Value1]
+        sortByColumn: 'Flat Dimension Order'
+
+        relatedColumnDetails
+            groupByColumn: 'Flat Dimension Fields'
+
+    column 'Flat Dimension Fields'
+        isHidden
+        summarizeBy: none
+        sourceColumn: [Value2]
+        sortByColumn: 'Flat Dimension Order'
+
+        extendedProperty ParameterMetadata =
+                {
+                  "version": 3,
+                  "kind": 2
+                }
+
+    column 'Flat Dimension Order'
+        isHidden
+        formatString: 0
+        summarizeBy: none
+        sourceColumn: [Value3]
+
+    partition 'MOD Flex Flat Dimensions' = calculated
+        mode: import
+        source =
+                {
+                ("Country", NAMEOF(Country[Country]), 0),
+                ("Corporation", NAMEOF(Product[Corporation]), 1),
+                ("Channel", NAMEOF(Channel[Channel]), 2)
+                }

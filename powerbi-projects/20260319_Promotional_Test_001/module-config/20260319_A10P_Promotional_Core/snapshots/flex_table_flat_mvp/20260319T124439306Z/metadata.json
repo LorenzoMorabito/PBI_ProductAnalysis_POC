@@ -1,0 +1,86 @@
+{
+  "snapshotId": "20260319T124439306Z",
+  "moduleId": "flex_table_flat_mvp",
+  "projectId": "20260319_A10P_Promotional_Core",
+  "action": "install",
+  "createdAt": "2026-03-19T12:44:39Z",
+  "fromVersion": "0.4.0",
+  "toVersion": "0.4.0",
+  "cleanupRoots": [
+    "20260319_A10P_Promotional_Core.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d"
+  ],
+  "files": [
+    {
+      "relativePath": "20260319_A10P_Promotional_Core.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/page.json",
+      "existedBefore": false,
+      "sizeBytes": 0,
+      "backupRelativePath": "20260319_A10P_Promotional_Core.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/page.json"
+    },
+    {
+      "relativePath": "20260319_A10P_Promotional_Core.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/visuals/flex_flat_columns_slicer/visual.json",
+      "existedBefore": false,
+      "sizeBytes": 0,
+      "backupRelativePath": "20260319_A10P_Promotional_Core.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/visuals/flex_flat_columns_slicer/visual.json"
+    },
+    {
+      "relativePath": "20260319_A10P_Promotional_Core.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/visuals/flex_flat_measures_slicer/visual.json",
+      "existedBefore": false,
+      "sizeBytes": 0,
+      "backupRelativePath": "20260319_A10P_Promotional_Core.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/visuals/flex_flat_measures_slicer/visual.json"
+    },
+    {
+      "relativePath": "20260319_A10P_Promotional_Core.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/visuals/flex_flat_subtitle/visual.json",
+      "existedBefore": false,
+      "sizeBytes": 0,
+      "backupRelativePath": "20260319_A10P_Promotional_Core.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/visuals/flex_flat_subtitle/visual.json"
+    },
+    {
+      "relativePath": "20260319_A10P_Promotional_Core.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/visuals/flex_flat_table/visual.json",
+      "existedBefore": false,
+      "sizeBytes": 0,
+      "backupRelativePath": "20260319_A10P_Promotional_Core.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/visuals/flex_flat_table/visual.json"
+    },
+    {
+      "relativePath": "20260319_A10P_Promotional_Core.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/visuals/flex_flat_title/visual.json",
+      "existedBefore": false,
+      "sizeBytes": 0,
+      "backupRelativePath": "20260319_A10P_Promotional_Core.Report/definition/pages/9c7a5b4d3e2f1a0b6c8d/visuals/flex_flat_title/visual.json"
+    },
+    {
+      "relativePath": "20260319_A10P_Promotional_Core.Report/definition/pages/pages.json",
+      "existedBefore": true,
+      "sizeBytes": 224,
+      "backupRelativePath": "20260319_A10P_Promotional_Core.Report/definition/pages/pages.json"
+    },
+    {
+      "relativePath": "20260319_A10P_Promotional_Core.SemanticModel/definition/model.tmdl",
+      "existedBefore": true,
+      "sizeBytes": 844,
+      "backupRelativePath": "20260319_A10P_Promotional_Core.SemanticModel/definition/model.tmdl"
+    },
+    {
+      "relativePath": "20260319_A10P_Promotional_Core.SemanticModel/definition/tables/MOD Flex Flat Dimensions.tmdl",
+      "existedBefore": true,
+      "sizeBytes": 1011,
+      "backupRelativePath": "20260319_A10P_Promotional_Core.SemanticModel/definition/tables/MOD Flex Flat Dimensions.tmdl"
+    },
+    {
+      "relativePath": "20260319_A10P_Promotional_Core.SemanticModel/definition/tables/MOD Flex Flat Inputs.tmdl",
+      "existedBefore": true,
+      "sizeBytes": 589,
+      "backupRelativePath": "20260319_A10P_Promotional_Core.SemanticModel/definition/tables/MOD Flex Flat Inputs.tmdl"
+    },
+    {
+      "relativePath": "20260319_A10P_Promotional_Core.SemanticModel/definition/tables/MOD Flex Flat Measures.tmdl",
+      "existedBefore": true,
+      "sizeBytes": 1038,
+      "backupRelativePath": "20260319_A10P_Promotional_Core.SemanticModel/definition/tables/MOD Flex Flat Measures.tmdl"
+    },
+    {
+      "relativePath": "module-config/20260319_A10P_Promotional_Core/installed-modules.json",
+      "existedBefore": true,
+      "sizeBytes": 5100,
+      "backupRelativePath": "module-config/20260319_A10P_Promotional_Core/installed-modules.json"
+    }
+  ]
+}

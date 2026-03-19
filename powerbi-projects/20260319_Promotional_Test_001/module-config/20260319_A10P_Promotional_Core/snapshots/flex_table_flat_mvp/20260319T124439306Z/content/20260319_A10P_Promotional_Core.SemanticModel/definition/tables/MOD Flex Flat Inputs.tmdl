@@ -1,0 +1,21 @@
+table 'MOD Flex Flat Inputs'
+	lineageTag: 13d2e323-ff53-44a3-ad49-b270d96d4974
+
+	measure 'Flat Input Metric 1' = [Contact Number]
+		lineageTag: 1e7dfdc0-f814-424b-87fd-94b722f4e04a
+
+	measure 'Flat Input Metric 2' = [Contact Number with intention to increase Rx]
+		lineageTag: 68f963f9-d77c-45aa-9703-05833ff7f715
+
+	column Column
+		isHidden
+		formatString: 0
+		lineageTag: b2a86b75-ee25-484d-b2cf-4fc757f9ee7f
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+	partition 'MOD Flex Flat Inputs' = calculated
+		mode: import
+		source = Row("Column", BLANK())
+

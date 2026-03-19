@@ -29,6 +29,8 @@ Capabilita oggi operative della platform:
 - `upgrade-module`
 - `diff-module`
 - `rollback-module`
+- `suggest-bindings`
+- `list-binding-profiles`
 - `set-data-source-path`
 - `test-module`
 - `test-project`

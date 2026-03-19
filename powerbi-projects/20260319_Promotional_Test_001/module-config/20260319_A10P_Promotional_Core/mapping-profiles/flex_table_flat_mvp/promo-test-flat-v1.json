@@ -1,0 +1,62 @@
+{
+  "schemaVersion": "1.0.0",
+  "profileId": "promo-test-flat-v1",
+  "moduleId": "flex_table_flat_mvp",
+  "domain": "marketing",
+  "moduleVersion": "0.4.0",
+  "bindingMode": "interactive-ui",
+  "savedAt": "2026-03-19T11:04:01Z",
+  "description": "",
+  "resolvedMappings": {
+    "coreMeasures": {
+      "MOD_BIND_MEASURE_1": "Contact Number",
+      "MOD_BIND_MEASURE_2": "Contact Number with intention to increase Rx"
+    },
+    "coreColumns": {
+      "MOD_BIND_DIMENSION_1[Value]": "Country[Country]",
+      "MOD_BIND_DIMENSION_2[Value]": "Product[Corporation]",
+      "MOD_BIND_DIMENSION_3[Value]": "Channel[Channel]"
+    }
+  },
+  "bindingSelections": {
+    "dimensions": [
+      {
+        "ordinal": 1,
+        "bindingKey": "MOD_BIND_DIMENSION_1[Value]",
+        "label": "Dimension 1",
+        "value": "Country[Country]",
+        "kind": "column"
+      },
+      {
+        "ordinal": 2,
+        "bindingKey": "MOD_BIND_DIMENSION_2[Value]",
+        "label": "Dimension 2",
+        "value": "Product[Corporation]",
+        "kind": "column"
+      },
+      {
+        "ordinal": 3,
+        "bindingKey": "MOD_BIND_DIMENSION_3[Value]",
+        "label": "Dimension 3",
+        "value": "Channel[Channel]",
+        "kind": "column"
+      }
+    ],
+    "measures": [
+      {
+        "ordinal": 1,
+        "bindingKey": "MOD_BIND_MEASURE_1",
+        "label": "Measure 1",
+        "value": "Contact Number",
+        "kind": "measure"
+      },
+      {
+        "ordinal": 2,
+        "bindingKey": "MOD_BIND_MEASURE_2",
+        "label": "Measure 2",
+        "value": "Contact Number with intention to increase Rx",
+        "kind": "measure"
+      }
+    ]
+  }
+}

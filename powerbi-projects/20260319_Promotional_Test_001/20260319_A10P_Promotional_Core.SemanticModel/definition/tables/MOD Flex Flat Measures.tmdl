@@ -1,0 +1,35 @@
+table 'MOD Flex Flat Measures'
+
+    column 'Flat Measure'
+        summarizeBy: none
+        sourceColumn: [Value1]
+        sortByColumn: 'Flat Measure Order'
+
+        relatedColumnDetails
+            groupByColumn: 'Flat Measure Fields'
+
+    column 'Flat Measure Fields'
+        isHidden
+        summarizeBy: none
+        sourceColumn: [Value2]
+        sortByColumn: 'Flat Measure Order'
+
+        extendedProperty ParameterMetadata =
+                {
+                  "version": 3,
+                  "kind": 2
+                }
+
+    column 'Flat Measure Order'
+        isHidden
+        formatString: 0
+        summarizeBy: none
+        sourceColumn: [Value3]
+
+    partition 'MOD Flex Flat Measures' = calculated
+        mode: import
+        source =
+                {
+                ("Contact Number", NAMEOF('MOD Flex Flat Inputs'[Flat Input Metric 1]), 0),
+                ("Contact Number with intention to increase Rx", NAMEOF('MOD Flex Flat Inputs'[Flat Input Metric 2]), 1)
+                }

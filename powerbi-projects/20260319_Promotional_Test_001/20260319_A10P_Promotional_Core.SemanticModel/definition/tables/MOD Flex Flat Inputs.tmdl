@@ -1,0 +1,16 @@
+table 'MOD Flex Flat Inputs'
+
+	measure 'Flat Input Metric 1' = [Contact Number]
+
+	measure 'Flat Input Metric 2' = [Contact Number with intention to increase Rx]
+
+	column Column
+		isHidden
+		formatString: 0
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+	partition 'MOD Flex Flat Inputs' = calculated
+		mode: import
+		source = Row("Column", BLANK())

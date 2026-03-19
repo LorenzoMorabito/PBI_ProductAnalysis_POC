@@ -1,0 +1,40 @@
+table 'MOD Flex Flat Measures'
+	lineageTag: 43d699c6-eb24-4221-b7b3-229d48a5a6a2
+
+	column 'Flat Measure'
+		lineageTag: 90ad91e5-f605-4302-86f6-154e8d098ad5
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Flat Measure Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Flat Measure Fields'
+
+	column 'Flat Measure Fields'
+		isHidden
+		lineageTag: 57eb2fe5-fd2a-4772-9612-3973cb02c803
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Flat Measure Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+	column 'Flat Measure Order'
+		isHidden
+		formatString: 0
+		lineageTag: 03724e34-f03e-44fb-81bf-be05ea3bbf81
+		summarizeBy: none
+		sourceColumn: [Value3]
+
+	partition 'MOD Flex Flat Measures' = calculated
+		mode: import
+		source =
+				{
+				("Contact Number", NAMEOF('MOD Flex Flat Inputs'[Flat Input Metric 1]), 0),
+				("Contact Number with intention to increase Rx", NAMEOF('MOD Flex Flat Inputs'[Flat Input Metric 2]), 1)
+				}
+
