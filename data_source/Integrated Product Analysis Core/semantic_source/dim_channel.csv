@@ -1,0 +1,22 @@
+channel_key,cam_channel_name,contact_type_name
+1,CLINICAL TRIALS,No Contact Type
+2,GP/FP DETAILING,Face to face
+3,GP/FP DETAILING,Internet: A live representative with Internet based presentation speaking by phone or through computer
+4,GP/FP DETAILING,Internet: Self-guided or automated presentation that you could access and view anytime
+5,GP/FP DETAILING,Via telephone
+6,MAILING,E-Mailing
+7,MAILING,Messaging / Texting
+8,MAILING,Postal
+9,MEETINGS,E-Meeting (Automated)
+10,MEETINGS,E-Meeting (Live)
+11,MEETINGS,Face to face
+12,MEETINGS,Via telephone
+13,PHARMA DETAILING,Face to face
+14,PHARMA DETAILING,Internet: A live representative with Internet based presentation speaking by phone or through computer
+15,PHARMA DETAILING,Internet: Self-guided or automated presentation that you could access and view anytime
+16,PHARMA DETAILING,Via telephone
+17,SAMPLES,No Contact Type
+18,SP DETAILING,Face to face
+19,SP DETAILING,Internet: A live representative with Internet based presentation speaking by phone or through computer
+20,SP DETAILING,Internet: Self-guided or automated presentation that you could access and view anytime
+21,SP DETAILING,Via telephone

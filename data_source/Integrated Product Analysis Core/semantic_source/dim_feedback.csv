@@ -1,0 +1,395 @@
+feedback_key,contact_quality,current_prescribing,future_prescribing,nps_scale_raw,nps_scale_numeric,nps_all_channels_score,nps_category
+1,NR,N.R.,N.R.,0,0.0,-100.0,Detractor
+2,NR,N.R.,N.R.,1,1.0,-100.0,Detractor
+3,NR,N.R.,N.R.,10,10.0,100.0,Promoter
+4,NR,N.R.,N.R.,2,2.0,-100.0,Detractor
+5,NR,N.R.,N.R.,3,3.0,-100.0,Detractor
+6,NR,N.R.,N.R.,4,4.0,-100.0,Detractor
+7,NR,N.R.,N.R.,5,5.0,-100.0,Detractor
+8,NR,N.R.,N.R.,6,6.0,-100.0,Detractor
+9,NR,N.R.,N.R.,7,7.0,0.0,Passive
+10,NR,N.R.,N.R.,8,8.0,0.0,Passive
+11,NR,N.R.,N.R.,9,9.0,100.0,Promoter
+12,No Contact Quality,No Current Prescribing,No Future Prescribing,8,8.0,0.0,Passive
+13,No Contact Quality,No Current Prescribing,No Future Prescribing,9,9.0,100.0,Promoter
+14,No Contact Quality,No Current Prescribing,No Future Prescribing,No NPS Scale,,,No NPS
+15,No Contact Quality,frequently,increase (or will begin to prescribe),No NPS Scale,,,No NPS
+16,No Contact Quality,frequently,remain unchanged,No NPS Scale,,,No NPS
+17,No Contact Quality,occasionally,increase (or will begin to prescribe),No NPS Scale,,,No NPS
+18,not at all useful nor of value to your practice,N.R.,N.R.,0,0.0,-100.0,Detractor
+19,not at all useful nor of value to your practice,N.R.,N.R.,5,5.0,-100.0,Detractor
+20,not at all useful nor of value to your practice,N.R.,N.R.,7,7.0,0.0,Passive
+21,not at all useful nor of value to your practice,No Current Prescribing,No Future Prescribing,3,3.0,-100.0,Detractor
+22,not at all useful nor of value to your practice,frequently,decrease,0,0.0,-100.0,Detractor
+23,not at all useful nor of value to your practice,frequently,decrease,1,1.0,-100.0,Detractor
+24,not at all useful nor of value to your practice,frequently,decrease,10,10.0,100.0,Promoter
+25,not at all useful nor of value to your practice,frequently,decrease,4,4.0,-100.0,Detractor
+26,not at all useful nor of value to your practice,frequently,decrease,5,5.0,-100.0,Detractor
+27,not at all useful nor of value to your practice,frequently,decrease,6,6.0,-100.0,Detractor
+28,not at all useful nor of value to your practice,frequently,decrease,8,8.0,0.0,Passive
+29,not at all useful nor of value to your practice,frequently,increase (or will begin to prescribe),0,0.0,-100.0,Detractor
+30,not at all useful nor of value to your practice,frequently,increase (or will begin to prescribe),1,1.0,-100.0,Detractor
+31,not at all useful nor of value to your practice,frequently,increase (or will begin to prescribe),10,10.0,100.0,Promoter
+32,not at all useful nor of value to your practice,frequently,increase (or will begin to prescribe),2,2.0,-100.0,Detractor
+33,not at all useful nor of value to your practice,frequently,increase (or will begin to prescribe),3,3.0,-100.0,Detractor
+34,not at all useful nor of value to your practice,frequently,increase (or will begin to prescribe),4,4.0,-100.0,Detractor
+35,not at all useful nor of value to your practice,frequently,increase (or will begin to prescribe),5,5.0,-100.0,Detractor
+36,not at all useful nor of value to your practice,frequently,increase (or will begin to prescribe),6,6.0,-100.0,Detractor
+37,not at all useful nor of value to your practice,frequently,increase (or will begin to prescribe),7,7.0,0.0,Passive
+38,not at all useful nor of value to your practice,frequently,increase (or will begin to prescribe),8,8.0,0.0,Passive
+39,not at all useful nor of value to your practice,frequently,increase (or will begin to prescribe),9,9.0,100.0,Promoter
+40,not at all useful nor of value to your practice,frequently,remain unchanged,0,0.0,-100.0,Detractor
+41,not at all useful nor of value to your practice,frequently,remain unchanged,1,1.0,-100.0,Detractor
+42,not at all useful nor of value to your practice,frequently,remain unchanged,10,10.0,100.0,Promoter
+43,not at all useful nor of value to your practice,frequently,remain unchanged,2,2.0,-100.0,Detractor
+44,not at all useful nor of value to your practice,frequently,remain unchanged,3,3.0,-100.0,Detractor
+45,not at all useful nor of value to your practice,frequently,remain unchanged,4,4.0,-100.0,Detractor
+46,not at all useful nor of value to your practice,frequently,remain unchanged,5,5.0,-100.0,Detractor
+47,not at all useful nor of value to your practice,frequently,remain unchanged,6,6.0,-100.0,Detractor
+48,not at all useful nor of value to your practice,frequently,remain unchanged,7,7.0,0.0,Passive
+49,not at all useful nor of value to your practice,frequently,remain unchanged,8,8.0,0.0,Passive
+50,not at all useful nor of value to your practice,frequently,remain unchanged,9,9.0,100.0,Promoter
+51,not at all useful nor of value to your practice,lapsed user,increase (or will begin to prescribe),3,3.0,-100.0,Detractor
+52,not at all useful nor of value to your practice,lapsed user,increase (or will begin to prescribe),5,5.0,-100.0,Detractor
+53,not at all useful nor of value to your practice,lapsed user,increase (or will begin to prescribe),6,6.0,-100.0,Detractor
+54,not at all useful nor of value to your practice,lapsed user,increase (or will begin to prescribe),7,7.0,0.0,Passive
+55,not at all useful nor of value to your practice,lapsed user,increase (or will begin to prescribe),8,8.0,0.0,Passive
+56,not at all useful nor of value to your practice,lapsed user,increase (or will begin to prescribe),9,9.0,100.0,Promoter
+57,not at all useful nor of value to your practice,lapsed user,remain unchanged,0,0.0,-100.0,Detractor
+58,not at all useful nor of value to your practice,lapsed user,remain unchanged,1,1.0,-100.0,Detractor
+59,not at all useful nor of value to your practice,lapsed user,remain unchanged,10,10.0,100.0,Promoter
+60,not at all useful nor of value to your practice,lapsed user,remain unchanged,2,2.0,-100.0,Detractor
+61,not at all useful nor of value to your practice,lapsed user,remain unchanged,3,3.0,-100.0,Detractor
+62,not at all useful nor of value to your practice,lapsed user,remain unchanged,4,4.0,-100.0,Detractor
+63,not at all useful nor of value to your practice,lapsed user,remain unchanged,5,5.0,-100.0,Detractor
+64,not at all useful nor of value to your practice,lapsed user,remain unchanged,6,6.0,-100.0,Detractor
+65,not at all useful nor of value to your practice,lapsed user,remain unchanged,7,7.0,0.0,Passive
+66,not at all useful nor of value to your practice,lapsed user,remain unchanged,8,8.0,0.0,Passive
+67,not at all useful nor of value to your practice,lapsed user,remain unchanged,9,9.0,100.0,Promoter
+68,not at all useful nor of value to your practice,never,increase (or will begin to prescribe),4,4.0,-100.0,Detractor
+69,not at all useful nor of value to your practice,never,increase (or will begin to prescribe),5,5.0,-100.0,Detractor
+70,not at all useful nor of value to your practice,never,increase (or will begin to prescribe),6,6.0,-100.0,Detractor
+71,not at all useful nor of value to your practice,never,increase (or will begin to prescribe),7,7.0,0.0,Passive
+72,not at all useful nor of value to your practice,never,increase (or will begin to prescribe),8,8.0,0.0,Passive
+73,not at all useful nor of value to your practice,never,increase (or will begin to prescribe),9,9.0,100.0,Promoter
+74,not at all useful nor of value to your practice,never,remain unchanged,0,0.0,-100.0,Detractor
+75,not at all useful nor of value to your practice,never,remain unchanged,1,1.0,-100.0,Detractor
+76,not at all useful nor of value to your practice,never,remain unchanged,10,10.0,100.0,Promoter
+77,not at all useful nor of value to your practice,never,remain unchanged,2,2.0,-100.0,Detractor
+78,not at all useful nor of value to your practice,never,remain unchanged,3,3.0,-100.0,Detractor
+79,not at all useful nor of value to your practice,never,remain unchanged,4,4.0,-100.0,Detractor
+80,not at all useful nor of value to your practice,never,remain unchanged,5,5.0,-100.0,Detractor
+81,not at all useful nor of value to your practice,never,remain unchanged,6,6.0,-100.0,Detractor
+82,not at all useful nor of value to your practice,never,remain unchanged,7,7.0,0.0,Passive
+83,not at all useful nor of value to your practice,never,remain unchanged,8,8.0,0.0,Passive
+84,not at all useful nor of value to your practice,never,remain unchanged,9,9.0,100.0,Promoter
+85,not at all useful nor of value to your practice,new to me thus never prescribed,increase (or will begin to prescribe),5,5.0,-100.0,Detractor
+86,not at all useful nor of value to your practice,new to me thus never prescribed,increase (or will begin to prescribe),6,6.0,-100.0,Detractor
+87,not at all useful nor of value to your practice,new to me thus never prescribed,increase (or will begin to prescribe),7,7.0,0.0,Passive
+88,not at all useful nor of value to your practice,new to me thus never prescribed,increase (or will begin to prescribe),8,8.0,0.0,Passive
+89,not at all useful nor of value to your practice,new to me thus never prescribed,increase (or will begin to prescribe),9,9.0,100.0,Promoter
+90,not at all useful nor of value to your practice,new to me thus never prescribed,remain unchanged,0,0.0,-100.0,Detractor
+91,not at all useful nor of value to your practice,new to me thus never prescribed,remain unchanged,1,1.0,-100.0,Detractor
+92,not at all useful nor of value to your practice,new to me thus never prescribed,remain unchanged,2,2.0,-100.0,Detractor
+93,not at all useful nor of value to your practice,new to me thus never prescribed,remain unchanged,3,3.0,-100.0,Detractor
+94,not at all useful nor of value to your practice,new to me thus never prescribed,remain unchanged,4,4.0,-100.0,Detractor
+95,not at all useful nor of value to your practice,new to me thus never prescribed,remain unchanged,5,5.0,-100.0,Detractor
+96,not at all useful nor of value to your practice,new to me thus never prescribed,remain unchanged,6,6.0,-100.0,Detractor
+97,not at all useful nor of value to your practice,new to me thus never prescribed,remain unchanged,7,7.0,0.0,Passive
+98,not at all useful nor of value to your practice,new to me thus never prescribed,remain unchanged,8,8.0,0.0,Passive
+99,not at all useful nor of value to your practice,new to me thus never prescribed,remain unchanged,9,9.0,100.0,Promoter
+100,not at all useful nor of value to your practice,occasionally,decrease,0,0.0,-100.0,Detractor
+101,not at all useful nor of value to your practice,occasionally,decrease,1,1.0,-100.0,Detractor
+102,not at all useful nor of value to your practice,occasionally,decrease,2,2.0,-100.0,Detractor
+103,not at all useful nor of value to your practice,occasionally,decrease,3,3.0,-100.0,Detractor
+104,not at all useful nor of value to your practice,occasionally,decrease,4,4.0,-100.0,Detractor
+105,not at all useful nor of value to your practice,occasionally,decrease,5,5.0,-100.0,Detractor
+106,not at all useful nor of value to your practice,occasionally,decrease,7,7.0,0.0,Passive
+107,not at all useful nor of value to your practice,occasionally,decrease,8,8.0,0.0,Passive
+108,not at all useful nor of value to your practice,occasionally,increase (or will begin to prescribe),0,0.0,-100.0,Detractor
+109,not at all useful nor of value to your practice,occasionally,increase (or will begin to prescribe),1,1.0,-100.0,Detractor
+110,not at all useful nor of value to your practice,occasionally,increase (or will begin to prescribe),10,10.0,100.0,Promoter
+111,not at all useful nor of value to your practice,occasionally,increase (or will begin to prescribe),2,2.0,-100.0,Detractor
+112,not at all useful nor of value to your practice,occasionally,increase (or will begin to prescribe),3,3.0,-100.0,Detractor
+113,not at all useful nor of value to your practice,occasionally,increase (or will begin to prescribe),4,4.0,-100.0,Detractor
+114,not at all useful nor of value to your practice,occasionally,increase (or will begin to prescribe),5,5.0,-100.0,Detractor
+115,not at all useful nor of value to your practice,occasionally,increase (or will begin to prescribe),6,6.0,-100.0,Detractor
+116,not at all useful nor of value to your practice,occasionally,increase (or will begin to prescribe),7,7.0,0.0,Passive
+117,not at all useful nor of value to your practice,occasionally,increase (or will begin to prescribe),8,8.0,0.0,Passive
+118,not at all useful nor of value to your practice,occasionally,increase (or will begin to prescribe),9,9.0,100.0,Promoter
+119,not at all useful nor of value to your practice,occasionally,remain unchanged,0,0.0,-100.0,Detractor
+120,not at all useful nor of value to your practice,occasionally,remain unchanged,1,1.0,-100.0,Detractor
+121,not at all useful nor of value to your practice,occasionally,remain unchanged,10,10.0,100.0,Promoter
+122,not at all useful nor of value to your practice,occasionally,remain unchanged,2,2.0,-100.0,Detractor
+123,not at all useful nor of value to your practice,occasionally,remain unchanged,3,3.0,-100.0,Detractor
+124,not at all useful nor of value to your practice,occasionally,remain unchanged,4,4.0,-100.0,Detractor
+125,not at all useful nor of value to your practice,occasionally,remain unchanged,5,5.0,-100.0,Detractor
+126,not at all useful nor of value to your practice,occasionally,remain unchanged,6,6.0,-100.0,Detractor
+127,not at all useful nor of value to your practice,occasionally,remain unchanged,7,7.0,0.0,Passive
+128,not at all useful nor of value to your practice,occasionally,remain unchanged,8,8.0,0.0,Passive
+129,not at all useful nor of value to your practice,occasionally,remain unchanged,9,9.0,100.0,Promoter
+130,somewhat useful and of value to your practice,N.R.,N.R.,0,0.0,-100.0,Detractor
+131,somewhat useful and of value to your practice,N.R.,N.R.,1,1.0,-100.0,Detractor
+132,somewhat useful and of value to your practice,N.R.,N.R.,10,10.0,100.0,Promoter
+133,somewhat useful and of value to your practice,N.R.,N.R.,5,5.0,-100.0,Detractor
+134,somewhat useful and of value to your practice,N.R.,N.R.,6,6.0,-100.0,Detractor
+135,somewhat useful and of value to your practice,N.R.,N.R.,7,7.0,0.0,Passive
+136,somewhat useful and of value to your practice,N.R.,N.R.,8,8.0,0.0,Passive
+137,somewhat useful and of value to your practice,N.R.,N.R.,9,9.0,100.0,Promoter
+138,somewhat useful and of value to your practice,No Current Prescribing,No Future Prescribing,10,10.0,100.0,Promoter
+139,somewhat useful and of value to your practice,No Current Prescribing,No Future Prescribing,6,6.0,-100.0,Detractor
+140,somewhat useful and of value to your practice,No Current Prescribing,No Future Prescribing,7,7.0,0.0,Passive
+141,somewhat useful and of value to your practice,No Current Prescribing,No Future Prescribing,8,8.0,0.0,Passive
+142,somewhat useful and of value to your practice,No Current Prescribing,No Future Prescribing,9,9.0,100.0,Promoter
+143,somewhat useful and of value to your practice,frequently,decrease,0,0.0,-100.0,Detractor
+144,somewhat useful and of value to your practice,frequently,decrease,1,1.0,-100.0,Detractor
+145,somewhat useful and of value to your practice,frequently,decrease,10,10.0,100.0,Promoter
+146,somewhat useful and of value to your practice,frequently,decrease,2,2.0,-100.0,Detractor
+147,somewhat useful and of value to your practice,frequently,decrease,3,3.0,-100.0,Detractor
+148,somewhat useful and of value to your practice,frequently,decrease,4,4.0,-100.0,Detractor
+149,somewhat useful and of value to your practice,frequently,decrease,5,5.0,-100.0,Detractor
+150,somewhat useful and of value to your practice,frequently,decrease,6,6.0,-100.0,Detractor
+151,somewhat useful and of value to your practice,frequently,decrease,7,7.0,0.0,Passive
+152,somewhat useful and of value to your practice,frequently,decrease,8,8.0,0.0,Passive
+153,somewhat useful and of value to your practice,frequently,decrease,9,9.0,100.0,Promoter
+154,somewhat useful and of value to your practice,frequently,increase (or will begin to prescribe),1,1.0,-100.0,Detractor
+155,somewhat useful and of value to your practice,frequently,increase (or will begin to prescribe),10,10.0,100.0,Promoter
+156,somewhat useful and of value to your practice,frequently,increase (or will begin to prescribe),2,2.0,-100.0,Detractor
+157,somewhat useful and of value to your practice,frequently,increase (or will begin to prescribe),3,3.0,-100.0,Detractor
+158,somewhat useful and of value to your practice,frequently,increase (or will begin to prescribe),4,4.0,-100.0,Detractor
+159,somewhat useful and of value to your practice,frequently,increase (or will begin to prescribe),5,5.0,-100.0,Detractor
+160,somewhat useful and of value to your practice,frequently,increase (or will begin to prescribe),6,6.0,-100.0,Detractor
+161,somewhat useful and of value to your practice,frequently,increase (or will begin to prescribe),7,7.0,0.0,Passive
+162,somewhat useful and of value to your practice,frequently,increase (or will begin to prescribe),8,8.0,0.0,Passive
+163,somewhat useful and of value to your practice,frequently,increase (or will begin to prescribe),9,9.0,100.0,Promoter
+164,somewhat useful and of value to your practice,frequently,remain unchanged,0,0.0,-100.0,Detractor
+165,somewhat useful and of value to your practice,frequently,remain unchanged,1,1.0,-100.0,Detractor
+166,somewhat useful and of value to your practice,frequently,remain unchanged,10,10.0,100.0,Promoter
+167,somewhat useful and of value to your practice,frequently,remain unchanged,2,2.0,-100.0,Detractor
+168,somewhat useful and of value to your practice,frequently,remain unchanged,3,3.0,-100.0,Detractor
+169,somewhat useful and of value to your practice,frequently,remain unchanged,4,4.0,-100.0,Detractor
+170,somewhat useful and of value to your practice,frequently,remain unchanged,5,5.0,-100.0,Detractor
+171,somewhat useful and of value to your practice,frequently,remain unchanged,6,6.0,-100.0,Detractor
+172,somewhat useful and of value to your practice,frequently,remain unchanged,7,7.0,0.0,Passive
+173,somewhat useful and of value to your practice,frequently,remain unchanged,8,8.0,0.0,Passive
+174,somewhat useful and of value to your practice,frequently,remain unchanged,9,9.0,100.0,Promoter
+175,somewhat useful and of value to your practice,lapsed user,increase (or will begin to prescribe),10,10.0,100.0,Promoter
+176,somewhat useful and of value to your practice,lapsed user,increase (or will begin to prescribe),3,3.0,-100.0,Detractor
+177,somewhat useful and of value to your practice,lapsed user,increase (or will begin to prescribe),4,4.0,-100.0,Detractor
+178,somewhat useful and of value to your practice,lapsed user,increase (or will begin to prescribe),5,5.0,-100.0,Detractor
+179,somewhat useful and of value to your practice,lapsed user,increase (or will begin to prescribe),6,6.0,-100.0,Detractor
+180,somewhat useful and of value to your practice,lapsed user,increase (or will begin to prescribe),7,7.0,0.0,Passive
+181,somewhat useful and of value to your practice,lapsed user,increase (or will begin to prescribe),8,8.0,0.0,Passive
+182,somewhat useful and of value to your practice,lapsed user,increase (or will begin to prescribe),9,9.0,100.0,Promoter
+183,somewhat useful and of value to your practice,lapsed user,remain unchanged,0,0.0,-100.0,Detractor
+184,somewhat useful and of value to your practice,lapsed user,remain unchanged,1,1.0,-100.0,Detractor
+185,somewhat useful and of value to your practice,lapsed user,remain unchanged,10,10.0,100.0,Promoter
+186,somewhat useful and of value to your practice,lapsed user,remain unchanged,2,2.0,-100.0,Detractor
+187,somewhat useful and of value to your practice,lapsed user,remain unchanged,3,3.0,-100.0,Detractor
+188,somewhat useful and of value to your practice,lapsed user,remain unchanged,4,4.0,-100.0,Detractor
+189,somewhat useful and of value to your practice,lapsed user,remain unchanged,5,5.0,-100.0,Detractor
+190,somewhat useful and of value to your practice,lapsed user,remain unchanged,6,6.0,-100.0,Detractor
+191,somewhat useful and of value to your practice,lapsed user,remain unchanged,7,7.0,0.0,Passive
+192,somewhat useful and of value to your practice,lapsed user,remain unchanged,8,8.0,0.0,Passive
+193,somewhat useful and of value to your practice,lapsed user,remain unchanged,9,9.0,100.0,Promoter
+194,somewhat useful and of value to your practice,never,increase (or will begin to prescribe),0,0.0,-100.0,Detractor
+195,somewhat useful and of value to your practice,never,increase (or will begin to prescribe),1,1.0,-100.0,Detractor
+196,somewhat useful and of value to your practice,never,increase (or will begin to prescribe),10,10.0,100.0,Promoter
+197,somewhat useful and of value to your practice,never,increase (or will begin to prescribe),2,2.0,-100.0,Detractor
+198,somewhat useful and of value to your practice,never,increase (or will begin to prescribe),3,3.0,-100.0,Detractor
+199,somewhat useful and of value to your practice,never,increase (or will begin to prescribe),4,4.0,-100.0,Detractor
+200,somewhat useful and of value to your practice,never,increase (or will begin to prescribe),5,5.0,-100.0,Detractor
+201,somewhat useful and of value to your practice,never,increase (or will begin to prescribe),6,6.0,-100.0,Detractor
+202,somewhat useful and of value to your practice,never,increase (or will begin to prescribe),7,7.0,0.0,Passive
+203,somewhat useful and of value to your practice,never,increase (or will begin to prescribe),8,8.0,0.0,Passive
+204,somewhat useful and of value to your practice,never,increase (or will begin to prescribe),9,9.0,100.0,Promoter
+205,somewhat useful and of value to your practice,never,remain unchanged,0,0.0,-100.0,Detractor
+206,somewhat useful and of value to your practice,never,remain unchanged,1,1.0,-100.0,Detractor
+207,somewhat useful and of value to your practice,never,remain unchanged,10,10.0,100.0,Promoter
+208,somewhat useful and of value to your practice,never,remain unchanged,2,2.0,-100.0,Detractor
+209,somewhat useful and of value to your practice,never,remain unchanged,3,3.0,-100.0,Detractor
+210,somewhat useful and of value to your practice,never,remain unchanged,4,4.0,-100.0,Detractor
+211,somewhat useful and of value to your practice,never,remain unchanged,5,5.0,-100.0,Detractor
+212,somewhat useful and of value to your practice,never,remain unchanged,6,6.0,-100.0,Detractor
+213,somewhat useful and of value to your practice,never,remain unchanged,7,7.0,0.0,Passive
+214,somewhat useful and of value to your practice,never,remain unchanged,8,8.0,0.0,Passive
+215,somewhat useful and of value to your practice,never,remain unchanged,9,9.0,100.0,Promoter
+216,somewhat useful and of value to your practice,new to me thus never prescribed,increase (or will begin to prescribe),0,0.0,-100.0,Detractor
+217,somewhat useful and of value to your practice,new to me thus never prescribed,increase (or will begin to prescribe),10,10.0,100.0,Promoter
+218,somewhat useful and of value to your practice,new to me thus never prescribed,increase (or will begin to prescribe),3,3.0,-100.0,Detractor
+219,somewhat useful and of value to your practice,new to me thus never prescribed,increase (or will begin to prescribe),4,4.0,-100.0,Detractor
+220,somewhat useful and of value to your practice,new to me thus never prescribed,increase (or will begin to prescribe),5,5.0,-100.0,Detractor
+221,somewhat useful and of value to your practice,new to me thus never prescribed,increase (or will begin to prescribe),6,6.0,-100.0,Detractor
+222,somewhat useful and of value to your practice,new to me thus never prescribed,increase (or will begin to prescribe),7,7.0,0.0,Passive
+223,somewhat useful and of value to your practice,new to me thus never prescribed,increase (or will begin to prescribe),8,8.0,0.0,Passive
+224,somewhat useful and of value to your practice,new to me thus never prescribed,increase (or will begin to prescribe),9,9.0,100.0,Promoter
+225,somewhat useful and of value to your practice,new to me thus never prescribed,remain unchanged,0,0.0,-100.0,Detractor
+226,somewhat useful and of value to your practice,new to me thus never prescribed,remain unchanged,1,1.0,-100.0,Detractor
+227,somewhat useful and of value to your practice,new to me thus never prescribed,remain unchanged,10,10.0,100.0,Promoter
+228,somewhat useful and of value to your practice,new to me thus never prescribed,remain unchanged,2,2.0,-100.0,Detractor
+229,somewhat useful and of value to your practice,new to me thus never prescribed,remain unchanged,3,3.0,-100.0,Detractor
+230,somewhat useful and of value to your practice,new to me thus never prescribed,remain unchanged,4,4.0,-100.0,Detractor
+231,somewhat useful and of value to your practice,new to me thus never prescribed,remain unchanged,5,5.0,-100.0,Detractor
+232,somewhat useful and of value to your practice,new to me thus never prescribed,remain unchanged,6,6.0,-100.0,Detractor
+233,somewhat useful and of value to your practice,new to me thus never prescribed,remain unchanged,7,7.0,0.0,Passive
+234,somewhat useful and of value to your practice,new to me thus never prescribed,remain unchanged,8,8.0,0.0,Passive
+235,somewhat useful and of value to your practice,new to me thus never prescribed,remain unchanged,9,9.0,100.0,Promoter
+236,somewhat useful and of value to your practice,occasionally,decrease,0,0.0,-100.0,Detractor
+237,somewhat useful and of value to your practice,occasionally,decrease,1,1.0,-100.0,Detractor
+238,somewhat useful and of value to your practice,occasionally,decrease,10,10.0,100.0,Promoter
+239,somewhat useful and of value to your practice,occasionally,decrease,2,2.0,-100.0,Detractor
+240,somewhat useful and of value to your practice,occasionally,decrease,3,3.0,-100.0,Detractor
+241,somewhat useful and of value to your practice,occasionally,decrease,4,4.0,-100.0,Detractor
+242,somewhat useful and of value to your practice,occasionally,decrease,5,5.0,-100.0,Detractor
+243,somewhat useful and of value to your practice,occasionally,decrease,6,6.0,-100.0,Detractor
+244,somewhat useful and of value to your practice,occasionally,decrease,7,7.0,0.0,Passive
+245,somewhat useful and of value to your practice,occasionally,decrease,8,8.0,0.0,Passive
+246,somewhat useful and of value to your practice,occasionally,decrease,9,9.0,100.0,Promoter
+247,somewhat useful and of value to your practice,occasionally,increase (or will begin to prescribe),0,0.0,-100.0,Detractor
+248,somewhat useful and of value to your practice,occasionally,increase (or will begin to prescribe),1,1.0,-100.0,Detractor
+249,somewhat useful and of value to your practice,occasionally,increase (or will begin to prescribe),10,10.0,100.0,Promoter
+250,somewhat useful and of value to your practice,occasionally,increase (or will begin to prescribe),2,2.0,-100.0,Detractor
+251,somewhat useful and of value to your practice,occasionally,increase (or will begin to prescribe),3,3.0,-100.0,Detractor
+252,somewhat useful and of value to your practice,occasionally,increase (or will begin to prescribe),4,4.0,-100.0,Detractor
+253,somewhat useful and of value to your practice,occasionally,increase (or will begin to prescribe),5,5.0,-100.0,Detractor
+254,somewhat useful and of value to your practice,occasionally,increase (or will begin to prescribe),6,6.0,-100.0,Detractor
+255,somewhat useful and of value to your practice,occasionally,increase (or will begin to prescribe),7,7.0,0.0,Passive
+256,somewhat useful and of value to your practice,occasionally,increase (or will begin to prescribe),8,8.0,0.0,Passive
+257,somewhat useful and of value to your practice,occasionally,increase (or will begin to prescribe),9,9.0,100.0,Promoter
+258,somewhat useful and of value to your practice,occasionally,remain unchanged,0,0.0,-100.0,Detractor
+259,somewhat useful and of value to your practice,occasionally,remain unchanged,1,1.0,-100.0,Detractor
+260,somewhat useful and of value to your practice,occasionally,remain unchanged,10,10.0,100.0,Promoter
+261,somewhat useful and of value to your practice,occasionally,remain unchanged,2,2.0,-100.0,Detractor
+262,somewhat useful and of value to your practice,occasionally,remain unchanged,3,3.0,-100.0,Detractor
+263,somewhat useful and of value to your practice,occasionally,remain unchanged,4,4.0,-100.0,Detractor
+264,somewhat useful and of value to your practice,occasionally,remain unchanged,5,5.0,-100.0,Detractor
+265,somewhat useful and of value to your practice,occasionally,remain unchanged,6,6.0,-100.0,Detractor
+266,somewhat useful and of value to your practice,occasionally,remain unchanged,7,7.0,0.0,Passive
+267,somewhat useful and of value to your practice,occasionally,remain unchanged,8,8.0,0.0,Passive
+268,somewhat useful and of value to your practice,occasionally,remain unchanged,9,9.0,100.0,Promoter
+269,very useful and of value to your practice,N.R.,N.R.,0,0.0,-100.0,Detractor
+270,very useful and of value to your practice,N.R.,N.R.,10,10.0,100.0,Promoter
+271,very useful and of value to your practice,N.R.,N.R.,2,2.0,-100.0,Detractor
+272,very useful and of value to your practice,N.R.,N.R.,3,3.0,-100.0,Detractor
+273,very useful and of value to your practice,N.R.,N.R.,6,6.0,-100.0,Detractor
+274,very useful and of value to your practice,N.R.,N.R.,7,7.0,0.0,Passive
+275,very useful and of value to your practice,N.R.,N.R.,8,8.0,0.0,Passive
+276,very useful and of value to your practice,N.R.,N.R.,9,9.0,100.0,Promoter
+277,very useful and of value to your practice,No Current Prescribing,No Future Prescribing,10,10.0,100.0,Promoter
+278,very useful and of value to your practice,No Current Prescribing,No Future Prescribing,5,5.0,-100.0,Detractor
+279,very useful and of value to your practice,No Current Prescribing,No Future Prescribing,8,8.0,0.0,Passive
+280,very useful and of value to your practice,No Current Prescribing,No Future Prescribing,9,9.0,100.0,Promoter
+281,very useful and of value to your practice,frequently,decrease,1,1.0,-100.0,Detractor
+282,very useful and of value to your practice,frequently,decrease,10,10.0,100.0,Promoter
+283,very useful and of value to your practice,frequently,decrease,3,3.0,-100.0,Detractor
+284,very useful and of value to your practice,frequently,decrease,4,4.0,-100.0,Detractor
+285,very useful and of value to your practice,frequently,decrease,5,5.0,-100.0,Detractor
+286,very useful and of value to your practice,frequently,decrease,6,6.0,-100.0,Detractor
+287,very useful and of value to your practice,frequently,decrease,7,7.0,0.0,Passive
+288,very useful and of value to your practice,frequently,decrease,8,8.0,0.0,Passive
+289,very useful and of value to your practice,frequently,decrease,9,9.0,100.0,Promoter
+290,very useful and of value to your practice,frequently,increase (or will begin to prescribe),0,0.0,-100.0,Detractor
+291,very useful and of value to your practice,frequently,increase (or will begin to prescribe),1,1.0,-100.0,Detractor
+292,very useful and of value to your practice,frequently,increase (or will begin to prescribe),10,10.0,100.0,Promoter
+293,very useful and of value to your practice,frequently,increase (or will begin to prescribe),2,2.0,-100.0,Detractor
+294,very useful and of value to your practice,frequently,increase (or will begin to prescribe),3,3.0,-100.0,Detractor
+295,very useful and of value to your practice,frequently,increase (or will begin to prescribe),4,4.0,-100.0,Detractor
+296,very useful and of value to your practice,frequently,increase (or will begin to prescribe),5,5.0,-100.0,Detractor
+297,very useful and of value to your practice,frequently,increase (or will begin to prescribe),6,6.0,-100.0,Detractor
+298,very useful and of value to your practice,frequently,increase (or will begin to prescribe),7,7.0,0.0,Passive
+299,very useful and of value to your practice,frequently,increase (or will begin to prescribe),8,8.0,0.0,Passive
+300,very useful and of value to your practice,frequently,increase (or will begin to prescribe),9,9.0,100.0,Promoter
+301,very useful and of value to your practice,frequently,remain unchanged,0,0.0,-100.0,Detractor
+302,very useful and of value to your practice,frequently,remain unchanged,1,1.0,-100.0,Detractor
+303,very useful and of value to your practice,frequently,remain unchanged,10,10.0,100.0,Promoter
+304,very useful and of value to your practice,frequently,remain unchanged,2,2.0,-100.0,Detractor
+305,very useful and of value to your practice,frequently,remain unchanged,3,3.0,-100.0,Detractor
+306,very useful and of value to your practice,frequently,remain unchanged,4,4.0,-100.0,Detractor
+307,very useful and of value to your practice,frequently,remain unchanged,5,5.0,-100.0,Detractor
+308,very useful and of value to your practice,frequently,remain unchanged,6,6.0,-100.0,Detractor
+309,very useful and of value to your practice,frequently,remain unchanged,7,7.0,0.0,Passive
+310,very useful and of value to your practice,frequently,remain unchanged,8,8.0,0.0,Passive
+311,very useful and of value to your practice,frequently,remain unchanged,9,9.0,100.0,Promoter
+312,very useful and of value to your practice,lapsed user,increase (or will begin to prescribe),10,10.0,100.0,Promoter
+313,very useful and of value to your practice,lapsed user,increase (or will begin to prescribe),5,5.0,-100.0,Detractor
+314,very useful and of value to your practice,lapsed user,increase (or will begin to prescribe),6,6.0,-100.0,Detractor
+315,very useful and of value to your practice,lapsed user,increase (or will begin to prescribe),7,7.0,0.0,Passive
+316,very useful and of value to your practice,lapsed user,increase (or will begin to prescribe),8,8.0,0.0,Passive
+317,very useful and of value to your practice,lapsed user,increase (or will begin to prescribe),9,9.0,100.0,Promoter
+318,very useful and of value to your practice,lapsed user,remain unchanged,0,0.0,-100.0,Detractor
+319,very useful and of value to your practice,lapsed user,remain unchanged,1,1.0,-100.0,Detractor
+320,very useful and of value to your practice,lapsed user,remain unchanged,10,10.0,100.0,Promoter
+321,very useful and of value to your practice,lapsed user,remain unchanged,3,3.0,-100.0,Detractor
+322,very useful and of value to your practice,lapsed user,remain unchanged,5,5.0,-100.0,Detractor
+323,very useful and of value to your practice,lapsed user,remain unchanged,6,6.0,-100.0,Detractor
+324,very useful and of value to your practice,lapsed user,remain unchanged,7,7.0,0.0,Passive
+325,very useful and of value to your practice,lapsed user,remain unchanged,8,8.0,0.0,Passive
+326,very useful and of value to your practice,lapsed user,remain unchanged,9,9.0,100.0,Promoter
+327,very useful and of value to your practice,never,increase (or will begin to prescribe),0,0.0,-100.0,Detractor
+328,very useful and of value to your practice,never,increase (or will begin to prescribe),1,1.0,-100.0,Detractor
+329,very useful and of value to your practice,never,increase (or will begin to prescribe),10,10.0,100.0,Promoter
+330,very useful and of value to your practice,never,increase (or will begin to prescribe),2,2.0,-100.0,Detractor
+331,very useful and of value to your practice,never,increase (or will begin to prescribe),3,3.0,-100.0,Detractor
+332,very useful and of value to your practice,never,increase (or will begin to prescribe),4,4.0,-100.0,Detractor
+333,very useful and of value to your practice,never,increase (or will begin to prescribe),5,5.0,-100.0,Detractor
+334,very useful and of value to your practice,never,increase (or will begin to prescribe),6,6.0,-100.0,Detractor
+335,very useful and of value to your practice,never,increase (or will begin to prescribe),7,7.0,0.0,Passive
+336,very useful and of value to your practice,never,increase (or will begin to prescribe),8,8.0,0.0,Passive
+337,very useful and of value to your practice,never,increase (or will begin to prescribe),9,9.0,100.0,Promoter
+338,very useful and of value to your practice,never,remain unchanged,1,1.0,-100.0,Detractor
+339,very useful and of value to your practice,never,remain unchanged,10,10.0,100.0,Promoter
+340,very useful and of value to your practice,never,remain unchanged,2,2.0,-100.0,Detractor
+341,very useful and of value to your practice,never,remain unchanged,3,3.0,-100.0,Detractor
+342,very useful and of value to your practice,never,remain unchanged,4,4.0,-100.0,Detractor
+343,very useful and of value to your practice,never,remain unchanged,5,5.0,-100.0,Detractor
+344,very useful and of value to your practice,never,remain unchanged,6,6.0,-100.0,Detractor
+345,very useful and of value to your practice,never,remain unchanged,7,7.0,0.0,Passive
+346,very useful and of value to your practice,never,remain unchanged,8,8.0,0.0,Passive
+347,very useful and of value to your practice,never,remain unchanged,9,9.0,100.0,Promoter
+348,very useful and of value to your practice,new to me thus never prescribed,increase (or will begin to prescribe),1,1.0,-100.0,Detractor
+349,very useful and of value to your practice,new to me thus never prescribed,increase (or will begin to prescribe),10,10.0,100.0,Promoter
+350,very useful and of value to your practice,new to me thus never prescribed,increase (or will begin to prescribe),3,3.0,-100.0,Detractor
+351,very useful and of value to your practice,new to me thus never prescribed,increase (or will begin to prescribe),5,5.0,-100.0,Detractor
+352,very useful and of value to your practice,new to me thus never prescribed,increase (or will begin to prescribe),6,6.0,-100.0,Detractor
+353,very useful and of value to your practice,new to me thus never prescribed,increase (or will begin to prescribe),7,7.0,0.0,Passive
+354,very useful and of value to your practice,new to me thus never prescribed,increase (or will begin to prescribe),8,8.0,0.0,Passive
+355,very useful and of value to your practice,new to me thus never prescribed,increase (or will begin to prescribe),9,9.0,100.0,Promoter
+356,very useful and of value to your practice,new to me thus never prescribed,remain unchanged,10,10.0,100.0,Promoter
+357,very useful and of value to your practice,new to me thus never prescribed,remain unchanged,2,2.0,-100.0,Detractor
+358,very useful and of value to your practice,new to me thus never prescribed,remain unchanged,4,4.0,-100.0,Detractor
+359,very useful and of value to your practice,new to me thus never prescribed,remain unchanged,5,5.0,-100.0,Detractor
+360,very useful and of value to your practice,new to me thus never prescribed,remain unchanged,6,6.0,-100.0,Detractor
+361,very useful and of value to your practice,new to me thus never prescribed,remain unchanged,7,7.0,0.0,Passive
+362,very useful and of value to your practice,new to me thus never prescribed,remain unchanged,8,8.0,0.0,Passive
+363,very useful and of value to your practice,new to me thus never prescribed,remain unchanged,9,9.0,100.0,Promoter
+364,very useful and of value to your practice,occasionally,decrease,1,1.0,-100.0,Detractor
+365,very useful and of value to your practice,occasionally,decrease,10,10.0,100.0,Promoter
+366,very useful and of value to your practice,occasionally,decrease,2,2.0,-100.0,Detractor
+367,very useful and of value to your practice,occasionally,decrease,4,4.0,-100.0,Detractor
+368,very useful and of value to your practice,occasionally,decrease,5,5.0,-100.0,Detractor
+369,very useful and of value to your practice,occasionally,decrease,6,6.0,-100.0,Detractor
+370,very useful and of value to your practice,occasionally,decrease,7,7.0,0.0,Passive
+371,very useful and of value to your practice,occasionally,decrease,8,8.0,0.0,Passive
+372,very useful and of value to your practice,occasionally,decrease,9,9.0,100.0,Promoter
+373,very useful and of value to your practice,occasionally,increase (or will begin to prescribe),0,0.0,-100.0,Detractor
+374,very useful and of value to your practice,occasionally,increase (or will begin to prescribe),1,1.0,-100.0,Detractor
+375,very useful and of value to your practice,occasionally,increase (or will begin to prescribe),10,10.0,100.0,Promoter
+376,very useful and of value to your practice,occasionally,increase (or will begin to prescribe),2,2.0,-100.0,Detractor
+377,very useful and of value to your practice,occasionally,increase (or will begin to prescribe),3,3.0,-100.0,Detractor
+378,very useful and of value to your practice,occasionally,increase (or will begin to prescribe),4,4.0,-100.0,Detractor
+379,very useful and of value to your practice,occasionally,increase (or will begin to prescribe),5,5.0,-100.0,Detractor
+380,very useful and of value to your practice,occasionally,increase (or will begin to prescribe),6,6.0,-100.0,Detractor
+381,very useful and of value to your practice,occasionally,increase (or will begin to prescribe),7,7.0,0.0,Passive
+382,very useful and of value to your practice,occasionally,increase (or will begin to prescribe),8,8.0,0.0,Passive
+383,very useful and of value to your practice,occasionally,increase (or will begin to prescribe),9,9.0,100.0,Promoter
+384,very useful and of value to your practice,occasionally,remain unchanged,0,0.0,-100.0,Detractor
+385,very useful and of value to your practice,occasionally,remain unchanged,1,1.0,-100.0,Detractor
+386,very useful and of value to your practice,occasionally,remain unchanged,10,10.0,100.0,Promoter
+387,very useful and of value to your practice,occasionally,remain unchanged,2,2.0,-100.0,Detractor
+388,very useful and of value to your practice,occasionally,remain unchanged,3,3.0,-100.0,Detractor
+389,very useful and of value to your practice,occasionally,remain unchanged,4,4.0,-100.0,Detractor
+390,very useful and of value to your practice,occasionally,remain unchanged,5,5.0,-100.0,Detractor
+391,very useful and of value to your practice,occasionally,remain unchanged,6,6.0,-100.0,Detractor
+392,very useful and of value to your practice,occasionally,remain unchanged,7,7.0,0.0,Passive
+393,very useful and of value to your practice,occasionally,remain unchanged,8,8.0,0.0,Passive
+394,very useful and of value to your practice,occasionally,remain unchanged,9,9.0,100.0,Promoter

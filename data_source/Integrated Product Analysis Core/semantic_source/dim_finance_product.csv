@@ -1,0 +1,3 @@
+product_key,portfolio_key,product_label,molecule_desc_raw,company_desc,corporation_group,atc4_code,atc4_description,molecule_list,molecule_count,is_combo_molecule
+1,7,INVOKANA,CANAGLIFOZIN,Laboratori Guidotti,MENARINI,A10P1,SGLT2 INHIB A-DIAB PLAIN,CANAGLIFLOZIN,1,False
+2,13,VOKANAMET,"CANAGLIFOZIN, METFORMIN",Laboratori Guidotti,MENARINI,A10P3,SGLT2 INHIB A-DIAB COMB,CANAGLIFLOZIN + METFORMIN,2,True

@@ -1,0 +1,325 @@
+table Sales
+	lineageTag: e7e04a58-cdbb-4935-874e-eaa172f4f211
+
+	measure Units = SUM ( F_Sales[Units] )
+		formatString: #,0;-#,0;0
+		displayFolder: Base
+		lineageTag: 50e81fbd-b81f-4e5e-a045-5b3c223a9783
+
+	measure Values = SUM ( F_Sales[Values] )
+		formatString: #,0.0;-#,0.0;0.0
+		displayFolder: Base
+		lineageTag: 1cbf2b93-bd60-4833-8847-7b75642ae401
+
+	measure 'Units 3MM' = [Units]
+		formatString: #,0;-#,0;0
+		displayFolder: 3MM
+		lineageTag: 5b758277-5202-4610-af39-9fe05f95683a
+
+	measure 'Values 3MM' = [Values]
+		formatString: #,0.0;-#,0.0;0.0
+		displayFolder: 3MM
+		lineageTag: 4a4c9fc7-71aa-49ba-b108-76771024c139
+
+	measure 'Units MS%' =
+			
+			VAR Atc4Scope = VALUES ( Portfolio[ATC4 Code] )
+			VAR MarketUnits =
+			    CALCULATE (
+			        [Units],
+			        REMOVEFILTERS ( Portfolio ),
+			        REMOVEFILTERS ( 'Sales Product' ),
+			        KEEPFILTERS ( Atc4Scope )
+			    )
+			RETURN
+			    DIVIDE ( [Units], MarketUnits )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Share
+		lineageTag: 0d95de27-804a-4fe8-a9cc-405743e089c8
+
+	measure 'Values MS%' =
+			
+			VAR Atc4Scope = VALUES ( Portfolio[ATC4 Code] )
+			VAR MarketValues =
+			    CALCULATE (
+			        [Values],
+			        REMOVEFILTERS ( Portfolio ),
+			        REMOVEFILTERS ( 'Sales Product' ),
+			        KEEPFILTERS ( Atc4Scope )
+			    )
+			RETURN
+			    DIVIDE ( [Values], MarketValues )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Share
+		lineageTag: 362adcb9-6c5f-4e0f-8d43-34a3ac33b770
+
+	measure 'Units EI' =
+			
+			VAR CurrentShare = [Units MS%]
+			VAR PreviousShare =
+			    CALCULATE ( [Units MS%], DATEADD ( Quarter[Quarter Date], -1, YEAR ) )
+			RETURN
+			    IF ( ISBLANK ( PreviousShare ), BLANK (), DIVIDE ( CurrentShare, PreviousShare ) * 100 )
+		formatString: 0.0;-0.0;0.0
+		displayFolder: Share
+		lineageTag: 1b0f698a-a6cf-4e9c-9778-8ee5a28b5268
+
+	measure 'Values EI' =
+			
+			VAR CurrentShare = [Values MS%]
+			VAR PreviousShare =
+			    CALCULATE ( [Values MS%], DATEADD ( Quarter[Quarter Date], -1, YEAR ) )
+			RETURN
+			    IF ( ISBLANK ( PreviousShare ), BLANK (), DIVIDE ( CurrentShare, PreviousShare ) * 100 )
+		formatString: 0.0;-0.0;0.0
+		displayFolder: Share
+		lineageTag: 528ca2df-1549-4f94-9cc8-b0a2a996ab11
+
+	measure 'Units +/-% vs PY' =
+			
+			VAR PreviousValue =
+			    CALCULATE ( [Units], DATEADD ( Quarter[Quarter Date], -1, YEAR ) )
+			RETURN
+			    DIVIDE ( [Units] - PreviousValue, PreviousValue )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Compare
+		lineageTag: a17bc3e2-57cb-47ae-a9fd-ceca2930d492
+
+	measure 'Values +/-% vs PY' =
+			
+			VAR PreviousValue =
+			    CALCULATE ( [Values], DATEADD ( Quarter[Quarter Date], -1, YEAR ) )
+			RETURN
+			    DIVIDE ( [Values] - PreviousValue, PreviousValue )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Compare
+		lineageTag: f040a3f7-fae6-4b6f-924a-4187948e7d1f
+
+	measure 'Units +/-% vs PP' =
+			
+			VAR PreviousValue =
+			    CALCULATE ( [Units], DATEADD ( Quarter[Quarter Date], -1, QUARTER ) )
+			RETURN
+			    DIVIDE ( [Units] - PreviousValue, PreviousValue )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Compare
+		lineageTag: a33c8ae7-85da-42a6-abdf-2484bfe8cbdc
+
+	measure 'Values +/-% vs PP' =
+			
+			VAR PreviousValue =
+			    CALCULATE ( [Values], DATEADD ( Quarter[Quarter Date], -1, QUARTER ) )
+			RETURN
+			    DIVIDE ( [Values] - PreviousValue, PreviousValue )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Compare
+		lineageTag: f3d3323a-40ed-4089-a05d-bd140ca57f2b
+
+	measure 'Units YTD' =
+			
+			TOTALYTD ( [Units], Quarter[Quarter Date] )
+		formatString: #,0;-#,0;0
+		displayFolder: YTD
+		lineageTag: 0e64ac47-d2e1-46e6-9468-046e8c603296
+
+	measure 'Values YTD' =
+			
+			TOTALYTD ( [Values], Quarter[Quarter Date] )
+		formatString: #,0.0;-#,0.0;0.0
+		displayFolder: YTD
+		lineageTag: 4a2eaf19-ecc2-47ac-bd0b-cd8aedbdb311
+
+	measure 'Units YTD +/-% vs PY' =
+			
+			VAR PreviousValue =
+			    TOTALYTD (
+			        CALCULATE ( [Units], DATEADD ( Quarter[Quarter Date], -1, YEAR ) ),
+			        Quarter[Quarter Date]
+			    )
+			RETURN
+			    DIVIDE ( [Units YTD] - PreviousValue, PreviousValue )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: YTD
+		lineageTag: 3157474c-3949-4c3c-b967-b78d64ef96d1
+
+	measure 'Values YTD +/-% vs PY' =
+			
+			VAR PreviousValue =
+			    TOTALYTD (
+			        CALCULATE ( [Values], DATEADD ( Quarter[Quarter Date], -1, YEAR ) ),
+			        Quarter[Quarter Date]
+			    )
+			RETURN
+			    DIVIDE ( [Values YTD] - PreviousValue, PreviousValue )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: YTD
+		lineageTag: 3d22f4e6-4681-4087-8b23-6dcf29c15610
+
+	measure 'Units MAT' =
+			
+			VAR AnchorQ = MAX ( Quarter[Quarter Date] )
+			VAR WindowQ =
+			    TOPN (
+			        4,
+			        FILTER (
+			            ALL ( Quarter[Quarter Date] ),
+			            Quarter[Quarter Date] <= AnchorQ
+			        ),
+			        Quarter[Quarter Date], DESC
+			    )
+			VAR QWithData =
+			    COUNTROWS (
+			        FILTER (
+			            WindowQ,
+			            VAR q = Quarter[Quarter Date]
+			            RETURN
+			                NOT ISBLANK (
+			                    CALCULATE (
+			                        [Units],
+			                        REMOVEFILTERS ( Quarter ),
+			                        Quarter[Quarter Date] = q
+			                    )
+			                )
+			        )
+			    )
+			RETURN
+			    IF (
+			        QWithData < 4,
+			        BLANK (),
+			        CALCULATE ( [Units], REMOVEFILTERS ( Quarter ), WindowQ )
+			    )
+		formatString: #,0;-#,0;0
+		displayFolder: MAT
+		lineageTag: b0431d0c-6276-4af5-9bae-91f013c6c853
+
+	measure 'Values MAT' =
+			
+			VAR AnchorQ = MAX ( Quarter[Quarter Date] )
+			VAR WindowQ =
+			    TOPN (
+			        4,
+			        FILTER (
+			            ALL ( Quarter[Quarter Date] ),
+			            Quarter[Quarter Date] <= AnchorQ
+			        ),
+			        Quarter[Quarter Date], DESC
+			    )
+			VAR QWithData =
+			    COUNTROWS (
+			        FILTER (
+			            WindowQ,
+			            VAR q = Quarter[Quarter Date]
+			            RETURN
+			                NOT ISBLANK (
+			                    CALCULATE (
+			                        [Values],
+			                        REMOVEFILTERS ( Quarter ),
+			                        Quarter[Quarter Date] = q
+			                    )
+			                )
+			        )
+			    )
+			RETURN
+			    IF (
+			        QWithData < 4,
+			        BLANK (),
+			        CALCULATE ( [Values], REMOVEFILTERS ( Quarter ), WindowQ )
+			    )
+		formatString: #,0.0;-#,0.0;0.0
+		displayFolder: MAT
+		lineageTag: 995002cb-c2e3-443b-9183-877aa0d850f9
+
+	measure 'Units MAT +/-% vs PY' =
+			
+			VAR AnchorQ = MAX ( Quarter[Quarter Date] )
+			VAR AnchorPY = EDATE ( AnchorQ, -12 )
+			VAR WindowPY =
+			    TOPN (
+			        4,
+			        FILTER (
+			            ALL ( Quarter[Quarter Date] ),
+			            Quarter[Quarter Date] <= AnchorPY
+			        ),
+			        Quarter[Quarter Date], DESC
+			    )
+			VAR QWithDataPY =
+			    COUNTROWS (
+			        FILTER (
+			            WindowPY,
+			            VAR q = Quarter[Quarter Date]
+			            RETURN
+			                NOT ISBLANK (
+			                    CALCULATE (
+			                        [Units],
+			                        REMOVEFILTERS ( Quarter ),
+			                        Quarter[Quarter Date] = q
+			                    )
+			                )
+			        )
+			    )
+			VAR PreviousValue =
+			    IF (
+			        QWithDataPY < 4,
+			        BLANK (),
+			        CALCULATE ( [Units], REMOVEFILTERS ( Quarter ), WindowPY )
+			    )
+			RETURN
+			    DIVIDE ( [Units MAT] - PreviousValue, PreviousValue )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: MAT
+		lineageTag: 32d262d1-b8bb-4178-9f42-9e5c1b508eea
+
+	measure 'Values MAT +/-% vs PY' =
+			
+			VAR AnchorQ = MAX ( Quarter[Quarter Date] )
+			VAR AnchorPY = EDATE ( AnchorQ, -12 )
+			VAR WindowPY =
+			    TOPN (
+			        4,
+			        FILTER (
+			            ALL ( Quarter[Quarter Date] ),
+			            Quarter[Quarter Date] <= AnchorPY
+			        ),
+			        Quarter[Quarter Date], DESC
+			    )
+			VAR QWithDataPY =
+			    COUNTROWS (
+			        FILTER (
+			            WindowPY,
+			            VAR q = Quarter[Quarter Date]
+			            RETURN
+			                NOT ISBLANK (
+			                    CALCULATE (
+			                        [Values],
+			                        REMOVEFILTERS ( Quarter ),
+			                        Quarter[Quarter Date] = q
+			                    )
+			                )
+			        )
+			    )
+			VAR PreviousValue =
+			    IF (
+			        QWithDataPY < 4,
+			        BLANK (),
+			        CALCULATE ( [Values], REMOVEFILTERS ( Quarter ), WindowPY )
+			    )
+			RETURN
+			    DIVIDE ( [Values MAT] - PreviousValue, PreviousValue )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: MAT
+		lineageTag: 59a28519-5ba9-4f6a-9e47-0e51363e1877
+
+	column Column
+		isHidden
+		formatString: 0
+		lineageTag: dd3561e1-6d75-4401-8bcf-192f83d3051c
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Sales = calculated
+		mode: import
+		source = Row("Column", BLANK())
+

@@ -1,0 +1,92 @@
+relationship REL_PORTFOLIO_MOLECULE_PORTFOLIO
+	crossFilteringBehavior: bothDirections
+	fromColumn: B_PortfolioMolecule.'Portfolio Key'
+	toColumn: Portfolio.'Portfolio Key'
+
+relationship REL_PORTFOLIO_MOLECULE_MOLECULE
+	crossFilteringBehavior: bothDirections
+	fromColumn: B_PortfolioMolecule.'Molecule Key'
+	toColumn: Molecule.'Molecule Key'
+
+relationship REL_MONTH_QUARTER
+	fromColumn: Month.'Quarter Key'
+	toColumn: Quarter.'Quarter Key'
+
+relationship REL_SALES_COUNTRY
+	fromColumn: F_Sales.'Country Key'
+	toColumn: Country.'Country Key'
+
+relationship REL_SALES_QUARTER
+	fromColumn: F_Sales.'Quarter Key'
+	toColumn: Quarter.'Quarter Key'
+
+relationship REL_SALES_SECTOR
+	fromColumn: F_Sales.'Sector Key'
+	toColumn: Sector.'Sector Key'
+
+relationship REL_SALES_DIAGNOSIS
+	fromColumn: F_Sales.'Diagnosis Key'
+	toColumn: Diagnosis.'Diagnosis Key'
+
+relationship REL_SALES_PRODUCT
+	fromColumn: F_Sales.'Product Key'
+	toColumn: 'Sales Product'.'Product Key'
+
+relationship REL_SALES_PORTFOLIO
+	fromColumn: 'Sales Product'.'Portfolio Key'
+	toColumn: Portfolio.'Portfolio Key'
+
+relationship REL_PROMO_COUNTRY
+	fromColumn: F_Promo.'Country Key'
+	toColumn: Country.'Country Key'
+
+relationship REL_PROMO_QUARTER
+	fromColumn: F_Promo.'Quarter Key'
+	toColumn: Quarter.'Quarter Key'
+
+relationship REL_PROMO_SPECIALTY
+	fromColumn: F_Promo.'Specialty Key'
+	toColumn: Specialty.'Specialty Key'
+
+relationship REL_PROMO_CHANNEL
+	fromColumn: F_Promo.'Channel Key'
+	toColumn: Channel.'Channel Key'
+
+relationship REL_PROMO_FEEDBACK
+	fromColumn: F_Promo.'Feedback Key'
+	toColumn: Feedback.'Feedback Key'
+
+relationship REL_PROMO_PRODUCT
+	fromColumn: F_Promo.'Product Key'
+	toColumn: 'Promo Product'.'Product Key'
+
+relationship REL_PROMO_PORTFOLIO
+	fromColumn: 'Promo Product'.'Portfolio Key'
+	toColumn: Portfolio.'Portfolio Key'
+
+relationship REL_FINANCE_COUNTRY
+	fromColumn: F_Finance.'Country Key'
+	toColumn: Country.'Country Key'
+
+relationship REL_FINANCE_MONTH
+	fromColumn: F_Finance.'Month Key'
+	toColumn: Month.'Month Key'
+
+relationship REL_FINANCE_PRODUCT
+	fromColumn: F_Finance.'Product Key'
+	toColumn: 'Finance Product'.'Product Key'
+
+relationship REL_FINANCE_PORTFOLIO
+	fromColumn: 'Finance Product'.'Portfolio Key'
+	toColumn: Portfolio.'Portfolio Key'
+
+relationship AutoDetected_a4884ca3-2d9b-4179-b4ef-de2f1e3d4311
+	isActive: false
+	fromColumn: 'Sales Product'.molecule_count
+	toColumn: 'Finance Product'.molecule_count
+
+relationship AutoDetected_8a66eac3-6a23-4cb0-994c-57ced2a15d69
+	isActive: false
+	fromColumn: 'Promo Product'.molecule_count
+	toColumn: 'Finance Product'.molecule_count
+

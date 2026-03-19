@@ -1,0 +1,144 @@
+table Finance
+	lineageTag: ad6ef8ae-ca65-47c3-bf7f-ce5415332ce8
+
+	measure 'ACT Mth' = SUM ( F_Finance[ACT Mth Value] )
+		formatString: #,0.0;-#,0.0;0.0
+		displayFolder: Base
+		lineageTag: fb5c520e-5a88-4398-8562-2f42b51f72b5
+
+	measure 'PY Mth' =
+			
+			CALCULATE (
+			    [ACT Mth],
+			    DATEADD ( Month[Month Date], -1, YEAR )
+			)
+		formatString: #,0.0;-#,0.0;0.0
+		displayFolder: Base
+		lineageTag: b9db4ca0-41e6-4d5b-9bb0-185d03228689
+
+	measure 'BDG Mth' = SUM ( F_Finance[BDG Mth Value] )
+		formatString: #,0.0;-#,0.0;0.0
+		displayFolder: Base
+		lineageTag: 8785c7dc-7d10-4c2a-8ac3-6689c178baa4
+
+	measure 'ACT Ytd' =
+			
+			TOTALYTD ( [ACT Mth], Month[Month Date] )
+		formatString: #,0.0;-#,0.0;0.0
+		displayFolder: Base
+		lineageTag: f9d1f320-6f9f-47fa-af1d-3653a9a092e7
+
+	measure 'PY Ytd' =
+			
+			TOTALYTD (
+			    CALCULATE (
+			        [ACT Mth],
+			        DATEADD ( Month[Month Date], -1, YEAR )
+			    ),
+			    Month[Month Date]
+			)
+		formatString: #,0.0;-#,0.0;0.0
+		displayFolder: Base
+		lineageTag: 124bd28c-f8b0-4df5-be02-366d8956b775
+
+	measure 'BDG Ytd' =
+			
+			TOTALYTD ( [BDG Mth], Month[Month Date] )
+		formatString: #,0.0;-#,0.0;0.0
+		displayFolder: Base
+		lineageTag: ba33ecf3-7ccb-4e9d-a7ce-fc44b9e1c468
+
+	measure 'Actual Year' =
+			
+			VAR CurrentYear =
+			    COALESCE ( SELECTEDVALUE ( Month[Year] ), MAX ( Month[Year] ) )
+			RETURN
+			    IF (
+			        ISBLANK ( CurrentYear ),
+			        BLANK (),
+			        CALCULATE (
+			            [ACT Mth],
+			            FILTER ( ALL ( Month ), Month[Year] = CurrentYear )
+			        )
+			    )
+		formatString: #,0.0;-#,0.0;0.0
+		displayFolder: Base
+		lineageTag: 8b6fb6ee-3ed3-4d83-b88a-8e073bfd69b3
+
+	measure 'Previous Year' =
+			
+			VAR CurrentYear =
+			    COALESCE ( SELECTEDVALUE ( Month[Year] ), MAX ( Month[Year] ) )
+			VAR PreviousYear = CurrentYear - 1
+			RETURN
+			    IF (
+			        ISBLANK ( CurrentYear ),
+			        BLANK (),
+			        CALCULATE (
+			            [ACT Mth],
+			            FILTER ( ALL ( Month ), Month[Year] = PreviousYear )
+			        )
+			    )
+		formatString: #,0.0;-#,0.0;0.0
+		displayFolder: Base
+		lineageTag: 558f45ce-9b8c-459f-bf08-d3abeb9bdb9b
+
+	measure Budget =
+			
+			VAR CurrentYear =
+			    COALESCE ( SELECTEDVALUE ( Month[Year] ), MAX ( Month[Year] ) )
+			RETURN
+			    IF (
+			        ISBLANK ( CurrentYear ),
+			        BLANK (),
+			        CALCULATE (
+			            [BDG Mth],
+			            FILTER ( ALL ( Month ), Month[Year] = CurrentYear )
+			        )
+			    )
+		formatString: #,0.0;-#,0.0;0.0
+		displayFolder: Base
+		lineageTag: 6a05cea1-ab83-48f1-9d76-28024f9b50c3
+
+	measure 'ACT Mth +/-% vs BDG' =
+			
+			DIVIDE ( [ACT Mth] - [BDG Mth], [BDG Mth] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Compare
+		lineageTag: 23032cfe-b44c-42a5-9cb9-e2cd3a895f85
+
+	measure 'ACT Mth +/-% vs PY' =
+			
+			DIVIDE ( [ACT Mth] - [PY Mth], [PY Mth] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Compare
+		lineageTag: 03f44d54-48c9-4e87-bdd2-e90b43f73dd9
+
+	measure 'ACT Ytd +/-% vs BDG' =
+			
+			DIVIDE ( [ACT Ytd] - [BDG Ytd], [BDG Ytd] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Compare
+		lineageTag: ca8640b5-bcee-4466-9038-48995c9cb1b1
+
+	measure 'ACT Ytd +/-% vs PY' =
+			
+			DIVIDE ( [ACT Ytd] - [PY Ytd], [PY Ytd] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Compare
+		lineageTag: a0faff68-a42d-4e6b-8afb-fa3c6ad21418
+
+	column Column
+		isHidden
+		formatString: 0
+		lineageTag: a84bee6e-bac2-4dfb-8636-b49007da3a0a
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Finance = calculated
+		mode: import
+		source = Row("Column", BLANK())
+

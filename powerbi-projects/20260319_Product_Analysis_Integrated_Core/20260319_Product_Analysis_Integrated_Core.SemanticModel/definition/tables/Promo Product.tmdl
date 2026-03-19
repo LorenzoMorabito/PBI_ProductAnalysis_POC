@@ -1,0 +1,148 @@
+table 'Promo Product'
+	isHidden
+	lineageTag: d069895e-c633-459a-a64d-556527c7c0f1
+
+	column 'Product Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: ecb21737-8835-464d-a190-1eccb0425b47
+		summarizeBy: none
+		sourceColumn: product_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Portfolio Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 8265e8a7-6bf2-45e6-83ff-80ee2b06d1e8
+		summarizeBy: none
+		sourceColumn: portfolio_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column Product
+		dataType: string
+		lineageTag: 064f907e-864d-49d6-941c-c1f97dd01966
+		summarizeBy: none
+		sourceColumn: product_label
+
+		annotation SummarizationSetBy = Automatic
+
+	column Corporation
+		dataType: string
+		lineageTag: 6065c79b-a41d-4bfc-b1f4-515ebbe94994
+		summarizeBy: none
+		sourceColumn: int_corporation_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Corporation Group'
+		dataType: string
+		lineageTag: c3680058-cee4-4114-b800-947c49e346f3
+		summarizeBy: none
+		sourceColumn: corporation_group
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ATC4 Code'
+		dataType: string
+		lineageTag: 02324a51-4650-4ee3-bb39-e00168dcc53a
+		summarizeBy: none
+		sourceColumn: atc4_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column local_brand_name
+		dataType: string
+		lineageTag: 6fffdffd-d98b-4a36-bf57-60090c5563aa
+		summarizeBy: none
+		sourceColumn: local_brand_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column atc4_raw
+		dataType: string
+		lineageTag: 805c5839-ceb6-4fef-871e-0785e852281b
+		summarizeBy: none
+		sourceColumn: atc4_raw
+
+		annotation SummarizationSetBy = Automatic
+
+	column atc4_description
+		dataType: string
+		lineageTag: 316bfbb5-9234-4d2f-867c-4d5a4b944bc3
+		summarizeBy: none
+		sourceColumn: atc4_description
+
+		annotation SummarizationSetBy = Automatic
+
+	column molecule_combo
+		dataType: string
+		lineageTag: e3d61e6b-5b89-42c2-95da-a2be935ff034
+		summarizeBy: none
+		sourceColumn: molecule_combo
+
+		annotation SummarizationSetBy = Automatic
+
+	column molecule_count
+		dataType: int64
+		formatString: 0
+		lineageTag: 2e52059c-2d87-4f4c-a48a-1a53993b612b
+		summarizeBy: sum
+		sourceColumn: molecule_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_combo_molecule
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 974164e5-c04c-4289-8b0f-f728f52ef0ca
+		summarizeBy: none
+		sourceColumn: is_combo_molecule
+
+		annotation SummarizationSetBy = Automatic
+
+	column has_not_coded_molecule
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 00de7e08-e9fc-442c-a18b-662aaadadad3
+		summarizeBy: none
+		sourceColumn: has_not_coded_molecule
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Promo Product' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(root_path & "dim_promo_product.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(
+				        #"Promoted Headers",
+				        {
+				            {"product_key", Int64.Type},
+				            {"portfolio_key", Int64.Type},
+				            {"product_label", type text},
+				            {"local_brand_name", type text},
+				            {"int_corporation_name", type text},
+				            {"corporation_group", type text},
+				            {"atc4_raw", type text},
+				            {"atc4_code", type text},
+				            {"atc4_description", type text},
+				            {"molecule_combo", type text},
+				            {"molecule_count", Int64.Type},
+				            {"is_combo_molecule", type logical},
+				            {"has_not_coded_molecule", type logical}
+				        },
+				        "it-IT"
+				    ),
+				    #"Buffered Rows" = Table.Buffer(#"Changed Type")
+				in
+				    #"Buffered Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,164 @@
+table 'Sales Product'
+	isHidden
+	lineageTag: 029d2bd9-f9c4-434d-8422-1730286e1d89
+
+	column 'Product Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 8d3051f6-c8e4-4a17-afdd-a9d2d87e00c6
+		summarizeBy: none
+		sourceColumn: product_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Portfolio Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: b2d89e2e-6f82-42f4-82d6-41d9317f406c
+		summarizeBy: none
+		sourceColumn: portfolio_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column Product
+		dataType: string
+		lineageTag: 3df093dc-571c-4cbc-a3b4-689c86d45993
+		summarizeBy: none
+		sourceColumn: product_label
+
+		annotation SummarizationSetBy = Automatic
+
+	column Pack
+		dataType: string
+		lineageTag: 4e044b66-1d6d-43be-92f4-8060a8e67d9a
+		summarizeBy: none
+		sourceColumn: pack_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Corporation
+		dataType: string
+		lineageTag: 03525aa1-15bf-4636-bea1-bd946ce8ef92
+		summarizeBy: none
+		sourceColumn: corporation_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Corporation Group'
+		dataType: string
+		lineageTag: 7dc2c74d-2229-4de6-bf17-7b5838c79167
+		summarizeBy: none
+		sourceColumn: corporation_group
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ATC4 Code'
+		dataType: string
+		lineageTag: 9326d316-85f3-4e71-b51f-5dc6086e7b84
+		summarizeBy: none
+		sourceColumn: atc4_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_name
+		dataType: string
+		lineageTag: 1778c988-53ac-4422-9340-550d68aa8a48
+		summarizeBy: none
+		sourceColumn: product_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column atc4_raw
+		dataType: string
+		lineageTag: c4e561a0-3342-4d99-a5ee-3a55daa4f122
+		summarizeBy: none
+		sourceColumn: atc4_raw
+
+		annotation SummarizationSetBy = Automatic
+
+	column atc4_description
+		dataType: string
+		lineageTag: fd94c1c0-428e-451a-8fa5-f8aef5554a40
+		summarizeBy: none
+		sourceColumn: atc4_description
+
+		annotation SummarizationSetBy = Automatic
+
+	column molecule_list
+		dataType: string
+		lineageTag: 4bd59298-bed6-4115-840f-1a5f6a50bfd0
+		summarizeBy: none
+		sourceColumn: molecule_list
+
+		annotation SummarizationSetBy = Automatic
+
+	column molecule_count
+		dataType: int64
+		formatString: 0
+		lineageTag: 91ef3822-92fc-4afd-94ce-2a3bd2e32e0c
+		summarizeBy: sum
+		sourceColumn: molecule_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_combo_molecule
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 436764e3-f551-4728-b204-56051fea42dd
+		summarizeBy: none
+		sourceColumn: is_combo_molecule
+
+		annotation SummarizationSetBy = Automatic
+
+	column protection_current
+		dataType: string
+		lineageTag: 8d05de89-caff-4de9-a9d7-a78662996ff0
+		summarizeBy: none
+		sourceColumn: protection_current
+
+		annotation SummarizationSetBy = Automatic
+
+	column international_prescription
+		dataType: string
+		lineageTag: 35770d63-6baa-4d86-b8a0-d14bdeb77b33
+		summarizeBy: none
+		sourceColumn: international_prescription
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Sales Product' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(root_path & "dim_sales_product.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(
+				        #"Promoted Headers",
+				        {
+				            {"product_key", Int64.Type},
+				            {"portfolio_key", Int64.Type},
+				            {"product_label", type text},
+				            {"product_name", type text},
+				            {"pack_name", type text},
+				            {"corporation_name", type text},
+				            {"corporation_group", type text},
+				            {"atc4_raw", type text},
+				            {"atc4_code", type text},
+				            {"atc4_description", type text},
+				            {"molecule_list", type text},
+				            {"molecule_count", Int64.Type},
+				            {"is_combo_molecule", type logical},
+				            {"protection_current", type text},
+				            {"international_prescription", type text}
+				        }
+				    ),
+				    #"Buffered Rows" = Table.Buffer(#"Changed Type")
+				in
+				    #"Buffered Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,42 @@
+table Molecule
+	lineageTag: 0fba6e9f-83fa-4734-a002-78d8518e74c6
+
+	column 'Molecule Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 757ea015-023c-4bec-bed2-785098cdaa8c
+		summarizeBy: none
+		sourceColumn: molecule_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column Molecule
+		dataType: string
+		lineageTag: dcbaa372-ffa4-42b7-af16-438ae66bb283
+		summarizeBy: none
+		sourceColumn: molecule_name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Molecule = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(root_path & "dim_molecule.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(
+				        #"Promoted Headers",
+				        {
+				            {"molecule_key", Int64.Type},
+				            {"molecule_name", type text}
+				        }
+				    ),
+				    #"Buffered Rows" = Table.Buffer(#"Changed Type")
+				in
+				    #"Buffered Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

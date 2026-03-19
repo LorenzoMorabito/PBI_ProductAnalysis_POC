@@ -1,0 +1,43 @@
+table Specialty
+	lineageTag: 348cacf7-f4d8-4632-b0d8-3f8db438d9ca
+
+	column 'Specialty Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: d20651bc-1e2e-403a-baf1-07f71877eca0
+		summarizeBy: none
+		sourceColumn: specialty_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column Specialty
+		dataType: string
+		lineageTag: 6551743a-757b-41f7-8eb6-89a298fddd21
+		summarizeBy: none
+		sourceColumn: specialty_name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Specialty = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(root_path & "dim_specialty.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(
+				        #"Promoted Headers",
+				        {
+				            {"specialty_key", Int64.Type},
+				            {"specialty_name", type text}
+				        },
+				        "it-IT"
+				    ),
+				    #"Buffered Rows" = Table.Buffer(#"Changed Type")
+				in
+				    #"Buffered Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

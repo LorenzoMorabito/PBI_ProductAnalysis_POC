@@ -1,0 +1,266 @@
+table Promo
+	lineageTag: 499c9203-15d8-4d37-be21-08257260f4b4
+
+	measure Investments = SUM ( F_Promo[Spending Total EUR] )
+		formatString: #,0;-#,0;0
+		displayFolder: Base
+		lineageTag: c6cc80f5-23c9-46bb-b31a-aff0cdaee8d9
+
+	measure 'Product Details' = SUM ( F_Promo[Product Details] )
+		formatString: #,0;-#,0;0
+		displayFolder: Base
+		lineageTag: 04af5e8d-9c1e-4c87-ad03-a8d93c9d7e37
+
+	measure 'Contact Number' = SUM ( F_Promo[Contact Number] )
+		formatString: #,0;-#,0;0
+		displayFolder: Base
+		lineageTag: 82310e1b-0152-4a43-b1f8-41a5548220bc
+
+	measure Mentions = SUM ( F_Promo[Mentions] )
+		formatString: #,0;-#,0;0
+		displayFolder: Base
+		lineageTag: 9fcbb6e7-3f2e-4f37-b197-d355dee2a997
+
+	measure 'Weighted Calls' = SUM ( F_Promo[Weighted Calls] )
+		formatString: #,0.0;-#,0.0;0.0
+		displayFolder: Base
+		lineageTag: cf116db6-a94d-47ed-b957-60c3cfd0d252
+
+	measure '% Share of Investments' =
+			
+			VAR Atc4Scope = VALUES ( Portfolio[ATC4 Code] )
+			VAR MarketInvestments =
+			    CALCULATE (
+			        [Investments],
+			        REMOVEFILTERS ( Portfolio ),
+			        REMOVEFILTERS ( 'Promo Product' ),
+			        REMOVEFILTERS ( Molecule ),
+			        KEEPFILTERS ( Atc4Scope )
+			    )
+			RETURN
+			    DIVIDE ( [Investments], MarketInvestments )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Share
+		lineageTag: d8fcad8e-d92b-4cf0-83db-6a20b57cc158
+
+	measure '% Share of Voice' =
+			
+			VAR Atc4Scope = VALUES ( Portfolio[ATC4 Code] )
+			VAR MarketDetails =
+			    CALCULATE (
+			        [Product Details],
+			        REMOVEFILTERS ( Portfolio ),
+			        REMOVEFILTERS ( 'Promo Product' ),
+			        REMOVEFILTERS ( Molecule ),
+			        KEEPFILTERS ( Atc4Scope )
+			    )
+			RETURN
+			    DIVIDE ( [Product Details], MarketDetails )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Share
+		lineageTag: 5c9265fd-5965-4b38-ac8f-880c68f6655d
+
+	measure 'Share of Contact Number' =
+			
+			VAR Atc4Scope = VALUES ( Portfolio[ATC4 Code] )
+			VAR MarketContacts =
+			    CALCULATE (
+			        [Contact Number],
+			        REMOVEFILTERS ( Portfolio ),
+			        REMOVEFILTERS ( 'Promo Product' ),
+			        REMOVEFILTERS ( Molecule ),
+			        KEEPFILTERS ( Atc4Scope )
+			    )
+			RETURN
+			    DIVIDE ( [Contact Number], MarketContacts )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Share
+		lineageTag: 30f252f1-f4a5-4f41-9899-690e3fb770b3
+
+	measure SOV% =
+			
+			VAR Atc4Scope = VALUES ( Portfolio[ATC4 Code] )
+			VAR MarketWeightedCalls =
+			    CALCULATE (
+			        [Weighted Calls],
+			        REMOVEFILTERS ( Portfolio ),
+			        REMOVEFILTERS ( 'Promo Product' ),
+			        REMOVEFILTERS ( Molecule ),
+			        KEEPFILTERS ( Atc4Scope )
+			    )
+			RETURN
+			    DIVIDE ( [Weighted Calls], MarketWeightedCalls )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Share
+		lineageTag: c925adfc-69fc-4662-8c8b-08105374dbc2
+
+	measure 'Contact Number with intention to increase Rx' =
+			
+			CALCULATE (
+			    [Contact Number],
+			    KEEPFILTERS ( Feedback[Future Prescribing] = "increase (or will begin to prescribe)" )
+			)
+		formatString: #,0;-#,0;0
+		displayFolder: Positive Prescribing
+		lineageTag: 6cb38c18-2b54-4b33-889e-6e4be385b3bb
+
+	measure '% of Contact Number with intention to increase Rx' =
+			
+			DIVIDE ( [Contact Number with intention to increase Rx], [Contact Number] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Positive Prescribing
+		lineageTag: 7ba23359-dd47-4cae-b165-15fe2671f575
+
+	measure 'Product Details with Positive Prescribing' =
+			
+			CALCULATE (
+			    [Product Details],
+			    KEEPFILTERS ( Feedback[Future Prescribing] = "increase (or will begin to prescribe)" )
+			)
+		formatString: #,0;-#,0;0
+		displayFolder: Positive Prescribing
+		lineageTag: 6cb9d8b7-e423-4187-ae2d-f7b506d13e63
+
+	measure 'Contacts with Positive Prescribing' = [Contact Number with intention to increase Rx]
+		formatString: #,0;-#,0;0
+		displayFolder: Positive Prescribing
+		lineageTag: 25516bfd-ff8a-4486-bea3-9e43586cdd0f
+
+	measure 'Conversion rate - % of Calls converted in intention to prescribe' =
+			
+			DIVIDE ( [Product Details with Positive Prescribing], [Product Details] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Positive Prescribing
+		lineageTag: f95f69c7-988a-41f9-bf28-46412aadcc54
+
+	measure 'Conversion rate - % of Contacts converted in intention to prescribe' =
+			
+			DIVIDE ( [Contacts with Positive Prescribing], [Contact Number] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Positive Prescribing
+		lineageTag: 95f7436b-bc84-4be9-9903-50b638eaf611
+
+	measure 'Investments +/- vs PY' =
+			
+			VAR PreviousValue =
+			    CALCULATE ( [Investments], DATEADD ( Quarter[Quarter Date], -1, YEAR ) )
+			RETURN
+			    [Investments] - PreviousValue
+		formatString: #,0;-#,0;0
+		displayFolder: Compare
+		lineageTag: 29a20b6f-11f2-47b6-b82f-a41e2c8b88b4
+
+	measure 'Investments +/-% vs PY' =
+			
+			VAR PreviousValue =
+			    CALCULATE ( [Investments], DATEADD ( Quarter[Quarter Date], -1, YEAR ) )
+			RETURN
+			    DIVIDE ( [Investments] - PreviousValue, PreviousValue )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Compare
+		lineageTag: fd41c7bf-0f22-4afc-bb70-b1c5fced6da1
+
+	measure 'Product Details +/- vs PY' =
+			
+			VAR PreviousValue =
+			    CALCULATE ( [Product Details], DATEADD ( Quarter[Quarter Date], -1, YEAR ) )
+			RETURN
+			    [Product Details] - PreviousValue
+		formatString: #,0;-#,0;0
+		displayFolder: Compare
+		lineageTag: b0387ea5-810d-4c67-b98e-468e977ebea8
+
+	measure 'Product Details +/-% vs PY' =
+			
+			VAR PreviousValue =
+			    CALCULATE ( [Product Details], DATEADD ( Quarter[Quarter Date], -1, YEAR ) )
+			RETURN
+			    DIVIDE ( [Product Details] - PreviousValue, PreviousValue )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Compare
+		lineageTag: b6afb288-c262-4cb1-9622-4f34d50d4c43
+
+	measure 'Contact Number +/- vs PY' =
+			
+			VAR PreviousValue =
+			    CALCULATE ( [Contact Number], DATEADD ( Quarter[Quarter Date], -1, YEAR ) )
+			RETURN
+			    [Contact Number] - PreviousValue
+		formatString: #,0;-#,0;0
+		displayFolder: Compare
+		lineageTag: a84b9e90-5137-41e0-9c04-48c1eb35cfaa
+
+	measure 'Contact Number +/-% vs PY' =
+			
+			VAR PreviousValue =
+			    CALCULATE ( [Contact Number], DATEADD ( Quarter[Quarter Date], -1, YEAR ) )
+			RETURN
+			    DIVIDE ( [Contact Number] - PreviousValue, PreviousValue )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Compare
+		lineageTag: 4091cfaa-f067-499c-8097-098fac86e4cd
+
+	measure 'Mentions +/- vs PY' =
+			
+			VAR PreviousValue =
+			    CALCULATE ( [Mentions], DATEADD ( Quarter[Quarter Date], -1, YEAR ) )
+			RETURN
+			    [Mentions] - PreviousValue
+		formatString: #,0;-#,0;0
+		displayFolder: Compare
+		lineageTag: c49c4915-8f9e-439a-8563-8233c718c245
+
+	measure 'Mentions +/-% vs PY' =
+			
+			VAR PreviousValue =
+			    CALCULATE ( [Mentions], DATEADD ( Quarter[Quarter Date], -1, YEAR ) )
+			RETURN
+			    DIVIDE ( [Mentions] - PreviousValue, PreviousValue )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Compare
+		lineageTag: a3e961fa-19a7-497d-b012-7fc9495a0db5
+
+	measure 'Weighted Calls +/- vs PY' =
+			
+			VAR PreviousValue =
+			    CALCULATE ( [Weighted Calls], DATEADD ( Quarter[Quarter Date], -1, YEAR ) )
+			RETURN
+			    [Weighted Calls] - PreviousValue
+		formatString: #,0.0;-#,0.0;0.0
+		displayFolder: Compare
+		lineageTag: ffa57870-7568-4209-9447-25ca9d4373de
+
+	measure 'Weighted Calls +/-% vs PY' =
+			
+			VAR PreviousValue =
+			    CALCULATE ( [Weighted Calls], DATEADD ( Quarter[Quarter Date], -1, YEAR ) )
+			RETURN
+			    DIVIDE ( [Weighted Calls] - PreviousValue, PreviousValue )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Compare
+		lineageTag: 3c17b2a2-e914-4519-9763-4a9ff088a9af
+
+	measure 'SOV% +/-% vs PY' =
+			
+			VAR PreviousValue =
+			    CALCULATE ( [SOV%], DATEADD ( Quarter[Quarter Date], -1, YEAR ) )
+			RETURN
+			    DIVIDE ( [SOV%] - PreviousValue, PreviousValue )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Compare
+		lineageTag: b15f9c8c-9cd0-4403-883e-a7321f418813
+
+	column Column
+		isHidden
+		formatString: 0
+		lineageTag: 672dc9cf-c20e-44e2-b4d7-19817fb4e819
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Promo = calculated
+		mode: import
+		source = Row("Column", BLANK())
+

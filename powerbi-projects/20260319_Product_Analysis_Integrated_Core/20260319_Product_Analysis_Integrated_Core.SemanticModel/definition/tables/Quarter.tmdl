@@ -1,0 +1,128 @@
+table Quarter
+	lineageTag: ac0899eb-5a81-4353-a5ca-7bc1aa65b6cc
+
+	column 'Quarter Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 74167b79-f46b-460e-b5e5-c4a62a441def
+		summarizeBy: none
+		sourceColumn: quarter_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Quarter Date'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 6d1da01d-a591-4d0f-b80e-035d6602e357
+		summarizeBy: none
+		sourceColumn: quarter_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Quarter
+		dataType: string
+		lineageTag: cf6bb8c9-0370-46ea-8e57-4139fdcd748b
+		summarizeBy: none
+		sourceColumn: quarter_label
+		sortByColumn: 'Quarter Sort'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Calendar Quarter'
+		dataType: string
+		lineageTag: 0004f2cb-346c-4443-83d8-79d6ec209e6f
+		summarizeBy: none
+		sourceColumn: calendar_quarter
+		sortByColumn: 'Quarter Sort'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: bb923e6b-392c-40af-848c-73daf0ffeaf4
+		summarizeBy: none
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Quarter Number'
+		dataType: int64
+		formatString: 0
+		lineageTag: 56809827-ee07-4d63-9f29-48136daf8e96
+		summarizeBy: none
+		sourceColumn: quarter_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Number'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 272fec8c-b8e5-4965-ac95-4cdb87ff856e
+		summarizeBy: none
+		sourceColumn: month_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Year Quarter'
+		dataType: string
+		lineageTag: 06f3ce5f-96ea-4972-9c57-f993f6389371
+		summarizeBy: none
+		sourceColumn: year_quarter
+		sortByColumn: 'Quarter Sort'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Quarter Sort'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 00f811bf-e3ba-474b-aa32-ad7212630c14
+		summarizeBy: none
+		sourceColumn: quarter_sort_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Common 3 Worlds'
+		dataType: boolean
+		isHidden
+		lineageTag: fef40f41-6aaa-4bd8-8bbf-5e376d6c09bb
+		summarizeBy: none
+		sourceColumn: is_common_three_worlds
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Quarter = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(root_path & "dim_quarter.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(
+				        #"Promoted Headers",
+				        {
+				            {"quarter_key", Int64.Type},
+				            {"quarter_date", type date},
+				            {"quarter_label", type text},
+				            {"calendar_quarter", type text},
+				            {"year", Int64.Type},
+				            {"quarter_number", Int64.Type},
+				            {"month_number", Int64.Type},
+				            {"year_quarter", type text},
+				            {"quarter_sort_key", Int64.Type},
+				            {"is_common_three_worlds", type logical}
+				        },
+				        "it-IT"
+				    ),
+				    #"Buffered Rows" = Table.Buffer(#"Changed Type")
+				in
+				    #"Buffered Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

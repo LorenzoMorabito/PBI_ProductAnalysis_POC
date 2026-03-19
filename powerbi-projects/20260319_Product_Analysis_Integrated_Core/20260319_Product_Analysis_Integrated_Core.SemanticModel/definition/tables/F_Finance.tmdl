@@ -1,0 +1,90 @@
+table F_Finance
+	isHidden
+	lineageTag: 5d7b305f-e8e6-4a6d-94e8-37b4292af789
+
+	column 'Fact Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: fc62b6ef-1b20-4fbf-8835-80857ffd3a41
+		summarizeBy: none
+		sourceColumn: fact_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Country Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: c02902ce-edc4-4380-a805-f978890cf059
+		summarizeBy: none
+		sourceColumn: country_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 3959ec88-8a90-4113-aec3-3cbec04b357a
+		summarizeBy: none
+		sourceColumn: month_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: ecacb9e4-2966-4501-b734-038af2321d33
+		summarizeBy: none
+		sourceColumn: product_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ACT Mth Value'
+		dataType: double
+		isHidden
+		formatString: #,0.0;-#,0.0;0.0
+		lineageTag: 22b0e78f-8166-42f8-93ab-66d61f0f70d7
+		summarizeBy: sum
+		sourceColumn: act_mth
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'BDG Mth Value'
+		dataType: double
+		isHidden
+		formatString: #,0.0;-#,0.0;0.0
+		lineageTag: f4e820b5-fe9d-4711-99fb-00cbdf25ad09
+		summarizeBy: sum
+		sourceColumn: bdg_mth
+
+		annotation SummarizationSetBy = Automatic
+
+	partition F_Finance = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(root_path & "fact_finance.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(
+				        #"Promoted Headers",
+				        {
+				            {"fact_key", Int64.Type},
+				            {"country_key", Int64.Type},
+				            {"month_key", Int64.Type},
+				            {"product_key", Int64.Type},
+				            {"act_mth", type number},
+				            {"bdg_mth", type number}
+				        },
+				        "en-US"
+				    ),
+				    #"Buffered Rows" = Table.Buffer(#"Changed Type")
+				in
+				    #"Buffered Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

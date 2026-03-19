@@ -1,0 +1,128 @@
+table 'Finance Product'
+	isHidden
+	lineageTag: cd98b875-ec66-4b15-b504-953720d74446
+
+	column 'Product Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 702bba72-940f-4986-bc11-6dd33f6d73d7
+		summarizeBy: none
+		sourceColumn: product_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Portfolio Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: d186573e-c44f-4e66-addd-2acd1115ca06
+		summarizeBy: none
+		sourceColumn: portfolio_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column Product
+		dataType: string
+		lineageTag: 3afe5ff6-4913-4422-84fe-b75e74ec3f5e
+		summarizeBy: none
+		sourceColumn: product_label
+
+		annotation SummarizationSetBy = Automatic
+
+	column Company
+		dataType: string
+		lineageTag: 69648bd4-8a4e-4d61-9bb7-421dc7359b04
+		summarizeBy: none
+		sourceColumn: company_desc
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Corporation Group'
+		dataType: string
+		lineageTag: cb666f9d-95b4-45da-b89f-f6d9cf63db16
+		summarizeBy: none
+		sourceColumn: corporation_group
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ATC4 Code'
+		dataType: string
+		lineageTag: 9976bbb8-e827-45b4-9704-5e84f0a3a33a
+		summarizeBy: none
+		sourceColumn: atc4_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column molecule_desc_raw
+		dataType: string
+		lineageTag: 9bd18860-15e6-4c52-9262-f9ef1fa82921
+		summarizeBy: none
+		sourceColumn: molecule_desc_raw
+
+		annotation SummarizationSetBy = Automatic
+
+	column atc4_description
+		dataType: string
+		lineageTag: 70fc0e73-077e-4bfc-9aa1-5632d3dd7d0d
+		summarizeBy: none
+		sourceColumn: atc4_description
+
+		annotation SummarizationSetBy = Automatic
+
+	column molecule_list
+		dataType: string
+		lineageTag: fb5bd27b-6a3d-44d6-8511-6ee369981732
+		summarizeBy: none
+		sourceColumn: molecule_list
+
+		annotation SummarizationSetBy = Automatic
+
+	column molecule_count
+		dataType: int64
+		formatString: 0
+		lineageTag: 6fefadcd-d628-432b-8104-be135b4c3a94
+		summarizeBy: sum
+		sourceColumn: molecule_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_combo_molecule
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 8d4a567c-1edd-4a30-8935-9fff36fa4906
+		summarizeBy: none
+		sourceColumn: is_combo_molecule
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Finance Product' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(root_path & "dim_finance_product.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(
+				        #"Promoted Headers",
+				        {
+				            {"product_key", Int64.Type},
+				            {"portfolio_key", Int64.Type},
+				            {"product_label", type text},
+				            {"molecule_desc_raw", type text},
+				            {"company_desc", type text},
+				            {"corporation_group", type text},
+				            {"atc4_code", type text},
+				            {"atc4_description", type text},
+				            {"molecule_list", type text},
+				            {"molecule_count", Int64.Type},
+				            {"is_combo_molecule", type logical}
+				        }
+				    ),
+				    #"Buffered Rows" = Table.Buffer(#"Changed Type")
+				in
+				    #"Buffered Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

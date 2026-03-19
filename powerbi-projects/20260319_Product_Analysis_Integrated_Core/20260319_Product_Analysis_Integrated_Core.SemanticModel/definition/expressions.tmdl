@@ -1,0 +1,7 @@
+expression root_path = "C:\work\MEN_Marketing\PBI_ProductAnalysis_POC\data_source\Integrated Product Analysis Core\semantic_source\" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 127e735c-ad37-4916-8245-f45fc2913576
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+
