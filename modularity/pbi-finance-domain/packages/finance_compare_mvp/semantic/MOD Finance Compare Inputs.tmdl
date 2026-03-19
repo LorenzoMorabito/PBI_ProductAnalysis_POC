@@ -1,14 +1,14 @@
 table 'MOD Finance Compare Inputs'
 
-	measure 'Input Fin ACT' = [Fin ACT]
+	measure 'Input Primary Measure' = [MOD_BIND_PRIMARY_MEASURE]
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	measure 'Input Fin BDG' = [Fin BDG]
+	measure 'Input Reference Measure 1' = [MOD_BIND_REFERENCE_MEASURE_1]
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	measure 'Input Fin ACT PY' = [Fin ACT PY]
+	measure 'Input Reference Measure 2' = [MOD_BIND_REFERENCE_MEASURE_2]
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 

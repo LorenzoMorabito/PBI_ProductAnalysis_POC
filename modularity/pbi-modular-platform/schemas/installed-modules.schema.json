@@ -61,6 +61,21 @@
           "mappings": {
             "type": "object"
           },
+          "bindingMode": {
+            "type": "string"
+          },
+          "bindingProfileId": {
+            "type": "string"
+          },
+          "bindingProfileHash": {
+            "type": "string"
+          },
+          "bindingSelections": {
+            "type": "object"
+          },
+          "resolvedBindings": {
+            "type": "object"
+          },
           "installedAt": {
             "type": "string",
             "minLength": 1

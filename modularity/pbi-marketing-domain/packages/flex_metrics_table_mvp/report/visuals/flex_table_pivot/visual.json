@@ -191,7 +191,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'FlexTablePivot'"
+                  "Value": "'Flexible Metrics Pivot'"
                 }
               }
             },

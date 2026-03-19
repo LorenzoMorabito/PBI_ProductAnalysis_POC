@@ -168,7 +168,8 @@ function Test-PbiModuleMeasureConflicts {
     param(
         [Parameter(Mandatory = $true)]$Project,
         [Parameter(Mandatory = $true)]$Module,
-        [Parameter(Mandatory = $true)]$Manifest
+        [Parameter(Mandatory = $true)]$Manifest,
+        $ResolvedMappings
     )
 
     if (@($Manifest.provides.semanticTables).Count -eq 0) {
@@ -179,7 +180,12 @@ function Test-PbiModuleMeasureConflicts {
     }
 
     $existingMeasureNames = Get-PbiProjectMeasureNames -Project $Project -ExcludeTables @($Manifest.provides.semanticTables)
-    $moduleMeasureNames = Get-PbiModuleMeasureNames -Module $Module -Manifest $Manifest
+    $moduleMeasureNames = if ($ResolvedMappings) {
+        @((Get-PbiModuleSemanticObjectSummary -Module $Module -Manifest $Manifest -Project $Project -ResolvedMappings $ResolvedMappings).measures)
+    }
+    else {
+        Get-PbiModuleMeasureNames -Module $Module -Manifest $Manifest
+    }
     $conflicts = @($moduleMeasureNames | Where-Object { $existingMeasureNames -contains $_ } | Sort-Object -Unique)
 
     return [PSCustomObject]@{
@@ -225,21 +231,89 @@ function Test-PbiColumnExists {
 function Test-PbiModuleRequirements {
     param(
         [Parameter(Mandatory = $true)]$Project,
-        [Parameter(Mandatory = $true)]$Manifest
+        [Parameter(Mandatory = $true)]$Manifest,
+        $ResolvedMappings
     )
 
     $missingMeasures = New-Object System.Collections.Generic.List[string]
     $missingColumns = New-Object System.Collections.Generic.List[string]
+    $normalizedMappings = ConvertTo-PbiResolvedMappings -Mappings $ResolvedMappings
+    $contract = Get-PbiModuleBindingContract -Manifest $Manifest
+    $measureRequirements = @()
+    $columnRequirements = @()
 
-    foreach ($measureName in @($Manifest.requires.coreMeasures)) {
-        if (-not (Test-PbiMeasureExists -Project $Project -MeasureName $measureName)) {
-            $missingMeasures.Add($measureName)
+    if (@($contract.collections).Count -gt 0) {
+        foreach ($role in @($contract.roles)) {
+            $sectionName = if ($role.kind -eq "measure") { "coreMeasures" } else { "coreColumns" }
+            $mappingSection = Get-PbiResolvedMappingSection -ResolvedMappings $normalizedMappings -SectionName $sectionName
+            $hasMapping = [bool]($mappingSection -and $mappingSection.Contains($role.bindingKey))
+            $resolvedValue = if ($hasMapping) { [string]$mappingSection[$role.bindingKey] } else { "" }
+
+            if ($hasMapping -and -not [string]::IsNullOrWhiteSpace($resolvedValue)) {
+                if ($role.kind -eq "measure") {
+                    $measureRequirements += [ordered]@{
+                        source = [string]$role.bindingKey
+                        target = $resolvedValue
+                    }
+                }
+                else {
+                    $columnRequirements += [ordered]@{
+                        source = [string]$role.bindingKey
+                        target = $resolvedValue
+                    }
+                }
+            }
+            elseif ($role.required) {
+                if ($role.kind -eq "measure") {
+                    $measureRequirements += [ordered]@{
+                        source = [string]$role.bindingKey
+                        target = [string]$role.bindingKey
+                    }
+                }
+                else {
+                    $columnRequirements += [ordered]@{
+                        source = [string]$role.bindingKey
+                        target = [string]$role.bindingKey
+                    }
+                }
+            }
+        }
+    }
+    else {
+        foreach ($measureName in @($Manifest.requires.coreMeasures)) {
+            $measureRequirements += [ordered]@{
+                source = $measureName
+                target = if ($normalizedMappings.coreMeasures.Contains($measureName)) { [string]$normalizedMappings.coreMeasures[$measureName] } else { $measureName }
+            }
+        }
+
+        foreach ($columnReference in @($Manifest.requires.coreColumns)) {
+            $columnRequirements += [ordered]@{
+                source = $columnReference
+                target = if ($normalizedMappings.coreColumns.Contains($columnReference)) { [string]$normalizedMappings.coreColumns[$columnReference] } else { $columnReference }
+            }
         }
     }
 
-    foreach ($columnReference in @($Manifest.requires.coreColumns)) {
-        if (-not (Test-PbiColumnExists -Project $Project -ColumnReference $columnReference)) {
-            $missingColumns.Add($columnReference)
+    foreach ($measureRequirement in @($measureRequirements)) {
+        if (-not (Test-PbiMeasureExists -Project $Project -MeasureName $measureRequirement.target)) {
+            if ($measureRequirement.source -eq $measureRequirement.target) {
+                $missingMeasures.Add([string]$measureRequirement.source)
+            }
+            else {
+                $missingMeasures.Add(("{0} -> {1}" -f $measureRequirement.source, $measureRequirement.target))
+            }
+        }
+    }
+
+    foreach ($columnRequirement in @($columnRequirements)) {
+        if (-not (Test-PbiColumnExists -Project $Project -ColumnReference $columnRequirement.target)) {
+            if ($columnRequirement.source -eq $columnRequirement.target) {
+                $missingColumns.Add([string]$columnRequirement.source)
+            }
+            else {
+                $missingColumns.Add(("{0} -> {1}" -f $columnRequirement.source, $columnRequirement.target))
+            }
         }
     }
 
@@ -339,8 +413,14 @@ function Get-PbiModuleSemanticFileMappings {
     param(
         [Parameter(Mandatory = $true)]$Project,
         [Parameter(Mandatory = $true)]$Module,
-        [Parameter(Mandatory = $true)]$Manifest
+        [Parameter(Mandatory = $true)]$Manifest,
+        $ResolvedMappings
     )
+
+    $renderedMappings = @(Get-PbiRenderedModuleSemanticAssets -Project $Project -Module $Module -Manifest $Manifest -ResolvedMappings $ResolvedMappings)
+    if ($renderedMappings.Count -gt 0) {
+        return $renderedMappings
+    }
 
     $sourceSemanticPath = Join-Path $Module.PackageRoot "semantic"
     $mappings = New-Object System.Collections.Generic.List[object]
@@ -362,8 +442,26 @@ function Get-PbiModuleSemanticFileMappings {
 function Get-PbiModuleSemanticObjectSummary {
     param(
         [Parameter(Mandatory = $true)]$Module,
-        [Parameter(Mandatory = $true)]$Manifest
+        [Parameter(Mandatory = $true)]$Manifest,
+        $Project,
+        $ResolvedMappings
     )
+
+    if ($Project -and $ResolvedMappings) {
+        $measureNames = New-Object System.Collections.Generic.List[string]
+        $fileMappings = @(Get-PbiModuleSemanticFileMappings -Project $Project -Module $Module -Manifest $Manifest -ResolvedMappings $ResolvedMappings)
+        foreach ($mapping in $fileMappings) {
+            $content = if ($mapping.SourceContent) { [string]$mapping.SourceContent } else { Get-Content -Path $mapping.SourcePath -Raw }
+            foreach ($measureName in (Get-PbiMeasureNamesFromTmdlContent -Content $content)) {
+                $measureNames.Add($measureName)
+            }
+        }
+
+        return [ordered]@{
+            tables   = @($Manifest.provides.semanticTables)
+            measures = @($measureNames | Select-Object -Unique)
+        }
+    }
 
     return [ordered]@{
         tables   = @($Manifest.provides.semanticTables)
@@ -376,6 +474,7 @@ function Install-PbiSemanticAssets {
         [Parameter(Mandatory = $true)]$Project,
         [Parameter(Mandatory = $true)]$Module,
         [Parameter(Mandatory = $true)]$Manifest,
+        $ResolvedMappings,
         [switch]$Force
     )
 
@@ -392,8 +491,9 @@ function Install-PbiSemanticAssets {
     $sourceSemanticPath = Join-Path $Module.PackageRoot "semantic"
     $tableDirectory = Get-PbiTableDefinitionDirectory -Project $Project
     Ensure-PbiDirectory -Path $tableDirectory
-    $measureConflicts = Test-PbiModuleMeasureConflicts -Project $Project -Module $Module -Manifest $Manifest
+    $measureConflicts = Test-PbiModuleMeasureConflicts -Project $Project -Module $Module -Manifest $Manifest -ResolvedMappings $ResolvedMappings
     $filesTouched = New-Object System.Collections.Generic.List[string]
+    $fileMappings = @(Get-PbiModuleSemanticFileMappings -Project $Project -Module $Module -Manifest $Manifest -ResolvedMappings $ResolvedMappings)
 
     if ($measureConflicts.HasConflicts) {
         throw ("Module '{0}' defines measure names already present in project '{1}': {2}" -f
@@ -402,15 +502,22 @@ function Install-PbiSemanticAssets {
             ($measureConflicts.Conflicts -join ", "))
     }
 
-    foreach ($tableName in @($Manifest.provides.semanticTables)) {
-        $sourcePath = Join-Path $sourceSemanticPath ($tableName + ".tmdl")
-        $destinationPath = Get-PbiTableDefinitionPath -Project $Project -TableName $tableName
+    foreach ($mapping in $fileMappings) {
+        $tableName = $mapping.TableName
+        $destinationPath = $mapping.DestinationPath
 
         if ((Test-Path $destinationPath) -and -not $Force) {
             throw "Semantic table '$tableName' already exists at '$destinationPath'. Use -Force to overwrite."
         }
 
-        Copy-Item -Path $sourcePath -Destination $destinationPath -Force
+        $renderedContent = if ($mapping.SourceContent) {
+            [string]$mapping.SourceContent
+        }
+        else {
+            $sourceContent = Get-Content -Path $mapping.SourcePath -Raw
+            Convert-PbiTextWithResolvedMappings -Text $sourceContent -ResolvedMappings $ResolvedMappings
+        }
+        Write-PbiUtf8File -Path $destinationPath -Content $renderedContent
         $filesTouched.Add((Get-PbiRelativePath -BasePath $Project.ProjectRoot -Path $destinationPath))
     }
 
@@ -423,7 +530,7 @@ function Install-PbiSemanticAssets {
 
     return [PSCustomObject]@{
         FilesTouched         = @($filesTouched | Sort-Object -Unique)
-        SemanticObjectsAdded = (Get-PbiModuleSemanticObjectSummary -Module $Module -Manifest $Manifest)
+        SemanticObjectsAdded = (Get-PbiModuleSemanticObjectSummary -Module $Module -Manifest $Manifest -Project $Project -ResolvedMappings $ResolvedMappings)
     }
 }
 

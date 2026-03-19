@@ -9,50 +9,50 @@ table 'MOD Flex Table Metrics'
 			VAR BaseMetric =
 			    SWITCH(
 			        SelectedMeasure,
-			        "sales_values", [Flex Input Sales Values],
-			        "sales_units", [Flex Input Sales Units],
-			        "counting_units", [Flex Input Counting Units],
-			        "promo_spend", [Flex Input Promo Spend],
-			        "promo_details", [Flex Input Promo Details],
-			        "promo_contacts", [Flex Input Promo Contacts],
-			        "promo_weighted_calls", [Flex Input Promo Weighted Calls],
-			        "fin_act", [Flex Input Fin ACT],
-			        "fin_bdg", [Flex Input Fin BDG],
-			        "fin_act_py", [Flex Input Fin ACT PY],
+			        "metric_1", [Flex Input Metric 1],
+			        "metric_2", [Flex Input Metric 2],
+			        "metric_3", [Flex Input Metric 3],
+			        "metric_4", [Flex Input Metric 4],
+			        "metric_5", [Flex Input Metric 5],
+			        "metric_6", [Flex Input Metric 6],
+			        "metric_7", [Flex Input Metric 7],
+			        "metric_8", [Flex Input Metric 8],
+			        "metric_9", [Flex Input Metric 9],
+			        "metric_10", [Flex Input Metric 10],
 			        BLANK()
 			    )
 			RETURN
 			SWITCH(
 			    AxisKey,
-			    "Molecule",
+			    "dimension_1",
 			        CALCULATE(
 			            BaseMetric,
-			            KEEPFILTERS(TREATAS({AxisValue}, T_DIM_MOLECULE[MoleculeNorm]))
+			            KEEPFILTERS(TREATAS({AxisValue}, MOD_BIND_DIMENSION_1[Value]))
 			        ),
-			    "Country",
+			    "dimension_2",
 			        CALCULATE(
 			            BaseMetric,
-			            KEEPFILTERS(TREATAS({AxisValue}, T_DIM_COUNTRY[Country]))
+			            KEEPFILTERS(TREATAS({AxisValue}, MOD_BIND_DIMENSION_2[Value]))
 			        ),
-			    "Corporation",
+			    "dimension_3",
 			        CALCULATE(
 			            BaseMetric,
-			            KEEPFILTERS(TREATAS({AxisValue}, T_DIM_CORPORATION[Corporation]))
+			            KEEPFILTERS(TREATAS({AxisValue}, MOD_BIND_DIMENSION_3[Value]))
 			        ),
-			    "Product",
+			    "dimension_4",
 			        CALCULATE(
 			            BaseMetric,
-			            KEEPFILTERS(TREATAS({AxisValue}, T_DIM_PRODUCT[Product]))
+			            KEEPFILTERS(TREATAS({AxisValue}, MOD_BIND_DIMENSION_4[Value]))
 			        ),
-			    "Quarter",
+			    "dimension_5",
 			        CALCULATE(
 			            BaseMetric,
-			            KEEPFILTERS(TREATAS({AxisValue}, T_DIM_QUARTER[QuarterKey]))
+			            KEEPFILTERS(TREATAS({AxisValue}, MOD_BIND_DIMENSION_5[Value]))
 			        ),
-			    "ATC4",
+			    "dimension_6",
 			        CALCULATE(
 			            BaseMetric,
-			            KEEPFILTERS(TREATAS({AxisValue}, T_DIM_ACT4[ATC4]))
+			            KEEPFILTERS(TREATAS({AxisValue}, MOD_BIND_DIMENSION_6[Value]))
 			        ),
 			    BLANK()
 			)
@@ -95,7 +95,7 @@ table 'MOD Flex Table Metrics'
 			        ASC
 			    )
 			RETURN
-			"Flexible Core Metrics Table | " & COALESCE(SelectedDimensions, "Molecule")
+			"Flexible Metrics Pivot | " & COALESCE(SelectedDimensions, "{{bindingLabel:MOD_BIND_DIMENSION_1[Value]}}")
 		lineageTag: f7b9e2a3-fc89-4533-ae54-ef56c48fc917
 
 	column Column

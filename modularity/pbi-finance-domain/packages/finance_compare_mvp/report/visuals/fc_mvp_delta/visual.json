@@ -41,11 +41,11 @@
                       "Entity": "MOD Finance Compare Metrics"
                     }
                   },
-                  "Property": "Fin ACT vs (Selected) +/-%"
+                  "Property": "Primary vs (Selected) %"
                 }
               },
-              "queryRef": "MOD Finance Compare Metrics.Fin ACT vs (Selected) +/-%",
-              "nativeQueryRef": "Fin ACT vs (Selected) +/-%"
+              "queryRef": "MOD Finance Compare Metrics.Primary vs (Selected) %",
+              "nativeQueryRef": "Primary vs (Selected) %"
             }
           ]
         },
@@ -56,14 +56,14 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "T_DIM_MONTH"
+                      "Entity": "MOD_BIND_PERIOD_AXIS"
                     }
                   },
-                  "Property": "MonthStartDay"
+                  "Property": "Value"
                 }
               },
-              "queryRef": "T_DIM_MONTH.MonthStartDay",
-              "nativeQueryRef": "MonthStartDay"
+              "queryRef": "MOD_BIND_PERIOD_AXIS.Value",
+              "nativeQueryRef": "{{bindingLabel:MOD_BIND_PERIOD_AXIS[Value]}}"
             }
           ]
         }

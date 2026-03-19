@@ -68,21 +68,21 @@
                           [
                             {
                               "Literal": {
-                                "Value": "'Sales Values'"
+                                "Value": "'{{bindingLabel:MOD_BIND_MEASURE_1}}'"
                               }
                             }
                           ],
                           [
                             {
                               "Literal": {
-                                "Value": "'Promo Spend'"
+                                "Value": "'{{bindingLabel:MOD_BIND_MEASURE_2}}'"
                               }
                             }
                           ],
                           [
                             {
                               "Literal": {
-                                "Value": "'Fin ACT'"
+                                "Value": "'{{bindingLabel:MOD_BIND_MEASURE_3}}'"
                               }
                             }
                           ]
@@ -104,7 +104,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Columns'"
+                  "Value": "'Metrics'"
                 }
               }
             },

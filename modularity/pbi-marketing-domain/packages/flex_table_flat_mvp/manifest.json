@@ -1,6 +1,6 @@
 {
   "moduleId": "flex_table_flat_mvp",
-  "version": "0.2.0",
+  "version": "0.4.0",
   "domain": "marketing",
   "type": "semantic",
   "classification": "semantic-light",
@@ -10,28 +10,141 @@
   },
   "semanticImpact": "additive",
   "status": "prototype",
-  "description": "Importable flat flex table with selectable dimension and measure columns rendered in a standard table visual.",
+  "description": "Reusable flat table module with collection-based dimension and metric binding.",
   "requires": {
-    "coreMeasures": [
-      "Sales Values",
-      "Sales Units",
-      "Counting Units",
-      "Promo Spend",
-      "Promo Details",
-      "Promo Contacts",
-      "Promo Weighted Calls",
-      "Fin ACT",
-      "Fin BDG",
-      "Fin ACT PY"
-    ],
-    "coreColumns": [
-      "T_DIM_MOLECULE[MoleculeNorm]",
-      "T_DIM_COUNTRY[Country]",
-      "T_DIM_CORPORATION[Corporation]",
-      "T_DIM_PRODUCT[Product]",
-      "T_DIM_QUARTER[QuarterKey]",
-      "T_DIM_ACT4[ATC4]"
+    "coreMeasures": [],
+    "coreColumns": []
+  },
+  "bindingContract": {
+    "mode": "collection-guided",
+    "collections": [
+      {
+        "id": "dimensions",
+        "kind": "column",
+        "label": "Dimensions",
+        "description": "Choose the descriptive dimensions exposed by the flat table.",
+        "itemLabel": "Dimension",
+        "minItems": 1,
+        "maxItems": 6,
+        "defaultVisibleCount": 1,
+        "bindingKeyPrefix": "MOD_BIND_DIMENSION_",
+        "bindingKeySuffix": "[Value]",
+        "defaultItems": [
+          {
+            "label": "Dimension 1",
+            "description": "Primary descriptive dimension.",
+            "defaultValue": "T_DIM_COUNTRY[Country]",
+            "suggestions": ["Country", "Market", "Region"]
+          },
+          {
+            "label": "Dimension 2",
+            "description": "Secondary descriptive dimension.",
+            "defaultValue": "T_DIM_PRODUCT[Product]",
+            "suggestions": ["Product", "Brand", "SKU"]
+          },
+          {
+            "label": "Dimension 3",
+            "description": "Additional descriptive dimension.",
+            "defaultValue": "T_DIM_CORPORATION[Corporation]",
+            "suggestions": ["Corporation", "Company", "Business Unit"]
+          },
+          {
+            "label": "Dimension 4",
+            "description": "Additional descriptive dimension.",
+            "defaultValue": "T_DIM_MOLECULE[MoleculeNorm]",
+            "suggestions": ["Molecule", "Ingredient", "Diagnosis"]
+          },
+          {
+            "label": "Dimension 5",
+            "description": "Additional descriptive dimension.",
+            "defaultValue": "T_DIM_QUARTER[QuarterKey]",
+            "suggestions": ["Quarter", "Month", "Period"]
+          },
+          {
+            "label": "Dimension 6",
+            "description": "Additional descriptive dimension.",
+            "defaultValue": "T_DIM_ACT4[ATC4]",
+            "suggestions": ["ATC4", "Class", "Segment"]
+          }
+        ]
+      },
+      {
+        "id": "measures",
+        "kind": "measure",
+        "label": "Measures",
+        "description": "Choose the measures exposed by the flat table.",
+        "itemLabel": "Measure",
+        "minItems": 1,
+        "maxItems": 10,
+        "defaultVisibleCount": 1,
+        "bindingKeyPrefix": "MOD_BIND_MEASURE_",
+        "defaultItems": [
+          {
+            "label": "Measure 1",
+            "description": "Primary metric.",
+            "defaultValue": "Sales Values",
+            "suggestions": ["Sales Values", "Values", "Revenue", "Net Sales"]
+          },
+          {
+            "label": "Measure 2",
+            "description": "Secondary metric.",
+            "defaultValue": "Sales Units",
+            "suggestions": ["Sales Units", "Units", "Volume"]
+          },
+          {
+            "label": "Measure 3",
+            "description": "Additional metric.",
+            "defaultValue": "Counting Units",
+            "suggestions": ["Counting Units", "Count", "Transactions"]
+          },
+          {
+            "label": "Measure 4",
+            "description": "Additional metric.",
+            "defaultValue": "Promo Spend",
+            "suggestions": ["Promo Spend", "Spend", "Investment"]
+          },
+          {
+            "label": "Measure 5",
+            "description": "Additional metric.",
+            "defaultValue": "Promo Details",
+            "suggestions": ["Promo Details", "Details", "Detailing"]
+          },
+          {
+            "label": "Measure 6",
+            "description": "Additional metric.",
+            "defaultValue": "Promo Contacts",
+            "suggestions": ["Promo Contacts", "Contacts", "Calls"]
+          },
+          {
+            "label": "Measure 7",
+            "description": "Additional metric.",
+            "defaultValue": "Promo Weighted Calls",
+            "suggestions": ["Promo Weighted Calls", "Weighted Calls", "Weighted Contacts"]
+          },
+          {
+            "label": "Measure 8",
+            "description": "Additional metric.",
+            "defaultValue": "Fin ACT",
+            "suggestions": ["Fin ACT", "Actual", "ACT"]
+          },
+          {
+            "label": "Measure 9",
+            "description": "Additional metric.",
+            "defaultValue": "Fin BDG",
+            "suggestions": ["Fin BDG", "Budget", "BDG", "Target"]
+          },
+          {
+            "label": "Measure 10",
+            "description": "Additional metric.",
+            "defaultValue": "Fin ACT PY",
+            "suggestions": ["Fin ACT PY", "Previous Year", "PY", "Prior Year"]
+          }
+        ]
+      }
     ]
+  },
+  "rendering": {
+    "strategy": "flex-flat"
   },
   "provides": {
     "semanticTables": [
@@ -41,7 +154,7 @@
     ],
     "reportPage": {
       "name": "9c7a5b4d3e2f1a0b6c8d",
-      "displayName": "FlexTableFlat"
+      "displayName": "Flexible Flat Table"
     }
   }
 }

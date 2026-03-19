@@ -14,6 +14,10 @@ function Get-PbiInstalledModulesSchemaPath {
     return (Join-Path (Get-PbiPlatformRootFromSchemaModule) "schemas/installed-modules.schema.json")
 }
 
+function Get-PbiBindingProfileSchemaPath {
+    return (Join-Path (Get-PbiPlatformRootFromSchemaModule) "schemas/binding-profile.schema.json")
+}
+
 function Get-PbiSchemaObjectPropertyNames {
     param([Parameter(Mandatory = $true)]$Object)
 
@@ -255,6 +259,35 @@ function Test-PbiModuleManifestContract {
         $errors.Add((New-PbiSchemaValidationError -Path "$.classification" -Message "semanticImpact 'invasive' is allowed only for semantic-heavy modules."))
     }
 
+    if ($Manifest.bindingContract) {
+        $bindingContract = $Manifest.bindingContract
+        $bindingMode = [string]$bindingContract.mode
+        $roles = if ($bindingContract.PSObject.Properties['roles']) { @($bindingContract.roles) } else { @() }
+        $collections = if ($bindingContract.PSObject.Properties['collections']) { @($bindingContract.collections) } else { @() }
+
+        if (($bindingMode -eq "guided") -and ($roles.Count -eq 0)) {
+            $errors.Add((New-PbiSchemaValidationError -Path "$.bindingContract.roles" -Message "guided bindingContract must declare at least one role."))
+        }
+
+        if (($bindingMode -eq "collection-guided") -and ($collections.Count -eq 0)) {
+            $errors.Add((New-PbiSchemaValidationError -Path "$.bindingContract.collections" -Message "collection-guided bindingContract must declare at least one collection."))
+        }
+
+        foreach ($collection in $collections) {
+            if ($collection.minItems -lt 1) {
+                $errors.Add((New-PbiSchemaValidationError -Path ("$.bindingContract.collections[{0}].minItems" -f $collection.id) -Message "minItems must be at least 1."))
+            }
+
+            if ($collection.maxItems -lt $collection.minItems) {
+                $errors.Add((New-PbiSchemaValidationError -Path ("$.bindingContract.collections[{0}].maxItems" -f $collection.id) -Message "maxItems must be greater than or equal to minItems."))
+            }
+
+            if (($collection.defaultVisibleCount -lt $collection.minItems) -or ($collection.defaultVisibleCount -gt $collection.maxItems)) {
+                $errors.Add((New-PbiSchemaValidationError -Path ("$.bindingContract.collections[{0}].defaultVisibleCount" -f $collection.id) -Message "defaultVisibleCount must stay within minItems and maxItems."))
+            }
+        }
+    }
+
     if ($errors.Count -gt 0) {
         throw ("Manifest {0} violates the governed contract. {1}" -f $ManifestPath, (Get-PbiSchemaValidationMessage -Errors $errors.ToArray()))
     }
@@ -288,4 +321,33 @@ function Test-PbiInstalledModulesStateSchema {
     }
 }
 
-Export-ModuleMember -Function Get-PbiModuleManifestSchemaPath, Get-PbiInstalledModulesSchemaPath, Test-PbiModuleManifestSchema, Test-PbiInstalledModulesStateSchema
+function Test-PbiBindingProfileContract {
+    param(
+        [Parameter(Mandatory = $true)]$Profile,
+        [Parameter(Mandatory = $true)][string]$ProfilePath
+    )
+
+    $resolvedMappings = $Profile.resolvedMappings
+    foreach ($sectionName in @("coreMeasures", "coreColumns")) {
+        if (-not $resolvedMappings.$sectionName) {
+            throw ("Binding profile {0} is missing resolvedMappings.{1}." -f $ProfilePath, $sectionName)
+        }
+    }
+}
+
+function Test-PbiBindingProfileSchema {
+    param(
+        [Parameter(Mandatory = $true)]$Profile,
+        [Parameter(Mandatory = $true)][string]$ProfilePath
+    )
+
+    $schema = Read-PbiJsonFile -Path (Get-PbiBindingProfileSchemaPath)
+    $errors = @(Test-PbiValueAgainstSchema -Value $Profile -Schema $schema)
+    if ($errors.Count -gt 0) {
+        throw ("Binding profile {0} does not conform to schema. {1}" -f $ProfilePath, (Get-PbiSchemaValidationMessage -Errors $errors))
+    }
+
+    Test-PbiBindingProfileContract -Profile $Profile -ProfilePath $ProfilePath
+}
+
+Export-ModuleMember -Function Get-PbiModuleManifestSchemaPath, Get-PbiInstalledModulesSchemaPath, Get-PbiBindingProfileSchemaPath, Test-PbiModuleManifestSchema, Test-PbiInstalledModulesStateSchema, Test-PbiBindingProfileSchema

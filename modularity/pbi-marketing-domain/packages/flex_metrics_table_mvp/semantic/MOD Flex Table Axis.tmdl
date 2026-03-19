@@ -39,62 +39,62 @@ table 'MOD Flex Table Axis'
 				UNION(
 				    SELECTCOLUMNS(
 				        FILTER(
-				            VALUES(T_DIM_MOLECULE[MoleculeNorm]),
-				            NOT ISBLANK(T_DIM_MOLECULE[MoleculeNorm])
+				            VALUES(MOD_BIND_DIMENSION_1[Value]),
+				            NOT ISBLANK(MOD_BIND_DIMENSION_1[Value])
 				        ),
-				        "DimensionKey", "Molecule",
-				        "DimensionLabel", "Molecule",
+				        "DimensionKey", "dimension_1",
+				        "DimensionLabel", "{{bindingLabel:MOD_BIND_DIMENSION_1[Value]}}",
 				        "DimensionSort", 1,
-				        "AxisLabel", T_DIM_MOLECULE[MoleculeNorm]
+				        "AxisLabel", MOD_BIND_DIMENSION_1[Value]
 				    ),
 				    SELECTCOLUMNS(
 				        FILTER(
-				            VALUES(T_DIM_COUNTRY[Country]),
-				            NOT ISBLANK(T_DIM_COUNTRY[Country])
+				            VALUES(MOD_BIND_DIMENSION_2[Value]),
+				            NOT ISBLANK(MOD_BIND_DIMENSION_2[Value])
 				        ),
-				        "DimensionKey", "Country",
-				        "DimensionLabel", "Country",
+				        "DimensionKey", "dimension_2",
+				        "DimensionLabel", "{{bindingLabel:MOD_BIND_DIMENSION_2[Value]}}",
 				        "DimensionSort", 2,
-				        "AxisLabel", T_DIM_COUNTRY[Country]
+				        "AxisLabel", MOD_BIND_DIMENSION_2[Value]
 				    ),
 				    SELECTCOLUMNS(
 				        FILTER(
-				            VALUES(T_DIM_CORPORATION[Corporation]),
-				            NOT ISBLANK(T_DIM_CORPORATION[Corporation])
+				            VALUES(MOD_BIND_DIMENSION_3[Value]),
+				            NOT ISBLANK(MOD_BIND_DIMENSION_3[Value])
 				        ),
-				        "DimensionKey", "Corporation",
-				        "DimensionLabel", "Corporation",
+				        "DimensionKey", "dimension_3",
+				        "DimensionLabel", "{{bindingLabel:MOD_BIND_DIMENSION_3[Value]}}",
 				        "DimensionSort", 3,
-				        "AxisLabel", T_DIM_CORPORATION[Corporation]
+				        "AxisLabel", MOD_BIND_DIMENSION_3[Value]
 				    ),
 				    SELECTCOLUMNS(
 				        FILTER(
-				            VALUES(T_DIM_PRODUCT[Product]),
-				            NOT ISBLANK(T_DIM_PRODUCT[Product])
+				            VALUES(MOD_BIND_DIMENSION_4[Value]),
+				            NOT ISBLANK(MOD_BIND_DIMENSION_4[Value])
 				        ),
-				        "DimensionKey", "Product",
-				        "DimensionLabel", "Product",
+				        "DimensionKey", "dimension_4",
+				        "DimensionLabel", "{{bindingLabel:MOD_BIND_DIMENSION_4[Value]}}",
 				        "DimensionSort", 4,
-				        "AxisLabel", T_DIM_PRODUCT[Product]
+				        "AxisLabel", MOD_BIND_DIMENSION_4[Value]
 				    ),
 				    SELECTCOLUMNS(
 				        FILTER(
-				            VALUES(T_DIM_QUARTER[QuarterKey]),
-				            NOT ISBLANK(T_DIM_QUARTER[QuarterKey])
+				            VALUES(MOD_BIND_DIMENSION_5[Value]),
+				            NOT ISBLANK(MOD_BIND_DIMENSION_5[Value])
 				        ),
-				        "DimensionKey", "Quarter",
-				        "DimensionLabel", "Quarter",
+				        "DimensionKey", "dimension_5",
+				        "DimensionLabel", "{{bindingLabel:MOD_BIND_DIMENSION_5[Value]}}",
 				        "DimensionSort", 5,
-				        "AxisLabel", T_DIM_QUARTER[QuarterKey]
+				        "AxisLabel", MOD_BIND_DIMENSION_5[Value]
 				    ),
 				    SELECTCOLUMNS(
 				        FILTER(
-				            VALUES(T_DIM_ACT4[ATC4]),
-				            NOT ISBLANK(T_DIM_ACT4[ATC4])
+				            VALUES(MOD_BIND_DIMENSION_6[Value]),
+				            NOT ISBLANK(MOD_BIND_DIMENSION_6[Value])
 				        ),
-				        "DimensionKey", "ATC4",
-				        "DimensionLabel", "ATC4",
+				        "DimensionKey", "dimension_6",
+				        "DimensionLabel", "{{bindingLabel:MOD_BIND_DIMENSION_6[Value]}}",
 				        "DimensionSort", 6,
-				        "AxisLabel", T_DIM_ACT4[ATC4]
+				        "AxisLabel", MOD_BIND_DIMENSION_6[Value]
 				    )
 				)

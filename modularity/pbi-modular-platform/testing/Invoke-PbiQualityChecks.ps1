@@ -23,6 +23,8 @@ $installerModulePaths = @(
     (Join-Path $platformRoot "installer/Modules/Core/Pbi.Schema.psm1"),
     (Join-Path $platformRoot "installer/Modules/Core/Pbi.Catalog.psm1"),
     (Join-Path $platformRoot "installer/Modules/Core/Pbi.Project.psm1"),
+    (Join-Path $platformRoot "installer/Modules/Core/Pbi.Binding.psm1"),
+    (Join-Path $platformRoot "installer/Modules/Core/Pbi.ModuleRendering.psm1"),
     (Join-Path $platformRoot "installer/Modules/Core/Pbi.SemanticModel.psm1"),
     (Join-Path $platformRoot "installer/Modules/Core/Pbi.Report.psm1"),
     (Join-Path $platformRoot "installer/Modules/Domains/Finance/Pbi.Finance.psm1"),

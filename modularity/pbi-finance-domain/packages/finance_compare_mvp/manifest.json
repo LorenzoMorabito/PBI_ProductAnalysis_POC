@@ -1,6 +1,6 @@
 {
   "moduleId": "finance_compare_mvp",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "domain": "finance",
   "type": "semantic",
   "classification": "semantic-light",
@@ -10,15 +10,89 @@
   },
   "semanticImpact": "additive",
   "status": "prototype",
-  "description": "MVP module pack for Finance Compare with semantic adapter layer and reusable PBIR page.",
+  "description": "Reusable compare module with one primary metric, two selectable reference metrics, and a time axis.",
   "requires": {
     "coreMeasures": [
-      "Fin ACT",
-      "Fin BDG",
-      "Fin ACT PY"
+      "MOD_BIND_PRIMARY_MEASURE",
+      "MOD_BIND_REFERENCE_MEASURE_1",
+      "MOD_BIND_REFERENCE_MEASURE_2"
     ],
     "coreColumns": [
-      "T_DIM_MONTH[MonthStartDay]"
+      "MOD_BIND_PERIOD_AXIS[Value]"
+    ]
+  },
+  "bindingContract": {
+    "mode": "guided",
+    "roles": [
+      {
+        "id": "actual_measure",
+        "bindingKey": "MOD_BIND_PRIMARY_MEASURE",
+        "kind": "measure",
+        "required": true,
+        "label": "Primary Measure",
+        "description": "Main metric displayed as the current value in the compare visual.",
+        "semanticRole": "compare.primary",
+        "defaultValue": "Fin ACT",
+        "suggestions": [
+          "Fin ACT",
+          "ACT",
+          "Actual",
+          "Current",
+          "ACT Mth"
+        ]
+      },
+      {
+        "id": "reference_measure_1",
+        "bindingKey": "MOD_BIND_REFERENCE_MEASURE_1",
+        "kind": "measure",
+        "required": true,
+        "label": "Reference Measure 1",
+        "description": "First reference metric offered in the comparison selector.",
+        "semanticRole": "compare.reference.1",
+        "defaultValue": "Fin BDG",
+        "suggestions": [
+          "Fin BDG",
+          "BDG",
+          "Budget",
+          "Target",
+          "Plan",
+          "BDG Mth"
+        ]
+      },
+      {
+        "id": "reference_measure_2",
+        "bindingKey": "MOD_BIND_REFERENCE_MEASURE_2",
+        "kind": "measure",
+        "required": true,
+        "label": "Reference Measure 2",
+        "description": "Second reference metric offered in the comparison selector.",
+        "semanticRole": "compare.reference.2",
+        "defaultValue": "Fin ACT PY",
+        "suggestions": [
+          "Fin ACT PY",
+          "PY",
+          "Previous Year",
+          "Prior Year",
+          "PY Mth"
+        ]
+      },
+      {
+        "id": "period_axis",
+        "bindingKey": "MOD_BIND_PERIOD_AXIS[Value]",
+        "kind": "column",
+        "required": true,
+        "label": "Period Axis",
+        "description": "Time column used on the trend axis of the compare visuals.",
+        "semanticRole": "calendar.period",
+        "defaultValue": "T_DIM_MONTH[MonthStartDay]",
+        "suggestions": [
+          "MonthStartDay",
+          "Month Date",
+          "Month",
+          "Quarter Date",
+          "Date"
+        ]
+      }
     ]
   },
   "provides": {
@@ -29,7 +103,7 @@
     ],
     "reportPage": {
       "name": "8a4f2d4d3f11450ab001",
-      "displayName": "Finance Compare MVP"
+      "displayName": "Metric Compare"
     }
   }
 }

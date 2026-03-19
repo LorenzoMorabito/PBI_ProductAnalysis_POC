@@ -40,10 +40,10 @@ table 'MOD Flex Flat Dimensions'
 		mode: import
 		source =
 				{
-				    ("Country", NAMEOF('T_DIM_COUNTRY'[Country]), 0),
-				    ("Corporation", NAMEOF('T_DIM_CORPORATION'[Corporation]), 1),
-				    ("Product", NAMEOF('T_DIM_PRODUCT'[Product]), 2),
-				    ("Molecule", NAMEOF('T_DIM_MOLECULE'[MoleculeNorm]), 3),
-				    ("Quarter", NAMEOF('T_DIM_QUARTER'[QuarterKey]), 4),
-				    ("ATC4", NAMEOF('T_DIM_ACT4'[ATC4]), 5)
+				    ("{{bindingLabel:MOD_BIND_DIMENSION_1[Value]}}", NAMEOF('MOD_BIND_DIMENSION_1'[Value]), 0),
+				    ("{{bindingLabel:MOD_BIND_DIMENSION_2[Value]}}", NAMEOF('MOD_BIND_DIMENSION_2'[Value]), 1),
+				    ("{{bindingLabel:MOD_BIND_DIMENSION_3[Value]}}", NAMEOF('MOD_BIND_DIMENSION_3'[Value]), 2),
+				    ("{{bindingLabel:MOD_BIND_DIMENSION_4[Value]}}", NAMEOF('MOD_BIND_DIMENSION_4'[Value]), 3),
+				    ("{{bindingLabel:MOD_BIND_DIMENSION_5[Value]}}", NAMEOF('MOD_BIND_DIMENSION_5'[Value]), 4),
+				    ("{{bindingLabel:MOD_BIND_DIMENSION_6[Value]}}", NAMEOF('MOD_BIND_DIMENSION_6'[Value]), 5)
 				}

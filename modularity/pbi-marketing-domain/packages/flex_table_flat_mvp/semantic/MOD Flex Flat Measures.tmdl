@@ -40,14 +40,14 @@ table 'MOD Flex Flat Measures'
 		mode: import
 		source =
 				{
-				    ("Sales Values", NAMEOF('MOD Flex Flat Inputs'[Flat Input Sales Values]), 0),
-				    ("Sales Units", NAMEOF('MOD Flex Flat Inputs'[Flat Input Sales Units]), 1),
-				    ("Counting Units", NAMEOF('MOD Flex Flat Inputs'[Flat Input Counting Units]), 2),
-				    ("Promo Spend", NAMEOF('MOD Flex Flat Inputs'[Flat Input Promo Spend]), 3),
-				    ("Promo Details", NAMEOF('MOD Flex Flat Inputs'[Flat Input Promo Details]), 4),
-				    ("Promo Contacts", NAMEOF('MOD Flex Flat Inputs'[Flat Input Promo Contacts]), 5),
-				    ("Promo Weighted Calls", NAMEOF('MOD Flex Flat Inputs'[Flat Input Promo Weighted Calls]), 6),
-				    ("Fin ACT", NAMEOF('MOD Flex Flat Inputs'[Flat Input Fin ACT]), 7),
-				    ("Fin BDG", NAMEOF('MOD Flex Flat Inputs'[Flat Input Fin BDG]), 8),
-				    ("Fin ACT PY", NAMEOF('MOD Flex Flat Inputs'[Flat Input Fin ACT PY]), 9)
+				    ("{{bindingLabel:MOD_BIND_MEASURE_1}}", NAMEOF('MOD Flex Flat Inputs'[Flat Input Metric 1]), 0),
+				    ("{{bindingLabel:MOD_BIND_MEASURE_2}}", NAMEOF('MOD Flex Flat Inputs'[Flat Input Metric 2]), 1),
+				    ("{{bindingLabel:MOD_BIND_MEASURE_3}}", NAMEOF('MOD Flex Flat Inputs'[Flat Input Metric 3]), 2),
+				    ("{{bindingLabel:MOD_BIND_MEASURE_4}}", NAMEOF('MOD Flex Flat Inputs'[Flat Input Metric 4]), 3),
+				    ("{{bindingLabel:MOD_BIND_MEASURE_5}}", NAMEOF('MOD Flex Flat Inputs'[Flat Input Metric 5]), 4),
+				    ("{{bindingLabel:MOD_BIND_MEASURE_6}}", NAMEOF('MOD Flex Flat Inputs'[Flat Input Metric 6]), 5),
+				    ("{{bindingLabel:MOD_BIND_MEASURE_7}}", NAMEOF('MOD Flex Flat Inputs'[Flat Input Metric 7]), 6),
+				    ("{{bindingLabel:MOD_BIND_MEASURE_8}}", NAMEOF('MOD Flex Flat Inputs'[Flat Input Metric 8]), 7),
+				    ("{{bindingLabel:MOD_BIND_MEASURE_9}}", NAMEOF('MOD Flex Flat Inputs'[Flat Input Metric 9]), 8),
+				    ("{{bindingLabel:MOD_BIND_MEASURE_10}}", NAMEOF('MOD Flex Flat Inputs'[Flat Input Metric 10]), 9)
 				}

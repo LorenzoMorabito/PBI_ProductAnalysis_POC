@@ -17,11 +17,17 @@ function Get-PbiModuleReportFileMappings {
     param(
         [Parameter(Mandatory = $true)]$Project,
         [Parameter(Mandatory = $true)]$Module,
-        [Parameter(Mandatory = $true)]$Manifest
+        [Parameter(Mandatory = $true)]$Manifest,
+        $ResolvedMappings
     )
 
     if (-not $Manifest.provides.reportPage) {
         return @()
+    }
+
+    $renderedMappings = @(Get-PbiRenderedModuleReportAssets -Project $Project -Module $Module -Manifest $Manifest -ResolvedMappings $ResolvedMappings)
+    if ($renderedMappings.Count -gt 0) {
+        return $renderedMappings
     }
 
     $sourceReportPath = Join-Path $Module.PackageRoot "report"
@@ -45,7 +51,8 @@ function Get-PbiModuleReportObjectSummary {
     param(
         [Parameter(Mandatory = $true)]$Project,
         [Parameter(Mandatory = $true)]$Module,
-        [Parameter(Mandatory = $true)]$Manifest
+        [Parameter(Mandatory = $true)]$Manifest,
+        $ResolvedMappings
     )
 
     if (-not $Manifest.provides.reportPage) {
@@ -56,7 +63,7 @@ function Get-PbiModuleReportObjectSummary {
         }
     }
 
-    $fileMappings = Get-PbiModuleReportFileMappings -Project $Project -Module $Module -Manifest $Manifest
+    $fileMappings = Get-PbiModuleReportFileMappings -Project $Project -Module $Module -Manifest $Manifest -ResolvedMappings $ResolvedMappings
     $visualCount = @($fileMappings | Where-Object { [System.IO.Path]::GetFileName($_.SourcePath) -eq "visual.json" }).Count
 
     return [ordered]@{
@@ -85,6 +92,7 @@ function Install-PbiReportAssets {
         [Parameter(Mandatory = $true)]$Project,
         [Parameter(Mandatory = $true)]$Module,
         [Parameter(Mandatory = $true)]$Manifest,
+        $ResolvedMappings,
         [switch]$ActivateInstalledPage,
         [switch]$Force
     )
@@ -101,8 +109,8 @@ function Install-PbiReportAssets {
     }
 
     $pageName = $Manifest.provides.reportPage.name
-    $sourceReportPath = Join-Path $Module.PackageRoot "report"
     $destinationPagePath = Get-PbiPageDestinationRoot -Project $Project -PageName $pageName
+    $fileMappings = @(Get-PbiModuleReportFileMappings -Project $Project -Module $Module -Manifest $Manifest -ResolvedMappings $ResolvedMappings)
 
     if ((Test-Path $destinationPagePath) -and -not $Force) {
         throw "Report page '$pageName' already exists at '$destinationPagePath'. Use -Force to overwrite."
@@ -113,7 +121,17 @@ function Install-PbiReportAssets {
     }
 
     Ensure-PbiDirectory -Path $destinationPagePath
-    Copy-Item -Path (Join-Path $sourceReportPath "*") -Destination $destinationPagePath -Recurse -Force
+    foreach ($mapping in $fileMappings) {
+        $renderedContent = if ($mapping.SourceContent) {
+            [string]$mapping.SourceContent
+        }
+        else {
+            $sourceContent = Get-Content -Path $mapping.SourcePath -Raw
+            Convert-PbiTextWithResolvedMappings -Text $sourceContent -ResolvedMappings $ResolvedMappings
+        }
+
+        Write-PbiUtf8File -Path $mapping.DestinationPath -Content $renderedContent
+    }
 
     $pagesMetadataPath = Get-PbiPagesMetadataPath -Project $Project
     $pagesMetadata = Read-PbiJsonFile -Path $pagesMetadataPath
@@ -139,7 +157,7 @@ function Install-PbiReportAssets {
 
     return [PSCustomObject]@{
         FilesTouched       = @($filesTouched | Sort-Object -Unique)
-        ReportObjectsAdded = (Get-PbiModuleReportObjectSummary -Project $Project -Module $Module -Manifest $Manifest)
+        ReportObjectsAdded = (Get-PbiModuleReportObjectSummary -Project $Project -Module $Module -Manifest $Manifest -ResolvedMappings $ResolvedMappings)
     }
 }
 

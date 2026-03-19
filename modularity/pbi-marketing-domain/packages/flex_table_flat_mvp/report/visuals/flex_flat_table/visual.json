@@ -20,30 +20,30 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "T_DIM_COUNTRY"
+                      "Entity": "MOD_BIND_DIMENSION_1"
                     }
                   },
-                  "Property": "Country"
+                  "Property": "Value"
                 }
               },
-              "queryRef": "T_DIM_COUNTRY.Country",
-              "nativeQueryRef": "Country",
-              "displayName": "Country"
+              "queryRef": "MOD_BIND_DIMENSION_1.Value",
+              "nativeQueryRef": "{{bindingQueryRef:MOD_BIND_DIMENSION_1[Value]}}",
+              "displayName": "{{bindingLabel:MOD_BIND_DIMENSION_1[Value]}}"
             },
             {
               "field": {
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "T_DIM_PRODUCT"
+                      "Entity": "MOD_BIND_DIMENSION_2"
                     }
                   },
-                  "Property": "Product"
+                  "Property": "Value"
                 }
               },
-              "queryRef": "T_DIM_PRODUCT.Product",
-              "nativeQueryRef": "Product",
-              "displayName": "Product"
+              "queryRef": "MOD_BIND_DIMENSION_2.Value",
+              "nativeQueryRef": "{{bindingQueryRef:MOD_BIND_DIMENSION_2[Value]}}",
+              "displayName": "{{bindingLabel:MOD_BIND_DIMENSION_2[Value]}}"
             },
             {
               "field": {
@@ -53,12 +53,12 @@
                       "Entity": "MOD Flex Flat Inputs"
                     }
                   },
-                  "Property": "Flat Input Sales Values"
+                  "Property": "Flat Input Metric 1"
                 }
               },
-              "queryRef": "MOD Flex Flat Inputs.Flat Input Sales Values",
-              "nativeQueryRef": "Sales Values",
-              "displayName": "Sales Values"
+              "queryRef": "MOD Flex Flat Inputs.Flat Input Metric 1",
+              "nativeQueryRef": "{{bindingLabel:MOD_BIND_MEASURE_1}}",
+              "displayName": "{{bindingLabel:MOD_BIND_MEASURE_1}}"
             },
             {
               "field": {
@@ -68,12 +68,12 @@
                       "Entity": "MOD Flex Flat Inputs"
                     }
                   },
-                  "Property": "Flat Input Sales Units"
+                  "Property": "Flat Input Metric 2"
                 }
               },
-              "queryRef": "MOD Flex Flat Inputs.Flat Input Sales Units",
-              "nativeQueryRef": "Sales Units",
-              "displayName": "Sales Units"
+              "queryRef": "MOD Flex Flat Inputs.Flat Input Metric 2",
+              "nativeQueryRef": "{{bindingLabel:MOD_BIND_MEASURE_2}}",
+              "displayName": "{{bindingLabel:MOD_BIND_MEASURE_2}}"
             }
           ],
           "fieldParameters": [
@@ -184,7 +184,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'FlexTableFlat'"
+                  "Value": "'Flexible Flat Table'"
                 }
               }
             },

@@ -317,15 +317,25 @@ function Get-PbiModuleDiffData {
     )
 
     $fileChanges = New-Object System.Collections.Generic.List[object]
+    $resolvedBindings = if ($StateRecord.resolvedBindings) { $StateRecord.resolvedBindings } else { $StateRecord.mappings }
     $sourceOwnedMappings = @(
-        @(Get-PbiModuleSemanticFileMappings -Project $Project -Module $Module -Manifest $Module.Manifest) +
-        @(Get-PbiModuleReportFileMappings -Project $Project -Module $Module -Manifest $Module.Manifest)
+        @(Get-PbiModuleSemanticFileMappings -Project $Project -Module $Module -Manifest $Module.Manifest -ResolvedMappings $resolvedBindings) +
+        @(Get-PbiModuleReportFileMappings -Project $Project -Module $Module -Manifest $Module.Manifest -ResolvedMappings $resolvedBindings)
     )
 
     $sourceOwnedRelativePaths = @($sourceOwnedMappings | Select-Object -ExpandProperty RelativePath | Sort-Object -Unique)
     foreach ($mapping in $sourceOwnedMappings) {
         $installedExists = Test-Path $mapping.DestinationPath -PathType Leaf
-        $sourceHash = if (Test-Path $mapping.SourcePath -PathType Leaf) { (Get-FileHash -Path $mapping.SourcePath -Algorithm SHA256).Hash } else { $null }
+        $sourceHash = if ($mapping.SourceContent) {
+            $bytes = [System.Text.Encoding]::UTF8.GetBytes([string]$mapping.SourceContent)
+            ([System.BitConverter]::ToString(([System.Security.Cryptography.SHA256]::Create().ComputeHash($bytes)))).Replace("-", "")
+        }
+        elseif (Test-Path $mapping.SourcePath -PathType Leaf) {
+            (Get-FileHash -Path $mapping.SourcePath -Algorithm SHA256).Hash
+        }
+        else {
+            $null
+        }
         $installedHash = if ($installedExists) { (Get-FileHash -Path $mapping.DestinationPath -Algorithm SHA256).Hash } else { $null }
         $status = if (-not $installedExists) {
             "missing-installed"
@@ -363,7 +373,7 @@ function Get-PbiModuleDiffData {
             Sort-Object -Unique
     )
 
-    $sourceSemanticSummary = Get-PbiModuleSemanticObjectSummary -Module $Module -Manifest $Module.Manifest
+    $sourceSemanticSummary = Get-PbiModuleSemanticObjectSummary -Module $Module -Manifest $Module.Manifest -Project $Project -ResolvedMappings $resolvedBindings
     $installedSemantic = $StateRecord.semanticObjectsAdded
 
     return [ordered]@{
@@ -547,6 +557,11 @@ function Invoke-PbiManagedModuleWriteOperation {
         [string]$Domain,
         [Parameter(Mandatory = $true)][string]$ModuleId,
         [string]$MappingFile,
+        [string]$BindingProfileId,
+        [string]$SaveBindingProfileAs,
+        [switch]$Interactive,
+        [switch]$InteractiveUi,
+        [switch]$AcceptSuggested,
         [switch]$ActivateInstalledPage,
         [switch]$Force,
         [switch]$FailOnGovernanceBreach
@@ -566,12 +581,23 @@ function Invoke-PbiManagedModuleWriteOperation {
         $baselineRepoHealthOutputRoot = Join-Path ([System.IO.Path]::GetTempPath()) ("pbi-repo-health-" + $project.ProjectId + "-" + $ModuleId + "-" + (Get-PbiTimestampKey))
         $baselineRepoHealthResult = Invoke-PbiRepoHealthHook -WorkspaceRoot $resolvedWorkspaceRoot -Project $project -OperationId ("baseline-" + (Get-PbiTimestampKey)) -OutputRoot $baselineRepoHealthOutputRoot
 
-        $resolvedMappings = if ($existingRecord) {
-            Merge-PbiModuleMappings -BaseMapping $existingRecord.mappings -OverrideMapping (Get-PbiMappingOverrides -MappingFile $MappingFile)
+        $baseMappings = if ($existingRecord) {
+            Merge-PbiModuleMappings -BaseMapping $existingRecord.mappings -OverrideMapping $null
         }
         else {
-            Resolve-PbiModuleMapping -Module $module -Project $project -OverrideMapping (Get-PbiMappingOverrides -MappingFile $MappingFile)
+            Resolve-PbiModuleMapping -Module $module -Project $project -OverrideMapping $null
         }
+        $bindingResolution = Resolve-PbiRequestedModuleBindings `
+            -Project $project `
+            -Module $module `
+            -BaseMappings $baseMappings `
+            -MappingFile $MappingFile `
+            -BindingProfileId $BindingProfileId `
+            -SaveBindingProfileAs $SaveBindingProfileAs `
+            -Interactive:$Interactive `
+            -InteractiveUi:$InteractiveUi `
+            -AcceptSuggested:$AcceptSuggested
+        $resolvedMappings = $bindingResolution.ResolvedMappings
 
         $forceReset = $false
         $diffArtifacts = $null
@@ -638,6 +664,9 @@ function Invoke-PbiManagedModuleWriteOperation {
             -Domain $module.Domain `
             -ModuleId $module.ModuleId `
             -ResolvedMappings $resolvedMappings `
+            -BindingMode $bindingResolution.BindingMode `
+            -BindingProfileId $bindingResolution.BindingProfileId `
+            -BindingProfileHash $bindingResolution.BindingProfileHash `
             -ActivateInstalledPage:$ActivateInstalledPage `
             -Force:$Force `
             -OperationMetadata ([ordered]@{
@@ -715,12 +744,17 @@ function Invoke-PbiModuleInstallOperation {
         [string]$Domain,
         [Parameter(Mandatory = $true)][string]$ModuleId,
         [string]$MappingFile,
+        [string]$BindingProfileId,
+        [string]$SaveBindingProfileAs,
+        [switch]$Interactive,
+        [switch]$InteractiveUi,
+        [switch]$AcceptSuggested,
         [switch]$ActivateInstalledPage,
         [switch]$Force,
         [switch]$FailOnGovernanceBreach
     )
 
-    return (Invoke-PbiManagedModuleWriteOperation -Action "install" -WorkspaceRoot $WorkspaceRoot -ProjectPath $ProjectPath -Domain $Domain -ModuleId $ModuleId -MappingFile $MappingFile -ActivateInstalledPage:$ActivateInstalledPage -Force:$Force -FailOnGovernanceBreach:$FailOnGovernanceBreach)
+    return (Invoke-PbiManagedModuleWriteOperation -Action "install" -WorkspaceRoot $WorkspaceRoot -ProjectPath $ProjectPath -Domain $Domain -ModuleId $ModuleId -MappingFile $MappingFile -BindingProfileId $BindingProfileId -SaveBindingProfileAs $SaveBindingProfileAs -Interactive:$Interactive -InteractiveUi:$InteractiveUi -AcceptSuggested:$AcceptSuggested -ActivateInstalledPage:$ActivateInstalledPage -Force:$Force -FailOnGovernanceBreach:$FailOnGovernanceBreach)
 }
 
 function Upgrade-PbiModulePackage {
@@ -730,12 +764,17 @@ function Upgrade-PbiModulePackage {
         [string]$Domain,
         [Parameter(Mandatory = $true)][string]$ModuleId,
         [string]$MappingFile,
+        [string]$BindingProfileId,
+        [string]$SaveBindingProfileAs,
+        [switch]$Interactive,
+        [switch]$InteractiveUi,
+        [switch]$AcceptSuggested,
         [switch]$ActivateInstalledPage,
         [switch]$Force,
         [switch]$FailOnGovernanceBreach
     )
 
-    return (Invoke-PbiManagedModuleWriteOperation -Action "upgrade" -WorkspaceRoot $WorkspaceRoot -ProjectPath $ProjectPath -Domain $Domain -ModuleId $ModuleId -MappingFile $MappingFile -ActivateInstalledPage:$ActivateInstalledPage -Force:$Force -FailOnGovernanceBreach:$FailOnGovernanceBreach)
+    return (Invoke-PbiManagedModuleWriteOperation -Action "upgrade" -WorkspaceRoot $WorkspaceRoot -ProjectPath $ProjectPath -Domain $Domain -ModuleId $ModuleId -MappingFile $MappingFile -BindingProfileId $BindingProfileId -SaveBindingProfileAs $SaveBindingProfileAs -Interactive:$Interactive -InteractiveUi:$InteractiveUi -AcceptSuggested:$AcceptSuggested -ActivateInstalledPage:$ActivateInstalledPage -Force:$Force -FailOnGovernanceBreach:$FailOnGovernanceBreach)
 }
 
 function New-PbiModuleDiffReport {

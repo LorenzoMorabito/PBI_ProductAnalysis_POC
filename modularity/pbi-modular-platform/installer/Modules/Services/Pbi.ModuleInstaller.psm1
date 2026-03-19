@@ -5,7 +5,12 @@ function Get-PbiMappingOverrides {
         return $null
     }
 
-    return (Read-PbiJsonFile -Path $MappingFile)
+    $mappingObject = Read-PbiJsonFile -Path $MappingFile
+    if ($mappingObject.resolvedMappings) {
+        return $mappingObject.resolvedMappings
+    }
+
+    return $mappingObject
 }
 
 function Merge-PbiModuleMappings {
@@ -22,20 +27,12 @@ function Merge-PbiModuleMappings {
         return $BaseMapping
     }
 
-    $merged = [ordered]@{}
-
-    foreach ($sectionName in @("coreMeasures", "coreColumns")) {
-        $merged[$sectionName] = [ordered]@{}
-
-        if ($BaseMapping.$sectionName) {
-            foreach ($property in $BaseMapping.$sectionName.PSObject.Properties) {
-                $merged[$sectionName][$property.Name] = $property.Value
-            }
-        }
-
-        if ($OverrideMapping.$sectionName) {
-            foreach ($property in $OverrideMapping.$sectionName.PSObject.Properties) {
-                $merged[$sectionName][$property.Name] = $property.Value
+    $merged = New-PbiResolvedMappings
+    foreach ($sourceMapping in @($BaseMapping, $OverrideMapping)) {
+        $normalizedSource = ConvertTo-PbiResolvedMappings -Mappings $sourceMapping
+        foreach ($sectionName in @("coreMeasures", "coreColumns")) {
+            foreach ($entry in $normalizedSource[$sectionName].GetEnumerator()) {
+                $merged[$sectionName][$entry.Key] = [string]$entry.Value
             }
         }
     }
@@ -50,17 +47,31 @@ function Resolve-PbiModuleMapping {
         $OverrideMapping
     )
 
-    switch ($Module.Domain) {
+    $domainMappings = switch ($Module.Domain) {
         "finance" {
-            return (Resolve-PbiFinanceModuleMapping -Manifest $Module.Manifest -OverrideMapping $OverrideMapping)
+            Resolve-PbiFinanceModuleMapping -Manifest $Module.Manifest -OverrideMapping $OverrideMapping
         }
         "marketing" {
-            return (Resolve-PbiMarketingModuleMapping -Manifest $Module.Manifest -OverrideMapping $OverrideMapping)
+            Resolve-PbiMarketingModuleMapping -Manifest $Module.Manifest -OverrideMapping $OverrideMapping
         }
         default {
             throw "No mapping resolver is implemented for domain '$($Module.Domain)'."
         }
     }
+
+    $resolvedMappings = ConvertTo-PbiResolvedMappings -Mappings $domainMappings
+    $contractDefaults = ConvertTo-PbiResolvedMappings -Mappings (Get-PbiBindingContractDefaultMappings -Manifest $Module.Manifest)
+
+    foreach ($sectionName in @("coreMeasures", "coreColumns")) {
+        foreach ($entry in $contractDefaults[$sectionName].GetEnumerator()) {
+            $currentValue = if ($resolvedMappings[$sectionName].Contains($entry.Key)) { [string]$resolvedMappings[$sectionName][$entry.Key] } else { "" }
+            if ([string]::IsNullOrWhiteSpace($currentValue) -or ($currentValue -eq [string]$entry.Key)) {
+                $resolvedMappings[$sectionName][$entry.Key] = [string]$entry.Value
+            }
+        }
+    }
+
+    return $resolvedMappings
 }
 
 function Test-PbiModuleAlreadyInstalled {
@@ -87,18 +98,33 @@ function Invoke-PbiProjectValidation {
         [Parameter(Mandatory = $true)][string]$ProjectPath,
         [string]$Domain,
         [string]$ModuleId,
-        [string]$MappingFile
+        [string]$MappingFile,
+        [string]$BindingProfileId,
+        [string]$SaveBindingProfileAs,
+        [switch]$Interactive,
+        [switch]$InteractiveUi,
+        [switch]$AcceptSuggested
     )
 
     $project = Resolve-PbiConsumerProject -ProjectPath $ProjectPath
     $modules = Get-PbiModuleList -WorkspaceRoot $WorkspaceRoot -Domain $Domain -ModuleId $ModuleId
-    $overrideMapping = Get-PbiMappingOverrides -MappingFile $MappingFile
     $results = @()
 
     foreach ($module in $modules) {
-        $validation = Test-PbiModuleRequirements -Project $project -Manifest $module.Manifest
-        $measureConflicts = Test-PbiModuleMeasureConflicts -Project $project -Module $module -Manifest $module.Manifest
-        $mappings = Resolve-PbiModuleMapping -Module $module -Project $project -OverrideMapping $overrideMapping
+        $baseMappings = Resolve-PbiModuleMapping -Module $module -Project $project -OverrideMapping $null
+        $bindingResolution = Resolve-PbiRequestedModuleBindings `
+            -Project $project `
+            -Module $module `
+            -BaseMappings $baseMappings `
+            -MappingFile $MappingFile `
+            -BindingProfileId $BindingProfileId `
+            -SaveBindingProfileAs $SaveBindingProfileAs `
+            -Interactive:$Interactive `
+            -InteractiveUi:$InteractiveUi `
+            -AcceptSuggested:$AcceptSuggested
+        $mappings = $bindingResolution.ResolvedMappings
+        $validation = Test-PbiModuleRequirements -Project $project -Manifest $module.Manifest -ResolvedMappings $mappings
+        $measureConflicts = Test-PbiModuleMeasureConflicts -Project $project -Module $module -Manifest $module.Manifest -ResolvedMappings $mappings
 
         $results += [PSCustomObject]@{
             Domain            = $module.Domain
@@ -113,11 +139,58 @@ function Invoke-PbiProjectValidation {
             MissingMeasures   = (($validation.MissingMeasures | Sort-Object) -join ", ")
             MissingColumns    = (($validation.MissingColumns | Sort-Object) -join ", ")
             MeasureConflicts  = (($measureConflicts.Conflicts | Sort-Object) -join ", ")
+            BindingMode       = $bindingResolution.BindingMode
+            BindingProfileId  = $bindingResolution.BindingProfileId
             Mappings          = $mappings
         }
     }
 
     return $results
+}
+
+function Get-PbiModuleBindingSuggestionReport {
+    param(
+        [string]$WorkspaceRoot,
+        [Parameter(Mandatory = $true)][string]$ProjectPath,
+        [string]$Domain,
+        [Parameter(Mandatory = $true)][string]$ModuleId,
+        [string]$MappingFile,
+        [string]$BindingProfileId,
+        [string]$SaveBindingProfileAs,
+        [switch]$Interactive,
+        [switch]$InteractiveUi,
+        [switch]$AcceptSuggested
+    )
+
+    $project = Resolve-PbiConsumerProject -ProjectPath $ProjectPath
+    $module = Get-PbiSingleModule -WorkspaceRoot $WorkspaceRoot -Domain $Domain -ModuleId $ModuleId
+    $baseMappings = Resolve-PbiModuleMapping -Module $module -Project $project -OverrideMapping $null
+    $bindingResolution = Resolve-PbiRequestedModuleBindings `
+        -Project $project `
+        -Module $module `
+        -BaseMappings $baseMappings `
+        -MappingFile $MappingFile `
+        -BindingProfileId $BindingProfileId `
+        -SaveBindingProfileAs $SaveBindingProfileAs `
+        -Interactive:$Interactive `
+        -InteractiveUi:$InteractiveUi `
+        -AcceptSuggested:$AcceptSuggested
+
+    $suggestionSet = if ($bindingResolution.SuggestionSet) {
+        $bindingResolution.SuggestionSet
+    }
+    else {
+        Get-PbiModuleBindingSuggestions -Project $project -Module $module -BaseMappings $bindingResolution.ResolvedMappings
+    }
+
+    return [PSCustomObject]@{
+        Project          = $project
+        Module           = $module
+        Roles            = @($suggestionSet.Roles)
+        BindingMode      = $bindingResolution.BindingMode
+        BindingProfileId = $bindingResolution.BindingProfileId
+        ResolvedMappings = $bindingResolution.ResolvedMappings
+    }
 }
 
 function Get-PbiDefaultInstalledModuleImpactMetrics {
@@ -154,6 +227,9 @@ function Install-PbiModulePackage {
         [Parameter(Mandatory = $true)][string]$ModuleId,
         [string]$MappingFile,
         $ResolvedMappings,
+        [string]$BindingMode,
+        [string]$BindingProfileId,
+        [string]$BindingProfileHash,
         $OperationMetadata,
         [switch]$ActivateInstalledPage,
         [switch]$Force
@@ -169,8 +245,8 @@ function Install-PbiModulePackage {
         Resolve-PbiModuleMapping -Module $module -Project $project -OverrideMapping $mappingOverride
     }
 
-    $validation = Test-PbiModuleRequirements -Project $project -Manifest $module.Manifest
-    $measureConflicts = Test-PbiModuleMeasureConflicts -Project $project -Module $module -Manifest $module.Manifest
+    $validation = Test-PbiModuleRequirements -Project $project -Manifest $module.Manifest -ResolvedMappings $overrideMapping
+    $measureConflicts = Test-PbiModuleMeasureConflicts -Project $project -Module $module -Manifest $module.Manifest -ResolvedMappings $overrideMapping
     $state = Get-PbiInstalledModulesState -Project $project
     $existingRecord = Get-PbiInstalledModuleRecord -State $state -ModuleId $module.ModuleId
 
@@ -203,8 +279,8 @@ function Install-PbiModulePackage {
     }
 
     Write-PbiInfo ("Applying module {0} {1} into project {2}" -f $module.ModuleId, $module.Version, $project.ProjectId)
-    $semanticInstall = Install-PbiSemanticAssets -Project $project -Module $module -Manifest $module.Manifest -Force:$Force
-    $reportInstall = Install-PbiReportAssets -Project $project -Module $module -Manifest $module.Manifest -ActivateInstalledPage:$ActivateInstalledPage -Force:$Force
+    $semanticInstall = Install-PbiSemanticAssets -Project $project -Module $module -Manifest $module.Manifest -ResolvedMappings $overrideMapping -Force:$Force
+    $reportInstall = Install-PbiReportAssets -Project $project -Module $module -Manifest $module.Manifest -ResolvedMappings $overrideMapping -ActivateInstalledPage:$ActivateInstalledPage -Force:$Force
 
     $filesTouched = @(
         @($semanticInstall.FilesTouched) +
@@ -224,6 +300,11 @@ function Install-PbiModulePackage {
         semanticImpact      = $module.SemanticImpact
         source              = ($module.DomainRepoName + "/" + $module.PackageRelativePath)
         mappings            = $overrideMapping
+        bindingMode         = if ($BindingMode) { $BindingMode } else { "default" }
+        bindingProfileId    = if ($BindingProfileId) { $BindingProfileId } else { "" }
+        bindingProfileHash  = if ($BindingProfileHash) { $BindingProfileHash } else { "" }
+        bindingSelections   = Get-PbiModuleBindingSelections -Manifest $module.Manifest -ResolvedMappings $overrideMapping
+        resolvedBindings    = $overrideMapping
         installedAt         = if ($OperationMetadata -and $OperationMetadata.installedAt) { $OperationMetadata.installedAt } else { Get-PbiUtcTimestamp }
         lastAction          = if ($OperationMetadata -and $OperationMetadata.action) { $OperationMetadata.action } else { "install" }
         filesTouched        = @($filesTouched)
@@ -259,4 +340,4 @@ function Install-PbiModulePackage {
     }
 }
 
-Export-ModuleMember -Function Get-PbiMappingOverrides, Merge-PbiModuleMappings, Resolve-PbiModuleMapping, Test-PbiModuleAlreadyInstalled, Invoke-PbiProjectValidation, Install-PbiModulePackage
+Export-ModuleMember -Function Get-PbiMappingOverrides, Merge-PbiModuleMappings, Resolve-PbiModuleMapping, Test-PbiModuleAlreadyInstalled, Invoke-PbiProjectValidation, Get-PbiModuleBindingSuggestionReport, Install-PbiModulePackage

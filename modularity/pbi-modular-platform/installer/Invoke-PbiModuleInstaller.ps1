@@ -1,7 +1,7 @@
 [CmdletBinding()]
 param(
     [Parameter(Mandatory = $true)]
-    [ValidateSet("list-modules", "validate-project", "install-module", "upgrade-module", "diff-module", "rollback-module", "set-data-source-path")]
+    [ValidateSet("list-modules", "validate-project", "install-module", "upgrade-module", "diff-module", "rollback-module", "set-data-source-path", "suggest-bindings", "list-binding-profiles")]
     [string]$Command,
 
     [string]$WorkspaceRoot,
@@ -9,8 +9,13 @@ param(
     [string]$Domain,
     [string]$ModuleId,
     [string]$MappingFile,
+    [string]$BindingProfileId,
+    [string]$SaveBindingProfileAs,
     [string]$DataSourcePath,
     [string]$SnapshotId,
+    [switch]$Interactive,
+    [switch]$InteractiveUi,
+    [switch]$AcceptSuggested,
     [switch]$ActivateInstalledPage,
     [switch]$Force,
     [switch]$FailOnGovernanceBreach
@@ -22,6 +27,8 @@ $modulePaths = @(
     "Modules/Core/Pbi.Schema.psm1",
     "Modules/Core/Pbi.Catalog.psm1",
     "Modules/Core/Pbi.Project.psm1",
+    "Modules/Core/Pbi.Binding.psm1",
+    "Modules/Core/Pbi.ModuleRendering.psm1",
     "Modules/Core/Pbi.SemanticModel.psm1",
     "Modules/Core/Pbi.Report.psm1",
     "Modules/Domains/Finance/Pbi.Finance.psm1",
@@ -60,10 +67,15 @@ switch ($Command) {
             -ProjectPath $ProjectPath `
             -Domain $Domain `
             -ModuleId $ModuleId `
-            -MappingFile $MappingFile
+            -MappingFile $MappingFile `
+            -BindingProfileId $BindingProfileId `
+            -SaveBindingProfileAs $SaveBindingProfileAs `
+            -Interactive:$Interactive `
+            -InteractiveUi:$InteractiveUi `
+            -AcceptSuggested:$AcceptSuggested
 
         $results |
-            Select-Object Domain, ModuleId, Installed, IsValid, MissingMeasures, MissingColumns |
+            Select-Object Domain, ModuleId, Installed, IsValid, MissingMeasures, MissingColumns, BindingMode, BindingProfileId |
             Format-Table -AutoSize
     }
 
@@ -82,6 +94,11 @@ switch ($Command) {
             -Domain $Domain `
             -ModuleId $ModuleId `
             -MappingFile $MappingFile `
+            -BindingProfileId $BindingProfileId `
+            -SaveBindingProfileAs $SaveBindingProfileAs `
+            -Interactive:$Interactive `
+            -InteractiveUi:$InteractiveUi `
+            -AcceptSuggested:$AcceptSuggested `
             -ActivateInstalledPage:$ActivateInstalledPage `
             -Force:$Force `
             -FailOnGovernanceBreach:$FailOnGovernanceBreach
@@ -112,6 +129,11 @@ switch ($Command) {
             -Domain $Domain `
             -ModuleId $ModuleId `
             -MappingFile $MappingFile `
+            -BindingProfileId $BindingProfileId `
+            -SaveBindingProfileAs $SaveBindingProfileAs `
+            -Interactive:$Interactive `
+            -InteractiveUi:$InteractiveUi `
+            -AcceptSuggested:$AcceptSuggested `
             -ActivateInstalledPage:$ActivateInstalledPage `
             -Force:$Force `
             -FailOnGovernanceBreach:$FailOnGovernanceBreach
@@ -164,6 +186,52 @@ switch ($Command) {
         Write-PbiSuccess ("Rolled back module {0} in project {1}" -f $result.ModuleId, $result.Project.ProjectId)
         Write-Host ("  Snapshot: {0}" -f $result.SnapshotId)
         Write-Host ("  Log: {0}" -f $result.LogPath)
+    }
+    "suggest-bindings" {
+        if (-not $ProjectPath) {
+            throw "ProjectPath is required for suggest-bindings."
+        }
+
+        if (-not $ModuleId) {
+            throw "ModuleId is required for suggest-bindings."
+        }
+
+        $result = Get-PbiModuleBindingSuggestionReport `
+            -WorkspaceRoot $WorkspaceRoot `
+            -ProjectPath $ProjectPath `
+            -Domain $Domain `
+            -ModuleId $ModuleId `
+            -MappingFile $MappingFile `
+            -BindingProfileId $BindingProfileId `
+            -SaveBindingProfileAs $SaveBindingProfileAs `
+            -Interactive:$Interactive `
+            -InteractiveUi:$InteractiveUi `
+            -AcceptSuggested:$AcceptSuggested
+
+        $result.Roles |
+            Select-Object Kind, Label, BindingKey, Status, SelectedValue |
+            Format-Table -AutoSize
+
+        if ($result.BindingProfileId) {
+            Write-Host ("  Saved binding profile: {0}" -f $result.BindingProfileId)
+        }
+    }
+    "list-binding-profiles" {
+        if (-not $ProjectPath) {
+            throw "ProjectPath is required for list-binding-profiles."
+        }
+
+        $project = Resolve-PbiConsumerProject -ProjectPath $ProjectPath
+        $profiles = Get-PbiProjectBindingProfiles -Project $project -ModuleId $ModuleId
+
+        if (-not $profiles) {
+            Write-PbiWarning "No binding profiles found for the selected project."
+            break
+        }
+
+        $profiles |
+            Select-Object ModuleId, ProfileId, BindingMode, SavedAt, RelativePath |
+            Format-Table -AutoSize
     }
     "set-data-source-path" {
         if (-not $ProjectPath) {

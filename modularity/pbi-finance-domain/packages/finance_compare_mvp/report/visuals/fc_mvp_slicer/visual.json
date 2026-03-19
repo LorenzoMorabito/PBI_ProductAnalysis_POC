@@ -23,11 +23,11 @@
                       "Entity": "MOD Finance Compare Selector"
                     }
                   },
-                  "Property": "Compare"
+                  "Property": "CompareKey"
                 }
               },
-              "queryRef": "MOD Finance Compare Selector.Compare",
-              "nativeQueryRef": "Compare",
+              "queryRef": "MOD Finance Compare Selector.CompareKey",
+              "nativeQueryRef": "CompareKey",
               "active": true
             }
           ]
@@ -86,7 +86,7 @@
                                   "Source": "s"
                                 }
                               },
-                              "Property": "Compare"
+                              "Property": "CompareKey"
                             }
                           }
                         ],
@@ -94,7 +94,7 @@
                           [
                             {
                               "Literal": {
-                                "Value": "'vs BDG'"
+                                "Value": "'reference_1'"
                               }
                             }
                           ]
@@ -129,7 +129,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Compare Mode'"
+                  "Value": "'Reference'"
                 }
               }
             },

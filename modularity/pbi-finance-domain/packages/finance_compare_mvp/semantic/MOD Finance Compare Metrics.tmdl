@@ -1,20 +1,20 @@
 table 'MOD Finance Compare Metrics'
 
-	measure 'Selected Reference Value' = [Finance Compare (Selected)]
+	measure 'Selected Reference Value' = [Metric Compare (Selected)]
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	measure 'Fin ACT vs (Selected) abs' =
+	measure 'Primary vs (Selected) abs' =
 			
-			VAR comp = [Finance Compare (Selected)]
-			RETURN IF( ISBLANK(comp), BLANK(), [Input Fin ACT] - comp )
+			VAR comp = [Metric Compare (Selected)]
+			RETURN IF( ISBLANK(comp), BLANK(), [Input Primary Measure] - comp )
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	measure 'Fin ACT vs (Selected) +/-%' =
+	measure 'Primary vs (Selected) %' =
 			
-			VAR comp = [Finance Compare (Selected)]
-			RETURN IF( ISBLANK(comp), BLANK(), DIVIDE([Input Fin ACT] - comp, comp) )
+			VAR comp = [Metric Compare (Selected)]
+			RETURN IF( ISBLANK(comp), BLANK(), DIVIDE([Input Primary Measure] - comp, comp) )
 		formatString: 0.0%;-0.0%;0.0%
 
 	column Column

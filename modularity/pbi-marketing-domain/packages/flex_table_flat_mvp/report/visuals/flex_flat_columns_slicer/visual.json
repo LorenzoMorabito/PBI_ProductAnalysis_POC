@@ -95,14 +95,14 @@
                           [
                             {
                               "Literal": {
-                                "Value": "'''T_DIM_COUNTRY''[Country]'"
+                                "Value": "'''MOD_BIND_DIMENSION_1''[Value]'"
                               }
                             }
                           ],
                           [
                             {
                               "Literal": {
-                                "Value": "'''T_DIM_PRODUCT''[Product]'"
+                                "Value": "'''MOD_BIND_DIMENSION_2''[Value]'"
                               }
                             }
                           ]
@@ -130,7 +130,7 @@
                                 "0": [
                                   {
                                     "Literal": {
-                                      "Value": "'''T_DIM_COUNTRY''[Country]'"
+                                      "Value": "'''MOD_BIND_DIMENSION_1''[Value]'"
                                     }
                                   }
                                 ]
@@ -141,7 +141,7 @@
                                 "0": [
                                   {
                                     "Literal": {
-                                      "Value": "'''T_DIM_PRODUCT''[Product]'"
+                                      "Value": "'''MOD_BIND_DIMENSION_2''[Value]'"
                                     }
                                   }
                                 ]
@@ -165,10 +165,10 @@
                         },
                         "valueMap": [
                           {
-                            "0": "Country"
+                            "0": "{{bindingLabel:MOD_BIND_DIMENSION_1[Value]}}"
                           },
                           {
-                            "0": "Product"
+                            "0": "{{bindingLabel:MOD_BIND_DIMENSION_2[Value]}}"
                           }
                         ]
                       }

@@ -42,16 +42,16 @@ table 'MOD Flex Table Measure Selector'
 				    "Domain", STRING,
 				    "MeasureSort", INTEGER,
 				    {
-				        {"sales_values", "Sales Values", "Sales", 1},
-				        {"sales_units", "Sales Units", "Sales", 2},
-				        {"counting_units", "Counting Units", "Sales", 3},
-				        {"promo_spend", "Promo Spend", "Promo", 4},
-				        {"promo_details", "Promo Details", "Promo", 5},
-				        {"promo_contacts", "Promo Contacts", "Promo", 6},
-				        {"promo_weighted_calls", "Promo Weighted Calls", "Promo", 7},
-				        {"fin_act", "Fin ACT", "Finance", 8},
-				        {"fin_bdg", "Fin BDG", "Finance", 9},
-				        {"fin_act_py", "Fin ACT PY", "Finance", 10}
+				        {"metric_1", "{{bindingLabel:MOD_BIND_MEASURE_1}}", "Metric", 1},
+				        {"metric_2", "{{bindingLabel:MOD_BIND_MEASURE_2}}", "Metric", 2},
+				        {"metric_3", "{{bindingLabel:MOD_BIND_MEASURE_3}}", "Metric", 3},
+				        {"metric_4", "{{bindingLabel:MOD_BIND_MEASURE_4}}", "Metric", 4},
+				        {"metric_5", "{{bindingLabel:MOD_BIND_MEASURE_5}}", "Metric", 5},
+				        {"metric_6", "{{bindingLabel:MOD_BIND_MEASURE_6}}", "Metric", 6},
+				        {"metric_7", "{{bindingLabel:MOD_BIND_MEASURE_7}}", "Metric", 7},
+				        {"metric_8", "{{bindingLabel:MOD_BIND_MEASURE_8}}", "Metric", 8},
+				        {"metric_9", "{{bindingLabel:MOD_BIND_MEASURE_9}}", "Metric", 9},
+				        {"metric_10", "{{bindingLabel:MOD_BIND_MEASURE_10}}", "Metric", 10}
 				    }
 				)
 				```

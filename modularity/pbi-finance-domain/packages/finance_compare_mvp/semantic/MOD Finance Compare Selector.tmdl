@@ -1,23 +1,23 @@
 table 'MOD Finance Compare Selector'
 
-	measure 'Finance Compare (Selected)' =
+	measure 'Metric Compare (Selected)' =
 			
 			SWITCH(
-			  SELECTEDVALUE('MOD Finance Compare Selector'[Compare], "vs BDG"),
-			  "vs BDG", [Input Fin BDG],
-			  "vs PY",  [Input Fin ACT PY]
+			  SELECTEDVALUE('MOD Finance Compare Selector'[CompareKey], "reference_1"),
+			  "reference_1", [Input Reference Measure 1],
+			  "reference_2", [Input Reference Measure 2]
 			)
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	measure 'Finance Compare Label (Selected)' =
+	measure 'Metric Compare Label (Selected)' =
 			
-			SELECTEDVALUE('MOD Finance Compare Selector'[Label], "BGT")
+			SELECTEDVALUE('MOD Finance Compare Selector'[Label], "{{bindingLabel:MOD_BIND_REFERENCE_MEASURE_1}}")
 
-	column Compare
+	column CompareKey
 		summarizeBy: none
 		isNameInferred
-		sourceColumn: [Compare]
+		sourceColumn: [CompareKey]
 
 		annotation SummarizationSetBy = Automatic
 
@@ -33,11 +33,11 @@ table 'MOD Finance Compare Selector'
 		source = ```
 				
 				DATATABLE(
-				    "Compare", STRING,
+				    "CompareKey", STRING,
 				    "Label", STRING,
 				    {
-				        {"vs BDG", "BGT"},
-				        {"vs PY", "PY"}
+				        {"reference_1", "{{bindingLabel:MOD_BIND_REFERENCE_MEASURE_1}}"},
+				        {"reference_2", "{{bindingLabel:MOD_BIND_REFERENCE_MEASURE_2}}"}
 				    }
 				)
 				```

@@ -47,6 +47,7 @@ function Resolve-PbiConsumerProject {
         ReportPath        = $reportPath
         SemanticModelPath = $semanticModelPath
         ModuleConfigDir   = $moduleConfigDir
+        MappingProfilesRoot = Join-Path $moduleConfigDir "mapping-profiles"
         StateFilePath     = Join-Path $moduleConfigDir "installed-modules.json"
         LogsRoot          = Join-Path $moduleConfigDir "logs"
         DiffRoot          = Join-Path $moduleConfigDir "diffs"
@@ -309,6 +310,34 @@ function ConvertTo-PbiManagedInstalledModuleRecord {
             tables = @($tables)
             page   = $pageName
         }
+    }
+
+    $managedRecord["bindingMode"] = if ((Test-PbiRecordField -Record $Record -Name "bindingMode") -and $Record.bindingMode) {
+        [string]$Record.bindingMode
+    }
+    else {
+        "legacy"
+    }
+
+    $managedRecord["bindingProfileId"] = if ((Test-PbiRecordField -Record $Record -Name "bindingProfileId") -and $Record.bindingProfileId) {
+        [string]$Record.bindingProfileId
+    }
+    else {
+        ""
+    }
+
+    $managedRecord["bindingProfileHash"] = if ((Test-PbiRecordField -Record $Record -Name "bindingProfileHash") -and $Record.bindingProfileHash) {
+        [string]$Record.bindingProfileHash
+    }
+    else {
+        ""
+    }
+
+    $managedRecord["resolvedBindings"] = if ((Test-PbiRecordField -Record $Record -Name "resolvedBindings") -and $Record.resolvedBindings) {
+        $Record.resolvedBindings
+    }
+    else {
+        if ($Record.mappings) { $Record.mappings } else { [ordered]@{} }
     }
 
     $managedRecord["filesTouched"] = if ((Test-PbiRecordField -Record $Record -Name "filesTouched") -and @($Record.filesTouched).Count -gt 0) {

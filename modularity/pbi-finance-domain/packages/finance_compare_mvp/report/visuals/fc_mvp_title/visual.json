@@ -139,7 +139,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Finance Compare MVP'"
+                  "Value": "'Metric Compare'"
                 }
               }
             },

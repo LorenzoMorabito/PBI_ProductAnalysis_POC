@@ -220,4 +220,21 @@ function Get-PbiPathSizeBytes {
     )
 }
 
-Export-ModuleMember -Function Get-PbiInstallerWorkspaceRoot, ConvertFrom-PbiJsonText, ConvertTo-PbiJsonText, Resolve-PbiPath, Get-PbiRelativePath, Read-PbiJsonFile, Write-PbiJsonFile, Write-PbiUtf8File, Add-PbiUtf8Line, Ensure-PbiDirectory, Compare-PbiVersion, Get-PbiUtcTimestamp, Get-PbiTimestampKey, Get-PbiPathSizeBytes
+function Get-PbiJsonObjectHash {
+    param([Parameter(Mandatory = $true)]$InputObject)
+
+    $json = ConvertTo-PbiJsonText -InputObject $InputObject -Compress
+    $bytes = [System.Text.Encoding]::UTF8.GetBytes($json)
+    $sha256 = [System.Security.Cryptography.SHA256]::Create()
+
+    try {
+        $hashBytes = $sha256.ComputeHash($bytes)
+    }
+    finally {
+        $sha256.Dispose()
+    }
+
+    return ([System.BitConverter]::ToString($hashBytes)).Replace("-", "").ToLowerInvariant()
+}
+
+Export-ModuleMember -Function Get-PbiInstallerWorkspaceRoot, ConvertFrom-PbiJsonText, ConvertTo-PbiJsonText, Resolve-PbiPath, Get-PbiRelativePath, Read-PbiJsonFile, Write-PbiJsonFile, Write-PbiUtf8File, Add-PbiUtf8Line, Ensure-PbiDirectory, Compare-PbiVersion, Get-PbiUtcTimestamp, Get-PbiTimestampKey, Get-PbiPathSizeBytes, Get-PbiJsonObjectHash
