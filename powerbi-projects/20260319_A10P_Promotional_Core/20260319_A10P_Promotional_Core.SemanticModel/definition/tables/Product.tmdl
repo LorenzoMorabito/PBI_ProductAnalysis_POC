@@ -1,0 +1,117 @@
+table Product
+	lineageTag: 905e7904-8a04-4dd8-bb7b-52f322a03762
+
+	column 'Product Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: fc84c473-f960-40de-abea-9a04c5afc420
+		summarizeBy: none
+		sourceColumn: product_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column Product
+		dataType: string
+		lineageTag: 6b1f5cb6-2120-4b55-ab7f-a7db85dd195a
+		summarizeBy: none
+		sourceColumn: local_brand_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Molecule Count'
+		dataType: int64
+		formatString: 0
+		lineageTag: b24c1013-2f99-447f-ad26-8a7ebee0e68c
+		summarizeBy: none
+		sourceColumn: molecule_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column ATC4
+		dataType: string
+		lineageTag: f4116911-9de1-4396-98c0-68976930f58c
+		summarizeBy: none
+		sourceColumn: atc4_raw
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ATC4 Code'
+		dataType: string
+		lineageTag: ec3e5b48-6972-45d0-829b-519cb0d837af
+		summarizeBy: none
+		sourceColumn: atc4_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ATC4 Description'
+		dataType: string
+		lineageTag: 285a74a8-f4d8-4d36-a107-d89cb05dd97e
+		summarizeBy: none
+		sourceColumn: atc4_description
+
+		annotation SummarizationSetBy = Automatic
+
+	column Corporation
+		dataType: string
+		lineageTag: e3bb7734-c479-466c-9de3-8ad4d736cd00
+		summarizeBy: none
+		sourceColumn: int_corporation_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Molecule List'
+		dataType: string
+		lineageTag: 66a6143b-537d-46d0-bb23-10b17b2c1407
+		summarizeBy: none
+		sourceColumn: molecule_combo
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Combo Molecule'
+		dataType: boolean
+		lineageTag: 645d6a7e-7b69-4e1f-935c-eb4850b04872
+		summarizeBy: none
+		sourceColumn: is_combo_molecule
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Not Coded Molecule'
+		dataType: boolean
+		isHidden
+		lineageTag: 8f1af585-fbc8-4ce0-b7cc-6f6c342dcac0
+		summarizeBy: none
+		sourceColumn: has_not_coded_molecule
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Product = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(root_path & "dim_product.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(
+				        #"Promoted Headers",
+				        {
+				            {"product_key", Int64.Type},
+				            {"atc4_raw", type text},
+				            {"atc4_code", type text},
+				            {"atc4_description", type text},
+				            {"int_corporation_name", type text},
+				            {"molecule_combo", type text},
+				            {"molecule_count", Int64.Type},
+				            {"is_combo_molecule", type logical},
+				            {"has_not_coded_molecule", type logical},
+				            {"local_brand_name", type text}
+				        },
+				        "it-IT"
+				    ),
+				    #"Buffered Rows" = Table.Buffer(#"Changed Type")
+				in
+				    #"Buffered Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

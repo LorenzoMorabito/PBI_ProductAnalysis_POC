@@ -1,0 +1,154 @@
+table Quarter
+	lineageTag: ab19a5dd-e86f-4085-b108-9f5369b5d033
+
+	column 'Quarter Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 8ddcd338-d54f-419a-87aa-8e45ee63491f
+		summarizeBy: none
+		sourceColumn: quarter_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Quarter Date'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: bc69fdc1-e29a-4390-87e6-728be7e402b3
+		summarizeBy: none
+		sourceColumn: quarter_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Quarter
+		dataType: string
+		lineageTag: 4118a027-c264-4624-ae0a-3926463a05b7
+		summarizeBy: none
+		sourceColumn: calendar_quarter
+		sortByColumn: 'Quarter Sort'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Snapshot
+		dataType: string
+		lineageTag: 1754506c-85ca-4af8-854d-64b0ff2f4ba1
+		summarizeBy: none
+		sourceColumn: snapshot_label
+		sortByColumn: 'Snapshot Sort'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: c695f59f-e6f9-4987-89b4-df2fd9b433b5
+		summarizeBy: none
+		sourceColumn: quarter_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Quarter Number'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: cf2881e4-ab0a-4b38-9158-4a7d684629fd
+		summarizeBy: none
+		sourceColumn: quarter_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Quarter Sort'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: ad96191a-d482-4004-b507-11a1f4bc2a86
+		summarizeBy: none
+		sourceColumn: quarter_sort_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Snapshot Sort'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 7e240645-ff2e-4a8e-84d5-5e3f5fb9651c
+		summarizeBy: none
+		sourceColumn: snapshot_sort_key
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Quarter = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(root_path & "dim_reporting_period.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(
+				        #"Promoted Headers",
+				        {
+				            {"reporting_period_key", Int64.Type},
+				            {"snapshot_date_key", Int64.Type},
+				            {"snapshot_date", type date},
+				            {"snapshot_label", type text},
+				            {"snapshot_year", Int64.Type},
+				            {"snapshot_month_number", Int64.Type},
+				            {"snapshot_year_month", type text},
+				            {"snapshot_sort_key", Int64.Type},
+				            {"calendar_quarter", type text},
+				            {"quarter_year", Int64.Type},
+				            {"quarter_number", Int64.Type},
+				            {"calendar_quarter_sort_key", Int64.Type},
+				            {"is_flagged_quarter", type logical}
+				        },
+				        "it-IT"
+				    ),
+				    #"Grouped Rows" = Table.Group(
+				        #"Changed Type",
+				        {"calendar_quarter"},
+				        {{"max_snapshot_date_key", each List.Max([snapshot_date_key]), Int64.Type}}
+				    ),
+				    #"Merged Latest" = Table.NestedJoin(
+				        #"Changed Type",
+				        {"calendar_quarter", "snapshot_date_key"},
+				        #"Grouped Rows",
+				        {"calendar_quarter", "max_snapshot_date_key"},
+				        "Latest",
+				        JoinKind.Inner
+				    ),
+				    #"Removed Latest" = Table.RemoveColumns(#"Merged Latest", {"Latest"}),
+				    #"Added Quarter Date" = Table.AddColumn(
+				        #"Removed Latest",
+				        "quarter_date",
+				        each #date([quarter_year], ([quarter_number] * 3) - 2, 1),
+				        type date
+				    ),
+				    #"Renamed Columns" = Table.RenameColumns(
+				        #"Added Quarter Date",
+				        {
+				            {"reporting_period_key", "quarter_key"},
+				            {"calendar_quarter_sort_key", "quarter_sort_key"}
+				        }
+				    ),
+				    #"Selected Columns" = Table.SelectColumns(
+				        #"Renamed Columns",
+				        {
+				            "quarter_key",
+				            "quarter_date",
+				            "snapshot_label",
+				            "snapshot_sort_key",
+				            "calendar_quarter",
+				            "quarter_year",
+				            "quarter_number",
+				            "quarter_sort_key"
+				        }
+				    ),
+				    #"Buffered Rows" = Table.Buffer(#"Selected Columns")
+				in
+				    #"Buffered Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

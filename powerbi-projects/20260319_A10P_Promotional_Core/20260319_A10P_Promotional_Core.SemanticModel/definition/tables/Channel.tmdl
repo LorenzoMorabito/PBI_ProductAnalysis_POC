@@ -1,0 +1,52 @@
+table Channel
+	lineageTag: 1d65e90d-0cf0-47ad-9fc2-f31ee1d4c49d
+
+	column 'Channel Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 16002ed9-f79f-4dd9-9837-f49095334db5
+		summarizeBy: none
+		sourceColumn: channel_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column Channel
+		dataType: string
+		lineageTag: af201f76-4026-4a29-b71e-c4df33e39ee0
+		summarizeBy: none
+		sourceColumn: cam_channel_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Contact Type'
+		dataType: string
+		lineageTag: 6b720da0-6fec-48fd-a1c4-c04f3d66896d
+		summarizeBy: none
+		sourceColumn: contact_type_name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Channel = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(root_path & "dim_channel.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(
+				        #"Promoted Headers",
+				        {
+				            {"channel_key", Int64.Type},
+				            {"cam_channel_name", type text},
+				            {"contact_type_name", type text}
+				        },
+				        "it-IT"
+				    ),
+				    #"Buffered Rows" = Table.Buffer(#"Changed Type")
+				in
+				    #"Buffered Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

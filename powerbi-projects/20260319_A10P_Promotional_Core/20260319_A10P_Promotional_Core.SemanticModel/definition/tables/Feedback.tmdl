@@ -1,0 +1,99 @@
+table Feedback
+	lineageTag: 4279f0ac-34c0-42d1-8b55-5c8e209ce1a7
+
+	column 'Feedback Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 685cb464-d97f-469f-b91a-53ef0bba4891
+		summarizeBy: none
+		sourceColumn: feedback_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Contact Quality'
+		dataType: string
+		lineageTag: 9dcbec0b-e948-49ac-91f6-c9f8f29b9a0d
+		summarizeBy: none
+		sourceColumn: contact_quality
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Current Prescribing'
+		dataType: string
+		lineageTag: ebd19b7b-e4ff-4db7-8e79-e1797063b1af
+		summarizeBy: none
+		sourceColumn: current_prescribing
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Future Prescribing'
+		dataType: string
+		lineageTag: 3f5cd818-3273-45cf-b7c7-70778158f96c
+		summarizeBy: none
+		sourceColumn: future_prescribing
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'NPS Scale'
+		dataType: string
+		lineageTag: 4f471baf-a9fd-43bb-bb1f-a5bb4566bfcb
+		summarizeBy: none
+		sourceColumn: nps_scale_raw
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'NPS Score'
+		dataType: double
+		lineageTag: 0fbf3b5a-f68d-4f3f-a16e-4e4c9948d995
+		summarizeBy: none
+		sourceColumn: nps_all_channels_score
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'NPS Category'
+		dataType: string
+		lineageTag: e0e0e610-beb1-47b1-9a72-2bb3ab64c7ca
+		summarizeBy: none
+		sourceColumn: nps_category
+
+		annotation SummarizationSetBy = Automatic
+
+	column nps_scale_numeric
+		dataType: double
+		lineageTag: 78272f7b-64f6-42b0-b94d-b2b2b195157d
+		summarizeBy: none
+		sourceColumn: nps_scale_numeric
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition Feedback = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(root_path & "dim_feedback_profile.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(
+				        #"Promoted Headers",
+				        {
+				            {"feedback_key", Int64.Type},
+				            {"contact_quality", type text},
+				            {"current_prescribing", type text},
+				            {"future_prescribing", type text},
+				            {"nps_scale_raw", type text},
+				            {"nps_scale_numeric", type number},
+				            {"nps_all_channels_score", type number},
+				            {"nps_category", type text}
+				        },
+				        "it-IT"
+				    ),
+				    #"Buffered Rows" = Table.Buffer(#"Changed Type")
+				in
+				    #"Buffered Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

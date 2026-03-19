@@ -1,0 +1,216 @@
+table F_Promo
+	isHidden
+	lineageTag: 75df88fd-679d-47d0-b52c-198b693add33
+
+	column 'Fact Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 467294ec-1e5c-4f12-9261-4e09a4de7ce9
+		summarizeBy: none
+		sourceColumn: fact_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Country Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: c98119f7-af2d-453f-876c-27a516989022
+		summarizeBy: none
+		sourceColumn: country_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Quarter Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 59f74683-34fc-4c1e-a5c5-bdf105a90f3d
+		summarizeBy: none
+		sourceColumn: quarter_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 5bfdb7e7-8301-4d35-8f65-ae770e44948f
+		summarizeBy: none
+		sourceColumn: product_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Specialty Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 5cf49fe1-fa01-4a53-bdc9-b410f655adf4
+		summarizeBy: none
+		sourceColumn: specialty_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Channel Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: cbc45785-bca3-4c2b-8249-3797a270bd4a
+		summarizeBy: none
+		sourceColumn: channel_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Feedback Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: a935eaa0-2559-4fe5-91a9-c2a40095f1fe
+		summarizeBy: none
+		sourceColumn: feedback_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product Details'
+		dataType: int64
+		isHidden
+		formatString: #,0;-#,0;0
+		lineageTag: 74bd5518-4e2e-4f3c-989c-806bab08e780
+		summarizeBy: sum
+		sourceColumn: product_details
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Contact Number'
+		dataType: int64
+		isHidden
+		formatString: #,0;-#,0;0
+		lineageTag: 4256eb2a-33e1-4055-873a-b7625e05ca15
+		summarizeBy: sum
+		sourceColumn: contact_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mentions
+		dataType: int64
+		isHidden
+		formatString: #,0;-#,0;0
+		lineageTag: 0f937cdb-639d-4b09-8e99-b3162c4e306c
+		summarizeBy: sum
+		sourceColumn: mentions
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Weighted Calls'
+		dataType: double
+		isHidden
+		formatString: #,0.0;-#,0.0;0.0
+		lineageTag: 8bf347c6-351b-4580-a0e3-322eff3da88c
+		summarizeBy: sum
+		sourceColumn: weighted_calls
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Spending Total EUR'
+		dataType: double
+		isHidden
+		formatString: #,0.0;-#,0.0;0.0
+		lineageTag: ba75d6dd-6359-456c-b27f-7de919951a1e
+		summarizeBy: sum
+		sourceColumn: spending_total_eur
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Quality Index'
+		dataType: double
+		isHidden
+		formatString: #,0.0;-#,0.0;0.0
+		lineageTag: 93d2f7ef-7666-4f69-8b63-c4b491b28a0c
+		summarizeBy: sum
+		sourceColumn: quality_index
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Converted Contacts'
+		dataType: double
+		isHidden
+		formatString: #,0.0;-#,0.0;0.0
+		lineageTag: fa01cfd7-a546-40c5-b609-37a7ef1bcf63
+		summarizeBy: sum
+		sourceColumn: converted_contacts
+
+		annotation SummarizationSetBy = Automatic
+
+	partition F_Promo = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(root_path & "fact_channel_dynamics_monthly.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(
+				        #"Promoted Headers",
+				        {
+				            {"fact_key", Int64.Type},
+				            {"country_key", Int64.Type},
+				            {"reporting_period_key", Int64.Type},
+				            {"product_key", Int64.Type},
+				            {"specialty_key", Int64.Type},
+				            {"channel_key", Int64.Type},
+				            {"feedback_key", Int64.Type},
+				            {"product_details", Int64.Type},
+				            {"contact_number", Int64.Type},
+				            {"mentions", Int64.Type},
+				            {"weighted_calls", type number},
+				            {"spending_total_eur", type number},
+				            {"quality_index", type number},
+				            {"converted_contacts", type number}
+				        },
+				        "it-IT"
+				    ),
+				    ReportingPeriodsSource = Csv.Document(File.Contents(root_path & "dim_reporting_period.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    #"RP Promoted Headers" = Table.PromoteHeaders(ReportingPeriodsSource, [PromoteAllScalars=true]),
+				    #"RP Changed Type" = Table.TransformColumnTypes(
+				        #"RP Promoted Headers",
+				        {
+				            {"reporting_period_key", Int64.Type},
+				            {"snapshot_date_key", Int64.Type},
+				            {"calendar_quarter", type text}
+				        },
+				        "it-IT"
+				    ),
+				    #"RP Grouped Rows" = Table.Group(
+				        #"RP Changed Type",
+				        {"calendar_quarter"},
+				        {{"max_snapshot_date_key", each List.Max([snapshot_date_key]), Int64.Type}}
+				    ),
+				    #"RP Latest Rows" = Table.NestedJoin(
+				        #"RP Changed Type",
+				        {"calendar_quarter", "snapshot_date_key"},
+				        #"RP Grouped Rows",
+				        {"calendar_quarter", "max_snapshot_date_key"},
+				        "Latest",
+				        JoinKind.Inner
+				    ),
+				    #"Latest Period Keys" = Table.SelectColumns(#"RP Latest Rows", {"reporting_period_key"}),
+				    #"Merged Fact" = Table.NestedJoin(
+				        #"Changed Type",
+				        {"reporting_period_key"},
+				        #"Latest Period Keys",
+				        {"reporting_period_key"},
+				        "QuarterRows",
+				        JoinKind.Inner
+				    ),
+				    #"Removed QuarterRows" = Table.RemoveColumns(#"Merged Fact", {"QuarterRows"}),
+				    #"Renamed Columns" = Table.RenameColumns(
+				        #"Removed QuarterRows",
+				        {{"reporting_period_key", "quarter_key"}}
+				    ),
+				    #"Buffered Rows" = Table.Buffer(#"Renamed Columns")
+				in
+				    #"Buffered Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
